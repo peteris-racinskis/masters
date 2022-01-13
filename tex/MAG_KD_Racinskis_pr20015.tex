@@ -1,9 +1,12 @@
 \documentclass[12pt, a4paper]{article}
+\usepackage{scrextend}
 \usepackage{titlesec}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage[unicode]{hyperref}
+\usepackage{titlesec}
+\usepackage{titletoc}
 \geometry{
     a4paper,
     lmargin=30mm,
@@ -11,28 +14,46 @@
     tmargin=20mm,
     bmargin=20mm
 }
-\renewcommand{\figurename}{Att.}
-\titlelabel{\thetitle.\quad}
-\author{Pēteris Račinskis pr20015}
-\date{05/01/22}
-\begin{document}
-\title{Praktiskais darbs - Eirovīzija}
 
-\clearpage
-\maketitle
-\thispagestyle{empty}
-\clearpage
-\setcounter{page}{1}
+\renewcommand{\figurename}{Att.}
+\renewcommand{\contentsname}{Saturs}
+
+\titleformat{\section}
+    {\normalfont\large\bfseries}{\thesection . }{0.2em}{\MakeUppercase}
+\titleformat{\subsection}
+    {\normalfont\large\bfseries}{\thesubsection . }{0.2em}{}
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries\itshape}{\thesubsubsection . }{0.2em}{}
+
+\titlecontents*{section}
+    [0.0cm]
+    {}
+    {{\thecontentslabel. }}
+    {{\thecontentslabel. }}
+    {\titlerule*[1pc]{.} \thecontentspage}
+    {}
+
+
+\begin{document}
+\input{titlepage.tex}
 \newpage
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{3}
 
 \textit{Piebilde:} praktiskā darba nosacīijumos nav norādīts sagaidāmais atskaites apjoms. Kursa aprakstā tas tiek saukts par kursa darbu, kas liecina, ka tiek gaidīts aptuveni 15-30lpp. garš dokuments ar atbilstošu ieguldītā darba un informācijas apjomu. Atvainojos, ja iesūtītā atskaite ir ievērojami plānāka, nekā tiek gaidīts - taču kaut kāds darbs ir padarīts, vairākas dienas laika ir iztērētas, personīgais sesijas grafiks liek virzīties tālāk pie citiem uzdevumiem, un, ja pastāv kaut neliela iespēja uzlabot gala vērtējumu, uzskatu, ka ir vērts iesūtīt pat potenciāli nepietiekamu rezultātu.
 
 Visi koda faili, attēli, datu korpusi: \href{https://github.com/peteris-racinskis/DIA_PD}{GitHub - DIA\_PD}
 
+
 \section{Ievads}
 
 \subsection{Uzdevums}
 Datizraces uzdevumi var būt dažādi. Viens no veidiem, kā tie var radikāli atšķirties pēc būtības, ir pirms pētījuma sākšanas pastāvošā skaidrība par rezultāta formu. Ja kādreiz sākam ar datu kopu, par ko nekas nav zināms, un mēģinām gūt vispārīgus priekštatus par starp tās elementiem pastāvošajām sakarībām, citreiz jau no paša sākuma ir laba izpratne par to, ko vēlamies sasniegt, kādi ir datu kopu veidojošie mehānismi un kādus skaitļus varētu redzēt iegūto aprakstošo modeļu parametros. Šis uzdevums visai pārliecinoši pieder otrajai kategorijai. Prasīts atbildēt uz ļoti specifisku jautājumu. Tāpēc tā vietā, lai sāktu ar ļoti vispārīgu datizraces metožu lietojumu, varam pielāgot vai izstrādāt darba rīkus tieši viena jautājuma atbildēšanai. Turklāt jautājums uzdots par datu kopas ģenerējošo procesu - eirovīzijas dziesmu konkursu - nevis par kādu konkrētu, specifiskā veidā strukturētu korpusu, kas ļauj patstāvīgi izvēlēties maksimāli piemērotu informācijas avotu, ierobežot definīcijas apgabalu pēc saviem ieskatiem, u.t.t.
+
+\subsubsection{test}
+
 
 Intuitīvi uzreiz rodas priekštats, kas domāts ar terminiem "kaimiņu būšana" un "objektīvāks novērtējums". Taču ar to nepietiek, lai iegūtu kaut kādu šo fenomenu skaitlisku izteiksmi. Nepieciešams definēt "objektīvu novērtējumu" un attiecīgi - novirzes no tāda. Viens veids, kā to darīt, varētu būt ieviest latentu dziesmu "popularitātes" mēru. Tādu var modelēt, iztēlojoties "demokrātisku" visu skatītāju balsošanu par, viņuprāt, labāko konkursa kārtas dalībnieku dziesmu:
 
@@ -296,7 +317,8 @@ Izmēģināti trīs dažādi vizualizācijas paņēmieni - \textit{MDS}, \textit
 
 Redzams, ka MDS gadījumā atrastā projekcija ir visnotaļ nevienmērīga, ar klasteriem tuvu koordinātu sākumpunktam un izlēcējiem. \textit{isoMDS} iegūst daudz vienmērīgāku izkliedi. Abos gadījumos tomēr ir redzams, kā, piemēram, Balkānu, Skandināvijas, Austrumeiropas (tās šaurajā definīcijā) vai Baltijas valstis grupējas.
 
-\section{Secinājumi}
+\section*{Secinājumi}
+\addcontentsline{toc}{section}{Secinājumi}
 
 Darba gaitā tika diezgan detalizēti iepazīta konkrēta datu kopa - Eirovīzijas dziesmu konkursa rezultāti (precīzāk, laika periodā starp 1980. un 2015. gadu, kad vērtēšana notika pēc vienāda principa vai vismaz pietiekami nemainīga principa), izvirzīta hipotēze par ģenerējošo modeli t.s. ``kaimiņu būšanas" fenomenam, piedāvāta metode tā koriģē-šanai. Praktiski tika izstrādāti skripti gan tipveida klasifikatora ģeneratora pielietojumam, gan datu kopas elementārai algebriskai reducēšanai uz formu, kurā aprēķins būtu izsakāms analītiski.
 

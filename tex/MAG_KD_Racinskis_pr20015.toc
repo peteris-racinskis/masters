@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {1}Ievads}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Uzdevums}{3}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}test}{3}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Datu kopas}{5}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Metodes}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Modeļi}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Datu priekšapstrāde}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Modeļu aprēķins}{8}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Rezultāti}{9}{section.3}%
+\contentsline {section}{Secinājumi}{14}{figure.10}%
+\contentsfinish 
