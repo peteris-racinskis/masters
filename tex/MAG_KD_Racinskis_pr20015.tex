@@ -7,6 +7,9 @@
 \usepackage[unicode]{hyperref}
 \usepackage{titlesec}
 \usepackage{titletoc}
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+
 \geometry{
     a4paper,
     lmargin=30mm,
@@ -273,7 +276,7 @@ Droši vien pārsteidzošākais secinājums, ja var ticēt iegūtajiem rezultāt
     \caption{Dispersijas izmaiņas - reizinot ar $\sqrt{c_{ij}}$}
 \end{figure}
 
-Salīdzinot datu kopu dispersijas (vidējās vērtība korpusam kopumā no 2-dimensionālo sadalījumu dispersijām katra etapa ietvaros), redzams, ka, vienkārši reizinot ar korekcijām, pārkārtojot pašu treniņa kopu un pārrēķinot rangus, dispersija samazinās, taču to pašu darot ar datiem, kas neietilpst treniņa sadalī-jumā, dispersija pieaug. Savukārt reizinot ar korekcijas kvadrātsakni, dispersija krītas abos gadījumos - arī datiem, kas treniņa kopā nav iekļauti. Pastāv divas visai ticamas iespējas:
+Salīdzinot datu kopu \cite{testref} dispersijas (vidējās vērtība korpusam kopumā no 2-dimensionālo sadalījumu dispersijām katra etapa ietvaros), redzams, ka, vienkārši reizinot ar korekcijām, pārkārtojot pašu treniņa kopu un pārrēķinot rangus, dispersija samazinās, taču to pašu darot ar datiem, kas neietilpst treniņa sadalī-jumā, dispersija pieaug. Savukārt reizinot ar korekcijas kvadrātsakni, dispersija krītas abos gadījumos - arī datiem, kas treniņa kopā nav iekļauti. Pastāv divas visai ticamas iespējas:
 
 \begin{itemize}
     \item Ir kāda vienkārša (vai ne tik vienkārša) matemātiska sakarība, kas determinēti nosaka, ka tā jābūt, bet patstāvīgā darba autors savos neveiklajos un kļūdpilnajos aprēķinos to vienkārši nav pamanījis. Tam varētu būt saistība ar divkāršo koeficientu rēķināšanu - vispirms vienādojot rindu varbūtību summas, tad līmeņojot tās lokāli;
@@ -314,5 +317,9 @@ Redzams, ka MDS gadījumā atrastā projekcija ir visnotaļ nevienmērīga, ar k
 Darba gaitā tika diezgan detalizēti iepazīta konkrēta datu kopa - Eirovīzijas dziesmu konkursa rezultāti (precīzāk, laika periodā starp 1980. un 2015. gadu, kad vērtēšana notika pēc vienāda principa vai vismaz pietiekami nemainīga principa), izvirzīta hipotēze par ģenerējošo modeli t.s. ``kaimiņu būšanas" fenomenam, piedāvāta metode tā koriģē-šanai. Praktiski tika izstrādāti skripti gan tipveida klasifikatora ģeneratora pielietojumam, gan datu kopas elementārai algebriskai reducēšanai uz formu, kurā aprēķins būtu izsakāms analītiski.
 
 Rezultātā tika iegūti ``kaimiņu būšanas'' novērtējumi no diviem radikāli atšķirīgiem modeļiem, kas tomēr daudzējādā ziņā ir līdzīgi. To ģenerēto skaitlisko vērtību un vizualizā-ciju pārbaude atklāj likumsakarības, kas sakrīt ar cilvēka intuitīvo izpratni par meklējamās parādības būtību. Piedāvātajai korekcijas metodei tika arī izstrādāts kvantitatīvs novērtē-jums, taču par tā nozīmīgumu ir grūti spriest, jo, tāpat kā pati aprēķinu secība, kas noved pie modeļa, tas nav nekā dziļi matemātiski pamatots.
+
+\newpage
+\printbibliography[title=Atsauces]
+\addcontentsline{toc}{section}{Atsauces}
 
 \end{document}
