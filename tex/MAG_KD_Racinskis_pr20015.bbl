@@ -19,6 +19,39 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{notation}{online}{}
+      \name{author}{1}{}{%
+        {{hash=482952eb401d9a72aac275223c4e997d}{%
+           family={Artificial\bibnamedelima Intelligence},
+           familyi={A\bibinitperiod\bibinitdelim I\bibinitperiod},
+           given={Beijing\bibnamedelima Academy},
+           giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+           prefix={of},
+           prefixi={o\bibinitperiod}}}%
+      }
+      \strng{namehash}{482952eb401d9a72aac275223c4e997d}
+      \strng{fullhash}{482952eb401d9a72aac275223c4e997d}
+      \strng{bibnamehash}{482952eb401d9a72aac275223c4e997d}
+      \strng{authorbibnamehash}{482952eb401d9a72aac275223c4e997d}
+      \strng{authornamehash}{482952eb401d9a72aac275223c4e997d}
+      \strng{authorfullhash}{482952eb401d9a72aac275223c4e997d}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Suggested Notation for Machine Learning}
+      \field{urlday}{14}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/mlmath/mlmath.pdf
+      \endverb
+      \verb{url}
+      \verb http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/mlmath/mlmath.pdf
+      \endverb
+    \endentry
     \entry{asimov2004robot}{book}{}
       \name{author}{1}{}{%
         {{hash=60cc0a9f62283d12da66fee328636cc8}{%

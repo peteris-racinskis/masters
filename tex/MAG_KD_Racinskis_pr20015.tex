@@ -3,6 +3,7 @@
 \usepackage{titlesec}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amsfonts} % for the real number symbol
 \usepackage{geometry}
 \usepackage[unicode]{hyperref}
 \usepackage{titlesec}
@@ -10,6 +11,7 @@
 \usepackage{biblatex}
 \usepackage{enumitem}
 \usepackage{indentfirst}
+\numberwithin{equation}{section} % number equations by section
 \renewcommand{\figurename}{Att.}
 \renewcommand{\contentsname}{Saturs}
 \renewcommand{\labelenumi}{\arabic{enumi})} % lists with 1)
@@ -76,27 +78,113 @@ Patvaļīgi izvēloties tulkojumu, pastāv risks mulsināt lasītāju un sadrums
 \begin{enumerate}
     \item \textit{policy} --- \textbf{stratēģija}. Šis termins pamatā tiek lietots, lai aprasktītu kādu funkciju, kas novērojumus attēlo lēmumu telpā. Pirmais ieraksts tieši tāpēc, ka varētu būt strīdīgākais. Angļu valodā pastāv divi termini, \textit{policy} un \textit{politics}, kas parasti latviski tiek tulkoti vienādi --- politika --- par spīti radikāli atšķirīgām nozīmēm. Termins \textit{strategy} tiek lietots kā sinonīms pirmajam abās valodās, un arī piemērojams tieši šādām lēmumu pieņemšanas funkcijām, piemēram, spēļu teorijā.
     \item \textit{reinforcement learning} --- \textbf{stimulētā mašīnmācīšanās}. Meklējumi tiešsaistē atklāj \cite{enc_stim}, ka šis tulkojums jau ir samērā izplatīts, taču varētu būt nezināms lasītājiem, kas ar to sastopas pirmo reizi --- pat ja zināms metodes angliskais nosaukums.
-    \item \textit{imitation learning} --- \textbf{atdarinošā mašīnmācīšanās}. Paša autora piedāvāts tulkojums, atdarinot iepriekšējo kā piemēru, jo nav izdevies atrast alternatīvas. Latvis-kais vārds "atdarināt" izvēlēts pār internacionālismu "imitēt", jo to vieglāk izlocīt formā, kas neizklausās lauzīta un neveikla, bet procesā zūd spēja viegli atrast sākotnējo vārdu svešvalodā, kas ļoti svarīga zinātniskajā vidē, kurā latviski pie-ejamo resursu ir maz.
+    \item \textit{imitation learning} --- \textbf{atdarinošā mašīnmācīšanās}. Paša autora piedāvāts tulkojums, atdarinot iepriekšējo kā piemēru, jo nav izdevies atrast alternatīvas. Latvis-kais vārds "atdarināt" izvēlēts pār internacionālismu "imitēt", jo to vieglāk izlocīt formā, kas neizklausās lauzīta un neveikla. Taču procesā zūd spēja viegli atrast sākotnējo vārdu svešvalodā, kas ļoti svarīga zinātniskajā vidē, kurā latviski pie-ejamo resursu ir maz.
 \end{enumerate}
 
 \subsection{Tehniskās priekšzināšanas, definīcijas}
 
-Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam "no malas" ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus formālismus un definēt visus vienuviet.
+Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet.
 
-\subsubsection{Parametriski modeļi}
-asfsafs
+\subsubsection{Parametriski modeļi, šabloni}
+
+Viens no visplašāk izmantotajiem formālismiem datizraces un mašīnmācīšanās lau-kos ir parametriskais modelis. Pamatā tam ir ideja, ka nezināmu funkciju, kuras rezultātus vēlamies paredzēt, var aproksimēt ar citu funkciju jeb modeli:
+
+\begin{equation} 
+    M(x) \approx f(x)
+\end{equation}
+
+Protams, šādu modeļu varētu būt bezgalīgi daudz, un tie visi var atšķirties pēc tā, cik labi spēj paredzēt nezināmās funkcijas vērtības. Tāpēc modeļu meklēšanai parasti izmanto šablonus - funkcijas, kuru argumentā papildus ieejas datiem ir brīvi maināmi un kopīgi (tātad "apmācāmi") parametri $\theta$:
+
+\begin{equation} 
+    \text{Meklē } \theta:M(x \vert \theta) = M_{\theta}(x)  \approx f(x)
+\end{equation}
+
+Iegūtā šablona funkcijas un apmācīto parametru kombinācija $\lbrace M, \theta \rbrace$ tad veido konk-rētu modeli. Labs šablons ir tāds, kas spēj pielāgoties ļoti daudzām dažādām funkcijām:
+
+\begin{equation} 
+    \forall f \forall x \exists \theta:M_{\theta}(x)\approx f(x)
+\end{equation}
+
+Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē (parasti vektoriālas) funkcijas ar skaitliskām vērtībām,
+
+\begin{equation} 
+    f:x \rightarrow \mathbb{R}^k
+\end{equation}
+\begin{equation} 
+    M: x \times \theta \rightarrow \mathbb{R}^k
+\end{equation}
+
+un klasifikatori, kas paredz ieejas datu punkta piederību kādai diskrētai klasei
+
+\begin{equation} 
+    f:x \rightarrow C = \lbrace c_1, c_2, ..., c_m \rbrace
+\end{equation}
+\begin{equation} 
+     M: x \times \theta \rightarrow C
+\end{equation}
+
+Bieži vien noderīgi ir ne tikai spēt attēlot datu punktu kā diskrētu klasi, bet iegūt varbūtību sadalījumu, kas apraksta tā iespējamību piederēt jebkurai no klasēm:
+
+\begin{equation} 
+    M: x \times \theta \times c_i \rightarrow [0; 1]
+\end{equation}
+\begin{equation} 
+    M_{\theta}(x, c_i) = P_i
+\end{equation}
+\begin{equation} 
+    \sum_{i=1}^m P_i = 1
+\end{equation}
+
+Lai varētu novērtēt, cik labi modelis aproksimē nezināmo funkciju, un vadīt parame-tru apmācības procesu, tiek izmantotas mērķa funkcijas (\textit{loss functions})\cite{notation}:
+
+\begin{equation} 
+    \ell: M_{\theta}(x) \times f(x) \rightarrow \mathbb{R}
+\end{equation}
+
+Strādājot ar reāliem datiem, datu punkti veido datu kopu, kas parasti tiek uzskatīta par gadījuma izlasi no punktus ģenerējošā varbūtību sadalījuma. Praktiskiem apmācības uzdevumiem datu kopa parasti jāiegūst formā, kas satur gan sagaidāmos ieejas datus, gan pareizu rezultātu:
+
+\begin{equation} 
+    s \sim \mathcal{D} \Leftrightarrow s \text{ ir no varbūtību sadalījuma } \mathcal{D}
+\end{equation}
+\begin{equation} 
+    y_i = f(x_i)
+\end{equation}
+\begin{equation} 
+    s_i = (x_i, y_i)
+\end{equation}
+\begin{equation} 
+    S = \lbrace s_1, s_2, ..., s_n \vert s_i \sim \mathcal{D}\rbrace
+\end{equation}
+
+Datu kopai var aprēķināt empīrisku mērķa funkcijas novērtējumu,
+
+\begin{equation} 
+    L_S(\theta) = \frac{1}{n}\sum_{i=1}^n\ell(M_{\theta}(x_i), y_i)
+\end{equation}
+
+bet apmācības process parasti kādā veidā tiecas minimizēt šīs vērtības matemātisko cerību ģenerējošam sadalījumam (nevis tikai pašai datu kopai - ja modelis ļoti cieši pielāgots konkrētai datu izlasei bet zaudē precizitāti sadalījumam kopumā, to sauc par pārpielāgošanos --- \textit{overfitting})
+
+\begin{equation} 
+    L_{\mathcal{D}}(\theta) = \mathbb{E}_{\mathcal{D}} [\ell(M_{\theta}(x_i), y_i)]
+\end{equation}
+\begin{equation} 
+    \text{Apmāca } M_{\theta} \text{ uz } \mathcal{D} \rightarrow \text{Minimizē } L_{\mathcal{D}}(\theta)
+\end{equation}
+
+Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās mašīnmācīšanās literatūrā to ļoti bieži izsaka kā $\pi_{\theta}(x)$. Mazliet mulsinošs ir tieši ar imitējošām metodēm saistītos rakstos lietotais apzīmējums $\pi^*$, ar ko apzīmē t.s. ``ekspertu stratēģijas'' --- kas pašas ir nezināmās funkcijas, ko cenšamies aproksimēt pēc to ģenerēto punktu kopām. 
+
 
 \subsubsection{Neironu tīkli}
 
-\subsubsection{Markova un citādi lēmumu procesi}
 
-\subsubsection{Optimālas stratēģijas iegūšanas metodes}
+
+\subsubsection{Markova un citādi lēmumu procesi}
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
 \subsubsection{Atdarinošā mašīnmācīšanās}
 
-\subsection{Robotikas uzdevumi}
+\subsubsection{Robotikas uzdevumi}
 
 \subsection{Pētniecības virzienu tematisks dalījums}
 

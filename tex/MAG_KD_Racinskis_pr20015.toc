@@ -8,45 +8,43 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.3}Tehniskās priekšzināšanas, definīcijas}{5}{subsection.1.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.1}Parametriski modeļi}{5}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.1}Parametriski modeļi, šabloni}{5}{subsubsection.1.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.2}Neironu tīkli}{5}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.2}Neironu tīkli}{7}{subsubsection.1.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.3}Markova un citādi lēmumu procesi}{5}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.3}Markova un citādi lēmumu procesi}{7}{subsubsection.1.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.4}Optimālas stratēģijas iegūšanas metodes}{5}{subsubsection.1.3.4}%
+\contentsline {subsubsection}{\numberline {1.3.4}Stimulētā mašīnmācīšanās}{7}{subsubsection.1.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.5}Stimulētā mašīnmācīšanās}{5}{subsubsection.1.3.5}%
+\contentsline {subsubsection}{\numberline {1.3.5}Atdarinošā mašīnmācīšanās}{7}{subsubsection.1.3.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.3.6}Atdarinošā mašīnmācīšanās}{5}{subsubsection.1.3.6}%
+\contentsline {subsubsection}{\numberline {1.3.6}Robotikas uzdevumi}{7}{subsubsection.1.3.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4}Robotikas uzdevumi}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.4}Pētniecības virzienu tematisks dalījums}{7}{subsection.1.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.5}Pētniecības virzienu tematisks dalījums}{5}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Līdzšinējie pētījumi}{8}{section.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Līdzšinējie pētījumi}{6}{section.2}%
+\contentsline {section}{\numberline {3}Praktiska realizācija - rīki, piemēri}{9}{section.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Praktiska realizācija - rīki, piemēri}{7}{section.3}%
+\contentsline {section}{\numberline {4}Ievads}{9}{section.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Ievads}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Uzdevums}{9}{subsection.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Uzdevums}{7}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}test}{9}{subsubsection.4.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.1.1}test}{7}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Datu kopas}{12}{subsection.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}Datu kopas}{10}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Metodes}{13}{section.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Metodes}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Modeļi}{13}{subsection.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Modeļi}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Datu priekšapstrāde}{14}{subsection.5.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}Datu priekšapstrāde}{12}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Modeļu aprēķins}{15}{subsection.5.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}Modeļu aprēķins}{13}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Rezultāti}{16}{section.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Rezultāti}{14}{section.6}%
+\contentsline {section}{Secinājumi}{22}{figure.10}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Secinājumi}{20}{figure.10}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{21}{figure.10}%
+\contentsline {section}{Atsauces}{23}{figure.10}%
 \contentsfinish 
