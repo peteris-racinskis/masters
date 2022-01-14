@@ -176,9 +176,38 @@ Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās ma�
 
 \subsubsection{Neironu tīkli}
 
+Neironu tīkls ir izplatīta modeļu šablonu saime, ko var izmantot dažādas formas funkciju aproksimēšanai --- tie var būt gan klasifikatori, gan regresori, un pastāv ļoti dažādas to uzbūves variācijas, kas daļēji teorētiski, daļēji empīriskas eksperimentācijas rezultātā un daļēji kopējot bioloģiskās sistēmās atrodamas struktūras izstrādātas dažādu uzdevumu veikšanai. Neironu tīklu kopīgais elements ir t.s. perceptorns, kas izteikts jau pašos pirmsākumos\cite{mcculloch1943logical}. Perceptrons funkcija, kas piemēro nelineāru aktviācijas funkciju $\sigma$ argumentu vektora $\vec{x}$ elementu savstarpējai lineārai kombinācijai, t.i,
 
+
+\begin{equation} 
+    f_{perceptron}(\vec{x}) = \sigma(\vec{w} \cdot \vec{x}+b)
+\end{equation}
+
+kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ ---  nobīde. Perceptrona parametri tātad ir brīvie mainīgie $\vec{w}$ un $b$. Neironu tīkls parasti sastāv no slāņiem --- perceptronu $f_i$ kopām, kas visi apstrādā to pašu argumentu vektoru, bet katrs ar saviem parametriem $\vec{w}_i,b_i$. Tad slāni algebriski izsaka formā
+
+\begin{equation} 
+    W = \begin{bmatrix}
+        w_1^T \\
+        w_2^T \\
+        ... \\
+        w_k^T
+    \end{bmatrix}; 
+    \vec{b} =  \begin{bmatrix}
+        b_1 \\
+        b_2 \\
+        ... \\
+        b_k
+    \end{bmatrix}; 
+\end{equation}
+\begin{equation} 
+    f_{layer}(\vec{x}) = \sigma(W\vec{x}+\vec{b})
+\end{equation}
+
+Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem šādiem slāņiem, taču ir plaši izplatīti arī, piemēram, konvolucionālie neironu tīkli\cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolucionālajā tīklā ir t.s. kodola jeb kerneļu (\textit{kernel}) izmantošana - konvolucionāli slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. Šo un vēl citu veidu sarežģītāku neironu tīklu arhitektūra ir ļoti plašs lauks, ko detalizēti šeit iztirzāt nav iespējams.
 
 \subsubsection{Markova un citādi lēmumu procesi}
+
+
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 

@@ -2191,6 +2191,8 @@
     <bcf:citekey order="7">asimov2004robot</bcf:citekey>
     <bcf:citekey order="8">enc_stim</bcf:citekey>
     <bcf:citekey order="9">notation</bcf:citekey>
+    <bcf:citekey order="10">mcculloch1943logical</bcf:citekey>
+    <bcf:citekey order="11">krizhevsky2012imagenet</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
