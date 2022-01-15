@@ -205,9 +205,9 @@ kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ ---  nobīde. Perceptrona parametri
 
 Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem šādiem slāņiem, taču ir plaši izplatīti arī, piemēram, konvolucionālie neironu tīkli\cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolucionālajā tīklā ir t.s. kodola funkciju jeb kerneļu (\textit{kernel}) izmantošana - konvolucionāli slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. Šo un vēl citu veidu sarežģītāku neironu tīklu arhitektūra ir ļoti plašs lauks, ko detalizēti šeit iztirzāt nav iespējams.
 
-\subsubsection{Markova un citādi lēmumu procesi}
+\subsubsection{Markova lēmumu procesi}
 
-Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes mērķiem, lai ar tiem varētu veikt matemātiskas operācijas. Izplatīti atdarinošās un stimulētās mašīnmācīšanās literatūrā ir Markova lēmumu procesi (\textit{Markov decision processes}), kas izmantojami situācijās, kad sistēmas stāvokli nākotnē pilnībā nosaka pašreizējais. Dažādi autori, kas darbojas dažādos izpētes virzienos, mēdz piedāvāt dažādus tā formulējumus, taču principā vienmēr tie ir ekvivalenti sekojošam,
+Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes mērķiem, lai ar tiem varētu veikt matemātiskas operācijas. Izplatīti atdarinošās un stimulētās mašīnmācīšanās literatūrā ir Markova lēmumu procesi (MDP --- \textit{Markov decision processes}), kas izmantojami situācijās, kad sistēmas stāvokli nākotnē pilnībā nosaka pašreizē-jais. Dažādi autori, kas darbojas dažādos izpētes virzienos, mēdz piedāvāt dažādus tā formulējumus, taču parasti tie ir ekvivalenti sekojošam\cite{attia2018global}
 
 \begin{equation} 
     MDP = (S,A,R,T, \gamma)
@@ -215,13 +215,13 @@ Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes 
 
 kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa, $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa, $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības, $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$, $\gamma$ --- koeficients eksponenciālai nākotnes atdevju vērtību samazināšanai. 
 
-Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo.
+Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo. 
 
-Ievācot datus, lai izmantotu modeļa apmācībā, nereti tiek izmantota stāvokļu-darbību (\textit{state-action}) pāru forma --- $\lbrace (s_1, a_1), (s_1, a_1), ... \rbrace$. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija.
+Ievācot datus, lai izmantotu modeļa apmācībā, nereti tiek izmantota stāvokļu-darbību (\textit{state-action}) pāru forma --- $\lbrace (s_1, a_1), (s_1, a_1), ... \rbrace$. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija ir atkarīga no laika, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem.
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
-
+Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni\cite{gupta2019relay}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimulēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas\cite{englert2018learning}. Tāpēc nav nekāds pārsteigums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētījumos, citreiz bez nekādiem papildus paskaidrojumiem.
 
 \subsubsection{Robotikas uzdevumi}
 
@@ -241,6 +241,16 @@ Ievācot datus, lai izmantotu modeļa apmācībā, nereti tiek izmantota stāvok
 
 \newpage
 \section{Praktiska realizācija - rīki, piemēri}
+
+\subsection{Simulācijas vides un saskarne}
+
+\subsection{Vienkāršu modeļu realizācijas individuālai izpratnei}
+
+\subsubsection{Stimulētā mašīnmācīšanās}
+
+\subsubsection{Uzvedības kopēšana}
+
+\subsubsection{DAgger}
 
 \section{Ievads}
 

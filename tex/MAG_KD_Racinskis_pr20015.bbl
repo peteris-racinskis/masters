@@ -365,6 +365,109 @@
       \verb http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/mlmath/mlmath.pdf
       \endverb
     \endentry
+    \entry{attia2018global}{article}{}
+      \name{author}{2}{}{%
+        {{hash=c6f7be3e9196416d4c59f4111b3fc564}{%
+           family={Attia},
+           familyi={A\bibinitperiod},
+           given={Alexandre},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0961008a1f10a1855b88c80d1d6a8e8e}{%
+           family={Dayan},
+           familyi={D\bibinitperiod},
+           given={Sharone},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{fullhash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{bibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authorbibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authornamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authorfullhash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1801.06503}
+      \field{title}{Global overview of imitation learning}
+      \field{year}{2018}
+    \endentry
+    \entry{gupta2019relay}{article}{}
+      \name{author}{5}{}{%
+        {{hash=d0792eb04b685020eafedbc871aeb84f}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bbba0ccb50436105a4134d24509b62d7}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Vikash},
+           giveni={V\bibinitperiod}}}%
+        {{hash=fd8a32b9a7830e0ffbd3fd2e47f9fc72}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Corey},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c9545da54b33744da25943cdf66eadac}{%
+           family={Levine},
+           familyi={L\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+        {{hash=db5fb91bc488e352c6b92899f58c54f2}{%
+           family={Hausman},
+           familyi={H\bibinitperiod},
+           given={Karol},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{d2f56625487873e41edcfcb7ea5206af}
+      \strng{fullhash}{b455d489b554b2229ab164c47a9ca914}
+      \strng{bibnamehash}{d2f56625487873e41edcfcb7ea5206af}
+      \strng{authorbibnamehash}{d2f56625487873e41edcfcb7ea5206af}
+      \strng{authornamehash}{d2f56625487873e41edcfcb7ea5206af}
+      \strng{authorfullhash}{b455d489b554b2229ab164c47a9ca914}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1910.11956}
+      \field{title}{Relay policy learning: Solving long-horizon tasks via imitation and reinforcement learning}
+      \field{year}{2019}
+    \endentry
+    \entry{englert2018learning}{article}{}
+      \name{author}{2}{}{%
+        {{hash=3d0de9b3271bac639df380e94b2f2f11}{%
+           family={Englert},
+           familyi={E\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=98c39534d4602a8f85dbfe21f8a31a13}{%
+           family={Toussaint},
+           familyi={T\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Sage UK: London, England}%
+      }
+      \strng{namehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \strng{fullhash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \strng{bibnamehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \strng{authorbibnamehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \strng{authornamehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \strng{authorfullhash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The International Journal of Robotics Research}
+      \field{number}{1}
+      \field{title}{Learning manipulation skills from a single demonstration}
+      \field{volume}{37}
+      \field{year}{2018}
+      \field{pages}{137\bibrangedash 154}
+      \range{pages}{18}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

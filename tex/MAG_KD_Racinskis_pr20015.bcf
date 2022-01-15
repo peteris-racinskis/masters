@@ -2193,6 +2193,9 @@
     <bcf:citekey order="9">notation</bcf:citekey>
     <bcf:citekey order="10">mcculloch1943logical</bcf:citekey>
     <bcf:citekey order="11">krizhevsky2012imagenet</bcf:citekey>
+    <bcf:citekey order="12">attia2018global</bcf:citekey>
+    <bcf:citekey order="13">gupta2019relay</bcf:citekey>
+    <bcf:citekey order="14">englert2018learning</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
