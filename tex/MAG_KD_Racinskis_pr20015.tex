@@ -8,7 +8,7 @@
 \usepackage[unicode]{hyperref}
 \usepackage{titlesec}
 \usepackage{titletoc}
-\usepackage{biblatex}
+\usepackage[sorting=none]{biblatex}
 \usepackage{enumitem}
 \usepackage{indentfirst}
 \numberwithin{equation}{section} % number equations by section
@@ -78,7 +78,7 @@ Patvaļīgi izvēloties tulkojumu, pastāv risks mulsināt lasītāju un sadrums
 \begin{enumerate}
     \item \textit{policy} --- \textbf{stratēģija}. Šis termins pamatā tiek lietots, lai aprasktītu kādu funkciju, kas novērojumus attēlo lēmumu telpā. Pirmais ieraksts tieši tāpēc, ka varētu būt strīdīgākais. Angļu valodā pastāv divi termini, \textit{policy} un \textit{politics}, kas parasti latviski tiek tulkoti vienādi --- politika --- par spīti radikāli atšķirīgām nozīmēm. Termins \textit{strategy} tiek lietots kā sinonīms pirmajam abās valodās, un arī piemērojams tieši šādām lēmumu pieņemšanas funkcijām, piemēram, spēļu teorijā.
     \item \textit{reinforcement learning} --- \textbf{stimulētā mašīnmācīšanās}. Meklējumi tiešsaistē atklāj \cite{enc_stim}, ka šis tulkojums jau ir samērā izplatīts, taču varētu būt nezināms lasītājiem, kas ar to sastopas pirmo reizi --- pat ja zināms metodes angliskais nosaukums.
-    \item \textit{imitation learning} --- \textbf{atdarinošā mašīnmācīšanās}. Paša autora piedāvāts tulkojums, atdarinot iepriekšējo kā piemēru, jo nav izdevies atrast alternatīvas. Latvis-kais vārds "atdarināt" izvēlēts pār internacionālismu "imitēt", jo to vieglāk izlocīt formā, kas neizklausās lauzīta un neveikla. Taču procesā zūd spēja viegli atrast sākotnējo vārdu svešvalodā, kas ļoti svarīga zinātniskajā vidē, kurā latviski pie-ejamo resursu ir maz.
+    \item \textit{imitation learning} --- \textbf{atdarinošā mašīnmācīšanās}. Paša autora piedāvāts tulkojums, izmantojot iepriekšējo kā piemēru, jo nav izdevies atrast alternatīvas. Latvis-kais vārds "atdarināt" izvēlēts pār internacionālismu ``imitēt'', jo to vieglāk izlocīt formā, kas neizklausās lauzīta un neveikla. Taču procesā zūd spēja viegli atrast sākotnējo vārdu svešvalodā, kas ļoti svarīga zinātniskajā vidē, kurā latviski pie-ejamo resursu ir maz.
 \end{enumerate}
 
 \subsection{Tehniskās priekšzināšanas, definīcijas}
@@ -207,11 +207,21 @@ Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena va
 
 \subsubsection{Markova un citādi lēmumu procesi}
 
+Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes mērķiem, lai ar tiem varētu veikt matemātiskas operācijas. Izplatīti atdarinošās un stimulētās mašīnmācīšanās literatūrā ir Markova lēmumu procesi (\textit{Markov decision processes}), kas izmantojami situācijās, kad sistēmas stāvokli nākotnē pilnībā nosaka pašreizējais. Dažādi autori, kas darbojas dažādos izpētes virzienos, mēdz piedāvāt dažādus tā formulējumus, taču principā vienmēr tie ir ekvivalenti sekojošam,
 
+\begin{equation} 
+    MDP = (S,A,R,T, \gamma)
+\end{equation}
+
+kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa, $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa, $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības, $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$, $\gamma$ --- koeficients eksponenciālai nākotnes atdevju vērtību samazināšanai. 
+
+Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo.
+
+Ievācot datus, lai izmantotu modeļa apmācībā, nereti tiek izmantota stāvokļu-darbību (\textit{state-action}) pāru forma --- $\lbrace (s_1, a_1), (s_1, a_1), ... \rbrace$. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija.
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
-\subsubsection{Atdarinošā mašīnmācīšanās}
+
 
 \subsubsection{Robotikas uzdevumi}
 
@@ -219,6 +229,15 @@ Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena va
 
 \newpage
 \section{Līdzšinējie pētījumi}
+
+\subsection{Uzvedības kopēšana, statistiskas korekcijas}
+
+\subsection{Uzdevumu simboliska dekompozīcija}
+
+\subsection{Novērojumu atdarināšana}
+
+\subsection{Adaptīvu un atdarinošu metožu kombinācija}
+
 
 \newpage
 \section{Praktiska realizācija - rīki, piemēri}
