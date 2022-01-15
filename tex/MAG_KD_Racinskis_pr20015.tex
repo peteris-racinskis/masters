@@ -241,15 +241,15 @@ Jebkura stratēģija katram stāvoklim nosaka darbību vai darbību sadalījumu 
     v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \vert s_t = s] = \sum_{a}\pi(a,s)\sum_{s', r}p(s', r \vert s_t, a_t)[r + \gamma v_{\pi}(s')]
 \end{equation}
 
-Atrisināt mācīšanās uzdevumu tādā gadījumā nozīmē atrast stratēģiju, kas maksimizē atdevi. Pastāv dažādas metodes, kā to darīt. Teorētiski vienkāršākais taču praktiskiem uzdevumiem reti piemērojams paņēmiens ir tā saucamā Q-mācīšanās. Tā strādā samērā vienkārši --- tiek izveidots tenzors $Q$ ar elementu, kas atbilst katrai iespējamai $s,a$ vērtībai, tam tiek piešķirta kāda sākotnējā vērtība (piemēram, 0). 
+Atrisināt mācīšanās uzdevumu tādā gadījumā nozīmē atrast stratēģiju, kas maksimizē atdevi. Pastāv dažādas metodes, kā to darīt. Teorētiski vienkāršākais taču praktiskiem uzdevumiem reti piemērojams paņēmiens ir tā saucamā Q-mācīšanās. Tā strādā samērā vienkārši --- tiek izveidots tenzors $Q$ ar elementu, kas atbilst katrai iespējamai $(s,a)$ vērtībai, tam tiek piešķirta kāda sākotnējā vērtība (piemēram, 0). 
 
-Apmācība notiek, izvēloties,
+Apmācība notiek, izvēloties
 
 \begin{equation}
     a_t = \max\limits_{a} (Q(s_t = s))
 \end{equation}
 
-sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā
+un sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā
 
 \begin{equation}
     Q^{i+1}(s_t,a_t)=f(Q^{i}(s_t, a_t), G_t)
