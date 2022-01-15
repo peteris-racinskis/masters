@@ -255,20 +255,28 @@ sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai a
     Q^{i+1}(s_t,a_t)=f(Q^{i}(s_t, a_t), G_t)
 \end{equation}
 
-Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama iterāciju skaita, ļoti strauji pieaug tās modeļa --- tenzora $Q$ --- parametru skaits, pieaugot iespējamo stāvokļu un darbību skaitam --- nepieciešams atsevišķi optimizēt katru iespējamo kombināciju, iespējams ļoti daudzās iterācijās. Tāpēc praksē parasti tiek lietoti modeļi, kas aproksimē $v_{\pi}(s)$, piemēram, aģenta-kritiķa (\textit{actor-critic}) neironu tīkli, kas reizē iemācās paredzēt gan sagaidāmo vērtību, gan labāko darbību katram stāvoklim ar potenciāli daudz kompaktāku modeli.
-
-\subsubsection{Robotikas uzdevumi}
-
-
+Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama iterāciju skaita, ļoti strauji pieaug tās modeļa --- tenzora $Q$ --- parametru skaits, pieaugot iespējamo stāvokļu un darbību skaitam --- nepieciešams atsevišķi optimizēt katru iespējamo kombināciju, iespējams, ļoti daudzās iterācijās. Tāpēc praksē parasti tiek lietoti modeļi, kas aproksimē $v_{\pi}(s)$, piemēram, aģenta-kritiķa (\textit{actor-critic}) neironu tīkli, kas reizē iemācās paredzēt gan sagaidāmo vērtību, gan labāko darbību katram stāvoklim ar potenciāli daudz kompaktāku modeli.
 
 \subsection{Pētniecības virzienu tematisks dalījums}
+
+Varētu sacīt, ka tieši par atdarinošo mašīnmāīšanos rakstīts ir samērā maz. Noteikti, ja salīdzina ar vispārīgākām metodēm vai rīkiem. Taču pat ``samērā maz'' tomēr nozīmē ļoti lielu publikāciju skaitu, kas apraksta pētījumus ļoti dažādos virzienos. Turklāt robo-tika dominē kā pielietojuma mērķis šādām metodēm. Lai radītu priekštatu par nozares pašrei-zējo stāvokli un aptuvenu vēsturi, nolemts izšķirt trīs aptuvenus virzienus, kas labi apraksta lielu daļu no pētījumiem par iespējām robotus apmācīt ar piemēriem:
+
+\begin{enumerate}
+    \item trajektoriju kopēšana --- mērķi šeit pamatā ir panākt robustu, precīzu atdarināšanu ar nelielām treniņa datu kopām, ja pieejama nepieciešamā informācija par sistēmas stāvokli;
+    \item novērojumu atdarināšana --- ne vienmēr ir pieejami dati padevīgā formā, lai tiešā veidā varētu imitēt tajos veiktās darbības. Plaša pētījumu joma nodarbojas tieši ar trajektoriju iegūšanu no nestrukturētiem --- piemēram, video --- datiem;
+    \item adaptīvu un atdarinošu metožu kombinācija --- atdarinošās mācīšanās pielietojums, lai uzlabotu stimulēto, un otrādi. Kā panākt, ka neaprobežojamies ar tikai piemēros esošo un spējam pielāgoties? Kā efektīvi uzsākt stimulēto mācīšanos ļoti retinātās atdevju telpās?
+\end{enumerate}
 
 \newpage
 \section{Līdzšinējie pētījumi}
 
-\subsection{Uzvedības kopēšana, statistiskas korekcijas}
+\subsection{Trajektoriju kopēšana}
 
-\subsection{Uzdevumu simboliska dekompozīcija}
+\subsubsection{Vienkāršas metodes}
+
+\subsubsection{Uzdevumu simboliska dekompozīcija}
+
+\subsubsection{Statistiskas korekcijas}
 
 \subsection{Novērojumu atdarināšana}
 
