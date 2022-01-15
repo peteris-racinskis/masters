@@ -213,17 +213,53 @@ Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes 
     MDP = (S,A,R,T, \gamma)
 \end{equation}
 
-kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa, $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa, $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības, $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$, $\gamma$ --- koeficients eksponenciālai nākotnes atdevju vērtību samazināšanai. 
+kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa, $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa, $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības, $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$, $\gamma$ --- koeficients nākotnes atdevju vērtību samazināšanai. MDP ir \textit{galīgs} ja $S,A$ ir galīgas kopas. 
 
-Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo. 
+Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$, t.i., pārejas funkcija apraksta ``vides'' (\textit{environment}) reakciju uz aģenta (modeļa, stratēģijas) darbību. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo. 
 
-Ievācot datus, lai izmantotu modeļa apmācībā, nereti tiek izmantota stāvokļu-darbību (\textit{state-action}) pāru forma --- $\lbrace (s_1, a_1), (s_1, a_1), ... \rbrace$. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija ir atkarīga no laika, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem.
+Trajektoriju, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, raksturo laikrinda (\textit{state-action}) pāru formā --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Stāvokļus tajā, protams, iespē-jams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija ir atkarīga no laika, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem.
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
-Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni\cite{gupta2019relay}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimulēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas\cite{englert2018learning}. Tāpēc nav nekāds pārsteigums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētījumos, citreiz bez nekādiem papildus paskaidrojumiem.
+Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni\cite{gupta2019relay}\cite{brown2019extrapolating}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimu-lēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas\cite{englert2018learning}. Tāpēc nav nekāds pārstei-gums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētīju-mos, citreiz bez nekādiem papildus paskaidrojumiem.
+
+Stimulētās mašīnmācīšanās teorētiskie pamati ir galīgi MDP un Belmana vienādo-jums\cite{sutton2018reinforcement}. Pieņem, ka katram stāvoklim ir kāda atdeve $R(s_t)$, bet uzdevums --- maksimizēt šo atdevju summu visā trajektorijas garumā $\sum_{t=1}^T R(s_t)$. Tad var izteikt arī varbūtību sadalījumu atdevei katram stāvokļa un darbības pārim
+
+\begin{equation}
+    p(s', r \vert s_t, a_t) = P[s_{t+1}=s', r=R(s')]
+\end{equation}
+
+Nākotnē sagaidāmās atdeves vērtības, ņemot vērā dilšanas koeficientu $\gamma$,  var izteikt kā
+
+\begin{equation}
+    G_t = \sum_{k=0}^{T-t} \gamma^k R(s_{t+k+1})
+\end{equation}
+
+Jebkura stratēģija katram stāvoklim nosaka darbību vai darbību sadalījumu $p(a \vert s) = \pi(a,s)$. Var izmantot rekursīvu sakarību, lai katram stāvoklim piekārtotu sagaidāmo atdevi jeb vērtību $v_{\pi}(s)$, kas atkarīga no izmantotās stratēģijas --- Belmana vienādojumu.
+
+\begin{equation}
+    v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \vert s_t = s] = \sum_{a}\pi(a,s)\sum_{s', r}p(s', r \vert s_t, a_t)[r + \gamma v_{\pi}(s')]
+\end{equation}
+
+Atrisināt mācīšanās uzdevumu tādā gadījumā nozīmē atrast stratēģiju, kas maksimizē atdevi. Pastāv dažādas metodes, kā to darīt. Teorētiski vienkāršākais taču praktiskiem uzdevumiem reti piemērojams paņēmiens ir tā saucamā Q-mācīšanās. Tā strādā samērā vienkārši --- tiek izveidots tenzors $Q$ ar elementu, kas atbilst katrai iespējamai $s,a$ vērtībai, tam tiek piešķirta kāda sākotnējā vērtība (piemēram, 0). 
+
+Apmācība notiek, izvēloties,
+
+\begin{equation}
+    a_t = \max\limits_{a} (Q(s_t = s))
+\end{equation}
+
+sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā
+
+\begin{equation}
+    Q^{i+1}(s_t,a_t)=f(Q^{i}(s_t, a_t), G_t)
+\end{equation}
+
+Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama iterāciju skaita, ļoti strauji pieaug tās modeļa --- tenzora $Q$ --- parametru skaits, pieaugot iespējamo stāvokļu un darbību skaitam --- nepieciešams atsevišķi optimizēt katru iespējamo kombināciju, iespējams ļoti daudzās iterācijās. Tāpēc praksē parasti tiek lietoti modeļi, kas aproksimē $v_{\pi}(s)$, piemēram, aģenta-kritiķa (\textit{actor-critic}) neironu tīkli, kas reizē iemācās paredzēt gan sagaidāmo vērtību, gan labāko darbību katram stāvoklim ar potenciāli daudz kompaktāku modeli.
 
 \subsubsection{Robotikas uzdevumi}
+
+
 
 \subsection{Pētniecības virzienu tematisks dalījums}
 

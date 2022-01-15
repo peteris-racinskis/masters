@@ -434,6 +434,48 @@
       \field{title}{Relay policy learning: Solving long-horizon tasks via imitation and reinforcement learning}
       \field{year}{2019}
     \endentry
+    \entry{brown2019extrapolating}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=798cdf8d95bb59b16bcc0cba387ee155}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=3b6330a3ef2d68b5b7b01daf36550991}{%
+           family={Goo},
+           familyi={G\bibinitperiod},
+           given={Wonjoon},
+           giveni={W\bibinitperiod}}}%
+        {{hash=5c8991058135999a69df9fb54b7555b3}{%
+           family={Nagarajan},
+           familyi={N\bibinitperiod},
+           given={Prabhat},
+           giveni={P\bibinitperiod}}}%
+        {{hash=ca10f9c039f8e48852f56a7122e8847f}{%
+           family={Niekum},
+           familyi={N\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {PMLR}%
+      }
+      \strng{namehash}{edbde88ce7c6cc950ca149d5a398526c}
+      \strng{fullhash}{b4551d263f4795881dacea37e111f03b}
+      \strng{bibnamehash}{edbde88ce7c6cc950ca149d5a398526c}
+      \strng{authorbibnamehash}{edbde88ce7c6cc950ca149d5a398526c}
+      \strng{authornamehash}{edbde88ce7c6cc950ca149d5a398526c}
+      \strng{authorfullhash}{b4551d263f4795881dacea37e111f03b}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International conference on machine learning}
+      \field{title}{Extrapolating beyond suboptimal demonstrations via inverse reinforcement learning from observations}
+      \field{year}{2019}
+      \field{pages}{783\bibrangedash 792}
+      \range{pages}{10}
+    \endentry
     \entry{englert2018learning}{article}{}
       \name{author}{2}{}{%
         {{hash=3d0de9b3271bac639df380e94b2f2f11}{%
@@ -466,6 +508,37 @@
       \field{volume}{37}
       \field{year}{2018}
       \field{pages}{137\bibrangedash 154}
+      \range{pages}{18}
+    \endentry
+    \entry{sutton2018reinforcement}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=eb920e5277d3d5fd0903f3cd41e11871}{%
+           family={Sutton},
+           familyi={S\bibinitperiod},
+           given={Richard\bibnamedelima S},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=32a0a208f8bcf56a13b0a8e618aa806a}{%
+           family={Barto},
+           familyi={B\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MIT press}%
+      }
+      \strng{namehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{fullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{bibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authorbibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authornamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authorfullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Reinforcement learning: An introduction}
+      \field{year}{2018}
+      \field{pages}{60\bibrangedash 77}
       \range{pages}{18}
     \endentry
   \enddatalist

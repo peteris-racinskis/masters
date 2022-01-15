@@ -2195,7 +2195,9 @@
     <bcf:citekey order="11">krizhevsky2012imagenet</bcf:citekey>
     <bcf:citekey order="12">attia2018global</bcf:citekey>
     <bcf:citekey order="13">gupta2019relay</bcf:citekey>
-    <bcf:citekey order="14">englert2018learning</bcf:citekey>
+    <bcf:citekey order="14">brown2019extrapolating</bcf:citekey>
+    <bcf:citekey order="15">englert2018learning</bcf:citekey>
+    <bcf:citekey order="16">sutton2018reinforcement</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
