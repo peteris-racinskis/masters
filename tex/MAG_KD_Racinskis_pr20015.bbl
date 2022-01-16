@@ -67,8 +67,8 @@
       \strng{authorbibnamehash}{19a5090e76b7afca7304dc4cc43e88ba}
       \strng{authornamehash}{19a5090e76b7afca7304dc4cc43e88ba}
       \strng{authorfullhash}{19a5090e76b7afca7304dc4cc43e88ba}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Master's Thesis (in Finnish), Univ. Helsinki}
@@ -94,8 +94,8 @@
       \strng{authorbibnamehash}{23d96062ed18321873ac4b8b6e2fc816}
       \strng{authornamehash}{23d96062ed18321873ac4b8b6e2fc816}
       \strng{authorfullhash}{23d96062ed18321873ac4b8b6e2fc816}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Neural networks}
@@ -130,8 +130,8 @@
       \strng{authorbibnamehash}{1a23c09aa65b3c2ade45ed18d8127375}
       \strng{authornamehash}{1a23c09aa65b3c2ade45ed18d8127375}
       \strng{authorfullhash}{1a23c09aa65b3c2ade45ed18d8127375}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Advances in neural information processing systems}
@@ -190,8 +190,8 @@
       \strng{authorbibnamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
       \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
       \strng{authorfullhash}{cb26e47f6b8133865271fc8483132297}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Advances in neural information processing systems}
@@ -264,8 +264,8 @@
       \strng{authorbibnamehash}{4ccacac34637df06f749428b6ec5052e}
       \strng{authornamehash}{4ccacac34637df06f749428b6ec5052e}
       \strng{authorfullhash}{69c03a0bfbe9e391fbbd7797a2debcbf}
-      \field{sortinit}{6}
-      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{nature}
@@ -293,8 +293,8 @@
       \strng{authorbibnamehash}{60cc0a9f62283d12da66fee328636cc8}
       \strng{authornamehash}{60cc0a9f62283d12da66fee328636cc8}
       \strng{authorfullhash}{60cc0a9f62283d12da66fee328636cc8}
-      \field{sortinit}{7}
-      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{I, robot}
@@ -315,8 +315,8 @@
       \strng{authorbibnamehash}{7626336e56eee97c3f561928fa783ee4}
       \strng{authornamehash}{7626336e56eee97c3f561928fa783ee4}
       \strng{authorfullhash}{7626336e56eee97c3f561928fa783ee4}
-      \field{sortinit}{8}
-      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Nacionālā enciklopēdija - mākslīgais intelekts}
@@ -348,8 +348,8 @@
       \strng{authorbibnamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authornamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authorfullhash}{482952eb401d9a72aac275223c4e997d}
-      \field{sortinit}{9}
-      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Suggested Notation for Machine Learning}
@@ -587,6 +587,154 @@
       \field{year}{2018}
       \field{pages}{6292\bibrangedash 6299}
       \range{pages}{8}
+    \endentry
+    \entry{muench1994robot}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=cd4e7e696556dc7fe9d0a28f868a043e}{%
+           family={Muench},
+           familyi={M\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f28f5895e9dc5bf662893b83b77d90b3}{%
+           family={Kreuziger},
+           familyi={K\bibinitperiod},
+           given={J},
+           giveni={J\bibinitperiod}}}%
+        {{hash=81a7ee5d2cc71a055218c5913fe4b06b}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={M},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \strng{fullhash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \strng{bibnamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \strng{authorbibnamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \strng{authornamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \strng{authorfullhash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Robot programming by demonstration (rpd)-using machine learning and user interaction methods for the development of easy and comfortable robot programming systems}
+    \endentry
+    \entry{billard2008handbook}{article}{}
+      \name{author}{4}{}{%
+        {{hash=3cd4f444d840eee2580ddf886f20b1c8}{%
+           family={Billard},
+           familyi={B\bibinitperiod},
+           given={Aude},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bacdea873fd4ba05ad401b50898a5d71}{%
+           family={Calinon},
+           familyi={C\bibinitperiod},
+           given={Sylvain},
+           giveni={S\bibinitperiod}}}%
+        {{hash=4f1d7c0e9dbdf64ba7a54e1f1a3b76d5}{%
+           family={Dillmann},
+           familyi={D\bibinitperiod},
+           given={Ruediger},
+           giveni={R\bibinitperiod}}}%
+        {{hash=147fd8225f25d53a449425c4559622e5}{%
+           family={Schaal},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{471b984e3fd497819037c337a3913eb1}
+      \strng{fullhash}{267d55db75a76905607f21dad4711be2}
+      \strng{bibnamehash}{471b984e3fd497819037c337a3913eb1}
+      \strng{authorbibnamehash}{471b984e3fd497819037c337a3913eb1}
+      \strng{authornamehash}{471b984e3fd497819037c337a3913eb1}
+      \strng{authorfullhash}{267d55db75a76905607f21dad4711be2}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Handbook of Robotics. Springer}
+      \field{title}{Handbook of robotics chapter 59: Robot programming by demonstration}
+      \field{year}{2008}
+    \endentry
+    \entry{teach_pendant}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9fa7b9da52f689016da6a7aafbfa50de}{%
+           family={Owen-Hill},
+           familyi={O\bibinithyphendelim H\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \strng{fullhash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \strng{bibnamehash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \strng{authorbibnamehash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \strng{authornamehash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \strng{authorfullhash}{9fa7b9da52f689016da6a7aafbfa50de}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Decade of Artificial Intelligence}
+      \field{urlday}{16}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://blog.robotiq.com/what-are-the-different-programming-methods-for-robots
+      \endverb
+      \verb{url}
+      \verb https://blog.robotiq.com/what-are-the-different-programming-methods-for-robots
+      \endverb
+    \endentry
+    \entry{abb2016special}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=a966224888893a0e529e9605b948b1fe}{%
+           family={Group},
+           familyi={G\bibinitperiod},
+           given={ABB},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{1118aca971ead9f62c347d901e3a36ba}
+      \strng{fullhash}{1118aca971ead9f62c347d901e3a36ba}
+      \strng{bibnamehash}{1118aca971ead9f62c347d901e3a36ba}
+      \strng{authorbibnamehash}{1118aca971ead9f62c347d901e3a36ba}
+      \strng{authornamehash}{1118aca971ead9f62c347d901e3a36ba}
+      \strng{authorfullhash}{1118aca971ead9f62c347d901e3a36ba}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ABB Review}
+      \field{title}{Special report: Robotics--ABB group}
+      \field{year}{2016}
+    \endentry
+    \entry{pomerleau1989alvinn}{report}{}
+      \name{author}{1}{}{%
+        {{hash=4e5f05606e47b1676579799cf7e84220}{%
+           family={Pomerleau},
+           familyi={P\bibinitperiod},
+           given={Dean\bibnamedelima A},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{institution}{2}{%
+        {CARNEGIE-MELLON UNIV PITTSBURGH PA ARTIFICIAL INTELLIGENCE}%
+        {PSYCHOLOGY~…}%
+      }
+      \strng{namehash}{4e5f05606e47b1676579799cf7e84220}
+      \strng{fullhash}{4e5f05606e47b1676579799cf7e84220}
+      \strng{bibnamehash}{4e5f05606e47b1676579799cf7e84220}
+      \strng{authorbibnamehash}{4e5f05606e47b1676579799cf7e84220}
+      \strng{authornamehash}{4e5f05606e47b1676579799cf7e84220}
+      \strng{authorfullhash}{4e5f05606e47b1676579799cf7e84220}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Alvinn: An autonomous land vehicle in a neural network}
+      \field{type}{techreport}
+      \field{year}{1989}
     \endentry
   \enddatalist
 \endrefsection

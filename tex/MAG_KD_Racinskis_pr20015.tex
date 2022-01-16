@@ -48,9 +48,9 @@
 
 \section{Ievads}
 
-Sacīt, ka mašīnmācīšanās šobrīd ir ļoti aktuāla pētniecības nozare, būtu maigi. Pēdējās desmitgades laikā tieši šis izpētes lauks ir eksplodējis popularitātē kā neviens cits, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen\cite{mcculloch1943logical}\cite{linnainmaa1970representation}\cite{fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācī-šanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos\cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to satu-ru\cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem\cite{silver2016mastering}.
+Sacīt, ka mašīnmācīšanās šobrīd ir ļoti aktuāla pētniecības nozare, būtu maigi. Pēdējās desmitgades laikā tieši šis izpētes lauks ir eksplodējis popularitātē kā neviens cits, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen\cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācī-šanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos\cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to satu-ru\cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem\cite{silver2016mastering}.
 
-Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un robotiku. Tautas iztēlē termins ``robots'' drīzāk droši vien iezīmēs zinātniskās fantastikas radītos personāžus --- mehāniskas būtnes, kas spēj patstāvīgi darboties neierobežotā vidē un risināt sarežģītus uzdevumus --- nevis pieticīgākus, reāli pastāvošus un ražotnēs rodamus industriālos robotus. Un šī pati zinātniskā fantastika radījusi arī nesaraujamu saiti starp robotiem un mākslīgo intelektu\cite{asimov2004robot} --- diskusijas par mākslīgo intelektu bieži plūstoši pāriet diskusijās par ar šādu intelektu aprīkotiem robotiem, un šo robotu neizbēgami kareivīgajām ambīcijām attiecībā pret cilvēci. Protams, zinātne ne vienmēr seko populār-zinātniskās iedomas lidojumam, taču šāda saikne ir visnotaļ pamatota --- spēja mācīties no paraugiem vai patstāvīgi, un pielāgoties savai apkārtnei ir ārkārtīgi noderīga, jo daudzi uzdevumi, kuru risināšanai varētu pielietot robotus, ir sarežģīti nevis to fizikālajā izpildē, bet tieši vadības uzdevuma formulēšanā un realizācijā.
+Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un robotiku. Tautas iztēlē termins ``robots'' drīzāk droši vien iezīmēs zinātniskās fantastikas radītos personāžus --- mehāniskas būtnes, kas spēj patstāvīgi darboties neierobežotā vidē un risināt sarežģītus uzdevumus --- nevis pieticīgākus, reāli pastāvošus un ražotnēs rodamus industriālos robotus. Un šī pati zinātniskā fantastika radījusi arī nesaraujamu saiti starp robotiem un mākslīgo intelektu\cite{asimov2004robot} --- diskusijas par mākslīgo intelektu bieži plūstoši pāriet diskusijās par ar šādu intelektu aprīkotiem robotiem, un šo robotu neizbēgami kareivīgajām ambīcijām attiecībā pret cilvēci. Protams, zinātne ne vienmēr seko populār-zinātniskās iedomas lidojumam, taču šāda saikne ir visnotaļ pamatota --- spēja mācīties no paraugiem vai patstāvīgi un pielāgoties savai apkārtnei ir ārkārtīgi noderīga, jo daudzi uzdevumi, kuru risināšanai varētu pielietot robotus, ir sarežģīti nevis to fizikālajā izpildē, bet tieši vadības uzdevuma formulēšanā un realizācijā.
 
 Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņēmieniem, ar kuriem tiek mēģināts risināt šādas sarežģītas vadības problēmas. Lai gan pamatu pamatos nevar apgalvot, ka tā ir tikai robotikai piemērota metožu saime, lielākā daļa izpētes virzīta tieši šajā virzienā --- problēmas tiek formulētas kā fizikālu (vai nosacīti fizikālu --- virtuālās vidēs simulētu) procesu kontroles uzdevumi, un risinājumi tiek rasti no pēc iespējas mazāka skaita veiksmīgas darbības piemēru. Mašīnmācīšanās nozarē bioloģiskas analoģijas un iedvesma nav nekāds retums, un savā ziņā šāda mācīšanās  atspoguļo vienu no izplatītiem paņēmieniem, kā cilvēki vai sabiedriski dzīvnieki nodod prasmes viens otram - demonstrējot. Nevar nepieminēt, ka izpēte šajā jomā bieži aizņemas pieejas un iespaidojas no rezultātiem, kas gūti ar stimulēto mašīnmācīšanos (\textit{reinforcement learning}) - savā ziņā vispārīgu, pašmācībai un treniņam analoģisku paņēmienu. Arī abu metožu apvienojums ir ideja, kas pavīd visai regulāri --- cerībā, ka, atdarinot ekspertus, var ātrāk nonākt pie derīgām stratēģijām, kas var kalpot kā sākumpunkts dziļākai pašmācībai; vai arī izmantot šādu stimulēto metodi, lai precīzāk imitētu treniņa datus.
 
@@ -93,7 +93,7 @@ Viens no visplašāk izmantotajiem formālismiem datizraces un mašīnmācīšan
     M(x) \approx f(x)
 \end{equation}
 
-Protams, šādu modeļu varētu būt bezgalīgi daudz, un tie visi var atšķirties pēc tā, cik labi spēj paredzēt nezināmās funkcijas vērtības. Tāpēc modeļu meklēšanai parasti izmanto šablonus - funkcijas, kuru argumentā papildus ieejas datiem ir brīvi maināmi un kopīgi (tātad "apmācāmi") parametri $\theta$:
+Protams, šādu modeļu varētu būt bezgalīgi daudz, un tie visi var atšķirties pēc tā, cik labi spēj paredzēt nezināmās funkcijas vērtības. Tāpēc modeļu meklēšanai parasti izmanto šablonus - funkcijas, kuru argumentā papildus ievades datiem ir brīvi maināmi un kopīgi (tātad "apmācāmi") parametri $\theta$:
 
 \begin{equation} 
     \text{Meklē } \theta:M(x \vert \theta) = M_{\theta}(x)  \approx f(x)
@@ -114,7 +114,7 @@ Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas 
     M: x \times \theta \rightarrow \mathbb{R}^k
 \end{equation}
 
-un klasifikatori, kas paredz ieejas datu punkta piederību kādai diskrētai klasei
+un klasifikatori, kas paredz ievades datu punkta piederību kādai diskrētai klasei
 
 \begin{equation} 
     f:x \rightarrow C = \lbrace c_1, c_2, ..., c_m \rbrace
@@ -141,7 +141,7 @@ Lai varētu novērtēt, cik labi modelis aproksimē nezināmo funkciju, un vadī
     \ell: M_{\theta}(x) \times f(x) \rightarrow \mathbb{R}
 \end{equation}
 
-Strādājot ar reāliem datiem, datu punkti veido datu kopu, kas parasti tiek uzskatīta par gadījuma izlasi no punktus ģenerējošā varbūtību sadalījuma. Praktiskiem apmācības uzdevumiem datu kopa parasti jāiegūst formā, kas satur gan sagaidāmos ieejas datus, gan pareizu rezultātu:
+Strādājot ar reāliem datiem, datu punkti veido datu kopu, kas parasti tiek uzskatīta par gadījuma izlasi no punktus ģenerējošā varbūtību sadalījuma. Praktiskiem apmācības uzdevumiem datu kopa parasti jāiegūst formā, kas satur gan sagaidāmos ievades datus, gan pareizu rezultātu:
 
 \begin{equation} 
     s \sim \mathcal{D} \Leftrightarrow s \text{ ir no varbūtību sadalījuma } \mathcal{D}
@@ -203,7 +203,9 @@ kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ ---  nobīde. Perceptrona parametri
     f_{layer}(\vec{x}) = \sigma(W\vec{x}+\vec{b})
 \end{equation}
 
-Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem šādiem slāņiem, taču ir plaši izplatīti arī, piemēram, konvolucionālie neironu tīkli\cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolucionālajā tīklā ir t.s. kodola funkciju jeb kerneļu (\textit{kernel}) izmantošana - konvolucionāli slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. Šo un vēl citu veidu sarežģītāku neironu tīklu arhitektūra ir ļoti plašs lauks, ko detalizēti šeit iztirzāt nav iespējams.
+Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc par izvades (\textit{output}) slāni. Ievades datu vektoru sauc par ievades (\textit{input}) slāni. Pārējos slāņus sauc par slēptajiem (\textit{hidden layers}). Saka, ka slāņi savā starpā pilnīgi savienoti (\textit{fully connected}), ja katram viena slāņa perceptronam argumentā parādās visi iepriekšējā slāņa izvades elementi. Svarīga neironu tīkla īpašība --- ja tā aktivācijas funkcijas ir diferencējamas, tad arī tīkls kopumā ir diferencējams pēc katra tā parametra, pat ar perceptroniem daudzos slāņos. Līdz ar to var izmantot t.s. \textit{backpropagation} algoritmu, kas atrod mērķa funkcijas parciālos atvasinājumus pēc modeļa parametriem un izmanto kādu gradientu optimizācijas metodi apmācībai.
+
+Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem slāņiem (neskaitot ievades slāni), taču ir plaši izplatīti arī, piemēram, konvolucionālie neironu tīkli\cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolucionālajā tīklā ir t.s. kodola funkciju jeb kerneļu (\textit{kernel}) izmantošana - konvolucionāli slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. Šo un vēl citu veidu sarežģītāku neironu tīklu arhitektūra ir ļoti plašs lauks, ko detalizēti šeit iztirzāt nav iespējams.
 
 \subsubsection{Markova lēmumu procesi}
 
@@ -213,15 +215,15 @@ Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes 
     MDP = (S,A,R,T, \gamma)
 \end{equation}
 
-kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa, $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa, $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības, $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$, $\gamma$ --- koeficients nākotnes atdevju vērtību samazināšanai. MDP ir \textit{galīgs} ja $S,A$ ir galīgas kopas. 
+kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa; $A$ --- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa; $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atdeves (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to tīkamības; $T: S \times A \rightarrow S$ vai $P(s' \in S)$ --- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$; $\gamma$ --- koeficients nākotnes atdevju vērtību samazināšanai. MDP ir \textit{galīgs} ja $S,A$ ir galīgas kopas. Ja $s' = T(s,a)$ ir determinēts, MDP ir determinēts. Ja $s'$ ir gadījuma lielums, kas pieder sadalījumam $P(s')=T(s,a)$, MDP ir stohastisks.
 
 Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$, t.i., pārejas funkcija apraksta ``vides'' (\textit{environment}) reakciju uz aģenta (modeļa, stratēģijas) darbību. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo. 
 
-Trajektoriju, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, raksturo laikrinda (\textit{state-action}) pāru formā --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Stāvokļus tajā, protams, iespē-jams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija ir atkarīga no laika, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem.
+Trajektoriju, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, raksturo laikrinda (\textit{state-action}) pāru formā --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Stāvokļus tajā, protams, iespē-jams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija vai stratēģija ir atkarīga no laika soļa, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem. 
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
-Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni\cite{gupta2019relay}\cite{brown2019extrapolating}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimu-lēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas\cite{englert2018learning}. Tāpēc nav nekāds pārstei-gums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētīju-mos, citreiz bez nekādiem papildus paskaidrojumiem.
+Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni\cite{gupta2019relay, brown2019extrapolating}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimu-lēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas\cite{englert2018learning}. Tāpēc nav nekāds pārstei-gums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētīju-mos, citreiz bez nekādiem papildus paskaidrojumiem.
 
 Stimulētās mašīnmācīšanās teorētiskie pamati ir galīgi MDP un Belmana vienādo-jums\cite{sutton2018reinforcement}. Pieņem, ka katram stāvoklim ir kāda atdeve $R(s_t)$, bet uzdevums --- maksimizēt šo atdevju summu visā trajektorijas garumā $\sum_{t=1}^T R(s_t)$. Tad var izteikt arī varbūtību sadalījumu atdevei katram stāvokļa un darbības pārim
 
@@ -282,9 +284,48 @@ Savā ziņā varētu teikt, ka trīs nodaļās nostādītie mērķi kopā būvē
 
 \subsection{Trajektoriju kopēšana}
 
-Pirmā, varētu teikt galvenā taču ne vienmēr vienkāršākā problēma, ir atrast veidu, kā piejamās ekspertu zināšanas --- robotikas kontekstā tās parasti būs pareizas trajektorijas dažādu pārvietojumu un smalku manpiulācijas uzdevumu risināšanai --- tiešā veidā atdarināt.
+Pirmā, varētu teikt galvenā taču ne vienmēr vienkāršākā problēma, ir atrast veidu, kā piejamās ekspertu zināšanas --- robotikas kontekstā tās parasti būs pareizas trajektorijas dažādu pārvietojumu un smalku manpiulācijas uzdevumu risināšanai --- tiešā veidā atdarināt. Šo procesu mēdz saukt arī par programmēšanu ar demonstrācijām (PBD --- \textit{programming by demonstration})\cite{muench1994robot,billard2008handbook}. Idealizētā vidē ar determinētām stāvokļu pārejām un pilnīgu informāciju par tās pašreizējo konfigurāciju šis uzdevums varētu būt pat triviāls, taču praksē saskaramies ar problēmām:
+
+\begin{enumerate}
+    \item darbs notiek ar novērojumiem, nevis stāvokļiem. Pat ja pieejami, piemēram, trajektoriju ieraksti, bieži vien trūkst svarīgas informācijas (varētu būt zināma trajektorijas kinemātika, bet ne tās dinamika --- paātrinājumi, bet ne spēki);
+    \item atšķirības vidē: izpildelementos --- varbūt robots ir nedaudz citāds; apkārtnē --- varbūt manipulējamo objektu masas, forma vai izvietojums ir nedaudz atšķirīgi no demonstrācijās esošajiem;
+    \item ja trajektoriju ģenerējis eksperts, kam, iespējams bijusi pieejama informācija, kuras aģentam nav --- piemēram, manipulāciju veicis cilvēks ar redzi, bet robotam pieejami tikai kontakta sensori.
+\end{enumerate}
+
+Problēmas faktiski nozīmē to, ka reālā sistēmā stāvokļu pārejas nav determinētas attiecībā pret novērojumiem un darbībām. Lai labāk saprastu šos trūkumus, vispirms noderīgi ir aplūkot ``naivākos'' veidus, kā varētu imitēt piemērus.
 
 \subsubsection{Vienkāršas metodes}
+
+Pirmais, ko varētu darīt, ir tiešā veidā ierakstīt trajektoriju un to atkārtot. Šī nebūt nav jauna ideja --- gandrīz visiem mūsdienu industriāliem robotiem ir pieejamas t.s. \textit{lead-through} un \textit{teach-in} programmēšanas metodes, kas ļauj fiziski un ar tālvadības ierīces palīdzību vadīt robota kustību un to ierakstīt pēcākai atdarināšanai\cite{teach_pendant}, turklāt tās parādījušās jau pašos industriālās robotikas pirmsākumos 1970os gados\cite{abb2016special}.
+
+Darba autors var pats personīgi izdarīt zināmus secinājumus par tiešu trajektoriju ierakstīšanu un atkārtošanu, jo ir strādājis kā mehatronikas inženieris uzņēmumā, kas nodarbojas ar rūpnieciskās ražošanas iekārtu projektēšanu, izgatavošanu un automatizāciju, tāpēc pietiekami daudz nodarbojies arī ar robotu programmēšanu. Tā kā trajektorijai jābūt ierakstītai tieši ar robotu, lai tā būtu atkārtojama bez papildus datizraces uzdevumu risināšanas, ir zināma tendence dominēt viegli realizējamiem bet varbūt ne optimāliem ceļiem telpā --- vieglāk ierakstīt dažus pagrieziena punktus un ļaut programmatūrai interpolēt nekā fiziski vadīt robotu visā kustības ceļā. 
+
+Turklāt var parādīties neparedzēti trūkumi, pārejot no lēnas, nenoslogotas izpildes programmēšanas procesā uz ātru un noslogotu ekspluatācijā, kas apgrūtina procesu. Faktiski sākotnējais ieraksts bieži vien kalpo par starta punktu, bet, lai nonāktu pie lietojamas programmas, nepieciešams iegūto kodu koriģēt un iteratīvi pielāgot. Lai arī principā tiek izmantota demonstrācija trajektorijas iegūšanai, procesa veikšanai tik un tā nepieciešams personāls ar robotu programmēšanas prasmēm. Jau sen atzīts\cite{muench1994robot,billard2008handbook}, ka, lai tik tiešām robotus varētu apmācīt tikai ar piemēriem, nepieciešamas metodes, kas ir robustākas pret nobīdēm no paraugu ģenerējošā procesa apstākļiem, vispārināmākas, un attiecīgi sākti pētījumi ar mašīnmācīšanās metodēm.
+
+Kad jāspēj atdarināt kas vairāk nekā viena, nemainīga trajektorija, nepieciešams atdarināt nevis pašu trajektoriju, bet gan procesu, kas tādas ģenerē --- ``eksperta'' stratēģiju. Viena no vienkāršākajām metodēm, kas bieži tiek lietots kā piemērs, taču praksē reti kad ir pielietojuma, ir uzvedības klonēšana (\textit{behavioural cloning}). Vispārīgi to definēt ir samērā vienkārši\cite{attia2018global}. Ja dots MDP un kāda eksperta stratēģija $\pi^*$, kas šo MDP optimāli risina, mērķis ir atrast maksimāli tuvu modeli $\pi_{\theta}$, kur
+
+\begin{equation}
+    \pi_{\theta}(s) \approx \pi^*(s)
+\end{equation}
+
+Parasti, protams, ir pieejama datu kopa ar eksperta izietajām stāvokļu-darbību laikrindām, turklāt jāstrādā ir ar novērojumiem, nevis stāvokļiem. Kā ilustratīvu piemēru mēģinājumam realizēt šādu algoritmu bez īpašām korekcijām var izmantot 1989. gadā Kārnegija-Melona Universitātē veikto pētījumu ``\textit{Autonomous Land Vehicle in a Neural Network}'' (ALVINN)\cite{pomerleau1989alvinn}. Tā mērķis bija izstrādāt pašbraucošu automašīnu, kas spēj sekot ceļa kontūram.
+
+Automašīna tikusi aprīkota ar videokameru un LIDAR sensoriem, kas devuši divus skatus uz to pašu telpas reģionu automobiļa priekšā. Par apmācāmo modeli izvēlēts neironu tīkls. Protams, 1989. gads vēl bija laiks, kad datoru veikstpēja bija stipri ierobežota, un nevienam vēl nebija ienācis prātā būvēt tik dziļas, daudzskaitlīgas un sarežģītas tīklu arhitektūras kā mūsdienu konvolucionālos tīklus vai transformatorus. Tāpēc neironu tīkls ir gaužām līdzīgs jebkurā mācību grāmatā pirmajā nodaļā atrodamajiem piemēriem --- tam ir viens slēptais slānis ar 29 perceptroniem, kam seko 45 izvades elementi. Video izmantots krāsainā attēla zilais kanāls, jo tajā ceļa virsma visvairāk kontrastē ar apkārtējo vidi. Gan video, gan LIDAR radītie attēli tīkla ievadē veido vienkāršu vektoru bez nekādiem telpiskiem kodējumiem, visi slāņi savstarpēji pilnībā savienoti.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=7cm,page=1]{../img/alvinn_architecture.png}
+    \caption{ALVINN modeļa uzbūve\cite{pomerleau1989alvinn}}
+\end{figure}
+
+Modeļa izvades slānis apzīmē vēlamo stūrēšanas virzienu 45 diskrētos soļos. Treniņa datu kopā faktisko virziena komandu atspoguļo neprecizēta veida ``zvana'' funkcija ar modu pie pareizā virziena. Ieviests viens papildus perceptrons, kas (teorētiski) novērtē ceļa gaišumu salīdzinot ar apkārtējo vidi, un tiek pievienots nākamās iterācijas ievades vektoram.
+
+Jau šim (šķietami) samērā vienkāršajam uzdevumam konstatēts, ka ievākt treniņa datus fizikālā vidē --- braucot ar automašīnu pa ceļiem un ierakstot vadītāja veiktās korekcijas --- nav praktiski, jo nepieciešama ļoti liela treniņa datu kopa. Jāatzīst, ka ar modernākiem tehniskās redzes modeļiem droši vien šī nepieciešamība mazinātos. Tāpēc dati ģenerēti sintētiski --- tā kā gan video, gan attāluma datu izšķirtspēja ir gaužām neliela, pat ar 1989. gadā pieejamām datorgrafikas iespējām šādi gūtus attēlus ir grūti atšķirt no īstiem. Simulatorā iegūtie attēli un vadības komandas izmantoti klasifikatora apmācībā.
+
+Iegūtais rezultāts --- modelis, kas maksimāli tuvināts simulatorā realizētajam kontroles algoritmam izmantotā šablona iespēju robežās. Tas bijis pietiekami labs, lai spētu vadīt ar kameru un attāluma sensoru aprīkotu automobili pa 400m garu slēgta ceļa posmu saulainos dienas apstākļos, ar ātrumu 0,5m/s. Tas tiek lietots kā arguments par neironu tīklu pavērtajām iespējām pašbraucošo auto attīstībā, taču netiek slēpts, ka sasniegtais ir tālu no praktiskas vadības sistēmas.
+
+Kā galvenais uzvedības klonēšanas trūkums parasti tiek minēta nespēja atgūties no faktiskā stāvokļa sadalījumu nobīdes\cite{attia2018global} (\textit{distribution shift}). Ja reālais modelis $\pi_{\theta}(s)$ nevar pilnīgi precīzi atdarināt eksperta $\pi^*(s)$ darbības, sākotnējais sistēmas stāvoklis ir atšķirīgs no tiem, kas pārstāvēti treniņa datu kopā vai (iespējams, visbiežāk) stohastiskas MDP pārejas funkcijas gadījumā treniņa datu kopa neietver visas iespējamās trajektorijas ar atbilstošajām $\pi^*(s)$ vērtībām. Lai iegūtu precīzāku un robustāku eksperta stratēģijas atdarinājumu, piedāvāti dažādi --- sarežģītāki --- apmācības paņēmieni.
+
 
 \subsubsection{Uzdevumu simboliska dekompozīcija}
 
@@ -310,13 +351,6 @@ Pirmā, varētu teikt galvenā taču ne vienmēr vienkāršākā problēma, ir a
 
 \section{Ievads}
 
-
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[height=4cm,page=1]{../img/close-far-lv-classifier.png}
-    \caption{Klasifikatora distances - Latvijai}
-\end{figure}
 
 
 \subsection{Uzdevums}
