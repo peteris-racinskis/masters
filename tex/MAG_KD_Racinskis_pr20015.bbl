@@ -736,6 +736,186 @@
       \field{type}{techreport}
       \field{year}{1989}
     \endentry
+    \entry{ross2011no}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=1e091ec9b01606e483f22db48ddc73ef}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={St{é}phane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=0c645658cb1f824e42cf7701f1834fbf}{%
+           family={Gordon},
+           familyi={G\bibinitperiod},
+           given={Geoffrey\bibnamedelima J},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=49832523c57a7bf40445f071b2ad2c0a}{%
+           family={Bagnell},
+           familyi={B\bibinitperiod},
+           given={J\bibnamedelima Andrew},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{f0181660e70dcba4c04a7ca07a64be22}
+      \strng{fullhash}{f0181660e70dcba4c04a7ca07a64be22}
+      \strng{bibnamehash}{f0181660e70dcba4c04a7ca07a64be22}
+      \strng{authorbibnamehash}{f0181660e70dcba4c04a7ca07a64be22}
+      \strng{authornamehash}{f0181660e70dcba4c04a7ca07a64be22}
+      \strng{authorfullhash}{f0181660e70dcba4c04a7ca07a64be22}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{In AISTATS}
+      \field{title}{No-regret reductions for imitation learning and structured prediction}
+      \field{year}{2011}
+    \endentry
+    \entry{abbeel2004apprenticeship}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=e28d4ee199593959d8c29980a64f1974}{%
+           family={Abbeel},
+           familyi={A\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=49e889356ff39df159461bc2895c7e16}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Andrew\bibnamedelima Y},
+           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{fullhash}{b160d382644c505a6dd5026a42f29910}
+      \strng{bibnamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authorbibnamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the twenty-first international conference on Machine learning}
+      \field{title}{Apprenticeship learning via inverse reinforcement learning}
+      \field{year}{2004}
+      \field{pages}{1}
+      \range{pages}{1}
+    \endentry
+    \entry{ijspeert2002movement}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=24891b832d1efe728d70caf5eb6ee0a4}{%
+           family={Ijspeert},
+           familyi={I\bibinitperiod},
+           given={Auke\bibnamedelima Jan},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=e949265c1169d468bccc0b67c664cfdd}{%
+           family={Nakanishi},
+           familyi={N\bibinitperiod},
+           given={Jun},
+           giveni={J\bibinitperiod}}}%
+        {{hash=147fd8225f25d53a449425c4559622e5}{%
+           family={Schaal},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \strng{fullhash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \strng{bibnamehash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \strng{authorbibnamehash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \strng{authornamehash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \strng{authorfullhash}{852a0cf1c092fd12c00c4266babe2a6f}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings 2002 IEEE International Conference on Robotics and Automation (Cat. No. 02CH37292)}
+      \field{title}{Movement imitation with nonlinear dynamical systems in humanoid robots}
+      \field{volume}{2}
+      \field{year}{2002}
+      \field{pages}{1398\bibrangedash 1403}
+      \range{pages}{6}
+    \endentry
+    \entry{schaal2003computational}{article}{}
+      \name{author}{3}{}{%
+        {{hash=147fd8225f25d53a449425c4559622e5}{%
+           family={Schaal},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3ab9adbfc9339f876a4a504b69b5ba5e}{%
+           family={Ijspeert},
+           familyi={I\bibinitperiod},
+           given={Auke},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3cd4f444d840eee2580ddf886f20b1c8}{%
+           family={Billard},
+           familyi={B\bibinitperiod},
+           given={Aude},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The Royal Society}%
+      }
+      \strng{namehash}{c68965b87095c596a5973557c029c863}
+      \strng{fullhash}{c68965b87095c596a5973557c029c863}
+      \strng{bibnamehash}{c68965b87095c596a5973557c029c863}
+      \strng{authorbibnamehash}{c68965b87095c596a5973557c029c863}
+      \strng{authornamehash}{c68965b87095c596a5973557c029c863}
+      \strng{authorfullhash}{c68965b87095c596a5973557c029c863}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series B: Biological Sciences}
+      \field{number}{1431}
+      \field{title}{Computational approaches to motor learning by imitation}
+      \field{volume}{358}
+      \field{year}{2003}
+      \field{pages}{537\bibrangedash 547}
+      \range{pages}{11}
+    \endentry
+    \entry{wang2020framework}{article}{}
+      \name{author}{3}{}{%
+        {{hash=bc9736b40ca170d1b1ff5b2a9bb2545b}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=70e8de1339c80e6867d2370202ef948a}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Chuize},
+           giveni={C\bibinitperiod}}}%
+        {{hash=9d10002ea38713ea2608a740fc4d3033}{%
+           family={Di\bibnamedelima Nuovo},
+           familyi={D\bibinitperiod\bibinitdelim N\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{8727501f184c74bc1b63722e98bfb72f}
+      \strng{fullhash}{8727501f184c74bc1b63722e98bfb72f}
+      \strng{bibnamehash}{8727501f184c74bc1b63722e98bfb72f}
+      \strng{authorbibnamehash}{8727501f184c74bc1b63722e98bfb72f}
+      \strng{authornamehash}{8727501f184c74bc1b63722e98bfb72f}
+      \strng{authorfullhash}{8727501f184c74bc1b63722e98bfb72f}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Cognitive and Developmental Systems}
+      \field{number}{1}
+      \field{title}{A framework of hybrid force/motion skills learning for robots}
+      \field{volume}{13}
+      \field{year}{2020}
+      \field{pages}{162\bibrangedash 170}
+      \range{pages}{9}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
