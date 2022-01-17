@@ -346,7 +346,7 @@ Algoritma darbību var vienkāršoti aprakstīt sekojoši: pieņem, ka ir pieeja
 
 Kā jau minēts, liela daļa raksta satura veltīta tieši algoritma teorētisko īpašību pierādīšanai, taču beigās arī veikti daži eksperimenti --- divi ar personāžu vadību dator-spēļu vidē, viens ar rokraksta zīmju atpazīšanu teksta virknēs. Lai gan visos gadījumos DAgger pārspēj uzvedības klonēšanas (vienkāršas $\pi^*$ aproksimēšanas no treniņa datu kopas) rezultātus, tā lietderību stipri ierobežo instruktora interaktivitātes prasības --- praksē reti kad ir iespējams kaut kas analoģisks datorspēļu aģentu treniņam izmantotajam simulatoram, kas ar dziļu pārlasi atrod labas stratēģijas jebkuram stāvoklim.
 
-\subsubsection{Inversā stimulētā mācīšanās}
+\subsubsection{Inversā stimulētā mācīšanās (IRL)}
 
 Cits veids, kā atdarināt instruktora dotas trajektorijas, ir pieņemt, kas tā stratēģija optimizē kādu slēptu atdeves funkciju $R^*(s)$ un mēģināt to atjaunot no pieejamās informācijas. Šādā veidā ar stimulētās mašīnmācīšanās metodēm var iegūt meklēto rezultā-tu. Kā jau parasti, iespējami dažādi veidi, kā formalizēt uzdevumu un tehniski to realizēt. 2004. izdotais ``\textit{Apprenticeship learning via inverse reinforcement learning}''\cite{abbeel2004apprenticeship} no Džordžijas Tehnoloģiju institūta, viens no citētākajiem rakstiem par šo tēmu (lai arī ne pirmais), piedāvā iteratīvu algoritmu nezināmas atdeves funkcijas atjaunošanai un izmantošanai. Galvenā atkāpe no tipiska MDP formālisma ir pieņēmums, ka nezināmā atdeves funkcija $R^*$ ir formā, 
 
@@ -364,6 +364,22 @@ Tad tiek iteratīvi atkārtota procedūra, kur atrod kādu svaru vektoru $w^{i}$
 
 Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiskas $\pi^*$ aproksi-mācijas metodes (uzvedības klonēšanu). Kopā risināti divi dažādi uzdevumi. Viens ir ``\textit{gridworld}'' --- spēle, kurā aģents pārvietojas pa režģa formas vidi un dažos lauciņos ir pieejamas atdeves. Taču pārejas process ir stohastisks, tāpēc metodes, kas atdarina tikai telpiskos pārvietojumus un nemēģina atjaunot slēpto atdeves funkciju darbojas sliktāk. Otrs ir divdimensionāla spēle, kurā aģents vada automobili. Šeit tika pārbaudīts, vai var iemācīt aģentam atšķirīgus ``braukšanas stilus'' tikai ar demonstrācijām, kas arī izdevies.
 
+\subsubsection{Ģeneratīvie sāncenšu tīkli}
+
+
+\begin{figure}[b!]
+    \centering
+    \includegraphics[height=6cm,page=1]{../img/GAN.png}
+    \caption{GAN uzbūves piemērs. Augšējais tīkls --- diskriminators --- cenšas atšķirt eksperta demonstrācijas no ģeneratora radītām trajektorijām\cite{torabi2018generative}}
+\end{figure}
+
+Iedvesmojoties no inversās stimulētās mācīšanās, attīstītas arī citas metodes, kas tiešā vai netiešā veidā nodarbojas ar instruktora stratēģijas aproksimēšanu. Bieži kā trūkums IRL metodēm tiek minēta nepieciešamība katrai iteratīvi iegūtajai stratēģija no jauna veikt stimulēto apmācības procesu, lai būtu iespējams iegūt šīs metodes ģenerētas trajektorijas un līdz ar to varētu novērtēt to sasniegto stāvokļu atribūtu sadalījumus. Meklējot veidus, kā tiešā veidā optimizēt stratēģiju, lai tā sasniegtu tādus pašus novērtē-jumus kā demonstrācijas pie plašām iespējamo atdeves funkciju klasēm, izlaižot pašu šo atdeves funkciju meklēšanu, 2016. gadā publicēts ``\textit{Generative Adversarial Imitation Learning}''\cite{ho2016generative}. Tas piedāvā risināt trajektoriju atdarināšanas uzdevumu ar sāncenšu tīklu metodi, un ir bijis samērā ietekmīgs uz tālākiem pētījumiem nozarē, jo šobrīd tā jau ir visai populāra metode, un vēl salīdzinoši nesen tika uzskatīta par labāko tieši trajektoriju kopēšanas uzdevumā\cite{torabi2018generative}.
+
+
+Ģeneratīvie sāncenšu tīkli --- GAN, \textit{generative adversarial networks} --- ir neironu tīkli, kas apmācīti visai īpatnējā veidā. Tā vietā, lai optimizētu visu modeli vienam mērķim, tiek izdalīti divi elementi --- ģenerators un diskriminators --- ar pretējiem uzdevumiem. Diskriminators ir klasifikators, kas apmācīts atšķirt demonstrāciju kopas trajektorijas no visām pārējām. Ģenerators no sistēmas stāvokļiem vai novērojumiem ģenerē darbības tā, lai diskriminators nebūtu spējīgs atšķirt tās no parauga. Formāli aprakstīt veidu, kā līdz šāda modeļa piemērotībai nonākts, ir sarežģīti, tāpat --- pierādīt šāda optimizācijas procesa konverģenci. Taču intuitīvi diezgan skaidrs, ka pēc sekmīgas abu modeļu apmācības būs iegūta stratēģija, kas tuvu aproksimē ievades datu sadalījumu.
+
+
+
 \subsubsection{Uzdevumu simboliska dekompozīcija}
 
 Vēl viena metode atdarināšanas spēju uzlabošanai ir telpisku kustības trajektoriju pārvēršana simbolisku, diskrētu darbību virknē. Pamatideja ir tāda, ka vieglāk iemācīties robusti izpidlīt primitīvas kustības un tad šādu primitīvo kustību secību kāda uzdevuma izpildē, nekā no neliela demonstrācija skaita iemācīties katru uzdevumu pilnībā no jauna. Šī arī nebūt nav jauna ideja --- izteikta jau 1980os un 1990os gados\cite{muench1994robot}. Jau 2002. gadā veikti pētījumi par algoritmiem, kas ļauj aproksimēt trajektorijas elementus ar autonomu, nelineāru diferenciālvienādojumu sistēmām\cite{ijspeert2002movement} un iemācīt pietiekami sarežģītas kustības --- piemēram, tenisa bumbas sišanu --- ar samērā nedaudziem piemēriem (ap 20). Ap to pašu laiku piedāvātas arī pieejas šādu primitīvu kustību kombinēšanai\cite{schaal2003computational}.
@@ -372,6 +388,12 @@ Pirms nesenā ļoti lielu neironu tīklu modeļu popularitātes uzplaukuma, šķ
 
 
 \subsection{Novērojumu atdarināšana}
+
+\subsubsection{Kinestētiskie novērojumi}
+
+\subsubsection{Video}
+
+\subsubsection{Telpas modeļi}
 
 \subsection{Adaptīvu un atdarinošu metožu kombinācija}
 

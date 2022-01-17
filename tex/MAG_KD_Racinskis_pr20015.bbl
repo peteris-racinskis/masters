@@ -800,6 +800,68 @@
       \field{pages}{1}
       \range{pages}{1}
     \endentry
+    \entry{torabi2018generative}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c30972d13f4b1691b887f92fb8f4b6f5}{%
+           family={Torabi},
+           familyi={T\bibinitperiod},
+           given={Faraz},
+           giveni={F\bibinitperiod}}}%
+        {{hash=197a0a1380b72aaacc61b387444565bc}{%
+           family={Warnell},
+           familyi={W\bibinitperiod},
+           given={Garrett},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3f42a499da2cddc0bae71b76c81f7c46}{%
+           family={Stone},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{fullhash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{bibnamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authorbibnamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authornamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authorfullhash}{57eca084a55ab45c0f580757e39c5327}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1807.06158}
+      \field{title}{Generative adversarial imitation from observation}
+      \field{year}{2018}
+    \endentry
+    \entry{ho2016generative}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2ac2ca10b22e4d13af1767e87495412f}{%
+           family={Ho},
+           familyi={H\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=160929a7e6ceecdf3f7c9a13abd5ea35}{%
+           family={Ermon},
+           familyi={E\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \strng{fullhash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \strng{bibnamehash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \strng{authorbibnamehash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \strng{authornamehash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \strng{authorfullhash}{d2c2729ff759e9862fc32bdfb994a71c}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in neural information processing systems}
+      \field{title}{Generative adversarial imitation learning}
+      \field{volume}{29}
+      \field{year}{2016}
+      \field{pages}{4565\bibrangedash 4573}
+      \range{pages}{9}
+    \endentry
     \entry{ijspeert2002movement}{inproceedings}{}
       \name{author}{3}{}{%
         {{hash=24891b832d1efe728d70caf5eb6ee0a4}{%
@@ -827,8 +889,8 @@
       \strng{authorbibnamehash}{852a0cf1c092fd12c00c4266babe2a6f}
       \strng{authornamehash}{852a0cf1c092fd12c00c4266babe2a6f}
       \strng{authorfullhash}{852a0cf1c092fd12c00c4266babe2a6f}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings 2002 IEEE International Conference on Robotics and Automation (Cat. No. 02CH37292)}
@@ -865,8 +927,8 @@
       \strng{authorbibnamehash}{c68965b87095c596a5973557c029c863}
       \strng{authornamehash}{c68965b87095c596a5973557c029c863}
       \strng{authorfullhash}{c68965b87095c596a5973557c029c863}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series B: Biological Sciences}

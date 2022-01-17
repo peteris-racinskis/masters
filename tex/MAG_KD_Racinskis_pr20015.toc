@@ -28,27 +28,35 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.1.2}Statistiskas korekcijas}{14}{subsubsection.2.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.1.3}Inversā stimulētā mācīšanās}{14}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.3}Inversā stimulētā mācīšanās (IRL)}{14}{subsubsection.2.1.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.1.4}Uzdevumu simboliska dekompozīcija}{15}{subsubsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4}Ģeneratīvie sāncenšu tīkli}{15}{subsubsection.2.1.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Novērojumu atdarināšana}{16}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.1.5}Uzdevumu simboliska dekompozīcija}{16}{subsubsection.2.1.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3}Adaptīvu un atdarinošu metožu kombinācija}{16}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.2}Novērojumu atdarināšana}{17}{subsection.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Praktiska realizācija - rīki, piemēri}{17}{section.3}%
+\contentsline {subsubsection}{\numberline {2.2.1}Kinestētiskie novērojumi}{17}{subsubsection.2.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Simulācijas vides un saskarne}{17}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Video}{17}{subsubsection.2.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Vienkāršu modeļu realizācijas individuālai izpratnei}{17}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Telpas modeļi}{17}{subsubsection.2.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1}Stimulētā mašīnmācīšanās}{17}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {2.3}Adaptīvu un atdarinošu metožu kombinācija}{17}{subsection.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}Uzvedības kopēšana}{17}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {3}Praktiska realizācija - rīki, piemēri}{18}{section.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.3}DAgger}{17}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.1}Simulācijas vides un saskarne}{18}{subsection.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Secinājumi}{18}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2}Vienkāršu modeļu realizācijas individuālai izpratnei}{18}{subsection.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{20}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.1}Stimulētā mašīnmācīšanās}{18}{subsubsection.3.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.2}Uzvedības kopēšana}{18}{subsubsection.3.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.3}DAgger}{18}{subsubsection.3.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Secinājumi}{19}{subsubsection.3.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Atsauces}{21}{subsubsection.3.2.3}%
 \contentsfinish 
