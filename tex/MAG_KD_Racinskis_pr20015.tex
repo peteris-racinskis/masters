@@ -366,7 +366,6 @@ Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiska
 
 \subsubsection{Ģeneratīvie sāncenšu tīkli}
 
-
 \begin{figure}[b!]
     \centering
     \includegraphics[height=7cm,page=1]{../img/GAN.png}
@@ -376,7 +375,7 @@ Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiska
 Iedvesmojoties no inversās stimulētās mācīšanās, attīstītas arī citas metodes, kas tiešā vai netiešā veidā nodarbojas ar instruktora stratēģijas aproksimēšanu. Bieži kā trūkums IRL metodēm tiek minēta nepieciešamība katrai iteratīvi iegūtajai stratēģija no jauna veikt stimulēto apmācības procesu, lai būtu iespējams iegūt šīs metodes ģenerētas trajektorijas un līdz ar to varētu novērtēt to sasniegto stāvokļu atribūtu sadalījumus. Meklējot veidus, kā tiešā veidā optimizēt stratēģiju, lai tā sasniegtu tādus pašus novērtē-jumus kā demonstrācijas pie plašām iespējamo atdeves funkciju klasēm, izlaižot pašu šo atdeves funkciju meklēšanu, 2016. gadā publicēts ``\textit{Generative Adversarial Imitation Learning}''\cite{ho2016generative}. Tas piedāvā risināt trajektoriju atdarināšanas uzdevumu ar sāncenšu tīklu metodi, un ir bijis samērā ietekmīgs uz tālākiem pētījumiem nozarē, jo šobrīd tā jau ir visai populāra metode, un vēl salīdzinoši nesen tika uzskatīta par labāko tieši trajektoriju kopēšanas uzdevumā\cite{torabi2018generative}.
 
 
-Ģeneratīvie sāncenšu tīkli --- GAN, \textit{generative adversarial networks} --- ir neironu tīkli, kas apmācīti visai īpatnējā veidā. Tā vietā, lai optimizētu visu modeli vienam mērķim, tiek izdalīti divi elementi --- ģenerators un diskriminators --- ar pretējiem uzdevumiem. Diskriminators ir klasifikators, kas apmācīts atšķirt demonstrāciju kopas trajektorijas no visām pārējām. Ģenerators no sistēmas stāvokļiem vai novērojumiem ģenerē darbības tā, lai diskriminators nebūtu spējīgs atšķirt tās no parauga. Formāli aprakstīt veidu, kā līdz šāda modeļa piemērotībai nonākts, ir sarežģīti, tāpat --- pierādīt šāda optimizācijas procesa konverģenci. Taču intuitīvi diezgan skaidrs, ka pēc sekmīgas abu modeļu apmācības būs iegūta stratēģija, kas tuvu aproksimē ievades datu sadalījumu.
+Ģeneratīvie sāncenšu tīkli --- GAN, \textit{generative adversarial networks} --- ir neironu tīkli, kas apmācīti visai īpatnējā veidā. Tā vietā, lai optimizētu visu modeli vienam mērķim, tiek izdalīti divi elementi --- ģenerators un diskriminators --- ar pretējiem uzdevumiem. Diskriminators ir klasifikators, kas apmācīts atšķirt demonstrāciju kopas trajektorijas vai to elementus no visām pārējām. Ģenerators no sistēmas stāvokļiem vai novērojumiem ģenerē darbības tā, lai diskriminators nebūtu spējīgs atšķirt tās no parauga. Formāli aprakstīt veidu, kā līdz šāda modeļa piemērotībai nonākts, ir sarežģīti, tāpat --- pierādīt šāda optimizācijas procesa konverģenci. Taču intuitīvi diezgan skaidrs, ka pēc sekmīgas abu modeļu apmācības būs iegūta stratēģija, kas tuvu aproksimē ievades datu sadalījumu.
 
 
 
@@ -389,13 +388,76 @@ Pirms nesenā ļoti lielu neironu tīklu modeļu popularitātes uzplaukuma, šķ
 
 \subsection{Novērojumu atdarināšana}
 
-Pieņemot, ka pastāv robustas metodes trajektoriju ģenerēšanai, paveras cita, potenciāli daudz sarežģītāka problēma. Kā jau iepriekš minēts, jebkurā praktiskā fizikāla procesa kontroles sistēmā zināmie sistēmas stāvokļa atribūti patiesībā veido novērojumu $o_t$, kas ir gaistoši niecīga daļa no 
+Pieņemot, ka pastāv robustas metodes trajektoriju ģenerēšanai, paveras cita, potenciāli daudz sarežģītāka problēma. Kā jau iepriekš minēts, jebkurā praktiskā fizikāla procesa kontroles sistēmā zināmie sistēmas momentānā stāvokļa atribūti patiesībā veido novērojumu $o_t$, kas ir gaistoši niecīga daļa no visiem iespējamiem, turklāt daudzkārt ir pieejami tikai šie te novērujumi --- datu kopā darbības $a_t$ tiešā veidā nav iekļautas, tās ir nepieciešams atjaunot. 
 
-\subsubsection{Kinestētiskie novērojumi}
+Strādājot apstākļos, kur vienkārši analītiski modeļi ar labu precizitāti var paredzēt stāvokļa atribūtus un sakarības starp tiem, šī atšķirība var nebūt īpaši svarīga --- piemē-ram, darbojoties ar robotu, kas nav sevišķi smagi noslogots un kura kontroles sistēma spēj bez lielām novirzēm atdarināt no tās prasīto kinemātiku, darboties ar novērojumiem, kuros zināmi tikai šie kinemātiskie atribūti, nav daudz sarežģītāk (varbūt pat vienkāršāk), nekā ar smalkāku situācijas aprakstu, kur pieejami arī visi dinamikas parametri. 
 
-\subsubsection{Video}
+Taču daudziem potenciāli ļoti noderīgiem lietojumiem tieši apmācībai derīgu treniņa datu kopu iegūšana no nepilnīgiem novērojumiem var būt galvenais šķērslis. Problēmas var sagādāt demonstrāciju ģenerēšana ar citādas ģeometrijas instruktoru (piemēram, cil-vēku), citu objektu sarežģītu un iepriekš nezināmu konfigurāciju modelēšana (manipulē-jamo objektu novietojums, orientācija, u.t.t.), trajektoriju automātiska iegūšana no datu kopām, kas nav tiešā veidā paredzētas šim mērķim (video ieraksti). Tāpat jāparvar zināmi izaicinājumi, lai datus varētu ģenerēt ar netiešām metodēm --- piemēram, attālinātu vadību vai virtuālās realitātes simulācijām.
 
-\subsubsection{Telpas modeļi}
+\subsubsection{Kinestētika}
+
+Pētījumos, kuru galvenā būtība ir dažādu veidu pārveidojumi ar kinemātiskiem vai dinamiskiem trajektoriju datiem, varētu teikt, ka uzsvars ir uz kinestētiskajiem mācīšanās aspektiem. Ja iepriekšējā nodaļā aplūkoto eksperimentu veicēji pārsvarā pieņēmuši, ka pieejami pareizi formatēti dati, kuros novērojums ir cieši sakarīgs ar robota vadībai svarīgiem sistēmas atribūtiem un zināmas katrā trajektorijas solī veiktās darbības, tad šajā tiek apskatīti gadījumi, kad šie dati ir kādā ziņā nepietiekami vai pārveidoti.
+
+Pirmais sarežģījums, ko varētu ieviest, ir darbību trūkums demonstrācijās. Ar to jāsastopas ļoti daudzos uzdevumos --- no nemarķētiem datiem var kā nebūt iegūt, piemēram, robota gala efektora pozīciju un rotāciju, taču nekas nav zināms par tā locītavu lenķiskajiem paātrinājumiem. Lai varētu izmantot jau zināmos atdarinošās mācīšanās algoritmus, rodas nepieciešamība uzminēt attiecīgās darbības, kas rezultē pārejā no viena stāvokļa uz nākamo.
+
+``\textit{Behavioral Cloning from Observation}''\cite{torabi2018behavioral} (2018) ir viena šāda metode. Tās mērķis ir realizēt jau aprakstīto uzvedības klonēšanas algoritmu laikrindu datiem, kuros pieejami tikai novērojumi. Lai to panāktu, tiek ieviests papildus modelis, tikai šoreiz nevis stratēģijas, bet gan paša robota (vai cita aģenta) dinamikas aproksimēšanai.
+
+Nedaudz vienkāršojot tad algoritma soļi ir sekojoši:
+
+\begin{enumerate}
+    \item doto trajektoriju kopu pārveido formā $T_{dem}=\lbrace (s_t, s_{t+1}) \rbrace$, kas ir pārejas starp stāvokļiem;
+    \item stratēģija $\pi_{\theta}$ un sistēmas dinamikas modelis $M_{\phi}(a \vert s,s')=P(a \vert s, s')$ tiek nejauši inicializēti;
+    \item ģenerē trajektorijas ar $\pi_{\theta}$, pievieno trajektoriju kopai $T=\lbrace (s_t, a_t, s_{t+1}) \rbrace$;
+    \item apmāca $M_{\phi}$ uz $T$;
+    \item trenē $\pi_{\theta}$ uz $\lbrace (s_t, \max\limits_{a}M_{\phi}(a \vert s, s'), s')\vert (s, s') \in T_{dem} \rbrace$
+    \item atkārto soļus 3-5 līdz sasniegti pieņemami rezultāti
+\end{enumerate}
+
+Redzams, ka pakāpeniski tiek iegūts dinamikas modelis, kas pareizi paredz pārejas funkcijas slēpto darbības parametru, un, tāpat kā parastajā gadījumā, tiek apmācīta atbilstoša stratēģija. Interesanti arī, ka šajā situācijā potenciāli nedaudz lielāks uzsvars ir tieši uz nākamo novērojumu laikrindā, nevis izvēlēto darbību --- pie $s$, $\pi_{\theta}$ iemācās paredzēt \textit{s' sasniegšanai labāko darbību}, nevis vienkārši atkārtot pašu darbību bez konteksta, tātad savā ziņā sistēmas dinamika un vēlamais rezultāts tiek ņemti vērā. Rezultātos autori salīdzina šo metodi ar citām, kas izmanto arī darbību datus no demonstrācijām, un konstatē, ka šis algoritms pat strādā labāk nekā tādas, ja tiek vērtēts pēc nepieciešamo demonstrācijas trajektoriju vai simulācijas iterāciju skaita.
+
+Iepriekšējā apakšnodaļā 2. attēls ir no ``\textit{Generative Adversarial Imitation from Observation}''\cite{torabi2018behavioral} (2018), kas turpina darboties tajā pašā virzienā, tikai šoreiz ar GAN modeļa palīdzību. Tā vietā, lai modelētu sistēmas dinamiku, diskriminators klasificē trajektoriju laikrindās sastopamās stāvokļu pārejas $(s, s')$ pēc tā, vai tās būtu sastopamas demonstrācijā, bet ģenerators (kas reizē ir arī stratēģija $\pi_{\theta}$) tiek trenēts, lai tā izvēlēto darbību rezultātā iegūtās stāvokļu pārejas $s=T(s,a)$ nebūtu atšķiramas no piemēriem.
+
+Cita veida problēma, kas arī prasa korekciju ieviešanu, ir atdarināšana sistēmām ar mainīgu dinamiku. Robotiem izmantojot ``\textit{lead-through}'' programmēšanas metodi, kustības tiek programmētas bez slodzes un, iespējams, neievērojot ātrumu --- zināma tikai daļēja sistēmas kinemātika. Ja var paredzēt, ka pēc tam ekspluatācijā atšķirsies robotu slogojošie spēki un griezes momenti, tad var meklēt veidus, kā šīs novirzes jau laicīgi kompensēt. ``\textit{Online Movement Adaptation based on Previous Sensor Experiences}''\cite{pastor2011online} (2011) paredz jau iepriekš aprasktīto simboliskās dekompozīcijas modeļu papildināšanu ar korekcijām reālā laikā, izmantojot atgriezenisko saiti ar gan paša robota iekšējiem devējiem, gan ārējiem sensoriem. 
+
+Pētījumos, kas nodarbojas ar simbolisko dekompozīciju, bieži vien tiek aprakstīti visai sarežģīti un tieši robotu dinamikai specifiski matemātiskie modeļi, taču vienkāršoti procesu var aprakstīt sekojoši: kustības rakstorojošie diferenciālvienādojumu modeļi tiek iegūti, robotu manuāli vai citādi pārvietojot. Tad kustība tiek veikta ar pareizu kinemā-tiku (ātrumiem, paātrinājumiem), bet bez papildu slodzes. Tiek ierakstīti sensoru novēro-jumi un veidoti kustībai atbilstoši modeļi, kas paredz šos raksturlielumus trajektorijas gaitā. Autoru vārdiem --- robots iemācās, kā kustībai vajadzētu ``justies''. Tad reāli ekspluatācijā var sekot līdzi nobīdēm no normas un ar klasiskās kontroles teorijas metodēm veikt korekcijas.
+
+Nodarbojoties ar ļoti sarežģītiem uzdevumiem --- piemēram, salikšanas procesiem --- mēģināt vadīt robotu cauri visiem iespējamiem detaļu savstarpējiem stāvokļiem var būt neiespējami. Ja var iegūt demonstrācijas kādā citā, vieglāk realizējamā veidā un izstrādāt vispārīgu metodi, kā tos atdarināt neatkarīgi no robota uzbūves, rodas iespējas automatizēt arī šādus procesus. ``\textit{Contact Skill Imitation Learning for Robot-Independent Assembly Programming}''\cite{scherzinger2019contact} (2019) realizē šādu procedūru, izmantojot divus būtiskus elementus:
+
+\begin{enumerate}
+    \item \textit{forward dynamics compliance control} --- robota vadības algoritmu, kurā tiek kontrolēti uz efektoru iedarbojošos spēku un griezes momentu vektori, nevis izpildelementu pozīcija tiešā veidā\cite{scherzinger2017forward};
+    \item reukurentos neironu tīklus laikrindas nākamā elementa paredzēšanai --- t.i., tīklus kuru ievadē parādās iepriekšējā laika soļa tā paša modeļa izvades vektors;
+\end{enumerate}
+
+Demonstrāciju iegūšanai cilvēks simulācijas vidē ar datorpeles palīdzību veic salikšanas procesu, izmantojot tikai vizuālo uztveri un intuitīvu izpratni par sadursmju dinamiku. Novērojumus veido manipulējamā objekta masas centrā reģistrēto griezes momentu un spēku vektori. Stratēģija --- rekurentais neironu tīkls --- $\pi_{\theta}$ tiek apmācīta paredzēt nākamo spēku/momentu vektoru laikrindā, un tas tiek izmantots robota kontrolei ar minēto vadības algoritmu.
+
+\subsubsection{Video, perspektīvas}
+
+Ļoti plašas iespējas demonstrāciju iegūšanai pavērtu spēja tās iegūt no video datiem un izmantot šādas ``redzes'' sistēmas arī tiešā vadības uzdevuma risināšanai. Izrādās, ka daži no jau iepriekš aplūkotajiem algoritmiem ir pietiekami vispārīgi, lai tos varētu pielāgot šim uzdevumam. Piemēram, GAN no novērojumiem\cite{torabi2018generative} ir ļoti robusts attiecībā pret ievades datu formu un saturu, ja vien tajos ir iespējams pietiekami labi atšķirt demonstrāciju no citām trajektorijām. Tāpat kā gadījumā, kad strādā ar kinemātiku aprakstošiem stāvokļiem, GAN vienkārši tiek apmācīts diskriminēt/ģenerēt trajektoriju vizuā-lās reprezentācijas, ar samērā labiem rezultātiem.
+
+
+Brīdī, kad vairs netiek izmantoti robota konfigurāciju aprakstoši novērojumi, rodas jauna problēma --- iegūtie novērojumi ir atkarīgi no izmantotās perspektīvas, kas vispārīgā gadījumā var arī nesakrist ar robota vadības algoritmu ievades datus ģenerējošo. ``\textit{Imitation from observation: Learning to imitate behaviors from raw video via context translation}''\cite{liu2018imitation} (2018) risina šo atšķirīgo kontekstu sarežģījumu un iegūtu modeli izmanto arī rezultātu uzlabošanai vispār. Pieņemot, ka trajektorijai atbilstošie novērojumi tiek iegūti no dažādām perspektīvām telpā, vispirms tiek apmācīts enkodera-dekodera tipa neironu tīkls, kas iegūst novērojumu vektoriālas reprezentācijas, ko pēc tam iespējams dekodēt par tai pašai sistēmas konfigurācijai atbilstošu novērojumu no jebkuras perspektīvas. Tas ļauj ne tikai tiešā veidā ``tulkot'' novērojumus no vienas kameras uz citu, bet arī izmantot iegūtās kodētās reprezentācijas Eiklīda distanci no demonstrāciju trajektoriju soļiem atbilstošajām kā atdeves funkciju stimulētās mašīnmācīšanās algoritmam, jo arī intuitīvi skaidrs, ka modelis, kas spēs atjaunot situācijas attēlu kādā perspektīvā, ja zināmi tikai no citas perspektīvas gūtie attēli, kaut kādā ziņā sevī ietver visus nozīmīgos konfigurācijas atribūtus.
+
+\subsubsection{Telpas modeļi, citi objekti}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm]{../img/fish.png}
+    \caption{Zivs satveršanas modeļa apmācība: a) cilvēka radīto demonstrāciju iegūšana; b) datu kopas sintētiska pavairošana; c) telpiska konvolucionālā neironu tīkla apmācība; d) veiksmīga zivs satveršana realitātē.\cite{dyrstad2018teaching}}
+\end{figure}
+
+Daudzi uzdevumi, kam tiek izmantoti roboti, sevī ietver manipulāciju ar citiem objektiem, kuru telpisko novietojumu un citus atribūtus ne viemēr viegli iegūt, un nākas paļauties uz netiešiem novērojumiem, ko sagādā, piemēram, tehniskās redzes sistēmas. Ja objekti ir paredzamā orientācijā un regulāras formas, no šīs problēmas parasti iespējams izvairīties, taču vēl joprojām daudzi pārvietošanas un pozicionēšanas procesi tiek veikti ar cilvēka roku darbu.
+
+``\textit{Teaching a robot to grasp real fish by imitation learning from a human supervisor in virtual reality}''\cite{dyrstad2018teaching} ir visnotaļ interesants un praktisks projekts, kura ietvaros izstrādāts modelis zivju satveršanas uzdevumam. Tajā robotam ir jāspēj no kastes, kurā atrodas vairākas zivis, satvert un pārvietot vienu. Tā kā zivs ir ļoti neregulāras formas objekts, turklāt slidens un padevīgs satveršanai ar robota efektoru tikai ļoti ierobežotā iespējamo kontakta konfigurāciju apakškopā, šis ir samērā ambiciozs pētījums. 
+
+Risinājuma pamatā ir trīs idejas:
+
+\begin{enumerate}
+    \item zivs pozīcijai un orientācijai piemērota satveršanas punkta un lenķa paredzēšana no ar telpisko kameru gūtiem telpiskiem punktu mākoņa datiem, izmantojot konvolucionālo neironu tīklu --- izmantojot vispārinātas metodes, kas sākumā izmantotas divdimensionāla attēlu klasifikācijai;
+    \item virtuālās realitātes vidi, kas ļauj cilvēkam viegli un dabiski ģenerēt demonstrācijas;
+    \item datu kopas sintētisku pavairošanu.
+\end{enumerate}
+
+Novērojumi gūti, cilvēkam VR vidē brīvā veidā satverot zivis dažādos veidos. Lai viennozīmīgi aprakstītu katru iespējamo satvērumu, izmantoti trīs vektori --- pozīcija (punkta), garenās ass orientācija un rotācija ap to.  Pēc tam ģenerēts liels skaits zivju izvietojuma konfigurāciju. Lai sintētiskie dati būtu lietojami, nepieciešams nodrošināt, ka satvēruma matrica tiek koriģēta atbilstoši zivs izliekumam, novietojumam un orientācijai. Katrā sagatavotajā sistēmas konfigurācijā katrai zivij sākumā piešķirti visi iespējamie satvēruma vektori, no kuriem atsijāti visi, kas kolīziju dēļ nav sasniedzami. Šie dati tad izmantoti 3-dimensionālā konvolūciju neironu tīkla apmācībai --- simulatorā ģenerēti ainai atbilstoši telpiskie attēli, modelis apmācīts kā tipisks klasifikators. Rezultātā konstatēts, ka aptuveni 74\% izdarīto satveršanas mēģinājumu bijuši sekmīgi.
 
 \subsection{Adaptīvu un atdarinošu metožu kombinācija}
 

@@ -2221,6 +2221,16 @@
     <bcf:citekey order="32">schaal2003computational</bcf:citekey>
     <bcf:citekey order="33">billard2008handbook</bcf:citekey>
     <bcf:citekey order="34">wang2020framework</bcf:citekey>
+    <bcf:citekey order="35">torabi2018behavioral</bcf:citekey>
+    <bcf:citekey order="36">torabi2018behavioral</bcf:citekey>
+    <bcf:citekey order="37">pastor2011online</bcf:citekey>
+    <bcf:citekey order="38">scherzinger2019contact</bcf:citekey>
+    <bcf:citekey order="39">scherzinger2017forward</bcf:citekey>
+    <bcf:citekey order="40">torabi2018generative</bcf:citekey>
+    <bcf:citekey order="41">liu2018imitation</bcf:citekey>
+    <bcf:citekey order="42">dyrstad2018teaching</bcf:citekey>
+    <bcf:citekey order="43">dyrstad2018teaching</bcf:citekey>
+    <bcf:citekey order="44">dyrstad2018teaching</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

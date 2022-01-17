@@ -824,6 +824,7 @@
       \strng{authorbibnamehash}{57eca084a55ab45c0f580757e39c5327}
       \strng{authornamehash}{57eca084a55ab45c0f580757e39c5327}
       \strng{authorfullhash}{57eca084a55ab45c0f580757e39c5327}
+      \field{extraname}{1}
       \field{sortinit}{2}
       \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
@@ -977,6 +978,241 @@
       \field{year}{2020}
       \field{pages}{162\bibrangedash 170}
       \range{pages}{9}
+    \endentry
+    \entry{torabi2018behavioral}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c30972d13f4b1691b887f92fb8f4b6f5}{%
+           family={Torabi},
+           familyi={T\bibinitperiod},
+           given={Faraz},
+           giveni={F\bibinitperiod}}}%
+        {{hash=197a0a1380b72aaacc61b387444565bc}{%
+           family={Warnell},
+           familyi={W\bibinitperiod},
+           given={Garrett},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3f42a499da2cddc0bae71b76c81f7c46}{%
+           family={Stone},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{fullhash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{bibnamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authorbibnamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authornamehash}{57eca084a55ab45c0f580757e39c5327}
+      \strng{authorfullhash}{57eca084a55ab45c0f580757e39c5327}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1805.01954}
+      \field{title}{Behavioral cloning from observation}
+      \field{year}{2018}
+    \endentry
+    \entry{pastor2011online}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=13776876d45ef17e44aa71cb73d7f77a}{%
+           family={Pastor},
+           familyi={P\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c0a98749aef4c780bef5785bffb7b324}{%
+           family={Righetti},
+           familyi={R\bibinitperiod},
+           given={Ludovic},
+           giveni={L\bibinitperiod}}}%
+        {{hash=310576f4477c5077725053c08ea4523b}{%
+           family={Kalakrishnan},
+           familyi={K\bibinitperiod},
+           given={Mrinal},
+           giveni={M\bibinitperiod}}}%
+        {{hash=147fd8225f25d53a449425c4559622e5}{%
+           family={Schaal},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{74c37e6fddcedd66e756d89b5e07b2ea}
+      \strng{fullhash}{bca94229102e17cb45fd39edc15eb264}
+      \strng{bibnamehash}{74c37e6fddcedd66e756d89b5e07b2ea}
+      \strng{authorbibnamehash}{74c37e6fddcedd66e756d89b5e07b2ea}
+      \strng{authornamehash}{74c37e6fddcedd66e756d89b5e07b2ea}
+      \strng{authorfullhash}{bca94229102e17cb45fd39edc15eb264}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2011 IEEE/RSJ International Conference on Intelligent Robots and Systems}
+      \field{title}{Online movement adaptation based on previous sensor experiences}
+      \field{year}{2011}
+      \field{pages}{365\bibrangedash 371}
+      \range{pages}{7}
+    \endentry
+    \entry{scherzinger2019contact}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=de81e98b2187065e1147ec4f752c9f54}{%
+           family={Scherzinger},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f01dd0f05b058e2e33033378b567aedb}{%
+           family={Roennau},
+           familyi={R\bibinitperiod},
+           given={Arne},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4f51b188bf5e37c030c926d14f424d0e}{%
+           family={Dillmann},
+           familyi={D\bibinitperiod},
+           given={R{ü}diger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{fullhash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{bibnamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authorbibnamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authornamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authorfullhash}{d9b68e42017b54573bd97b38bd5d611e}
+      \field{extraname}{1}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
+      \field{title}{Contact skill imitation learning for robot-independent assembly programming}
+      \field{year}{2019}
+      \field{pages}{4309\bibrangedash 4316}
+      \range{pages}{8}
+    \endentry
+    \entry{scherzinger2017forward}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=de81e98b2187065e1147ec4f752c9f54}{%
+           family={Scherzinger},
+           familyi={S\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f01dd0f05b058e2e33033378b567aedb}{%
+           family={Roennau},
+           familyi={R\bibinitperiod},
+           given={Arne},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4f51b188bf5e37c030c926d14f424d0e}{%
+           family={Dillmann},
+           familyi={D\bibinitperiod},
+           given={R{ü}diger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{fullhash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{bibnamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authorbibnamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authornamehash}{d9b68e42017b54573bd97b38bd5d611e}
+      \strng{authorfullhash}{d9b68e42017b54573bd97b38bd5d611e}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
+      \field{title}{Forward dynamics compliance control (FDCC): A new approach to cartesian compliance for robotic manipulators}
+      \field{year}{2017}
+      \field{pages}{4568\bibrangedash 4575}
+      \range{pages}{8}
+    \endentry
+    \entry{liu2018imitation}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=8dbb6d17d807c3708f0ea6bf371527f6}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={YuXuan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=d0792eb04b685020eafedbc871aeb84f}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e28d4ee199593959d8c29980a64f1974}{%
+           family={Abbeel},
+           familyi={A\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c9545da54b33744da25943cdf66eadac}{%
+           family={Levine},
+           familyi={L\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{5242373a2e0b9c7503d7ed17f843ec64}
+      \strng{fullhash}{ee993b8c7e982bfb0223501f25c73880}
+      \strng{bibnamehash}{5242373a2e0b9c7503d7ed17f843ec64}
+      \strng{authorbibnamehash}{5242373a2e0b9c7503d7ed17f843ec64}
+      \strng{authornamehash}{5242373a2e0b9c7503d7ed17f843ec64}
+      \strng{authorfullhash}{ee993b8c7e982bfb0223501f25c73880}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 IEEE International Conference on Robotics and Automation (ICRA)}
+      \field{title}{Imitation from observation: Learning to imitate behaviors from raw video via context translation}
+      \field{year}{2018}
+      \field{pages}{1118\bibrangedash 1125}
+      \range{pages}{8}
+    \endentry
+    \entry{dyrstad2018teaching}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=3a693fba585ff093a85a9822f6bf86eb}{%
+           family={Dyrstad},
+           familyi={D\bibinitperiod},
+           given={Jonatan\bibnamedelima S},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=1e18ebe53f3577fae815d49a902070c3}{%
+           family={{Ø}ye},
+           familyi={Ø\bibinitperiod},
+           given={Elling\bibnamedelima Ruud},
+           giveni={E\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=2815258d4c3052e66b8e2fba1d1d25e0}{%
+           family={Stahl},
+           familyi={S\bibinitperiod},
+           given={Annette},
+           giveni={A\bibinitperiod}}}%
+        {{hash=dbb4528da3546847390cfe20c2876952}{%
+           family={Mathiassen},
+           familyi={M\bibinitperiod},
+           given={John\bibnamedelima Reidar},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
+      \strng{fullhash}{334c7f1c02102c32fd2b40469c258faf}
+      \strng{bibnamehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
+      \strng{authorbibnamehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
+      \strng{authornamehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
+      \strng{authorfullhash}{334c7f1c02102c32fd2b40469c258faf}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
+      \field{title}{Teaching a robot to grasp real fish by imitation learning from a human supervisor in virtual reality}
+      \field{year}{2018}
+      \field{pages}{7185\bibrangedash 7192}
+      \range{pages}{8}
     \endentry
   \enddatalist
 \endrefsection
