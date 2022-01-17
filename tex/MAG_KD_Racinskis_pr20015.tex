@@ -367,9 +367,9 @@ Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiska
 \subsubsection{Ģeneratīvie sāncenšu tīkli}
 
 
-\begin{figure}[h!]
+\begin{figure}[b!]
     \centering
-    \includegraphics[height=8cm,page=1]{../img/GAN.png}
+    \includegraphics[height=7cm,page=1]{../img/GAN.png}
     \caption{GAN uzbūves piemērs. Augšējais tīkls --- diskriminators --- cenšas atšķirt eksperta demonstrācijas no ģeneratora radītām trajektorijām\cite{torabi2018generative}}
 \end{figure}
 
@@ -382,14 +382,14 @@ Iedvesmojoties no inversās stimulētās mācīšanās, attīstītas arī citas 
 
 \subsubsection{Uzdevumu simboliska dekompozīcija}
 
-Vēl viena metode atdarināšanas spēju uzlabošanai ir telpisku kustības trajektoriju pārvēršana simbolisku, diskrētu darbību virknē. Pamatideja ir tāda, ka vieglāk iemācīties robusti izpidlīt primitīvas kustības un tad šādu primitīvo kustību secību kāda uzdevuma izpildē, nekā no neliela demonstrācija skaita iemācīties katru uzdevumu pilnībā no jauna. Šī arī nebūt nav jauna ideja --- izteikta jau 1980os un 1990os gados\cite{muench1994robot}. Jau 2002. gadā veikti pētījumi par algoritmiem, kas ļauj aproksimēt trajektorijas elementus ar autonomu, nelineāru diferenciālvienādojumu sistēmām\cite{ijspeert2002movement} un iemācīt pietiekami sarežģītas kustības --- piemēram, tenisa bumbas sišanu --- ar samērā nedaudziem piemēriem (ap 20). Ap to pašu laiku piedāvātas arī pieejas šādu primitīvu kustību kombinēšanai\cite{schaal2003computational}.
+Vēl viena metode atdarināšanas spēju uzlabošanai ir telpisku kustības trajektoriju pārvēršana simbolisku, diskrētu darbību virknē. Pamatideja ir tāda, ka vieglāk iemācīties robusti izpidlīt primitīvas kustības un tad šādu primitīvo kustību secību kāda uzdevuma izpildē, nekā no neliela demonstrācija skaita iemācīties katru uzdevumu pilnībā no jauna. Šī arī nebūt nav jauna ideja --- izteikta jau 1980os un 1990os gados\cite{muench1994robot}. Jau 2002. gadā veikti pētījumi par algoritmiem, kas ļauj aproksimēt trajektorijas elementus ar autonomu, nelineāru diferenciālvienādojumu sistēmām\cite{ijspeert2002movement} un iemācīt pietiekami sarežģītas kustības --- piemēram, tenisa bumbas sišanu --- ar samērā nedaudziem piemēriem (ap 20). Ap to pašu laiku piedāvātas arī pieejas šādu primitīvu kustību kombinēšanai\cite{schaal2003computational}, kur mašīnmācīšanās lietojums attiecināts ne tikai uz atsevišķajiem trajektorijas primitīviem, bet arī uz katrai demonstrācijai atbilstošas to secības meklēšanu.
 
 Pirms nesenā ļoti lielu neironu tīklu modeļu popularitātes uzplaukuma, šķiet, tieši simboliskās dekompozīcijas metodes bijušas starp perspektīvākajām. Robotikas literatūrā pirms 2010. gada\cite{billard2008handbook} gari un plaši rakstīts par šādiem paņēmieniem, taču pēdējos gados šī popularitāte varētu būt sarukusi. Jebkurā gadījumā, aktīva pētniecība nozarē vēl joprojām notiek, it sevišķi pielietojumiem, kur robots tiek mācīts ar kinestētiskām metodēm. Piemēram, ``\textit{A Framework of Hybrid Force/Motion Skills Learning for Robots}'' \cite{wang2020framework}, kas publicēts 2020. gadā, šāda pieeja tiek veiksmīgi izmantota uzdevumiem, kur svarīga ne tikai telpiskā trajektorija, bet arī uz apkārtējo vidi izdarīto spēku profils (piemēram, galda tīrīšanā).
 
 
 \subsection{Novērojumu atdarināšana}
 
-Pieņemot, ka pastāv robustas metodes 
+Pieņemot, ka pastāv robustas metodes trajektoriju ģenerēšanai, paveras cita, potenciāli daudz sarežģītāka problēma. Kā jau iepriekš minēts, jebkurā praktiskā fizikāla procesa kontroles sistēmā zināmie sistēmas stāvokļa atribūti patiesībā veido novērojumu $o_t$, kas ir gaistoši niecīga daļa no 
 
 \subsubsection{Kinestētiskie novērojumi}
 
