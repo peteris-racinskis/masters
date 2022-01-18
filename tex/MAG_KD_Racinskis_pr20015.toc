@@ -42,7 +42,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.3}Telpas modeļi, citi objekti}{20}{subsubsection.2.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3}Adaptīvu un atdarinošu metožu kombinācija}{21}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.3}Atdarināšana un adaptācija}{21}{subsection.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.1}Universāls atdarinātājs}{21}{subsubsection.2.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.2}Stimulētās un atdarinošās mācīšanās apvienojums}{21}{subsubsection.2.3.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Praktiska realizācija - rīki, piemēri}{22}{section.3}%
 \defcounter {refsection}{0}\relax 
