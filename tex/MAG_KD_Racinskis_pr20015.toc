@@ -22,7 +22,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Līdzšinējie pētījumi}{11}{section.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1}Trajektoriju kopēšana}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.1}Labi definētu trajektoriju kopēšana}{11}{subsection.2.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.1.1}Vienkāršas metodes}{11}{subsubsection.2.1.1}%
 \defcounter {refsection}{0}\relax 
@@ -34,13 +34,17 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.1.5}Uzdevumu simboliska dekompozīcija}{16}{subsubsection.2.1.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2}Novērojumu atdarināšana}{17}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}Novērojumu iegūšana, papildināšana, vispārināšana}{17}{subsection.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1}Kinestētika}{17}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1}Nezināmas darbības}{17}{subsubsection.2.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.2}Video, perspektīvas}{19}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2}Dinamikas vispārināšana, atdarināšana}{18}{subsubsection.2.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.3}Telpas modeļi, citi objekti}{20}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.3}Virtuālā realitāte, kinemātikas ierakstīšana}{19}{subsubsection.2.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.4}Video demonstrācijas, perspektīvu pārbīde}{19}{subsubsection.2.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.5}Datu sintēze, telpiski modeļi}{20}{subsubsection.2.2.5}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3}Atdarināšana un adaptācija}{21}{subsection.2.3}%
 \defcounter {refsection}{0}\relax 
