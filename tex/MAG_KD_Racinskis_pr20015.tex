@@ -366,14 +366,14 @@ Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiska
 
 \subsubsection{Ģeneratīvie sāncenšu tīkli}
 
-\begin{figure}[b!]
+
+Iedvesmojoties no inversās stimulētās mācīšanās, attīstītas arī citas metodes, kas tiešā vai netiešā veidā nodarbojas ar instruktora stratēģijas aproksimēšanu. Bieži kā trūkums IRL metodēm tiek minēta nepieciešamība katrai iteratīvi iegūtajai stratēģija no jauna veikt stimulēto apmācības procesu, lai būtu iespējams iegūt šīs metodes ģenerētas trajektorijas un līdz ar to varētu novērtēt to sasniegto stāvokļu atribūtu sadalījumus. Meklējot veidus, kā tiešā veidā optimizēt stratēģiju, lai tā sasniegtu tādus pašus novērtē-jumus kā demonstrācijas pie plašām iespējamo atdeves funkciju klasēm, izlaižot pašu šo atdeves funkciju meklēšanu, 2016. gadā publicēts ``\textit{Generative Adversarial Imitation Learning}''\cite{ho2016generative}. Tas piedāvā risināt trajektoriju atdarināšanas uzdevumu ar sāncenšu tīklu metodi, un ir bijis samērā ietekmīgs uz tālākiem pētījumiem nozarē, jo šobrīd tā jau ir visai populāra metode, un vēl salīdzinoši nesen tika uzskatīta par labāko tieši trajektoriju kopēšanas uzdevumā\cite{torabi2018generative}.
+
+\begin{figure}[t!]
     \centering
     \includegraphics[height=7cm,page=1]{../img/GAN.png}
     \caption{GAN uzbūves piemērs. Augšējais tīkls --- diskriminators --- cenšas atšķirt eksperta demonstrācijas no ģeneratora radītām trajektorijām\cite{torabi2018generative}}
 \end{figure}
-
-Iedvesmojoties no inversās stimulētās mācīšanās, attīstītas arī citas metodes, kas tiešā vai netiešā veidā nodarbojas ar instruktora stratēģijas aproksimēšanu. Bieži kā trūkums IRL metodēm tiek minēta nepieciešamība katrai iteratīvi iegūtajai stratēģija no jauna veikt stimulēto apmācības procesu, lai būtu iespējams iegūt šīs metodes ģenerētas trajektorijas un līdz ar to varētu novērtēt to sasniegto stāvokļu atribūtu sadalījumus. Meklējot veidus, kā tiešā veidā optimizēt stratēģiju, lai tā sasniegtu tādus pašus novērtē-jumus kā demonstrācijas pie plašām iespējamo atdeves funkciju klasēm, izlaižot pašu šo atdeves funkciju meklēšanu, 2016. gadā publicēts ``\textit{Generative Adversarial Imitation Learning}''\cite{ho2016generative}. Tas piedāvā risināt trajektoriju atdarināšanas uzdevumu ar sāncenšu tīklu metodi, un ir bijis samērā ietekmīgs uz tālākiem pētījumiem nozarē, jo šobrīd tā jau ir visai populāra metode, un vēl salīdzinoši nesen tika uzskatīta par labāko tieši trajektoriju kopēšanas uzdevumā\cite{torabi2018generative}.
-
 
 Ģeneratīvie sāncenšu tīkli --- GAN, \textit{generative adversarial networks} --- ir neironu tīkli, kas apmācīti visai īpatnējā veidā. Tā vietā, lai optimizētu visu modeli vienam mērķim, tiek izdalīti divi elementi --- ģenerators un diskriminators --- ar pretējiem uzdevumiem. Diskriminators ir klasifikators, kas apmācīts atšķirt demonstrāciju kopas trajektorijas vai to elementus no visām pārējām. Ģenerators no sistēmas stāvokļiem vai novērojumiem ģenerē darbības tā, lai diskriminators nebūtu spējīgs atšķirt tās no parauga. Formāli aprakstīt veidu, kā līdz šāda modeļa piemērotībai nonākts, ir sarežģīti, tāpat --- pierādīt šāda optimizācijas procesa konverģenci. Taču intuitīvi diezgan skaidrs, ka pēc sekmīgas abu modeļu apmācības būs iegūta stratēģija, kas tuvu aproksimē ievades datu sadalījumu.
 
@@ -386,7 +386,7 @@ Vēl viena metode atdarināšanas spēju uzlabošanai ir telpisku kustības traj
 Pirms nesenā ļoti lielu neironu tīklu modeļu popularitātes uzplaukuma, šķiet, tieši simboliskās dekompozīcijas metodes bijušas starp perspektīvākajām. Robotikas literatūrā pirms 2010. gada\cite{billard2008handbook} gari un plaši rakstīts par šādiem paņēmieniem, taču pēdējos gados šī popularitāte varētu būt sarukusi. Jebkurā gadījumā, aktīva pētniecība nozarē vēl joprojām notiek, it sevišķi pielietojumiem, kur robots tiek mācīts ar kinestētiskām metodēm. Piemēram, ``\textit{A Framework of Hybrid Force/Motion Skills Learning for Robots}'' \cite{wang2020framework}, kas publicēts 2020. gadā, šāda pieeja tiek veiksmīgi izmantota uzdevumiem, kur svarīga ne tikai telpiskā trajektorija, bet arī uz apkārtējo vidi izdarīto spēku profils (piemēram, galda tīrīšanā).
 
 
-\subsection{Novērojumu iegūšana, papildināšana, vispārināšana}
+\subsection{Novērojumu iegūšana, interpretācija, papildināšana}
 
 Pieņemot, ka pastāv robustas metodes trajektoriju ģenerēšanai, paveras cita, potenciāli daudz sarežģītāka problēma. Kā jau iepriekš minēts, jebkurā praktiskā fizikāla procesa kontroles sistēmā zināmie sistēmas momentānā stāvokļa atribūti patiesībā veido novērojumu $o_t$, kas ir gaistoši niecīga daļa no visiem iespējamiem, turklāt daudzkārt ir pieejami tikai šie te novērujumi --- datu kopā darbības $a_t$ tiešā veidā nav iekļautas, tās ir nepieciešams atjaunot. 
 
@@ -465,15 +465,67 @@ Risinājuma pamatā ir trīs idejas:
 
 Novērojumi gūti, cilvēkam VR vidē brīvā veidā satverot zivis dažādos veidos. Lai viennozīmīgi aprakstītu katru iespējamo satvērumu, izmantoti trīs vektori --- pozīcija (punkta), garenās ass orientācija un rotācija ap to.  Pēc tam ģenerēts liels skaits zivju izvietojuma konfigurāciju. Lai sintētiskie dati būtu lietojami, nepieciešams nodrošināt, ka satvēruma matrica tiek koriģēta atbilstoši zivs izliekumam, novietojumam un orientācijai. Katrā sagatavotajā sistēmas konfigurācijā katrai zivij sākumā piešķirti visi iespējamie satvēruma vektori, no kuriem atsijāti visi, kas kolīziju dēļ nav sasniedzami. Šie dati tad izmantoti 3-dimensionālā konvolūciju neironu tīkla apmācībai --- simulatorā ģenerēti ainai atbilstoši telpiskie attēli, modelis apmācīts kā tipisks klasifikators. Rezultātā konstatēts, ka aptuveni 74\% izdarīto satveršanas mēģinājumu bijuši sekmīgi.
 
-\subsection{Atdarināšana un adaptācija}
+\subsection{Atdarināšana un adaptācija, vispārināšana}
 
-\subsubsection{Universāls atdarinātājs}
+Ja pieejamas demonstrācijas no eksperta, to atdarināšana tiešā veidā varbūt ir pirmais solis noderīgu stratēģiju iegūšanā, taču nebūt ne vienīgais, ko iespējams darīt. Līdz šim aplūkotas metodes, kas izrāda zināmu adaptācijas pakāpi, lai precīzāk un robustāk imitētu paraugus, taču vienmēr izdarīts pieņēmums, ka instruktors kādā ziņā optimāli izpildījis uzdevumu. Turklāt visos gadījumos, lai apmācītu sistēmu izpildīt jaunu uzdevumu, nepieciešams veikt intensīvu treniņu ar cilvēka starpniecību. 
+
+Šajā apakšnodaļā aprakstīti pētījumi, kuros meklēti veidi, kā apvienot atdarināšanu ar adaptāciju, lai vispārinātu demonstrācijās ietverto informāciju, atvieglotu jaunu uzdevumu programmēšanas procesu vai pārspētu instruktoru sasniegto rezultātu kvalitātē. Lai gan mēģinājumi darboties šajā jomā nav nekas jauns --- var atrast senākus pētījumus, kuros, piemēram, izmantotas sarežģītas un tieši robotikas mērķiem specifiskas simboliskās dekompozīcijas metodes\cite{pastor2011skill} --- uzsvars šeit tiek likts uz nesenākām un vispārīgākām metodēm, kas attīstītas jau pašreizējā neironu tīklu uzplaukuma periodā.
+
+\subsubsection{Neoptimālu demonstrāciju uzlabošana}
+
+Varētu sacīt, ka jau pati atdarinošās mācīšanās pamatnostādne --- apgūt stratēģiju problēmas risināšanai, pēc iespējas tuvāk sekojot kādai demonstrāciju kopai --- sevī ietver pieņēmumu par demonstrācijas optimalitāti. Taču izrādās, ka iespējams pašu treniņa datu kopu izmantot, lai gūtu informāciju par to, ko instruktors patiesi vēlējies sasniegt, un attiecīgi optimizēt modeli šī slēptā mērķa sasniegšanai.
+
+``\textit{Extrapolating beyond suboptimal demonstrations via inverse reinforcement learning from observations}''\cite{brown2019extrapolating} (2019) izmanto jau iepriekš aprakstīto inversās stimulētās mācīšanās algoritmu saimi par pamatu jaunai metodei. Tā vietā, lai atrastu atalgojuma funkciju, kas pamato demonstrāciju kopas trajektorijas $\tau$, tiek meklēta tāda, kas skaidro to \textit{sakārtojumu}. Tāpēc nepieciešāms datu kopu papildināt ar kārtojumu $\prec$, lai
+
+\begin{equation}
+    \tau_i \prec \tau_j \Rightarrow \sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)
+\end{equation}
+
+Protams, kārtojums var arī nebūt ideāls --- trajektoriju vērtējums var būt subjektīvs vai trokšņains, ja nav zināma īstā atalgojuma funkcija, tāpēc jārēķinās ar kļūdainu pāru attiecību pastāvēšanas iespējamību ar kļūdas varbūtību $\epsilon$
+
+\begin{equation}
+    \exists \epsilon > 0 : \tau_i \prec \tau_j \Rightarrow P\left(\sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)\right) \geq 1 - \epsilon
+\end{equation}
+
+Ja kārtojums ir pieejams, radoši nosauktais \textit{Trajectory-ranked Reward EXtrapolation} jeb T-REX algoritms darbojas divos soļos:
+
+\begin{enumerate}
+    \item izmantojot demonstrāciju datus, tiek apmācīta nezināmās atalgojuma funkcijas $R(s)$ aproksimācija $r_{\phi}(s)$ --- parametrisks modelis, konkrēti neironu tīkls;
+    \item tāpat kā IRL gadījumā, rekonstruētā atalgojuma funkcija tiek izmantota, lai apmā-cītu stratēģiju $\pi_{\theta}$ ar stimulētās mašīnmācīšanās metodēm.
+\end{enumerate}
+
+Eksperimentāli pārbaudīts, ka piemēros, kur zināmas demonstrācijām atbilstošās īstās atalgojuma funkcijas un kļūdas varbūtība saglabājas zem 15\%, rekonstruētā atalgojuma funkcija $r_{\phi}$ daudzos gadījumos labi aproksimē īsto. Turklāt, ja izmantotās demonstrācijas nav optimālas, iegūtā stratēģija $\pi_{\theta}$ tās pārspēj.
+
+\subsubsection{Demonstrācija --- sākumpunkts apmācību procesam}
+
+Atšķirībā no IRL un augstāk aprakstītā T-REX, ir iespējams uz atdarinošās un stimulētās mācīšanās kombināciju skatīties arī no otras puses --- nevis izmantot stimulētās metodes, lai realizētu atdarināšanu, bet gan izmantot demonstrācijas, lai uzlabotu parasto stimulētās mašīnmācīšanās procesu ar zināmu atalgojuma funkciju.
+
+``\textit{Deep Q-learning from demonstrations}''\cite{hester2018deep} (2018) piedāvā vispārīgu metodi stimu-lētās mācīšanās procesa inicializācijai ar demonstrāciju datu kopas palīdzību. Šādu pieeju motivē viens no lielākajiem klupšanas akmeņiem RL algoritmu apmācībā --- ja atalgojuma funkcijas nenulles vērtības konfigurāciju telpā ir stipri retinātas, kā tas ļoti bieži ir arī dažādos robotikas uzdevumos, tad, praktiski apmācot stratēģiju izpildīt tai uzdoto uzdevumu, nepieciešams ļoti liels skaits treniņa soļu --- lai šo telpu apstaigātu, atrastu vēlamos rezultātus un optimizētu trajektoriju caur tai.
+
+Q-mācīšanās gadījumā stratēģiju var uzdot formā $\pi^{\epsilon Q_{\theta}}$, kur
+
+\begin{equation}
+    T(s,a) = P(s') \rightarrow Q_{\theta}(s,a) \sim \mathbb{E}[v(s')] 
+\end{equation}
+
+jeb modelis $Q_{\theta}$ aproksimē kopējā atalgojuma sadalījumu pār iespējamām darbībām (jeb nākamo stāvokļu vērtības), un attiecīgi izvēlas vienu pēc ``$\epsilon$-alkatīgas'' stratēģijas
+
+\begin{equation}
+    a = \operatorname*{argmax}_a Q(s,a) \text{ ar varbūtību } 1-\epsilon; \text{ nejauši izvēlēta citādi}
+\end{equation}
+
+Demonstrācijas tad tiek izmantotas, lai apmācītu $Q_{\theta}$ vēl pirms notiek jebkāda modeļa mijiedarbība ar vidi, un attiecīgi tas jau uzreiz darbojas daudz kvalitatīvāk nekā nejauši inicializēts modelis. Rezultāti liecina, ka jau sākotnējās iterācijās šāds algoritms var darboties visai labi, kas paver iespējas to izmantot situācijās, kad nav iespējams veikt apmācību simulācijas vidē, bet ir pieejami demonstrāciju dati. Robotikas kontekstā tas nozīmē, ka, ja jāveic apmācība uz fiziska robota, modeļa sagatavošana ar atdarināšanu varētu būt visai noderīgs paņēmiens.
+
+
+\subsubsection{Tūlītēja trajektoriju atdarināšana}
 
 Daudzas līdz šim aplūkotās atdarinošās metodes darbojas ar pieņēmumu, ka mērķis ir no demonstrāciju datu kopas iegūt modeli, kas pēc apmācības spēj izpildīt vienu uzdevumu, un attiecīgi treniņa algoritms neparedz iespēju bez papildus iterācijām atdarināt iepriekš neredzētas demonstrācijas --- tipiski pieejams tikai pašreizējais sistēmas stāvoklis ievadē un vēlamā darbība izvadē.
 
 Salīdzinot ar bioloģiskām sistēmām, uzreiz ir skaidrs, ka šādi procesi nekad nespēs izdarīt cilvēkam šķietami pašsaprotamo --- novērot darbību un uzreiz to atkārtot bez liela skaita treniņa iterāciju. Lai būtu iespējams sasniegt šādu rezultātu, ir nepieciešams nevis modelis, kas ar paraugiem ticis optimizēts vienas stratēģijas atdarināšanai, bet gan tāds, kas no jebkāda parauga uzreiz ir spējīgs ekstrapolēt darbību secību. 
 
-\subsubsection{Stimulētās un atdarinošās mācīšanās apvienojums}
+``\textit{One-Shot Imitation Learning}''\cite{duan2017one} (2017)
+
+\subsubsection{Nestrukturētas demonstrācijas, galamērķi}
 
 \newpage
 \section{Praktiska realizācija - rīki, piemēri}
