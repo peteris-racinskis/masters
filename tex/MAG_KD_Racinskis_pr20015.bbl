@@ -1389,6 +1389,91 @@
       \field{title}{One-shot imitation learning}
       \field{year}{2017}
     \endentry
+    \entry{lynch2020learning}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=fd8a32b9a7830e0ffbd3fd2e47f9fc72}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Corey},
+           giveni={C\bibinitperiod}}}%
+        {{hash=a596e87516209bff95137e835d0d4072}{%
+           family={Khansari},
+           familyi={K\bibinitperiod},
+           given={Mohi},
+           giveni={M\bibinitperiod}}}%
+        {{hash=983a85de139e78f8c8e34fa633f08b8c}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Ted},
+           giveni={T\bibinitperiod}}}%
+        {{hash=bbba0ccb50436105a4134d24509b62d7}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Vikash},
+           giveni={V\bibinitperiod}}}%
+        {{hash=1c2f6883697f94d0cef71dd45e305cc6}{%
+           family={Tompson},
+           familyi={T\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c9545da54b33744da25943cdf66eadac}{%
+           family={Levine},
+           familyi={L\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+        {{hash=15f5333df96deaf51c72d065bded37d8}{%
+           family={Sermanet},
+           familyi={S\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {PMLR}%
+      }
+      \strng{namehash}{6bc332dfe03251316155e9c80278a3e0}
+      \strng{fullhash}{1d761f0abf5128020e9abc9993d69c79}
+      \strng{bibnamehash}{6bc332dfe03251316155e9c80278a3e0}
+      \strng{authorbibnamehash}{6bc332dfe03251316155e9c80278a3e0}
+      \strng{authornamehash}{6bc332dfe03251316155e9c80278a3e0}
+      \strng{authorfullhash}{1d761f0abf5128020e9abc9993d69c79}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Conference on Robot Learning}
+      \field{title}{Learning latent plans from play}
+      \field{year}{2020}
+      \field{pages}{1113\bibrangedash 1132}
+      \range{pages}{20}
+    \endentry
+    \entry{lynch2021language}{article}{}
+      \name{author}{2}{}{%
+        {{hash=fd8a32b9a7830e0ffbd3fd2e47f9fc72}{%
+           family={Lynch},
+           familyi={L\bibinitperiod},
+           given={Corey},
+           giveni={C\bibinitperiod}}}%
+        {{hash=15f5333df96deaf51c72d065bded37d8}{%
+           family={Sermanet},
+           familyi={S\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \strng{fullhash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \strng{bibnamehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \strng{authorbibnamehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \strng{authornamehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \strng{authorfullhash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of Robotics: Science and Systems. doi}
+      \field{title}{Language conditioned imitation learning over unstructured data}
+      \field{volume}{10}
+      \field{year}{2021}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

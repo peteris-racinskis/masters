@@ -521,30 +521,38 @@ Demonstrācijas tad tiek izmantotas, lai apmācītu $Q_{\theta}$ vēl pirms noti
 
 Daudzas līdz šim aplūkotās atdarinošās metodes darbojas ar pieņēmumu, ka mērķis ir no demonstrāciju datu kopas iegūt modeli, kas pēc apmācības spēj izpildīt vienu uzdevumu, un attiecīgi treniņa algoritms neparedz iespēju bez papildus iterācijām atdarināt iepriekš neredzētas demonstrācijas --- tipiski pieejams tikai pašreizējais sistēmas stāvoklis ievadē un vēlamā darbība izvadē.
 
-Salīdzinot ar bioloģiskām sistēmām, uzreiz ir skaidrs, ka šādi procesi nekad nespēs izdarīt cilvēkam šķietami pašsaprotamo --- novērot darbību un uzreiz to atkārtot bez liela skaita treniņa iterāciju. Lai būtu iespējams sasniegt šādu rezultātu, ir nepieciešams nevis modelis, kas ar paraugiem ticis optimizēts vienas stratēģijas atdarināšanai, bet gan tāds, kas no jebkāda parauga uzreiz ir spējīgs ekstrapolēt darbību secību. 
+Salīdzinot ar bioloģiskām sistēmām, uzreiz ir skaidrs, ka šādi procesi nekad nespēs izdarīt cilvēkam šķietami pašsaprotamo --- novērot darbību un uzreiz to atkārtot bez liela skaita treniņa iterāciju. Lai būtu iespējams sasniegt šādu rezultātu, ir nepieciešams nevis modelis, kas ar paraugiem ticis optimizēts vienas stratēģijas atdarināšanai, bet gan tāds, kas vispārina pašu atdarināšanas procesu --- ievadē sistēmas pašreizējais stāvoklis tiek apvienots ar demonstrāciju, lai iegūtu vēlamo darbību. 
 
-``\textit{One-Shot Imitation Learning}''\cite{duan2017one} (2017)
+``\textit{One-Shot Imitation Learning}''\cite{duan2017one} (2017) šādu rezultātu sasniedz, apmācot sarež-ģītas uzbūves modeli, kas apmācīts no vienas demonstrācijas paredzēt citas vispārīgā veidā --- tā ievades vektors satur veselu treniņa kopas trajektoriju. Modelis tiek apmācīts uzreiz veselai līdzīgu uzdevumu kopai, nevis tikai vienam konkrētam.
 
-\subsubsection{Nestrukturētas demonstrācijas, galamērķi}
+Konkrēti, pētītā uzdevumu saime ir kuba formas detaļu kraušana vienai uz otras ar robotu. Novērojumu ģenerēšanas un interpretēšans problēmas gan tiek apietas, jo sistēmas stāvokli raksturojošie vektori satur gan robota iekšējo konfigurāciju, gan detaļu relatīvās pozīcijas attiecībā pret robota efektoru. Tad, izmantojot konvolūciju un uzmanības mehānismus, dažādu garumu trajektoriju laikrindas tiek reduētas uz vienu sistēmas stā-vokļa vektoru, kas paredz piemērotāko darbību attiecībā pret doto demonstrāciju un momentāno sistēmas stāvokli.
+
+\subsubsection{Nestrukturētas demonstrācijas, plānu veidošana no galamērķiem}
+
+Droši vien lielākā atkāpe no ``klasiskā'' atdarinošā mašīnmācīšanās uzdevuma ir tajos pētījumos, kur tiek atmests pieņēmums, ka ir dotas diskrētas parauga trajektorijas ar zināmu uzdevumu. Tā vietā pat pārraudzītā trajektoriju marķēšanas stadija tiek automatizēta un atstāta apmācības algoritma pārziņā. Tā vietā var novērot, ka, ja mērķis ir iemācīties modeli, kas spēj vispārīgi atrast ceļu no vienas sistēmas konfigurācijas uz citu, pietiek atrast trajektorijas, kas iet caur abām. ``\textit{Learning Latent Plans from Play}''\cite{lynch2020learning} (2019) ierosina demonstrāciju strukturētas ievākšanas vietā izmantot cilvēka dabisko tendenci spēlēties ar dažādiem objektiem, lai virtuālās realitātes vidē ģenerētu demonstrāciju kopas. Sistēma šajā gadījumā ir virtuālā realitātē modelēta vide, bet pieejamie novērojumi --- robota iekšējā konfigurācija un simulēti attēli.
+
+Tiek konstatēts, ka, pilnīgi nejauši ģenerējot trajektorijas, paies visnotaļ ievērojams laiks, līdz tiks apstaigāts pietiekami plašs konfigurāciju telpas reģions, lai gūtu labas trajektorijas starp jebkuriem punktiem tajās. Atšķirībā no nejauša procesa, cilvēks jau nāk ar sagatavotu izpratni par tāda tipa uzdevumu risināšanas elementiem, kas pēc tam varētu būt interesanti citiem. Brīvi pētot dažādās simulācijas vidē pieejamās iespējas, tiks dabiski izmantotas priekšzināšanas par dažādām fizikālām sakarībām starp objektiem un to mijiedarbību --- piemēram, rokturu satveršanu, lai atvērtu un aizvērtu durvis, pogu nospiešanu, objektu satveršanu un pacelšanu.
+
+Lai no šādas nestrukturētas informācijas iegūtu praktiski izmantojamas stratēģijas, nepieciešams papildināt stratēģijas formālismu ar mērķa jēdzienu --- ne vairs vienkārši atrodot katram stāvoklim piekārtotu $\pi(s)$, bet gan parametrizētu pēc vēlamā beigu stā-vokļa (\textit{goal}) --- $\pi(s,s_{g})$. Ja pieejamas trajektoriju laikrindas formā $s_1, s_2, ..., s_n$, nav grūti pamanīt, ka jebkura apakšvirkne veido sākuma-gala stāvokļu pāri ar visām to starpā esošajām pārejām.
+
+Tiek piedāvāti divi dažādi modeļu šabloni un apmācības algoritmi, kas spētu iegūt reālas stratēģijas no nestrukturētu datu kopas. Vienkāršojot --- ignorējot sistēmas stā-vokļa reprezentāciju kodēšanas detaļas --- pirmo var aprakstīt samērā vienkārši. Modelis $\pi_{\theta}(s,s_g)$ saņem ievadē pašreizējo un vēlamo stāvokli, un paredz nepieciešamo darbību. Kā šablons tiek izmantots rekurentais neironu tīkls, treniņa datus veido trajektorijas --- pēdējais trajektorijas stāvoklis kļūst par $s_g$, un $\pi_{\theta}$ optimizē, lai katram $(s_t, a_t, s_g)$ būtu $\pi_{\theta}(s_t, s_g) \approx a_t$. Taču pastāv problēma --- var pastāvēt dažādas trajektorijas starp jebkuriem $s, s_g$, kas draud apgrūtināt mācīšanās procesu.
+
+Otrs, sarežģītākais modelis apkaro šo parādību, modelējot plāna jēdzienu --- tiek pieņemts, ka katrai trajektorijai $\tau$ var piekārtot rīcības plānu, visiem iespējamiem rīcības plāniem pastāv vektoriālas reprezentācijas $z$, un vieglāk ir vispirms paredzēt atbilstošāko plānu, pēc tam --- piemeklēt tam viennozīmīgi piekārtotu trajektoriju. Modelis tad sastāv no trim daļām:
+
+\begin{enumerate}
+    \item plānu enkodera $q_{\phi}(z \vert \tau)$, kas izsaka trajektorijas ar matemātisko cerību un standartnovirzi vektoriem $\mu_{\phi}, \sigma_{\phi} = q_{\phi}(\tau)$;
+    \item plānu selektora $q_{\psi}(z \vert s, s_g)$, kas analoģiski paredz $\mu_{\psi}, \sigma_{\psi} = q_{\psi}(s, s_g)$ un iegūst no sadalījuma konkrētu vektoru $z$ diferencējamā veidā (pieskaitot vidējām vērtībām gadījuma lieluma reizinājumu ar standartnovirzi);
+    \item dekodera $\pi_{\theta}(z, s, s_g)$, kas rekonstruē nepieciešamo darbību no plāna reprezentācijas, galamērķa un sistēmas momentānā stāvokļa.
+\end{enumerate}
+
+Divi varbūtību sadalījumi $q$ nepieciešami, jo optimizācijas procesā tiek minimizēta Kulbaka-Leiblera diverģence starp tiem --- ļaujot visu trajektoriju aizstāt ar tikai diviem tās punktiem. Otrs mērķa funkcijas faktors ir kļūda darbībā $a_t$. Tā kā visi slāņi ir diferencējami, viss modelis kopā veido vienu neironu tīklu, ko kopā arī apmāca uz trajektoriju apakšvirknēm. Stratēģija ir $\pi_{\theta}(q_{\psi}(s, s_g), s, s_g)$.
+
+Tātad, lai programmētu robotu izpildīt kādu konkrētu uzdevumu, vairs nav nepieciešamas ne papildus treniņa iterācijas, ne demonstrācijas --- pietiek norādīt vēlamo sistēmas gala stāvokli, un stratēģija to pati sasniegs. Rezultātu sekcijā secināts, ka šāda mācīšanās spēj pārspēt klasisko uzvedības klonēšanas metodi 18 dažādiem uzdevumiem --- kaut gan otra izmantojusi demonstrācijas, kas speciāli sagatavotas katram. Turklāt, pateicoties faktam, ka modelis apgūst trajektorijas no katra konfigurāciju telpas punkta uz katru citu, tā ir ļoti robusta pret nobīdēm. Visbeidzot, ar dimensiju redukcijas metodēm aplūkojot iegūto rīcības plānu reprezentācijas telpu redzams, ka pēc cilvēkam saprotama mērķa līdzīgas darbības veido klasterus arī šajās projekcijās.
+
+Interesants turpinājums šim pētījumam ir ``\textit{Language conditioned imitation learning over unstructured data}''\cite{lynch2021language}, kur iegūtais rezultāts atkal pagriezts otrādi --- ja ir metode, kas spēj pati izdalīt uzdevumus un grupēt tos pēc būtības, tad apvienojot to ar sagatavotiem marķējumiem, var iegūt stratēģiju, kas vadāma ar šādiem marķējumiem. Konkrēti, ja daļai no trajektorijām tiek \textit{a posteriori} piekārtots dabiskā valodā izteikts mērķis, var apmācīt modeli, kas sasaista rīcības plānu reprezentācijas ar frāžu reprezen-tācijām --- ļaujot vadīt robotu ar jau iepriekš apmācītu valodas enkoderu ģenerētiem kodiem. Praktiski tas izpaužas tā, ka iespējams robotam dot pavisam dabiskas komandas, turklāt neatkarīgi no izvēlētajiem sinonīmiem un pat dažādās valodās.
 
 \newpage
-\section{Praktiska realizācija - rīki, piemēri}
-
-\subsection{Simulācijas vides un saskarne}
-
-\subsection{Vienkāršu modeļu realizācijas individuālai izpratnei}
-
-\subsubsection{Stimulētā mašīnmācīšanās}
-
-\subsubsection{Uzvedības kopēšana}
-
-\subsubsection{DAgger}
-
-\newpage
-\section*{Secinājumi}
-\addcontentsline{toc}{section}{Secinājumi}
-
-
+\section{Secinājumi, rīcības plāns}
 
 
 \newpage

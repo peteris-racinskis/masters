@@ -2235,6 +2235,8 @@
     <bcf:citekey order="46">brown2019extrapolating</bcf:citekey>
     <bcf:citekey order="47">hester2018deep</bcf:citekey>
     <bcf:citekey order="48">duan2017one</bcf:citekey>
+    <bcf:citekey order="49">lynch2020learning</bcf:citekey>
+    <bcf:citekey order="50">lynch2021language</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
