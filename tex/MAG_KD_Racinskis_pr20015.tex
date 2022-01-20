@@ -294,7 +294,7 @@ Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
     \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
 \end{enumerate}
 
-Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīnmācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku --- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslē-gumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarīgākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
+Nav grūti redzēt, ka šādam uzdevumam par atalgojuma kritēriju pieņemot trāpīšanu pareizajā tvertnē, funkcijas vērtības būs ļoti retinātas, kas apgrūtina klasisko stimulētās metožu pielietojumu. Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīn-mācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku --- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslēgumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarī-gākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
 
 \newpage
 \section{Literatūras analīze}
@@ -603,8 +603,18 @@ Visbeidzot, no adaptīvo un imitējošo metožu kombinācijas virziena ļoti sva
 
 
 
-\subsection{Plāns tālākai darbībai, modelim}
+\subsection{Plāns tālākai darbībai}
 
+Apkopojot visu augstāk minēto, var ieskicēt risinājuma plānu uzdevumam. Lai apmācītu modeli, kas realizē metiena kustību ar jau satvertu neregulāras formas objektu, tiks darīts sekojošais:
+
+\begin{enumerate}
+    \item demonstrāciju ievākšana --- cilvēka veikti metieni fiziskā telpā vai VR tiks ierakstīti, iegūtas trajektorijas vai metienu raksturojoši parametri. Varētu veidot simulāciju un analītiski iegūt pareizus metiena parametrus, taču tas mazinātu rezultātu vispā-rīgumu --- taču atkarībā no pieejamā laika un resursiem, varētu gadīties, ka tā ir vienīgā praktiskā metode. Tāpat iespējams, ka katru metienu var reducēt uz objekta ātruma un lenķiskā ātruma vektoriem atlaišanas brīdī --- to, vai šādi pārveidojumi procesu atvieglos vai apgrūtinās, būs jānosaka praksē;
+    \item datu kopas papildināšana --- iegūto demonstrāciju kopu varētu sintētiski pavairot, ja tiek veikta mesto objektu trajektoriju simulācija;
+    \item atdarinoša modeļa apmācība --- jāizmanto modelis, kas parametrizēts pēc sasnie-dzamā galamērķa, lai būtu iespējams ātri un lēti pielāgot robotu darbam ar dažādi izvietotām tvertnēm;
+    \item papildus optimizācija --- ja iespējams, ar nelielas un neoptimālas demonstrāciju kopas palīdzību apmācītu modeli var ievērojami uzlabot, papildus izmantojot stimu-lētās mācīšanās metodes, jo atalgojuma funkciju šoreiz ir samērā viegli definēt (bet grūti sasniegt).
+\end{enumerate}
+
+Šobrīd grūti paredzēt, kādi rezultāti tiks sasniegti eksperimentālajā darbībā, kuri pieņēmumi būs izrādījušies patiesi, kuri --- aplami. Taču pastāv iespēja, ka tieši tā arī izskatīsies risinājums, kas veidos maģistra darba praktisko daļu.
 
 \newpage
 \printbibliography[title=Atsauces]
