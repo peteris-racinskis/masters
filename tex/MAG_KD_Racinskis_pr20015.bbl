@@ -1131,6 +1131,112 @@
       \field{pages}{4568\bibrangedash 4575}
       \range{pages}{8}
     \endentry
+    \entry{jha2017imitation}{incollection}{}
+      \name{author}{6}{}{%
+        {{hash=f049e0ce451e595653eb0cf54c0b260b}{%
+           family={Jha},
+           familyi={J\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cc6845746c0deaac4c4a0eb1de5b2552}{%
+           family={Chiddarwar},
+           familyi={C\bibinitperiod},
+           given={Shital\bibnamedelima S},
+           giveni={S\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=e1d1d054e73ff5db6a9877463441aaea}{%
+           family={Bhute},
+           familyi={B\bibinitperiod},
+           given={Rohini\bibnamedelima Y},
+           giveni={R\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=2fcb0f4acf924963d2f8615808af968d}{%
+           family={Alakshendra},
+           familyi={A\bibinitperiod},
+           given={Veer},
+           giveni={V\bibinitperiod}}}%
+        {{hash=404069fcdcafbd191c6e0743d662c5bd}{%
+           family={Nikhade},
+           familyi={N\bibinitperiod},
+           given={Gajanan},
+           giveni={G\bibinitperiod}}}%
+        {{hash=4fdffdffda4c114d442d0db30cdf72cb}{%
+           family={Khandekar},
+           familyi={K\bibinitperiod},
+           given={Priya\bibnamedelima M},
+           giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{db9ee5c08cd2353885c6da337c5a4a1e}
+      \strng{fullhash}{760863b8db4e080d78a949b5e4f30006}
+      \strng{bibnamehash}{db9ee5c08cd2353885c6da337c5a4a1e}
+      \strng{authorbibnamehash}{db9ee5c08cd2353885c6da337c5a4a1e}
+      \strng{authornamehash}{db9ee5c08cd2353885c6da337c5a4a1e}
+      \strng{authorfullhash}{760863b8db4e080d78a949b5e4f30006}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Advances in Robotics}
+      \field{title}{Imitation learning in industrial robots: a kinematics based trajectory generation framework}
+      \field{year}{2017}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+    \endentry
+    \entry{zhang2018deep}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=46162cff6d53670d664d45216993f8d7}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Tianhao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=28504316b3ac41205328b16c92d8228c}{%
+           family={McCarthy},
+           familyi={M\bibinitperiod},
+           given={Zoe},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=6c127df7b79a47bcdefd64a71a2a64f2}{%
+           family={Jow},
+           familyi={J\bibinitperiod},
+           given={Owen},
+           giveni={O\bibinitperiod}}}%
+        {{hash=77b86bdad9496e6f483f9b0caede4d39}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=c6649d02b24225ca4c9012cee6c790de}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Xi},
+           giveni={X\bibinitperiod}}}%
+        {{hash=1776deb0a86da5a75d0800ae967f4bd6}{%
+           family={Goldberg},
+           familyi={G\bibinitperiod},
+           given={Ken},
+           giveni={K\bibinitperiod}}}%
+        {{hash=e28d4ee199593959d8c29980a64f1974}{%
+           family={Abbeel},
+           familyi={A\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{8133674c6d8e234ab8eeac743a1d5d93}
+      \strng{fullhash}{04de57118672b80d1415b7508e88d261}
+      \strng{bibnamehash}{8133674c6d8e234ab8eeac743a1d5d93}
+      \strng{authorbibnamehash}{8133674c6d8e234ab8eeac743a1d5d93}
+      \strng{authornamehash}{8133674c6d8e234ab8eeac743a1d5d93}
+      \strng{authorfullhash}{04de57118672b80d1415b7508e88d261}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 IEEE International Conference on Robotics and Automation (ICRA)}
+      \field{title}{Deep imitation learning for complex manipulation tasks from virtual reality teleoperation}
+      \field{year}{2018}
+      \field{pages}{5628\bibrangedash 5635}
+      \range{pages}{8}
+    \endentry
     \entry{liu2018imitation}{inproceedings}{}
       \name{author}{4}{}{%
         {{hash=8dbb6d17d807c3708f0ea6bf371527f6}{%
@@ -1381,8 +1487,8 @@
       \strng{authorbibnamehash}{d584fc2671079e392b34b5f325b0d7d1}
       \strng{authornamehash}{d584fc2671079e392b34b5f325b0d7d1}
       \strng{authorfullhash}{d05c26f997f3a9d5e9a3386e5b433103}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1703.07326}
@@ -1436,8 +1542,8 @@
       \strng{authorbibnamehash}{6bc332dfe03251316155e9c80278a3e0}
       \strng{authornamehash}{6bc332dfe03251316155e9c80278a3e0}
       \strng{authorfullhash}{1d761f0abf5128020e9abc9993d69c79}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Conference on Robot Learning}
