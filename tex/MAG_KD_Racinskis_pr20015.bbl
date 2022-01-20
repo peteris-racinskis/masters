@@ -301,35 +301,97 @@
       \field{volume}{1}
       \field{year}{2004}
     \endentry
-    \entry{enc_stim}{online}{}
+    \entry{popsci}{online}{}
       \name{author}{1}{}{%
-        {{hash=7626336e56eee97c3f561928fa783ee4}{%
-           family={Grundspeņķis},
-           familyi={G\bibinitperiod},
-           given={J.},
-           giveni={J\bibinitperiod}}}%
+        {{hash=131603147cc5c30efc6d759d493542db}{%
+           family={Crowe},
+           familyi={C\bibinitperiod},
+           given={Steve},
+           giveni={S\bibinitperiod}}}%
       }
-      \strng{namehash}{7626336e56eee97c3f561928fa783ee4}
-      \strng{fullhash}{7626336e56eee97c3f561928fa783ee4}
-      \strng{bibnamehash}{7626336e56eee97c3f561928fa783ee4}
-      \strng{authorbibnamehash}{7626336e56eee97c3f561928fa783ee4}
-      \strng{authornamehash}{7626336e56eee97c3f561928fa783ee4}
-      \strng{authorfullhash}{7626336e56eee97c3f561928fa783ee4}
+      \strng{namehash}{131603147cc5c30efc6d759d493542db}
+      \strng{fullhash}{131603147cc5c30efc6d759d493542db}
+      \strng{bibnamehash}{131603147cc5c30efc6d759d493542db}
+      \strng{authorbibnamehash}{131603147cc5c30efc6d759d493542db}
+      \strng{authornamehash}{131603147cc5c30efc6d759d493542db}
+      \strng{authorfullhash}{131603147cc5c30efc6d759d493542db}
       \field{sortinit}{6}
       \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Nacionālā enciklopēdija - mākslīgais intelekts}
-      \field{urlday}{14}
+      \field{title}{10 Biggest Challenges in Robotics}
+      \field{urlday}{20}
       \field{urlmonth}{1}
       \field{urlyear}{2022}
-      \field{year}{2021}
+      \field{year}{2018}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://enciklopedija.lv/skirklis/24447-m%C4%81ksl%C4%ABgais-intelekts
+      \verb https://www.therobotreport.com/10-biggest-challenges-in-robotics/
       \endverb
       \verb{url}
-      \verb https://enciklopedija.lv/skirklis/24447-m%C4%81ksl%C4%ABgais-intelekts
+      \verb https://www.therobotreport.com/10-biggest-challenges-in-robotics/
+      \endverb
+    \endentry
+    \entry{enc_stim}{online}{}
+      \name{author}{1}{}{%
+        {{hash=eef1e50c27feed6ce7c73ba532c06b64}{%
+           family={protokoli},
+           familyi={p\bibinitperiod},
+           given={LZA\bibnamedelimb TK\bibnamedelima ITTEA},
+           giveni={L\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \strng{fullhash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \strng{bibnamehash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \strng{authorbibnamehash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \strng{authornamehash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \strng{authorfullhash}{eef1e50c27feed6ce7c73ba532c06b64}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{reinforcement learning}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://termini.gov.lv/kolekcijas/97/skirklis/454193
+      \endverb
+      \verb{url}
+      \verb https://termini.gov.lv/kolekcijas/97/skirklis/454193
+      \endverb
+    \endentry
+    \entry{GAN}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e31cc5326f947926c7e4a61f2d74bf22}{%
+           family={Blumberga},
+           familyi={B\bibinitperiod},
+           given={Liana},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \strng{fullhash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \strng{bibnamehash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \strng{authorbibnamehash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \strng{authornamehash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \strng{authorfullhash}{e31cc5326f947926c7e4a61f2d74bf22}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{ĢENERATĪVO PRETINIEKU TĪKLU TEORĒTISKA IZPĒTE (kursa darba konferences stenda plakāts)}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.df.lu.lv/fileadmin/user_upload/LU.LV/Apaksvietnes/Fakultates/www.df.lu.lv/Studijas/Magistrantura/Konferences_stenda_referati/2019/Blumberga_Liana.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.df.lu.lv/fileadmin/user_upload/LU.LV/Apaksvietnes/Fakultates/www.df.lu.lv/Studijas/Magistrantura/Konferences_stenda_referati/2019/Blumberga_Liana.pdf
       \endverb
     \endentry
     \entry{notation}{online}{}
@@ -348,8 +410,8 @@
       \strng{authorbibnamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authornamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authorfullhash}{482952eb401d9a72aac275223c4e997d}
-      \field{sortinit}{7}
-      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{sortinit}{9}
+      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Suggested Notation for Machine Learning}
@@ -1083,8 +1145,8 @@
       \strng{authornamehash}{d9b68e42017b54573bd97b38bd5d611e}
       \strng{authorfullhash}{d9b68e42017b54573bd97b38bd5d611e}
       \field{extraname}{1}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
@@ -1121,8 +1183,8 @@
       \strng{authornamehash}{d9b68e42017b54573bd97b38bd5d611e}
       \strng{authorfullhash}{d9b68e42017b54573bd97b38bd5d611e}
       \field{extraname}{2}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
@@ -1430,8 +1492,8 @@
       \strng{authorbibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
       \strng{authornamehash}{d821956ab7afff2b47d4509f11b4b3f8}
       \strng{authorfullhash}{5b8778a5eafbff54b42bef37c0b6b756}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Thirty-second AAAI conference on artificial intelligence}

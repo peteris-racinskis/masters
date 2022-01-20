@@ -9,6 +9,7 @@
 \usepackage{titlesec}
 \usepackage{titletoc}
 \usepackage[sorting=none]{biblatex}
+\usepackage{xurl}
 \usepackage{enumitem}
 \usepackage{indentfirst}
 \numberwithin{equation}{section} % number equations by section
@@ -48,9 +49,9 @@
 
 \section{Ievads}
 
-Sacīt, ka mašīnmācīšanās šobrīd ir ļoti aktuāla pētniecības nozare, būtu maigi. Pēdējās desmitgades laikā tieši šis izpētes lauks ir eksplodējis popularitātē kā neviens cits, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen\cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācī-šanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos\cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to satu-ru\cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem\cite{silver2016mastering}.
+Sacīt, ka mašīnmācīšanās šobrīd ir ļoti aktuāla pētniecības nozare, būtu maigi. Pēdējās desmitgades laikā tieši šis izpētes lauks ir eksplodējis popularitātē kā neviens cits, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen \cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācī-šanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos \cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to satu-ru \cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem \cite{silver2016mastering}.
 
-Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un robotiku. Tautas iztēlē termins ``robots'' drīzāk droši vien iezīmēs zinātniskās fantastikas radītos personāžus --- mehāniskas būtnes, kas spēj patstāvīgi darboties neierobežotā vidē un risināt sarežģītus uzdevumus --- nevis pieticīgākus, reāli pastāvošus un ražotnēs rodamus industriālos robotus. Un šī pati zinātniskā fantastika radījusi arī nesaraujamu saiti starp robotiem un mākslīgo intelektu\cite{asimov2004robot} --- diskusijas par mākslīgo intelektu bieži plūstoši pāriet diskusijās par ar šādu intelektu aprīkotiem robotiem, un šo robotu neizbēgami kareivīgajām ambīcijām attiecībā pret cilvēci. Protams, zinātne ne vienmēr seko populār-zinātniskās iedomas lidojumam, taču šāda saikne ir visnotaļ pamatota --- spēja mācīties no paraugiem vai patstāvīgi un pielāgoties savai apkārtnei ir ārkārtīgi noderīga, jo daudzi uzdevumi, kuru risināšanai varētu pielietot robotus, ir sarežģīti nevis to fizikālajā izpildē, bet tieši vadības uzdevuma formulēšanā un realizācijā.
+Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un robotiku. Tautas iztēlē termins ``robots'' drīzāk droši vien iezīmēs zinātniskās fantastikas radītos personāžus --- mehāniskas būtnes, kas spēj patstāvīgi darboties neierobežotā vidē un risināt sarežģītus uzdevumus --- nevis pieticīgākus, reāli pastāvošus un ražotnēs rodamus industriālos robotus. Un šī pati zinātniskā fantastika radījusi arī nesaraujamu saiti starp robotiem un mākslīgo intelektu \cite{asimov2004robot} --- diskusijas par mākslīgo intelektu bieži plūstoši pāriet diskusijās par ar šādu intelektu aprīkotiem robotiem, un šo robotu neizbēgami kareivīgajām ambīcijām attiecībā pret cilvēci. Protams, zinātne ne vienmēr seko populār-zinātniskās iedomas lidojumam, taču šāda saikne ir visnotaļ pamatota --- spēja mācīties no paraugiem vai patstāvīgi un pielāgoties savai apkārtnei ir ārkārtīgi noderīga, jo daudzi uzdevumi, kuru risināšanai varētu pielietot robotus, ir sarežģīti nevis to fizikālajā izpildē, bet tieši vadības uzdevuma formulēšanā un realizācijā --- lai to redzētu pietiek vien aplūkot kādu nejauši izvēlētu sarakstu ar robotikā aktuālām problēmām \cite{popsci}.
 
 Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņēmieniem, ar kuriem tiek mēģināts risināt šādas sarežģītas vadības problēmas. Lai gan pamatu pamatos nevar apgalvot, ka tā ir tikai robotikai piemērota metožu saime, lielākā daļa izpētes virzīta tieši šajā virzienā --- problēmas tiek formulētas kā fizikālu (vai nosacīti fizikālu --- virtuālās vidēs simulētu) procesu kontroles uzdevumi, un risinājumi tiek rasti no pēc iespējas mazāka skaita veiksmīgas darbības piemēru. Mašīnmācīšanās nozarē bioloģiskas analoģijas un iedvesma nav nekāds retums, un savā ziņā šāda mācīšanās  atspoguļo vienu no izplatītiem paņēmieniem, kā cilvēki vai sabiedriski dzīvnieki nodod prasmes viens otram - demonstrējot. Nevar nepieminēt, ka izpēte šajā jomā bieži aizņemas pieejas un iespaidojas no rezultātiem, kas gūti ar stimulēto mašīnmācīšanos (\textit{reinforcement learning}) - savā ziņā vispārīgu, pašmācībai un treniņam analoģisku paņēmienu. Arī abu metožu apvienojums ir ideja, kas pavīd visai regulāri --- cerībā, ka, atdarinot ekspertus, var ātrāk nonākt pie derīgām stratēģijām, kas var kalpot kā sākumpunkts dziļākai pašmācībai; vai arī izmantot šādu stimulēto metodi, lai precīzāk imitētu treniņa datus.
 
@@ -61,7 +62,7 @@ Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņ
 
 Arī šis gadījums nav nekāds izņēmums. Sākumā izvēlēta ļoti aptuvena tēma, balstoties uz Elektronikas un datorzinātņu institūta ekspertu ieteikumiem, un pirmajā darba semestrī lielākoties veikta attiecīgās nozares apguve pašmācības ceļā. Šī nodarbe sastāvē-jusi galvenokārt no divu veidu darbībām --- zinātniskās literatūras lasīšanas un tajā aprakstīto teorētisko jēdzienu un praktisko metožu apguves ar vienkāršiem eksperimentiem personiskās izpratnes veicināšanai.
 
-Līdz ar to šīs atskaites galvenais mērķis ir sniegt ieskatu līdz šim maģistra darba gatavošans ietvaros paveiktajā un apgūtajā. Tā sastāv no trim galvenajām daļām:
+Līdz ar to šīs atskaites galvenais mērķis ir sniegt ieskatu līdz šim maģistWWra darba gatavošans ietvaros paveiktajā un apgūtajā. Tā sastāv no trim galvenajām daļām:
 \begin{enumerate}
     \item ievada, kurā īsi izklāstīti vispārīgi jēdzieni, kas nepieciešami, lai izprastu zinātnisko literatūru nozarē;
     \item pētniecisku rakstu izlases iztirzājuma un salīdzinājuma;
@@ -69,17 +70,31 @@ Līdz ar to šīs atskaites galvenais mērķis ir sniegt ieskatu līdz šim maģ
 \end{enumerate}
 
 
-\subsection{Terminoloģijas tulkojumi}
+\subsection{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}
 
 Viena no īpatnībām, ar ko ir nācies saskarties, strādājot tieši ar mašīnmācīšanās nozari, ir nepārprotamas terminoloģijas trūkums latviešu valodā. Pati zinātnes nozare, lai arī nebūt ne tik jauna kopumā, piedzīvojusi milzīgas izmaiņas un nepieredzētu uzplaukumu pēdējās desmitgades laikā. Protams, datorzinātnes laukā pirmā un galvenā saziņas valoda ir angļu. Attiecīgi novērajami divējādi un saistīti fenomeni - publikācijas un terminoloģija, kas radītas senāk, veidojušas dziļi specifisku nišu, kas nav iedvesmojusi daudz mēģinājumu tulkot to uz citām valodām, savukārt uzplaukuma laikos vēl ir ļoti daudz materiāla, ko vienkārši neviens nav paguvis iztulkot.
 
-Patvaļīgi izvēloties tulkojumu, pastāv risks mulsināt lasītāju un sadrumstalot jau tā nelielo literatūras kopu dažādu atslēgas vārdu izvēles rezultātā. Tāpēc šeit izveidots saraksts ar potenciāli mulsinoši tulkoto terminoloģiju tās oriģinālajā formulējumā angļu valodā, izvēlētajiem tulkojumiem un īsiem pamatojumiem.  
+Patvaļīgi izvēloties tulkojumu, pastāv risks mulsināt lasītāju un sadrumstalot jau tā nelielo literatūras kopu dažādu atslēgas vārdu izvēles rezultātā. Kur vien iespējams, ieteicams izmantot oficiālā terminu datubāzē pieejamus tulkojumus, taču ne vienmēr tādi ir pieejami. Tāpēc šeit izveidots saraksts ar potenciāli mulsinoši tulkoto terminoloģiju tās oriģinālajā formulējumā angļu valodā, izvēlētajiem tulkojumiem un īsiem pamatojumiem.  
 
 \begin{enumerate}
     \item \textit{policy} --- \textbf{stratēģija}. Šis termins pamatā tiek lietots, lai aprasktītu kādu funkciju, kas novērojumus attēlo lēmumu telpā. Pirmais ieraksts tieši tāpēc, ka varētu būt strīdīgākais. Angļu valodā pastāv divi termini, \textit{policy} un \textit{politics}, kas parasti latviski tiek tulkoti vienādi --- politika --- par spīti radikāli atšķirīgām nozīmēm. Termins \textit{strategy} tiek lietots kā sinonīms pirmajam abās valodās, un arī piemērojams tieši šādām lēmumu pieņemšanas funkcijām, piemēram, spēļu teorijā.
-    \item \textit{reinforcement learning} --- \textbf{stimulētā mašīnmācīšanās}. Meklējumi tiešsaistē atklāj \cite{enc_stim}, ka šis tulkojums jau ir samērā izplatīts, taču varētu būt nezināms lasītājiem, kas ar to sastopas pirmo reizi --- pat ja zināms metodes angliskais nosaukums.
+    \item \textit{reinforcement learning} --- \textbf{stimulētā mašīnmācīšanās}. Meklējumi tiešsaistē atklāj \cite{enc_stim}, ka šis tulkojums jau ir apstiprināts standartā, taču varētu būt nezināms lasī-tājiem, kas ar to sastopas pirmo reizi --- pat ja zināms metodes angliskais nosaukums.
     \item \textit{imitation learning} --- \textbf{atdarinošā mašīnmācīšanās}. Paša autora piedāvāts tulkojums, izmantojot iepriekšējo kā piemēru, jo nav izdevies atrast alternatīvas. Latvis-kais vārds "atdarināt" izvēlēts pār internacionālismu ``imitēt'', jo to vieglāk izlocīt formā, kas neizklausās lauzīta un neveikla. Taču procesā zūd spēja viegli atrast sākotnējo vārdu svešvalodā, kas ļoti svarīga zinātniskajā vidē, kurā latviski pie-ejamo resursu ir maz.
+    \item \textit{reward function} --- \textbf{atalgojuma funkcija}. Oficiālā terminu datubāzē tulkojuma šim terminam nav. Tuvākie tulkojumi lietojumam, ar kādu šis termins parasti sastopams tekstos angļu valodā, būtu ``lietderība'' vai ``atdeve'', taču ``atalgojums'' labi ietver sevī faktu, ka šo funkciju paredzēts maksimizēt.
+    \item \textit{generative adversarial network} --- \textbf{ģeneratīvie pretinieku tīkli}. Šim terminam arī pastāv vairāki konkurējoši tulkojumi, un terminu datubāzē skaidru atbildi nevar rast. Taču ir atrodams jau 2019. gadā sagatavotais kolēģes Lianas Blumbergas kursa darba plakāts, kur šis tulkojums ir lietots \cite{GAN}, tāpēc tas pats tiks lietots arī šeit.
 \end{enumerate}
+
+Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
+
+\begin{enumerate}
+    \item RL --- stimulētā mašīnmācīšanās (\textit{Reinforcement Learning})
+    \item IRL --- inversā stimulētā mašīnmācīšanās (\textit{Inverse Reinforcement Learning})
+    \item GAN --- ģeneratīvais pretinieku tīkls (\textit{Generative Adversarial Network})
+    \item VR --- virtuālā realitāte
+    \item MDP --- Markova lēmumu process (\textit{Markov Decision Process})
+\end{enumerate}
+
+Matemātiskie apzīmējumi paskaidroti pirmajā to parādīšanās vietā tekstā, kur tas atzīts par nepieciešamu.
 
 \subsection{Tehniskās priekšzināšanas, definīcijas}
 
@@ -105,7 +120,7 @@ Iegūtā šablona funkcijas un apmācīto parametru kombinācija $\lbrace M, \th
     \forall f \forall x \exists \theta:M_{\theta}(x)\approx f(x)
 \end{equation}
 
-Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē (parasti vektoriālas) funkcijas ar skaitliskām vērtībām,
+Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē funkcijas ar $k$-dimensionālām reālām vērtībām,
 
 \begin{equation} 
     f:x \rightarrow \mathbb{R}^k
@@ -219,7 +234,7 @@ kur $S$ --- sistēmas iespējamo stāvokļu $s$ kopa; $A$ --- kontrolētajam pro
 
 Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atdeves funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$, t.i., pārejas funkcija apraksta ``vides'' (\textit{environment}) reakciju uz aģenta (modeļa, stratēģijas) darbību. Pie sākotnējo stāvokļu kopas $S_0$ un stratēģijas $\pi$ var spriest par stratēģijas inducēto stāvokļu sadalījumu $s_t \sim P(S \vert S_0, \pi)$ --- tas nosaka, kādas trajektorijas vispār ir iespējamas pie šādiem nosacījumiem. Ļoti izplatītas ir arī situācijas, kad modelis ņem vērā nevis pilno sistēmas stāvokli, bet gan t.s. novērojumu (\textit{observation}) --- $\pi_{\theta}(o)=\pi_{\theta}(g(s))$. Tā ir funkcija no kādas stāvokli raksturojošo parametru apakškopas, un bieži vien ļoti nepilnīgi šo stāvokli raksturo. 
 
-Trajektoriju, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, raksturo laikrinda (\textit{state-action}) pāru formā --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Stāvokļus tajā, protams, iespē-jams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija vai stratēģija ir atkarīga no laika soļa, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem. 
+Trajektoriju caur sistēmas stāvokļu (konfigurāciju) telpu, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, var izteikt kā laikrindu formā, kas sastāv no \textit{state-action} pāriem --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Ja šī laikrinda tiek izmantota kā paraugs treniņa procesā, to var saukt par demonstrāciju. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne viennmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija vai stratēģija ir atkarīga no laika soļa, kā arī sistēmas, kurās ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem. 
 
 \subsubsection{Stimulētā mašīnmācīšanās}
 
@@ -248,7 +263,7 @@ Atrisināt mācīšanās uzdevumu tādā gadījumā nozīmē atrast stratēģiju
 Apmācība notiek, izvēloties
 
 \begin{equation}
-    a_t = \max\limits_{a} (Q(s_t = s))
+    a_t = \operatorname*{argmax}_a Q(s_t = s, a)
 \end{equation}
 
 un sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā
@@ -297,7 +312,7 @@ Pirmais, ko varētu darīt, ir tiešā veidā ierakstīt trajektoriju un to atk�
 
 Tā kā trajektorijai jābūt ierakstītai tieši ar robotu, lai tā būtu atkārtojama bez papildus datizraces uzdevumu risināšanas, var paredzēt, ka dabiski radīsies zināma tendence dominēt viegli realizējamiem bet varbūt ne optimāliem ceļiem telpā --- vieglāk ierakstīt dažus pagrieziena punktus un ļaut programmatūrai interpolēt nekā fiziski vadīt robotu visā kustības ceļā. Pie tam var parādīties neparedzēti trūkumi, pārejot no lēnas, nenoslogotas izpildes programmēšanas procesā uz ātru un noslogotu ekspluatācijā, kas apgrūtina procesu. Faktiski sākotnējais ieraksts bieži vien kalpo par starta punktu, bet, lai nonāktu pie lietojamas programmas, nepieciešams iegūto kodu koriģēt un iteratīvi pielāgot. Lai arī principā tiek izmantota demonstrācija trajektorijas iegūšanai, procesa veikšanai tik un tā nepieciešams personāls ar robotu programmēšanas prasmēm. Jau sen atzīts\cite{muench1994robot,billard2008handbook}, ka, lai tik tiešām robotus varētu apmācīt tikai ar piemēriem, nepieciešamas metodes, kas ir robustākas pret nobīdēm no paraugu ģenerējošā procesa apstākļiem, vispārināmākas, un attiecīgi sākti pētījumi ar mašīnmācīšanās metodēm.
 
-Kad jāspēj atdarināt kas vairāk nekā viena, nemainīga trajektorija, nepieciešams atdarināt nevis pašu trajektoriju, bet gan procesu, kas tādas ģenerē --- ``eksperta'' stratēģiju. Viena no vienkāršākajām metodēm, kas bieži tiek lietots kā piemērs, taču praksē reti kad ir pielietojuma, ir uzvedības klonēšana (\textit{behavioural cloning}). Vispārīgi to definēt ir samērā vienkārši\cite{attia2018global}. Ja dots MDP un kāda eksperta stratēģija $\pi^*$, kas šo MDP optimāli risina, mērķis ir atrast maksimāli tuvu modeli $\pi_{\theta}$, kur
+Kad jāspēj atdarināt kas vairāk nekā viena, nemainīga trajektorija, nepieciešams atdarināt nevis pašu trajektoriju, bet gan procesu, kas tādas ģenerē --- ``eksperta'' jeb ``instruktora'' stratēģiju. Viena no vienkāršākajām metodēm, kas bieži tiek lietots kā piemērs, taču praksē reti kad ir pielietojuma, ir uzvedības klonēšana (\textit{behavioural cloning}). Vispārīgi to definēt ir samērā vienkārši\cite{attia2018global}. Ja dots MDP un kāda eksperta stratēģija $\pi^*$, kas šo MDP optimāli risina, mērķis ir atrast maksimāli tuvu modeli $\pi_{\theta}$, kur
 
 \begin{equation}
     \pi_{\theta}(s) \approx \pi^*(s)
@@ -340,7 +355,7 @@ Algoritma darbību var vienkāršoti aprakstīt sekojoši: pieņem, ka ir pieeja
 
 Kā jau minēts, liela daļa raksta satura veltīta tieši algoritma teorētisko īpašību pierādīšanai, taču beigās arī veikti daži eksperimenti --- divi ar personāžu vadību dator-spēļu vidē, viens ar rokraksta zīmju atpazīšanu teksta virknēs. Lai gan visos gadījumos DAgger pārspēj uzvedības klonēšanas (vienkāršas $\pi^*$ aproksimēšanas no treniņa datu kopas) rezultātus, tā lietderību stipri ierobežo instruktora interaktivitātes prasības --- praksē reti kad ir iespējams kaut kas analoģisks datorspēļu aģentu treniņam izmantotajam simulatoram, kas ar dziļu pārlasi atrod labas stratēģijas jebkuram stāvoklim.
 
-\subsubsection{Inversā stimulētā mācīšanās (IRL)}
+\subsubsection{Inversā stimulētā mācīšanās}
 
 Cits veids, kā atdarināt instruktora dotas trajektorijas, ir pieņemt, kas tā stratēģija optimizē kādu slēptu atdeves funkciju $R^*(s)$ un mēģināt to atjaunot no pieejamās informācijas. Šādā veidā ar stimulētās mašīnmācīšanās metodēm var iegūt meklēto rezultā-tu. Kā jau parasti, iespējami dažādi veidi, kā formalizēt uzdevumu un tehniski to realizēt. 2004. izdotais ``\textit{Apprenticeship learning via inverse reinforcement learning}''\cite{abbeel2004apprenticeship} no Džordžijas Tehnoloģiju institūta, viens no citētākajiem rakstiem par šo tēmu (lai arī ne pirmais), piedāvā iteratīvu algoritmu nezināmas atdeves funkcijas atjaunošanai un izmantošanai. Galvenā atkāpe no tipiska MDP formālisma ir pieņēmums, ka nezināmā atdeves funkcija $R^*$ ir formā, 
 
