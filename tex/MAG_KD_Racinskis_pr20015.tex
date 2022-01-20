@@ -92,6 +92,7 @@ Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
     \item GAN --- ģeneratīvais pretinieku tīkls (\textit{Generative Adversarial Network})
     \item VR --- virtuālā realitāte
     \item MDP --- Markova lēmumu process (\textit{Markov Decision Process})
+    \item EDI --- Elektronikas un datorzinātņu institūts
 \end{enumerate}
 
 Matemātiskie apzīmējumi paskaidroti pirmajā to parādīšanās vietā tekstā, kur tas atzīts par nepieciešamu.
@@ -282,6 +283,18 @@ Darbā ar robotiem uzdevums parasti ir vēlamas paša robota un citu vidē atrod
 
 \subsection{Motivējošais uzdevums}
 
+Nevarētu apgalvot, ka atdarinosā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā --- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme --- gan no EDI, gan autora puses --- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
+
+Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi --- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, un tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo iespējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā --- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. Protams, mēģinot manuāli programmēt katru metienu rodas virkne problēmu --- dažādi trajektoriju sākumpunkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Tāpēc analītisku risinājumu atrast varētu būt ļoti nepraktiski, un tiek apsvērts mašīnmācīšanās metožu lietojums.
+
+Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
+\begin{enumerate}
+    \item var pieņemt, ka sākuma stāvoklī robots jau ir satvēris objektu, ja nepieciešams;
+    \item ir zināma objekta klasifikācija un līdz ar to --- tā vēlamais galamērķis;
+    \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
+\end{enumerate}
+
+Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīnmācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku --- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslē-gumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarīgākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
 
 \newpage
 \section{Literatūras analīze}
