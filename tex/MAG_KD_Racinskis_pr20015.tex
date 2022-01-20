@@ -288,7 +288,9 @@ Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēk
 Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
 \begin{enumerate}
     \item var pieņemt, ka sākuma stāvoklī robots jau ir satvēris objektu, ja nepieciešams;
+    \item trajektorijas sākumpunkti ir mainīgi --- jāspēj izdarīt metiens no dažādām pozīcijām;
     \item ir zināma objekta klasifikācija un līdz ar to --- tā vēlamais galamērķis;
+    \item vēlamie galamērķi var būt dažādi un mainīgi;
     \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
 \end{enumerate}
 
@@ -589,7 +591,17 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 \newpage
 \section{Secinājumi}
 
-\subsection{Aktuālākie risinājumi}
+Literatūras analīzē sniegts īss un nebūt ne pilnīgs --- vai vienlīdzīgi sadalīts --- līdz šim veiktās pētnieciskās darbības uzsvars. Jau izvēloties, par kurām tēmām rakstīts plašāk, par kurām --- mazāk detalizēti --- iespaidu uz darba saturu ir atstājusi motivējošās problēmas specifika. Tagad tikai nepieciešams pie tās atgriezties un novērtēt, kas no visa plašajā nozarē pētītā un izgudrotā attiecas uz darba ievadā aprakstīto uzdevumu --- mešanas kustību iestrādāšanu atkritumu vai citu objektu pārvietošanā.
+
+\subsection{Svarīgākās atziņas}
+
+Tūlīt kļūst skaidrs, ka pašas vienkāršākās metodes --- klasiskā uzvedības klonēšana \cite{pomerleau1989alvinn} vai kādas tās tiešās korekcijas --- uzdevumam piemērotas nav. Tās darbojas gadī-jumos, kad demonstrāciju kopa labi nosedz visas iespējamās trajektorijas sistēmas konfigurāciju telpā, nav robustas pret nobīdēm, un jaunu trajektoriju programmēšana prasa apmācības procesa atkārtošanu. Problēmu grūti nostādīt formā, kur robotam vienkārši jāapgūst maksimāli precīzi atdarināt detalizētu un pilnībā aprakstošu demonstrāciju kopu. Vēl jāatzīst, ka metodes, kas ir ļoti specifiskas tieši robotikas uzdevumiem un prasa no algoritma izstrādātājiem pieņēmumus par uzdevuma struktūru --- t.i, pamatā risinājumi, kas nodarbojas ar simbolisko dekompozīciju \cite{ijspeert2002movement,schaal2003computational, wang2020framework,pastor2011online,pastor2011skill} --- nešķiet sevišķi perspektīvas, jo tās ir grūtāk attīstīt un vispārināt. Protams, no inženiertehniskā viedokļa tās varētu zināmos uzdevumos pārspēt vispārīgākas pieejas, tomēr ilgtermiņa pieredze rāda, ka dažādas lokālas priekšrocības mēdz izgaist, pieaugot daudzparametru neironu tīklu veiktspējai.
+
+Runājot par novērojumiem, nozīmīgi šķiet tieši pētījumi, kas realizē demonstrāciju ievākšanu no cilvēka kustībām \cite{jha2017imitation,zhang2018deep} vai nu virtuālā, vai fiziskā telpā. Metienu izdarīšana ir intuitīvi labi trenēta taču analītiski sarežģīta procedūra. Ātra piemēru iegūšana varētu kalpot par pamatu rīkiem, ar ko praktisku sistēmu pielāgot tās apkārtējai videi darba zonā. Tāpat uzmanību vērts pievērst pētījumiem, kas izmanto telpiskus un video novērojumus kā arī datu kopas sintētisku pavairošanu \cite{dyrstad2018teaching}. Lai gan tiešā veidā kādu no tajos apraks-tītajiem algoritmiem droši vien, ka neizdosies izmantot, ir vērts paturēt prātā metodes, ar ko trajektorijas padarītas noturīgākas pret novirzēm --- vai nu trenējot slēptu dinamikas modeli \cite{torabi2018behavioral}, vai arī izmantojot analītiskas kompensācijas \cite{pastor2011online}. Pastāv iespēja, ka būs nepieciešams izmantot novērojumus, kas iegūti no dažādām perspektīvām, tāpēc noderīgi varētu izrādīties arī perspektīvu pārneses paņēmieni \cite{liu2018imitation}.
+
+Visbeidzot, no adaptīvo un imitējošo metožu kombinācijas virziena ļoti svarīgi šķiet rezultāti, kas gūti izstrādājot stratēģijas, kas spēj pielāgoties dažādu demonstrāciju atdarināšanai \cite{duan2017one} vai dažādu galamērķu sasniegšanai bez papildus apmācības \cite{lynch2020learning,lynch2021language,gupta2019relay}. Tā kā ir iespējams diezgan skaidri definēt atalgojuma funkciju objekta iekrišanai pareizajā tvertnē, bet nonākšana līdz tam ar parastu stimulētās mācīšanās procesu ir ļoti apgrūtināta, vērts paturēt prātā arī atdarināšanu kā sākumpunktu pašmācībai \cite{hester2018deep}. 
+
+
 
 \subsection{Plāns tālākai darbībai, modelim}
 
