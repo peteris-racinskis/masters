@@ -551,6 +551,17 @@ Tātad, lai programmētu robotu izpildīt kādu konkrētu uzdevumu, vairs nav ne
 
 Interesants turpinājums šim pētījumam ir ``\textit{Language conditioned imitation learning over unstructured data}''\cite{lynch2021language}, kur iegūtais rezultāts atkal pagriezts otrādi --- ja ir metode, kas spēj pati izdalīt uzdevumus un grupēt tos pēc būtības, tad apvienojot to ar sagatavotiem marķējumiem, var iegūt stratēģiju, kas vadāma ar šādiem marķējumiem. Konkrēti, ja daļai no trajektorijām tiek \textit{a posteriori} piekārtots dabiskā valodā izteikts mērķis, var apmācīt modeli, kas sasaista rīcības plānu reprezentācijas ar frāžu reprezen-tācijām --- ļaujot vadīt robotu ar jau iepriekš apmācītu valodas enkoderu ģenerētiem kodiem. Praktiski tas izpaužas tā, ka iespējams robotam dot pavisam dabiskas komandas, turklāt neatkarīgi no izvēlētajiem sinonīmiem un pat dažādās valodās.
 
+Ar tīri atdarinošām metodēm iegūtas stratēģijas var nebūt optimālas, it sevišķi gadījumos, kad tiek prasīts sasniegt mērķi, kam nav sagatavota speciāla demonstrāciju datu kopa.`\textit{Relay policy learning: Solving long-horizon tasks via imitation and reinforcement learning}''\cite{gupta2019relay} (2019) piedāvā apvienot nestrukturētas demonstrāciju datu kopas un galamērķus kā uzdevuma specifikāciju ar zināmu atalgojuma funkciju. Tā varētu iegūt labas inicializācijas apmācības procesiem, kas citādi būtu nepraktiski vai teju neiespējami ar vienkāršām konfigurāciju telpas pārstaigāšanas metodēm retināto atalgojuma vērtību dēļ.
+
+Pamatā risinājumam ir hierarhiskā stimulētā mācīšanās --- tiek iegūta nevis viena stratēģija, bet divas. $\pi_{\theta}^h$ jeb augsta līmeņa stratēģija ievadē saņem pašreizējo sistēmas stāvokli $s$ un gala stāvokli $s_g$, bet tā vietā, lai izvadītu vēlamo darbību, rezultātā izdod lokālu mērķi $s_g^l$ --- argumentu zemākā līmeņa stratēģijai $\pi_{\phi}^l$. Otrā tad atkarībā no $s,s_g^l$ ģenerē vēlamo darbību vidē $a$. Apmācība tiek realizēta divos soļos:
+
+\begin{enumerate}
+    \item atdarināšana --- katrai no stratēģijām tiek sagatavota atsevišķa datu kopa, izmantojot ``slīdošā loga'' principu pār trajektorijām demonstrāciju datos. $\pi_{\theta}^h$ izvēlas plašāku logu $W_h$ un minimālo distanci līdz lokālajam mērķim $j$. Katram $s_t $ tad tiek izveidoti korteži $(s_t, a_t', s_g)$ kur $s_g \in \lbrace s_{t+1}, s_{t+2}, ..., s_{t+W_h} \rbrace$ bet $a_t' = s_{t+j}$. Zema līmeņa stratēģijai $\pi_{\phi}^l$ tad izvēlas īsāku logu $W_l$ un analoģiski katru tālāk logā esošo $s_{t+i}$ izmanto kā galamērķi $s_g^l$, lai izveidotu $(s_t, a_t, s_g^l)$. Šādi pārveidotos datus tad izmanto, lai apmācītu modeļus $\pi_{\theta}^h, \pi_{\phi}^l$ atdarināt datu kopu;
+    \item uzlabošana --- izmantojot zināmu atalgojuma funkciju $r(s,a,s_g)$, realizē stimulēto mācīšanos. Iegūtās stratēģijas tiek darbinātas vidē, iegūtie dati tiek tāpat pārkārtoti un $\pi_{\theta}^h, \pi_{\phi}^l$ atkal tiek optimizēti, tikai šoreiz gradientu optimizācijas mērķa funkcija (\textit{loss}) tiek papildināta ar atalgojuma faktoru.
+\end{enumerate}
+
+Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, kā sasniegt patvaļīgus galamērķus, bet pēc tam --- uzlabot iegūtās stratēģijas ar stimulētās mācīšanās palīdzību. To parāda rezultāti --- dažādos uzdevumos šāda pieeja pārspēj iepriekš aprakstīto latento plānu pieeju\cite{lynch2020learning}, taču attiecīgi tai ir nepieciešama papildu patstāvīgas mācīšanās etaps.
+
 \newpage
 \section{Secinājumi, rīcības plāns}
 
