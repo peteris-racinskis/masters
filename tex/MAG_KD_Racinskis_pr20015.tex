@@ -58,15 +58,15 @@ Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņ
 
 \subsection{Darba mērķis un struktūra}
 
-Šis ir maģistra kursa darbs - pirmais konkrētais rezultāts, kas sasniegts maģistra darba izstrādes procesā. Tāpēc ir jārēķinās ar diezgan īpatnēju formātu un saturu - tiek dokumentēta kāda pētnieciska projekta pirmā fāze, kas bieži vien sastāv no dažādu literatūras avotu izpētes un personiskiem treniņiem, vēl pirms iespējams nopietni sākt eksperimentālu darbību vai pat izvirzīts konkrēts mērķis visam projektam.
+Šis ir maģistra kursa darbs --- pirmais konkrētais rezultāts, kas sasniegts maģistra darba izstrādes procesā. Tātad saturs un formāts ir lielā mērā atkarīgs no nākamajā semestrī aizstāvamā gala darba izstrādei individuāli nospraustajiem mērķiem un iztecējušā semestra gaitā eāli paveiktā. 
 
-Arī šis gadījums nav nekāds izņēmums. Sākumā izvēlēta ļoti aptuvena tēma, balstoties uz Elektronikas un datorzinātņu institūta ekspertu ieteikumiem, un pirmajā darba semestrī lielākoties veikta attiecīgās nozares apguve pašmācības ceļā. Šī nodarbe sastāvē-jusi galvenokārt no divu veidu darbībām --- zinātniskās literatūras lasīšanas un tajā aprakstīto teorētisko jēdzienu un praktisko metožu apguves ar vienkāršiem eksperimentiem personiskās izpratnes veicināšanai.
+Kopējā maģistra darba tēma izvēlēta ar Elektronikas un datorzinātņu centra eks-pertu palīdzību, meklējot šobrīd aktuālu pētniecības virzienu. Izvērtējot dažādus pieejamos variantus, izvēlēts pētniecības virziens --- atdarinošā mašīnmācīšanās --- un konkrēts motivējošais uzdevums --- atkritumu šķirošanas līnijas robots, kas spēj nogādāt pudeles vai citus objektus tiem atbilstošajās tvertnēs, izmantojot mešanas kustības. Faktiski līdz šim galvenokārt veikta nozares literatūras avotu izpēte un nepieciešamo pamatzināšanu apguve.
 
-Līdz ar to šīs atskaites galvenais mērķis ir sniegt ieskatu līdz šim maģistWWra darba gatavošans ietvaros paveiktajā un apgūtajā. Tā sastāv no trim galvenajām daļām:
+Līdz ar to šī darba mērķis ir noskaidrot, vai atdarinošās mācīšanās metodes ir piemērotas motivējošās problēmas risināšanai, atrast piemērotākos paņēmienus un aktuā-lākos rezultātus jau eksistējošajā zinātniskās literatūras korpusā un ieskicēt risinājumu, kura praktiska izstrāde un novērtēšana tad arī veidotu galadarba pētniecisko jaunpienesumu. Attiecīgi, darbs sastāv no trijām daļām:
 \begin{enumerate}
-    \item ievada, kurā īsi izklāstīti vispārīgi jēdzieni, kas nepieciešami, lai izprastu zinātnisko literatūru nozarē;
-    \item pētniecisku rakstu izlases iztirzājuma un salīdzinājuma;
-    \item neliela apraksta par paša veikto darbību, apgūstot mašīnmācīšanās modeļus un to realizācijai nepieciešamo programnodrošinājumu.
+    \item ievada, kurā īsi izklāstīti vispārīgi jēdzieni, kas nepieciešami, lai izprastu zinātnisko literatūru nozarē, kā arī aprakstīts motivējošais uzdevums;
+    \item literatūras analīzes, kur izdalīti daži galvenie pētnieciskās darbības virzieni nozarē, aplūkoti konkrēti algoritmi un pētījumi kā piemēri;
+    \item secinājumiem, kur literatūras analīzē gūtās atziņas īsi apkopotas un izmantotas, lai piedāvātu provizorisku formu motivējošā uzdevuma risinājumam.
 \end{enumerate}
 
 
@@ -120,7 +120,7 @@ Iegūtā šablona funkcijas un apmācīto parametru kombinācija $\lbrace M, \th
     \forall f \forall x \exists \theta:M_{\theta}(x)\approx f(x)
 \end{equation}
 
-Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē funkcijas ar $k$-dimensionālām reālām vērtībām,
+Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē funkcijas ar $k$-dimensionālām reālām (vai citādi skaitliskām) vērtībām,
 
 \begin{equation} 
     f:x \rightarrow \mathbb{R}^k
@@ -266,7 +266,7 @@ Apmācība notiek, izvēloties
     a_t = \operatorname*{argmax}_a Q(s_t = s, a)
 \end{equation}
 
-un sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā
+un sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, vai arī kāda pārtraukšanas nosacījuma. Tad iegūtajai trajektorijai $(s_1, a_1), (s_2, a_2), ..., (s_T, a_T)$ no bei-gām aprēķinot $G_1, G_2, ... G_T$ atbilstoši katram solim var koriģēt vērtības tenzorā, kur $Q^i$ apzīmē tenzora vērtības i-tajā treniņa solī
 
 \begin{equation}
     Q^{i+1}(s_t,a_t)=f(Q^{i}(s_t, a_t), G_t)
@@ -279,6 +279,8 @@ Lai uzdevumu varētu risināt, nepieciešams spēt izteikt kādu analītisku fun
 \subsubsection{Robotikas uzdevumi}
 
 Darbā ar robotiem uzdevums parasti ir vēlamas paša robota un citu vidē atrodamo objektu telpiskās konfigurācijas sasniegšana, vai virkne ar šādām pārejām (manipulācijām). Protams, pilnīgu fizikālas vides pašreizējā stāvokļa aprakstu gūt nav iespē-jams, tāpēc trajektoriju laikrindas vienmēr īstenībā sastāvēs no novērojumiem, nevis stāvokļiem --- $((o_1,a_1), (o_2, a_2), ...)$. Novērojumu formas var būt ļoti dažādas --- sākot ar ļoti detalizētiem robota izpildelementu konfigurācijas (lineāro vai lenķisko pārvietojumu, ātrumu, paātrinājumu, slodžu) aprakstiem, beidzot ar video bez nekādas anotācijas.
+
+\subsection{Motivējošais uzdevums}
 
 
 \newpage
