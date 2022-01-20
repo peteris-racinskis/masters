@@ -56,7 +56,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.3.4}Nestrukturētas demonstrācijas, plānu veidošana no galamērķiem}{25}{subsubsection.2.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Secinājumi, rīcības plāns}{28}{section.3}%
+\contentsline {section}{\numberline {3}Secinājumi}{28}{section.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{32}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Aktuālākie risinājumi}{28}{subsection.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}Plāns tālākai darbībai, modelim}{28}{subsection.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Atsauces}{32}{subsection.3.2}%
 \contentsfinish 
