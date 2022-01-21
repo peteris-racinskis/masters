@@ -332,6 +332,131 @@
       \verb https://www.therobotreport.com/10-biggest-challenges-in-robotics/
       \endverb
     \endentry
+    \entry{attia2018global}{article}{}
+      \name{author}{2}{}{%
+        {{hash=c6f7be3e9196416d4c59f4111b3fc564}{%
+           family={Attia},
+           familyi={A\bibinitperiod},
+           given={Alexandre},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0961008a1f10a1855b88c80d1d6a8e8e}{%
+           family={Dayan},
+           familyi={D\bibinitperiod},
+           given={Sharone},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{fullhash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{bibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authorbibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authornamehash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \strng{authorfullhash}{8d7df3eadfe8a4a417efa291e44a2952}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1801.06503}
+      \field{title}{Global overview of imitation learning}
+      \field{year}{2018}
+    \endentry
+    \entry{hester2018deep}{inproceedings}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=c637e4ed3fcc395fa56d8aab57126d4d}{%
+           family={Hester},
+           familyi={H\bibinitperiod},
+           given={Todd},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d684edae80c246821b946dce6e37481d}{%
+           family={Vecerik},
+           familyi={V\bibinitperiod},
+           given={Matej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fa8a4817aef70fffae62a48b98481ef7}{%
+           family={Pietquin},
+           familyi={P\bibinitperiod},
+           given={Olivier},
+           giveni={O\bibinitperiod}}}%
+        {{hash=3075d0e02c0833f6e5fe1addb880898f}{%
+           family={Lanctot},
+           familyi={L\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a56e72b23778a835bdade7d0511e43a3}{%
+           family={Schaul},
+           familyi={S\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=f31963abd2aa43dd3aafc40aa1252a05}{%
+           family={Piot},
+           familyi={P\bibinitperiod},
+           given={Bilal},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c1a26cb7f963abdf071da408366e83a1}{%
+           family={Horgan},
+           familyi={H\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d1c6b8444cb95e400ca38d5ae5c5afd3}{%
+           family={Quan},
+           familyi={Q\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d539f3ade39715758d6a6c4f82c5e970}{%
+           family={Sendonaris},
+           familyi={S\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d78832306745d08c2a95154ee3e0a1b7}{%
+           family={Osband},
+           familyi={O\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{d821956ab7afff2b47d4509f11b4b3f8}
+      \strng{fullhash}{5b8778a5eafbff54b42bef37c0b6b756}
+      \strng{bibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
+      \strng{authorbibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
+      \strng{authornamehash}{d821956ab7afff2b47d4509f11b4b3f8}
+      \strng{authorfullhash}{5b8778a5eafbff54b42bef37c0b6b756}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Thirty-second AAAI conference on artificial intelligence}
+      \field{title}{Deep q-learning from demonstrations}
+      \field{year}{2018}
+    \endentry
+    \entry{abbeel2004apprenticeship}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=e28d4ee199593959d8c29980a64f1974}{%
+           family={Abbeel},
+           familyi={A\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=49e889356ff39df159461bc2895c7e16}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Andrew\bibnamedelima Y},
+           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{fullhash}{b160d382644c505a6dd5026a42f29910}
+      \strng{bibnamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authorbibnamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
+      \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
+      \field{sortinit}{9}
+      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the twenty-first international conference on Machine learning}
+      \field{title}{Apprenticeship learning via inverse reinforcement learning}
+      \field{year}{2004}
+      \field{pages}{1}
+      \range{pages}{1}
+    \endentry
     \entry{enc_stim}{online}{}
       \name{author}{1}{}{%
         {{hash=eef1e50c27feed6ce7c73ba532c06b64}{%
@@ -346,8 +471,8 @@
       \strng{authorbibnamehash}{eef1e50c27feed6ce7c73ba532c06b64}
       \strng{authornamehash}{eef1e50c27feed6ce7c73ba532c06b64}
       \strng{authorfullhash}{eef1e50c27feed6ce7c73ba532c06b64}
-      \field{sortinit}{7}
-      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{reinforcement learning}
@@ -377,8 +502,8 @@
       \strng{authorbibnamehash}{e31cc5326f947926c7e4a61f2d74bf22}
       \strng{authornamehash}{e31cc5326f947926c7e4a61f2d74bf22}
       \strng{authorfullhash}{e31cc5326f947926c7e4a61f2d74bf22}
-      \field{sortinit}{8}
-      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{ĢENERATĪVO PRETINIEKU TĪKLU TEORĒTISKA IZPĒTE (kursa darba konferences stenda plakāts)}
@@ -410,8 +535,8 @@
       \strng{authorbibnamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authornamehash}{482952eb401d9a72aac275223c4e997d}
       \strng{authorfullhash}{482952eb401d9a72aac275223c4e997d}
-      \field{sortinit}{9}
-      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Suggested Notation for Machine Learning}
@@ -426,33 +551,6 @@
       \verb{url}
       \verb http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/mlmath/mlmath.pdf
       \endverb
-    \endentry
-    \entry{attia2018global}{article}{}
-      \name{author}{2}{}{%
-        {{hash=c6f7be3e9196416d4c59f4111b3fc564}{%
-           family={Attia},
-           familyi={A\bibinitperiod},
-           given={Alexandre},
-           giveni={A\bibinitperiod}}}%
-        {{hash=0961008a1f10a1855b88c80d1d6a8e8e}{%
-           family={Dayan},
-           familyi={D\bibinitperiod},
-           given={Sharone},
-           giveni={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \strng{fullhash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \strng{bibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \strng{authorbibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \strng{authornamehash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \strng{authorfullhash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1801.06503}
-      \field{title}{Global overview of imitation learning}
-      \field{year}{2018}
     \endentry
     \entry{gupta2019relay}{article}{}
       \name{author}{5}{}{%
@@ -664,8 +762,8 @@
       \strng{authorbibnamehash}{8a516408eada0fdafa3f11bb4115c9ff}
       \strng{authornamehash}{8a516408eada0fdafa3f11bb4115c9ff}
       \strng{authorfullhash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Robotics Takes Plastic Recycling To The Next Level}
@@ -705,8 +803,8 @@
       \strng{authorbibnamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
       \strng{authornamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
       \strng{authorfullhash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Robot programming by demonstration (rpd)-using machine learning and user interaction methods for the development of easy and comfortable robot programming systems}
@@ -740,8 +838,8 @@
       \strng{authorbibnamehash}{471b984e3fd497819037c337a3913eb1}
       \strng{authornamehash}{471b984e3fd497819037c337a3913eb1}
       \strng{authorfullhash}{267d55db75a76905607f21dad4711be2}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Handbook of Robotics. Springer}
@@ -856,42 +954,13 @@
       \strng{authorbibnamehash}{f0181660e70dcba4c04a7ca07a64be22}
       \strng{authornamehash}{f0181660e70dcba4c04a7ca07a64be22}
       \strng{authorfullhash}{f0181660e70dcba4c04a7ca07a64be22}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{In AISTATS}
       \field{title}{No-regret reductions for imitation learning and structured prediction}
       \field{year}{2011}
-    \endentry
-    \entry{abbeel2004apprenticeship}{inproceedings}{}
-      \name{author}{2}{}{%
-        {{hash=e28d4ee199593959d8c29980a64f1974}{%
-           family={Abbeel},
-           familyi={A\bibinitperiod},
-           given={Pieter},
-           giveni={P\bibinitperiod}}}%
-        {{hash=49e889356ff39df159461bc2895c7e16}{%
-           family={Ng},
-           familyi={N\bibinitperiod},
-           given={Andrew\bibnamedelima Y},
-           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-      }
-      \strng{namehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{fullhash}{b160d382644c505a6dd5026a42f29910}
-      \strng{bibnamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authorbibnamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the twenty-first international conference on Machine learning}
-      \field{title}{Apprenticeship learning via inverse reinforcement learning}
-      \field{year}{2004}
-      \field{pages}{1}
-      \range{pages}{1}
     \endentry
     \entry{ho2016generative}{article}{}
       \name{author}{2}{}{%
@@ -1060,8 +1129,8 @@
       \strng{authorbibnamehash}{8727501f184c74bc1b63722e98bfb72f}
       \strng{authornamehash}{8727501f184c74bc1b63722e98bfb72f}
       \strng{authorfullhash}{8727501f184c74bc1b63722e98bfb72f}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE Transactions on Cognitive and Developmental Systems}
@@ -1097,8 +1166,8 @@
       \strng{authornamehash}{57eca084a55ab45c0f580757e39c5327}
       \strng{authorfullhash}{57eca084a55ab45c0f580757e39c5327}
       \field{extraname}{2}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1805.01954}
@@ -1362,8 +1431,8 @@
       \strng{authorbibnamehash}{5242373a2e0b9c7503d7ed17f843ec64}
       \strng{authornamehash}{5242373a2e0b9c7503d7ed17f843ec64}
       \strng{authorfullhash}{ee993b8c7e982bfb0223501f25c73880}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2018 IEEE International Conference on Robotics and Automation (ICRA)}
@@ -1404,8 +1473,8 @@
       \strng{authorbibnamehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
       \strng{authornamehash}{55d736cbe101a62d3ad4ab0cacad7e9b}
       \strng{authorfullhash}{334c7f1c02102c32fd2b40469c258faf}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
@@ -1461,75 +1530,6 @@
       \field{year}{2011}
       \field{pages}{3828\bibrangedash 3834}
       \range{pages}{7}
-    \endentry
-    \entry{hester2018deep}{inproceedings}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{10}{}{%
-        {{hash=c637e4ed3fcc395fa56d8aab57126d4d}{%
-           family={Hester},
-           familyi={H\bibinitperiod},
-           given={Todd},
-           giveni={T\bibinitperiod}}}%
-        {{hash=d684edae80c246821b946dce6e37481d}{%
-           family={Vecerik},
-           familyi={V\bibinitperiod},
-           given={Matej},
-           giveni={M\bibinitperiod}}}%
-        {{hash=fa8a4817aef70fffae62a48b98481ef7}{%
-           family={Pietquin},
-           familyi={P\bibinitperiod},
-           given={Olivier},
-           giveni={O\bibinitperiod}}}%
-        {{hash=3075d0e02c0833f6e5fe1addb880898f}{%
-           family={Lanctot},
-           familyi={L\bibinitperiod},
-           given={Marc},
-           giveni={M\bibinitperiod}}}%
-        {{hash=a56e72b23778a835bdade7d0511e43a3}{%
-           family={Schaul},
-           familyi={S\bibinitperiod},
-           given={Tom},
-           giveni={T\bibinitperiod}}}%
-        {{hash=f31963abd2aa43dd3aafc40aa1252a05}{%
-           family={Piot},
-           familyi={P\bibinitperiod},
-           given={Bilal},
-           giveni={B\bibinitperiod}}}%
-        {{hash=c1a26cb7f963abdf071da408366e83a1}{%
-           family={Horgan},
-           familyi={H\bibinitperiod},
-           given={Dan},
-           giveni={D\bibinitperiod}}}%
-        {{hash=d1c6b8444cb95e400ca38d5ae5c5afd3}{%
-           family={Quan},
-           familyi={Q\bibinitperiod},
-           given={John},
-           giveni={J\bibinitperiod}}}%
-        {{hash=d539f3ade39715758d6a6c4f82c5e970}{%
-           family={Sendonaris},
-           familyi={S\bibinitperiod},
-           given={Andrew},
-           giveni={A\bibinitperiod}}}%
-        {{hash=d78832306745d08c2a95154ee3e0a1b7}{%
-           family={Osband},
-           familyi={O\bibinitperiod},
-           given={Ian},
-           giveni={I\bibinitperiod}}}%
-      }
-      \strng{namehash}{d821956ab7afff2b47d4509f11b4b3f8}
-      \strng{fullhash}{5b8778a5eafbff54b42bef37c0b6b756}
-      \strng{bibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
-      \strng{authorbibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
-      \strng{authornamehash}{d821956ab7afff2b47d4509f11b4b3f8}
-      \strng{authorfullhash}{5b8778a5eafbff54b42bef37c0b6b756}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Thirty-second AAAI conference on artificial intelligence}
-      \field{title}{Deep q-learning from demonstrations}
-      \field{year}{2018}
     \endentry
     \entry{duan2017one}{article}{}
       \name{author}{8}{}{%
