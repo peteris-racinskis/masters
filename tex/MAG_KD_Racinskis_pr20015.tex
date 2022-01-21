@@ -49,7 +49,7 @@
 
 \section{Ievads}
 
-Sacīt, ka mašīnmācīšanās šobrīd ir ļoti aktuāla pētniecības nozare, būtu maigi. Pēdējās desmitgades laikā tieši šis izpētes lauks ir eksplodējis popularitātē kā neviens cits, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen \cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācī-šanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos \cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to satu-ru \cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem \cite{silver2016mastering}.
+Mašīnmācīšanās šobrīd tiek plaši uzskatīta par vienu no aktuālākajām datorzinātņu pētniecības nozarēm \cite{no_shit}. Pēdējās desmitgades laikā šī pētniecības lauciņa popularitāte ir daudzkārt pieaugusi, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen \cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācīšanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos \cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to saturu \cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem \cite{silver2016mastering}.
 
 Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un robotiku. Tautas iztēlē termins ``robots'' drīzāk droši vien iezīmēs zinātniskās fantastikas radītos personāžus --- mehāniskas būtnes, kas spēj patstāvīgi darboties neierobežotā vidē un risināt sarežģītus uzdevumus --- nevis pieticīgākus, reāli pastāvošus un ražotnēs rodamus industriālos robotus. Un šī pati zinātniskā fantastika radījusi arī nesaraujamu saiti starp robotiem un mākslīgo intelektu \cite{asimov2004robot} --- diskusijas par mākslīgo intelektu bieži plūstoši pāriet diskusijās par ar šādu intelektu aprīkotiem robotiem, un šo robotu neizbēgami kareivīgajām ambīcijām attiecībā pret cilvēci. Protams, zinātne ne vienmēr seko populār-zinātniskās iedomas lidojumam, taču šāda saikne ir visnotaļ pamatota --- spēja mācīties no paraugiem vai patstāvīgi un pielāgoties savai apkārtnei ir ārkārtīgi noderīga, jo daudzi uzdevumi, kuru risināšanai varētu pielietot robotus, ir sarežģīti nevis to fizikālajā izpildē, bet tieši vadības uzdevuma formulēšanā un realizācijā --- lai to redzētu pietiek vien aplūkot kādu nejauši izvēlētu sarakstu ar robotikā aktuālām problēmām \cite{popsci}.
 
@@ -94,7 +94,21 @@ Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
     \item LIDAR --- attāluma lāzermērīšana
 \end{enumerate}
 
-Matemātiskie apzīmējumi paskaidroti pirmajā to parādīšanās vietā tekstā, kur tas atzīts par nepieciešamu.
+Biežāk izmantoti matemātiskie apzīmējumi:
+
+\begin{enumerate}
+    \item $\pi, \pi_{\theta}, \pi^*$ --- stratēģija, stratēģija ar parametriem $\theta$, instruktora stratēģija
+    \item $s$ --- sistēmas stāvoklis vai tiešais novērojums
+    \item $s_t, s'$ --- $s$ laika solī $t$, nākamais $s$
+    \item $a, a_t$ --- darbība, darbība laika solī $t$
+    \item $o_t$ --- netiešais novērojums
+    \item trajektorija --- laikrinda ar elementiem $s_t$, $o_t$, $(s_t, a_t)$ vai $(o_t, a_t)$, ja nav norādīts
+    \item $R(s), R(s,a)$ --- atalgojuma funkcija
+    \item $\theta, \phi, \psi$ --- modeļu parametru vektori
+    \item $\mathbb{E}$ --- matemātiskā cerība
+\end{enumerate}
+
+
 
 \subsection{Tehniskās priekšzināšanas, definīcijas}
 
@@ -428,11 +442,11 @@ Pirmais sarežģījums, ko varētu ieviest, ir darbību trūkums demonstrācijā
 Nedaudz vienkāršojot tad algoritma soļi ir sekojoši:
 
 \begin{enumerate}
-    \item doto trajektoriju kopu pārveido formā $T_{dem}=\lbrace (s_t, s_{t+1}) \rbrace$, kas ir pārejas starp stāvokļiem;
+    \item doto trajektoriju kopu pārveido formā $\mathcal{T}_{dem}=\lbrace (s_t, s_{t+1}) \rbrace$, kas ir pārejas starp stāvokļiem;
     \item stratēģija $\pi_{\theta}$ un sistēmas dinamikas modelis $M_{\phi}(a \vert s,s')=P(a \vert s, s')$ tiek nejauši inicializēti;
-    \item ģenerē trajektorijas ar $\pi_{\theta}$, pievieno trajektoriju kopai $T=\lbrace (s_t, a_t, s_{t+1}) \rbrace$;
-    \item apmāca $M_{\phi}$ uz $T$;
-    \item trenē $\pi_{\theta}$ uz $\lbrace (s_t, \max\limits_{a}M_{\phi}(a \vert s, s'), s')\vert (s, s') \in T_{dem} \rbrace$
+    \item ģenerē trajektorijas ar $\pi_{\theta}$, pievieno trajektorijas elementus kopai $\mathcal{T}=\lbrace (s_t, a_t, s_{t+1}) \rbrace$;
+    \item apmāca $M_{\phi}(a \vert s, s')$ uz $\mathcal{T}$;
+    \item trenē $\pi_{\theta}$ uz $\lbrace (s_t, \operatorname*{argmax}\limits_a M_{\phi}(a \vert s, s'), s')\vert (s, s') \in \mathcal{T}_{dem} \rbrace$
     \item atkārto soļus 3-5 līdz sasniegti pieņemami rezultāti
 \end{enumerate}
 

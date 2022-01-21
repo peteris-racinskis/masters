@@ -19,6 +19,37 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
+    \entry{no_shit}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e00b0e0f51bbf7d97e4404542f75e105}{%
+           family={Frot},
+           familyi={F\bibinitperiod},
+           given={Mathilde},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \strng{fullhash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \strng{bibnamehash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \strng{authorbibnamehash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \strng{authornamehash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \strng{authorfullhash}{e00b0e0f51bbf7d97e4404542f75e105}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{5 Trends in Computer Science Research}
+      \field{urlday}{21}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.topuniversities.com/courses/computer-science-information-systems/5-trends-computer-science-research
+      \endverb
+      \verb{url}
+      \verb https://www.topuniversities.com/courses/computer-science-information-systems/5-trends-computer-science-research
+      \endverb
+    \endentry
     \entry{mcculloch1943logical}{article}{}
       \name{author}{2}{}{%
         {{hash=1ccb147b2b2165266e6ce5900193e687}{%
@@ -41,8 +72,8 @@
       \strng{authorbibnamehash}{816477c5724040789c6fe02e3968dc62}
       \strng{authornamehash}{816477c5724040789c6fe02e3968dc62}
       \strng{authorfullhash}{816477c5724040789c6fe02e3968dc62}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{The bulletin of mathematical biophysics}
@@ -67,8 +98,8 @@
       \strng{authorbibnamehash}{19a5090e76b7afca7304dc4cc43e88ba}
       \strng{authornamehash}{19a5090e76b7afca7304dc4cc43e88ba}
       \strng{authorfullhash}{19a5090e76b7afca7304dc4cc43e88ba}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Master's Thesis (in Finnish), Univ. Helsinki}
@@ -94,8 +125,8 @@
       \strng{authorbibnamehash}{23d96062ed18321873ac4b8b6e2fc816}
       \strng{authornamehash}{23d96062ed18321873ac4b8b6e2fc816}
       \strng{authorfullhash}{23d96062ed18321873ac4b8b6e2fc816}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Neural networks}
@@ -130,8 +161,8 @@
       \strng{authorbibnamehash}{1a23c09aa65b3c2ade45ed18d8127375}
       \strng{authornamehash}{1a23c09aa65b3c2ade45ed18d8127375}
       \strng{authorfullhash}{1a23c09aa65b3c2ade45ed18d8127375}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Advances in neural information processing systems}
@@ -190,8 +221,8 @@
       \strng{authorbibnamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
       \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
       \strng{authorfullhash}{cb26e47f6b8133865271fc8483132297}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Advances in neural information processing systems}
@@ -264,8 +295,8 @@
       \strng{authorbibnamehash}{4ccacac34637df06f749428b6ec5052e}
       \strng{authornamehash}{4ccacac34637df06f749428b6ec5052e}
       \strng{authorfullhash}{69c03a0bfbe9e391fbbd7797a2debcbf}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{nature}
@@ -293,8 +324,8 @@
       \strng{authorbibnamehash}{60cc0a9f62283d12da66fee328636cc8}
       \strng{authornamehash}{60cc0a9f62283d12da66fee328636cc8}
       \strng{authorfullhash}{60cc0a9f62283d12da66fee328636cc8}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{I, robot}
@@ -315,8 +346,8 @@
       \strng{authorbibnamehash}{131603147cc5c30efc6d759d493542db}
       \strng{authornamehash}{131603147cc5c30efc6d759d493542db}
       \strng{authorfullhash}{131603147cc5c30efc6d759d493542db}
-      \field{sortinit}{6}
-      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{10 Biggest Challenges in Robotics}
@@ -351,8 +382,8 @@
       \strng{authorbibnamehash}{8d7df3eadfe8a4a417efa291e44a2952}
       \strng{authornamehash}{8d7df3eadfe8a4a417efa291e44a2952}
       \strng{authorfullhash}{8d7df3eadfe8a4a417efa291e44a2952}
-      \field{sortinit}{7}
-      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1801.06503}
@@ -420,8 +451,8 @@
       \strng{authorbibnamehash}{d821956ab7afff2b47d4509f11b4b3f8}
       \strng{authornamehash}{d821956ab7afff2b47d4509f11b4b3f8}
       \strng{authorfullhash}{5b8778a5eafbff54b42bef37c0b6b756}
-      \field{sortinit}{8}
-      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{sortinit}{9}
+      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Thirty-second AAAI conference on artificial intelligence}
@@ -447,8 +478,8 @@
       \strng{authorbibnamehash}{b160d382644c505a6dd5026a42f29910}
       \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
       \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
-      \field{sortinit}{9}
-      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of the twenty-first international conference on Machine learning}
@@ -738,8 +769,8 @@
       \strng{authorbibnamehash}{39e0f8b36a772d117939a2b97fe74921}
       \strng{authornamehash}{39e0f8b36a772d117939a2b97fe74921}
       \strng{authorfullhash}{549592dc1d7d1563f0588ed5ae001cc2}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2018 IEEE International Conference on Robotics and Automation (ICRA)}
@@ -1090,8 +1121,8 @@
       \strng{authorbibnamehash}{c68965b87095c596a5973557c029c863}
       \strng{authornamehash}{c68965b87095c596a5973557c029c863}
       \strng{authorfullhash}{c68965b87095c596a5973557c029c863}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series B: Biological Sciences}
@@ -1664,8 +1695,8 @@
       \strng{authorbibnamehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
       \strng{authornamehash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
       \strng{authorfullhash}{daaf4950b5e2eec35f0c80f3f0f2cdc3}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Proceedings of Robotics: Science and Systems. doi}
