@@ -450,7 +450,7 @@ Redzams, ka pakāpeniski tiek iegūts dinamikas modelis, kas pareizi paredz pār
 
 Iepriekšējā apakšnodaļā 2. attēls ir no ``\textit{Generative Adversarial Imitation from Observation}'' \cite{torabi2018behavioral} (2018), kas turpina darboties tajā pašā virzienā, tikai šoreiz ar GAN modeļa palīdzību. Tā vietā, lai modelētu sistēmas dinamiku, diskriminators klasificē trajektoriju laikrindās sastopamās stāvokļu pārejas $(s, s')$ pēc tā, vai tās būtu sastopamas demonstrācijā, bet ģenerators (kas reizē ir arī stratēģija $\pi_{\theta}$) tiek trenēts, lai tā izvēlēto darbību rezultātā iegūtās stāvokļu pārejas $s=T(s,a)$ nebūtu atšķiramas no piemēriem.
 
-\subsubsection{Trajektorijas dinamikas atdarināšana, vispārināšana}
+\subsubsection{Dinamikas novērojumu iegūšana, izmantošana, vispārināšana} 
 
 Cita veida problēma, kas arī prasa korekciju ieviešanu, ir atdarināšana sistēmām ar mainīgu dinamiku. Robotiem izmantojot ``\textit{lead-through}'' programmēšanas metodi, kustības tiek programmētas bez slodzes un, iespējams, neievērojot ātrumu --- zināma tikai daļēja sistēmas kinemātika. Ja var paredzēt, ka pēc tam ekspluatācijā atšķirsies robotu slogojošie spēki un griezes momenti, tad var meklēt veidus, kā šīs novirzes treniņa datu ieguves procesā kompensēt. ``\textit{Online Movement Adaptation based on Previous Sensor Experiences}'' \cite{pastor2011online} (2011) paredz jau iepriekš aprakstīto simboliskās dekompozīcijas modeļu papildināšanu ar korekcijām reālā laikā, izmantojot atgriezenisko saiti ar gan paša robota iekšējiem devējiem, gan ārējiem sensoriem. 
 

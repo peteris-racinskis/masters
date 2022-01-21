@@ -36,7 +36,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.1}Nezināmas darbības}{18}{subsubsection.2.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.2}Trajektorijas dinamikas atdarināšana, vispārināšana}{19}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2}Dinamikas novērojumu iegūšana, izmantošana, vispārināšana}{19}{subsubsection.2.2.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.3}Demonstrācijas no cilvēka darbībām}{20}{subsubsection.2.2.3}%
 \defcounter {refsection}{0}\relax 
