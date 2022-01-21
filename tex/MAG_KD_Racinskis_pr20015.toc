@@ -60,5 +60,5 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2}Plāns tālākai darbībai}{29}{subsection.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{33}{Item.52}%
+\contentsline {section}{Atsauces}{30}{Item.52}%
 \contentsfinish 
