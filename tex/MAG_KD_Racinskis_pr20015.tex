@@ -519,7 +519,7 @@ Varētu sacīt, ka jau pati atdarinošās mācīšanās pamatnostādne --- apgū
 Protams, kārtojums var arī nebūt ideāls --- trajektoriju vērtējums var būt subjektīvs vai trokšņains, ja nav zināma īstā atalgojuma funkcija, tāpēc jārēķinās ar kļūdainu pāru attiecību pastāvēšanas iespējamību ar kļūdas varbūtību $\epsilon$
 
 \begin{equation}
-    \exists \epsilon > 0 : \tau_i \prec \tau_j \Rightarrow P\left(\sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)\right) \geq 1 - \epsilon
+    \exists \epsilon \geq 0 : \tau_i \prec \tau_j \Rightarrow P\left(\sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)\right) = 1 - \epsilon
 \end{equation}
 
 Ja kārtojums ir pieejams, radoši nosauktais \textit{Trajectory-ranked Reward EXtrapolation} jeb T-REX algoritms darbojas divos soļos:
