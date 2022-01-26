@@ -1,0 +1,9 @@
+DARBA MĒRĶIS
+
+    • TEORĒTISKS NOZARES PĀRSKATS
+    • Motivējošā problēma: atkritumu šķirošanas līnijās vai citur. Robots no konveijera ņem neregulāras formas objektus, šķiro tvertnēs ar metienu palīdzību. 
+    • Atdarinošā mašīnmācīšanās - šķiet piemērots risinājums, mazāki šķēršļi nekā reinforcement learning.
+    • Jānoskaidro: kādi pētījumi jau veikti; kādas metodes pastāv; kādi ir to sasniegtie rezultāti; vai var piemērot tos motivējošam uzdevumam.
+    • Jāizstrādā: provizorisks risinājums, plāns tālākai pētnieciskai darbībai
+
+
