@@ -811,7 +811,7 @@
       \endverb
     \endentry
     \entry{muench1994robot}{inproceedings}{}
-      \name{author}{3}{}{%
+      \name{author}{4}{}{%
         {{hash=cd4e7e696556dc7fe9d0a28f868a043e}{%
            family={Muench},
            familyi={M\bibinitperiod},
@@ -827,18 +827,31 @@
            familyi={K\bibinitperiod},
            given={M},
            giveni={M\bibinitperiod}}}%
+        {{hash=439e23079550f2395676940c789356ad}{%
+           family={Dillman},
+           familyi={D\bibinitperiod},
+           given={R},
+           giveni={R\bibinitperiod}}}%
       }
-      \strng{namehash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \strng{fullhash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \strng{bibnamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \strng{authorbibnamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \strng{authornamehash}{0dd92d0d0c14e481998bc159cb0b92fe}
-      \strng{authorfullhash}{0dd92d0d0c14e481998bc159cb0b92fe}
+      \list{organization}{1}{%
+        {INTERNATIONAL FEDERATION OF ROBOTICS, \& ROBOTIC INDUSTRIES}%
+      }
+      \strng{namehash}{59f38b6b3b428dc6db309ab878b101a4}
+      \strng{fullhash}{1f16dd444bcf5ffe690eedb1fedfb416}
+      \strng{bibnamehash}{59f38b6b3b428dc6db309ab878b101a4}
+      \strng{authorbibnamehash}{59f38b6b3b428dc6db309ab878b101a4}
+      \strng{authornamehash}{59f38b6b3b428dc6db309ab878b101a4}
+      \strng{authorfullhash}{1f16dd444bcf5ffe690eedb1fedfb416}
       \field{sortinit}{2}
       \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Symposium on Industrial Robots}
       \field{title}{Robot programming by demonstration (rpd)-using machine learning and user interaction methods for the development of easy and comfortable robot programming systems}
+      \field{volume}{25}
+      \field{year}{1994}
+      \field{pages}{685\bibrangedash 685}
+      \range{pages}{1}
     \endentry
     \entry{billard2008handbook}{article}{}
       \name{author}{4}{}{%

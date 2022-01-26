@@ -12,10 +12,15 @@
 \usepackage{xurl}
 \usepackage{enumitem}
 \usepackage{indentfirst}
+\usepackage{tocloft}
 \numberwithin{equation}{section} % number equations by section
 \renewcommand{\figurename}{Att.}
 \renewcommand{\contentsname}{Saturs}
 \renewcommand{\labelenumi}{\arabic{enumi})} % lists with 1)
+\renewcommand{\cftsecfont}{\scshape\large}
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecpagefont}{\normalfont}
 \setlist{nosep}
 \parindent=1cm
 \linespread{1.213} % equivalent to 1.5 in word, experimentally.
