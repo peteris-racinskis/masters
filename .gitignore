@@ -6,3 +6,5 @@
 *.synctex.gz
 .venv
 .vscode
+rawdata/
+*ipynb_checkpoints/
