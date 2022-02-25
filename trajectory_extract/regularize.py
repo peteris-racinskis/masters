@@ -6,14 +6,13 @@ IFILE="processed_data/combined_timeseries.csv"
 OFILE="processed_data/regular_timeseries.csv"
 TIME="Time"
 
-def trim_float(f, step, up=False):
-    ceil = 1 if up else 0
+def trim_float(f, step):
     inv = 1 / step
-    return float((int(f * inv) + ceil)) / inv
+    return float((int(f * inv) + 1)) / inv
 
 def resample(df: pd.DataFrame, step=0.01) -> Tuple[pd.DataFrame, np.ndarray]:
     start = trim_float(df.iloc[0][TIME], step)
-    end = trim_float(df.iloc[-1][TIME], step, True)
+    end = trim_float(df.iloc[-1][TIME], step)
     times = np.arange(start=start, stop=end, step=step)
     d={"Time": times, "Unnamed: 0": "Not a number"}
     cols = df.columns
@@ -24,7 +23,7 @@ def interpolate(df: pd.DataFrame, reg: pd.DataFrame, sel: np.ndarray) -> pd.Data
     combined = pd.concat([df, reg])
     combined: pd.DataFrame = combined.drop_duplicates(subset=[TIME]).sort_values(by=[TIME])
     interp = combined.fillna(method="ffill")
-    return interp.loc[lambda d: d["Unnamed: 0"] == "Not a number"].iloc[1:]
+    return interp.loc[lambda d: d["Unnamed: 0"] == "Not a number"]
 
 
 if __name__ == "__main__":
