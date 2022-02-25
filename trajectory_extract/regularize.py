@@ -1,4 +1,3 @@
-from cmath import nan
 import pandas as pd
 import numpy as np
 from typing import Tuple
