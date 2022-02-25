@@ -19,7 +19,7 @@ def resample(df: pd.DataFrame, step=0.01) -> Tuple[pd.DataFrame, np.ndarray]:
     regular = pd.DataFrame(data=d, columns=cols)
     return regular, times
 
-def interpolate(df: pd.DataFrame, reg: pd.DataFrame, sel: np.ndarray) -> pd.DataFrame:
+def interpolate(df: pd.DataFrame, reg: pd.DataFrame) -> pd.DataFrame:
     combined = pd.concat([df, reg])
     combined: pd.DataFrame = combined.drop_duplicates(subset=[TIME]).sort_values(by=[TIME])
     interp = combined.fillna(method="ffill")
@@ -29,5 +29,5 @@ def interpolate(df: pd.DataFrame, reg: pd.DataFrame, sel: np.ndarray) -> pd.Data
 if __name__ == "__main__":
     df = pd.read_csv(IFILE)
     rows, index = resample(df)
-    interpolated = interpolate(df, rows, index)
+    interpolated = interpolate(df, rows)
     interpolated.to_csv(OFILE)
