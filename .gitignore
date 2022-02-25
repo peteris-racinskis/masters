@@ -7,5 +7,6 @@
 .venv
 .vscode
 rawdata/
+processed_data/
 *ipynb_checkpoints/
 *.~lock*
