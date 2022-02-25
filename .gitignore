@@ -8,5 +8,5 @@
 .vscode
 rawdata/
 processed_data/
-*ipynb_checkpoints/
+#*ipynb_checkpoints/
 *.~lock*
