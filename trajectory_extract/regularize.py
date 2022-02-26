@@ -29,4 +29,6 @@ if __name__ == "__main__":
     df = pd.read_csv(IFILE)
     rows, index = resample(df)
     interpolated = interpolate(df, rows)
-    interpolated.to_csv(OFILE)
+    sel = interpolated.columns[1:]
+    interpolated[sel].to_csv(OFILE, index=False)
+    print()

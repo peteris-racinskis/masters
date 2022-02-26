@@ -34,7 +34,7 @@ def name_and_write(df: pd.DataFrame):
     t = df.iloc[0][TIME]
     timestamp = datetime.utcfromtimestamp(t).strftime('%d-%m-%Y-%H:%M:%S')
     fname = f"{OFILE_BASE}{timestamp}.csv"
-    df.to_csv(fname)
+    df.to_csv(fname, index=False)
 
 
 if __name__ == "__main__":
@@ -43,4 +43,4 @@ if __name__ == "__main__":
     demos = subframes(df, start_indices)
     for demo in demos:
         name_and_write(demo)
-
+    print()
