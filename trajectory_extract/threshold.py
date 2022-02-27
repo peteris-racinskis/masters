@@ -1,24 +1,23 @@
+from termios import VEOL
 import pandas as pd
-import numpy as np
 import sys
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
 IFILE="processed_data/demo-22-02-2022-10:44:48-smooth.csv"
 TIME="Time"
 BOTTLE="Bottle.position."
 GRIPPER="TrashPickup.position."
+CATCHPOS="CatchNet.position.x"
 DISTANCE="Distance"
 VELOCITY="Velocity"
 ACCELERATION="Acceleration"
-THRESHOLD=0.01
+RELEASED="Released"
+FREEFALL="Freefall"
+PASSED="Passed"
+THRESHOLD_RELEASE=0.05
+THRESHOLD_FREEFALL=0.1
 WINDOW=5
 
 # Goals:
 # 1. detect separation using a differential window (rolling sum before/after)
-# 2. fit linear model y=My(t), x=Mx(t)
-# 3. fit quadratic model z=Mz(t)
-# 4. find intersection Mz(t0) = CatchNet.position.z <- use np.polynomial
-# 5. let endpoint = (Mx(t0),My(t0),Mz(t0))
 
 def relative_distance(df: pd.DataFrame) -> pd.DataFrame:
     gripper = []
@@ -43,18 +42,26 @@ def take_derivative(df: pd.DataFrame, col_in, col_out, window=WINDOW) -> pd.Data
 def relative_velocity(df: pd.DataFrame) -> pd.DataFrame:
     return take_derivative(df, DISTANCE, VELOCITY)
 
-def thresholded_series(length, start):
+def add_thresholded_series(df, thresh, name):
+    length = len(df)
+    start = thresh.index[0]
     off = [-10]*(start)
     on = [10]*(length-start)
-    return off + on
+    return pd.concat([df,pd.Series(off+on, name=name)],axis=1)
 
 def acceleration_thresh(df: pd.DataFrame) -> pd.DataFrame:
     df_a = take_derivative(df, VELOCITY, ACCELERATION)
     valid = df_a.loc[lambda d: pd.notna(d[GRIPPER+"x"])].iloc[2*WINDOW:-2*WINDOW]
-    thresh = valid.loc[lambda d: d[ACCELERATION].abs() >= THRESHOLD]
-    start = thresh.index[0]
-    released = pd.Series(thresholded_series(len(df_a), start), name="Relased")
-    return pd.concat([df_a,released], axis=1)
+    thresh_r = valid.loc[lambda d: d[ACCELERATION].abs() >= THRESHOLD_RELEASE]
+    thresh_f = valid.loc[lambda d: d[VELOCITY].abs() >= THRESHOLD_FREEFALL]
+    df_r = add_thresholded_series(df_a, thresh_r, RELEASED)
+    return add_thresholded_series(df_r, thresh_f, FREEFALL)
+
+def position_thresh(df: pd.DataFrame) -> pd.DataFrame:
+    catchpos = df[CATCHPOS].mean()
+    bx = BOTTLE+"x"
+    thresh = df.loc[lambda d: d[bx] <= catchpos]
+    return add_thresholded_series(df, thresh, PASSED)
 
 
 
@@ -65,5 +72,6 @@ if __name__ == "__main__":
         df = pd.read_csv(IFILE)
         df_d = relative_distance(df)
         df_v = relative_velocity(df_d)
-        result = acceleration_thresh(df_v)
-        result.to_csv(ofname, index=False)
+        released = acceleration_thresh(df_v)
+        passed = position_thresh(released)
+        passed.to_csv(ofname, index=False)
