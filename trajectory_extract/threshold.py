@@ -69,7 +69,7 @@ if __name__ == "__main__":
     fnames = sys.argv if len(sys.argv) > 1 else [IFILE]
     for fname in fnames:
         ofname = fname.replace("-smooth","-thresh")
-        df = pd.read_csv(IFILE)
+        df = pd.read_csv(fname)
         df_d = relative_distance(df)
         df_v = relative_velocity(df_d)
         released = acceleration_thresh(df_v)
