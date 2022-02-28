@@ -66,9 +66,13 @@ def position_thresh(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fnames = sys.argv if len(sys.argv) > 1 else [IFILE]
+    fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     for fname in fnames:
-        ofname = fname.replace("-smooth","-thresh")
+        if not "demo-22-02" in fname:
+            continue
+        print(fname)
+        ofname = fname.replace("/smoothed/demo", "/thresh/demo")
+        ofname = ofname.replace("-smooth","-thresh")
         df = pd.read_csv(fname)
         df_d = relative_distance(df)
         df_v = relative_velocity(df_d)

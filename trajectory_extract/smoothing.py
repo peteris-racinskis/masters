@@ -6,9 +6,13 @@ WINDOW=20
 
 
 if __name__ == "__main__":
-    fnames = sys.argv if len(sys.argv) > 1 else [IFILE]
+    fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     for fname in fnames:
-        ofname = f"{fname[:-4]}-smooth.csv"
+        if not "demo-22-02" in fname:
+            continue
+        print(fname)
+        ofname = fname.replace("/demo", "/smoothed/demo")
+        ofname = f"{ofname[:-4]}-smooth.csv"
         df = pd.read_csv(fname)
         smoothed = df[df.columns[OFFSET:]].rolling(WINDOW, center=True).mean()
         unchanged = df[df.columns[:OFFSET]]

@@ -52,9 +52,13 @@ def find_target_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fnames = sys.argv if len(sys.argv) > 1 else [IFILE]
+    fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     for fname in fnames:
-        ofname = fname.replace("-thresh","-labelled")
+        if not "demo-22-02" in fname:
+            continue
+        print(fname)
+        ofname = fname.replace("/thresh/demo", "/labelled/demo")
+        ofname = ofname.replace("-thresh","-labelled")
         df = pd.read_csv(fname)
         df_ballistic = df.loc[lambda d: (d[FREEFALL] == 10) & (d[PASSED] == -10)]
         start = df_ballistic.iloc[0][TIME]
