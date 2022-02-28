@@ -23,7 +23,6 @@ PASSED="Passed"
 # 4. find intersection Mz(t0) = CatchNet.position.z <- use np.polynomial
 # 5. let endpoint = (Mx(t0),My(t0),Mz(t0))
 
-
 def fit_poly(df: pd.DataFrame, xcol: str, ycol: str, degree=1) -> pd.DataFrame:
     X = df[xcol].values.reshape(-1,1)
     X = X - X[0][0]
