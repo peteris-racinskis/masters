@@ -1,0 +1,8 @@
+<launch>
+  <!-- launch the talker to spam twist messages-->
+
+  <node name="test_node" pkg="testpackage" type="talker.py" output="screen" >
+    <param name="talker_topic" type="string" value="/servo_server/delta_twist_cmds" />
+  </node>
+
+</launch>
