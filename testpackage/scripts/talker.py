@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # shebang needed because this script gets called from somewhere who knows where
+# THIS HAS TO BE IN A CATKIN WORKSPACE AND BUILT TO WORK
+# USE ~/repos/ws_moveit/ ON MY SYSTEM
 import rospy
 from geometry_msgs.msg import TwistStamped
 DEF_TOPIC="/testpackage/talker"
