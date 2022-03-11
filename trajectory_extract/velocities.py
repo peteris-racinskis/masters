@@ -1,15 +1,17 @@
 import pandas as pd
 import sys
 IFILE="processed_data/labelled/demo-22-02-2022-10:44:48-labelled.csv"
-NET="CatchNet.position."
+NET="TrashPickup.position."
 NTX = NET+"x"
 NTY = NET+"y"
 NTZ = NET+"z"
+TIME="Time"
 
 def all_derivatives(df: pd.DataFrame, window=5) -> pd.DataFrame:
     forward = df.rolling(window).sum()
     backward = df.iloc[::-1].rolling(window).sum().iloc[::-1]
-    diff = diff = backward - forward.values
+    dt_inv = 1 / (window * (df["Time"].iloc[1] - df["Time"].iloc[0]))
+    diff = (backward - forward.values) * dt_inv
     return diff[[NTX,NTY,NTZ]]
 
 
