@@ -35,7 +35,7 @@ def relative_distance(df: pd.DataFrame) -> pd.DataFrame:
 
 def take_derivative(df: pd.DataFrame, col_in, col_out, window=WINDOW) -> pd.DataFrame:
     forward = df[col_in].rolling(window).sum()
-    backward = df[col_in].iloc[::-1].rolling(window).sum()
+    backward = df[col_in].iloc[::-1].rolling(window).sum().iloc[::-1] # NEED TO REVERSE AGAIN!!!
     velocity = pd.concat([forward,backward],axis=1).diff(axis=1).iloc[:,1].rename(col_out)
     return pd.concat([df,velocity], axis=1)
 
