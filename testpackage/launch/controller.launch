@@ -1,0 +1,7 @@
+<launch>
+  <!-- publish setpoint values, compute posdiffs and rotdiffs -->
+
+  <node name="setter_node_pid_servo" pkg="testpackage" type="setpoint_pub.py" output="screen" />
+  <node name="getter_node_pid_servo" pkg="testpackage" type="quaternion_to_eul_err.py" output="screen" />s
+
+</launch>
