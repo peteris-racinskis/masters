@@ -1,7 +1,105 @@
 <launch>
-  <!-- publish setpoint values, compute posdiffs and rotdiffs -->
-
+  <!-- Setpoint, diff and comine nodes -->
   <node name="setter_node_pid_servo" pkg="testpackage" type="setpoint_pub.py" output="screen" />
-  <node name="getter_node_pid_servo" pkg="testpackage" type="quaternion_to_eul_err.py" output="screen" />s
+  <node name="getter_node_pid_servo" pkg="testpackage" type="quaternion_to_eul_err.py" output="screen" />
+  <node name="combine_node_pid_servo" pkg="testpackage" type="effort_to_twist.py" output="screen" />
+  
+  <!-- Servo serve node -->
+  <node name="servo_server" pkg="moveit_servo" type="servo_server" output="screen" >
+    <param name="parameter_ns" type="string" value="optional_parameter_namespace" />
+   <!-- This puts something into the "OPTIONAL PARAMETER NAMESPACE" which gets checked by pose tracker, and then crashes it because it doesn't load anything else there.-->
+    <rosparam ns="optional_parameter_namespace" command="load" file="$(find moveit_servo)/config/ur_simulated_config.yaml" />
+  </node>
+
+  <!-- Spawn PID controllers for each axis -->
+  <node name="controller" pkg="pid" type="controller" ns="pid_pos_x" output="screen" >
+    <param name="node_name" value="position_x_pid" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/position_x" />
+    <remap from="state" to="/pid_state_terms/position_x" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
+  <node name="controller" pkg="pid" type="controller" ns="pid_pos_y" output="screen" >
+    <param name="node_name" value="position_y_pid" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/position_y" />
+    <remap from="state" to="/pid_state_terms/position_y" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
+  <node name="controller" pkg="pid" type="controller" ns="pid_pos_z" output="screen" >
+    <param name="node_name" value="position_z_pid" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/position_z" />
+    <remap from="state" to="/pid_state_terms/position_z" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
+  
+  <!-- Angular error can be discontinuous, need to set the angle_error param-->
+  <node name="controller" pkg="pid" type="controller" ns="pid_rot_x" output="screen" >
+    <param name="node_name" value="rotation_x_pid" />
+    <param name="angle_error" value="true" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/rotation_x" />
+    <remap from="state" to="/pid_state_terms/rotation_x" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
+  <node name="controller" pkg="pid" type="controller" ns="pid_rot_y" output="screen" >
+    <param name="node_name" value="rotation_y_pid" />
+    <param name="angle_error" value="true" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/rotation_y" />
+    <remap from="state" to="/pid_state_terms/rotation_y" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
+  <node name="controller" pkg="pid" type="controller" ns="pid_rot_z" output="screen" >
+    <param name="node_name" value="rotation_z_pid" />
+    <param name="angle_error" value="true" />
+    <param name="Kp" value="0.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.0" />
+    <param name="upper_limit" value="10" />
+    <param name="lower_limit" value="-10" />
+    <param name="windup_limit" value="10" />
+    <param name="max_loop_frequency" value="1000.0" />
+    <param name="min_loop_frequency" value="500.0" />
+    <remap from="setpoint" to="/pid_setpoint_terms/rotation_z" />
+    <remap from="state" to="/pid_state_terms/rotation_z" />
+    <remap from="pid_enable" to="/pid_enable_global" />
+  </node>
 
 </launch>
