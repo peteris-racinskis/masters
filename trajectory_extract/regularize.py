@@ -1,5 +1,7 @@
+#!/usr/bin/env python3
 import pandas as pd
 import numpy as np
+from sys import argv
 from typing import Tuple
 IFILE="processed_data/combined_timeseries.csv"
 OFILE="processed_data/regular_timeseries.csv"
@@ -26,9 +28,15 @@ def interpolate(df: pd.DataFrame, reg: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(IFILE)
-    rows, index = resample(df)
-    interpolated = interpolate(df, rows)
-    sel = interpolated.columns[1:]
-    interpolated[sel].to_csv(OFILE, index=False)
-    print()
+    print("####### STARTING STEP #######")
+    print("#######  REGULARIZE   #######")
+    print("####### STARTING STEP #######")
+    fnames = argv[1:] if len(argv) > 1 else [IFILE]
+    print(f"Files: {fnames[0]} ... {fnames[-1]}")
+    for fname in fnames:
+        df = pd.read_csv(fname)
+        ofname = fname.replace(".csv", "-regularized.csv")
+        rows, index = resample(df)
+        interpolated = interpolate(df, rows)
+        sel = interpolated.columns[1:]
+        interpolated[sel].to_csv(ofname, index=False)

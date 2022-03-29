@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+from sys import argv
 from bagpy import bagreader
+from os.path import exists
 import pandas as pd
-IFILE="rawdata/record_all_demonstrations.bag"
-OFILE="processed_data/combined_timeseries.csv"
+IFILE="rawdata/recording_with_rotation.bag"
 BOTTLE="/mocap_node/Bottle/Odom"
 CATCHER="/mocap_node/CatchNet/Odom"
 GRIPPER="/mocap_node/TrashPickup/Odom"
@@ -34,9 +36,17 @@ def df_merge(*dfs) -> pd.DataFrame:
     return combined.sort_values(by=[TIME])
 
 if __name__ == "__main__":
-    ds = bagreader(IFILE)
-    bottle = topic_read(BOTTLE, ds)
-    catch_net = topic_read(CATCHER, ds)
-    gripper = topic_read(GRIPPER, ds)
-    output = df_merge(bottle, catch_net, gripper)
-    output.to_csv(OFILE)
+    print("####### STARTING STEP #######")
+    print("#######    EXTRACT    #######")
+    print("####### STARTING STEP #######")
+    fnames = argv[1:] if len(argv) > 1 else [IFILE]
+    print(f"Files: {fnames[0]} ... {fnames[-1]}")
+    for fname in fnames:
+        ofname = fname.replace(".bag", ".csv").replace("rawdata/","processed_data/")
+        if not exists(ofname):
+            ds = bagreader(fname)
+            bottle = topic_read(BOTTLE, ds)
+            catch_net = topic_read(CATCHER, ds)
+            gripper = topic_read(GRIPPER, ds)
+            output = df_merge(bottle, catch_net, gripper)
+            output.to_csv(ofname)

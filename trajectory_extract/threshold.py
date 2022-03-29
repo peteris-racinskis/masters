@@ -1,7 +1,8 @@
-from termios import VEOL
+#!/usr/bin/env python3
 import pandas as pd
 import sys
-IFILE="processed_data/demo-22-02-2022-10:44:48-smooth.csv"
+from os.path import exists
+IFILE="processed_data/smoothed/demo-22-02-2022-10:44:48-smooth.csv"
 TIME="Time"
 BOTTLE="Bottle.position."
 GRIPPER="TrashPickup.position."
@@ -15,6 +16,7 @@ PASSED="Passed"
 THRESHOLD_RELEASE=0.05
 THRESHOLD_FREEFALL=0.1
 WINDOW=5
+OVERWRITE=True
 
 # Goals:
 # 1. detect separation using a differential window (rolling sum before/after)
@@ -66,16 +68,26 @@ def position_thresh(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    print("####### STARTING STEP #######")
+    print("#######   THRESHOLD   #######")
+    print("####### STARTING STEP #######")
     fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
+    print(f"Files: {fnames[0]} ... {fnames[-1]}")
     for fname in fnames:
-        if not "demo-22-02" in fname:
+        if not "demo-22-0" in fname:
             continue
         print(fname)
         ofname = fname.replace("/smoothed/demo", "/thresh/demo")
         ofname = ofname.replace("-smooth","-thresh")
-        df = pd.read_csv(fname)
-        df_d = relative_distance(df)
-        df_v = relative_velocity(df_d)
-        released = acceleration_thresh(df_v)
-        passed = position_thresh(released)
-        passed.to_csv(ofname, index=False)
+        if not exists(ofname) or OVERWRITE:
+            df = pd.read_csv(fname)
+            try:
+                df_d = relative_distance(df)
+                df_v = relative_velocity(df_d)
+                released = acceleration_thresh(df_v)
+                passed = position_thresh(released)
+            except:
+                print(f"Failed on {fname}")
+                continue
+            passed.to_csv(ofname, index=False)
+    pass

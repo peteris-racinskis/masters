@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 import pandas as pd
 import numpy as np
 import sys
+from os.path import exists
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures
@@ -16,12 +18,12 @@ TARGET="-t"
 CZ=NET+"z"
 FREEFALL="Freefall"
 PASSED="Passed"
+OVERWRITE=True
 
 # Goals:
 # 2. fit linear model y=My(t), x=Mx(t)
 # 3. fit quadratic model z=Mz(t)
-# 4. find intersection Mz(t0) = CatchNet.position.z <- use np.polynomial
-# 5. let endpoint = (Mx(t0),My(t0),Mz(t0))
+# 4. find intersection Mz(t0) = CatchNet.position.z <- just use the last position with z above target lol
 
 def fit_poly(df: pd.DataFrame, xcol: str, ycol: str, degree=1) -> pd.DataFrame:
     X = df[xcol].values.reshape(-1,1)
@@ -52,19 +54,24 @@ def find_target_coordinates(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    print("####### STARTING STEP #######")
+    print("#######  REGRESSION   #######")
+    print("####### STARTING STEP #######")
     fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
+    print(f"Files: {fnames[0]} ... {fnames[-1]}")
     for fname in fnames:
-        if not "demo-22-02" in fname:
+        if not "demo-22-0" in fname:
             continue
         print(fname)
         ofname = fname.replace("/thresh/demo", "/labelled/demo")
         ofname = ofname.replace("-thresh","-labelled")
-        df = pd.read_csv(fname)
-        df_ballistic = df.loc[lambda d: (d[FREEFALL] == 10) & (d[PASSED] == -10)]
-        start = df_ballistic.iloc[0][TIME]
-        xmod = fit_poly(df_ballistic, TIME, BX)
-        ymod = fit_poly(df_ballistic, TIME, BY)
-        zmod = fit_poly(df_ballistic, TIME, BZ, degree=2)
-        pred = predict(df, xmod, ymod, zmod, start)
-        labelled = find_target_coordinates(pred)
-        labelled.to_csv(ofname, index=False)
+        if not exists(ofname) or OVERWRITE:
+            df = pd.read_csv(fname)
+            df_ballistic = df.loc[lambda d: (d[FREEFALL] == 10) & (d[PASSED] == -10)]
+            start = df_ballistic.iloc[0][TIME]
+            xmod = fit_poly(df_ballistic, TIME, BX)
+            ymod = fit_poly(df_ballistic, TIME, BY)
+            zmod = fit_poly(df_ballistic, TIME, BZ, degree=2)
+            pred = predict(df, xmod, ymod, zmod, start)
+            labelled = find_target_coordinates(pred)
+            labelled.to_csv(ofname, index=False)
