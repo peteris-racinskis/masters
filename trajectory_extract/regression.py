@@ -18,7 +18,7 @@ TARGET="-t"
 CZ=NET+"z"
 FREEFALL="Freefall"
 PASSED="Passed"
-OVERWRITE=True
+OVERWRITE=False
 
 # Goals:
 # 2. fit linear model y=My(t), x=Mx(t)
@@ -62,10 +62,10 @@ if __name__ == "__main__":
     for fname in fnames:
         if not "demo-22-0" in fname:
             continue
-        print(fname)
         ofname = fname.replace("/thresh/demo", "/labelled/demo")
         ofname = ofname.replace("-thresh","-labelled")
         if not exists(ofname) or OVERWRITE:
+            print(fname)
             df = pd.read_csv(fname)
             df_ballistic = df.loc[lambda d: (d[FREEFALL] == 10) & (d[PASSED] == -10)]
             start = df_ballistic.iloc[0][TIME]

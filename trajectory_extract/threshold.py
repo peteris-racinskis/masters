@@ -16,7 +16,7 @@ PASSED="Passed"
 THRESHOLD_RELEASE=0.05
 THRESHOLD_FREEFALL=0.1
 WINDOW=5
-OVERWRITE=True
+OVERWRITE=False
 
 # Goals:
 # 1. detect separation using a differential window (rolling sum before/after)
@@ -76,7 +76,6 @@ if __name__ == "__main__":
     for fname in fnames:
         if not "demo-22-0" in fname:
             continue
-        print(fname)
         ofname = fname.replace("/smoothed/demo", "/thresh/demo")
         ofname = ofname.replace("-smooth","-thresh")
         if not exists(ofname) or OVERWRITE:
@@ -86,8 +85,8 @@ if __name__ == "__main__":
                 df_v = relative_velocity(df_d)
                 released = acceleration_thresh(df_v)
                 passed = position_thresh(released)
+                print(fname)
             except:
                 print(f"Failed on {fname}")
                 continue
             passed.to_csv(ofname, index=False)
-    pass

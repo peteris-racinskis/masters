@@ -3,6 +3,9 @@ filename=recording_with_rotation
 limit_high=1.0
 limit_low=0.9
 
+state_transitions: label
+	models/preprocess_dataset.py
+
 label: threshold
 	trajectory_extract/regression.py processed_data/thresh/*
 

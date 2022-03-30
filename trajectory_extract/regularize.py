@@ -3,9 +3,11 @@ import pandas as pd
 import numpy as np
 from sys import argv
 from typing import Tuple
+from os.path import exists
 IFILE="processed_data/combined_timeseries.csv"
 OFILE="processed_data/regular_timeseries.csv"
 TIME="Time"
+OVERWRITE=False
 
 def trim_float(f, step):
     inv = 1 / step
@@ -36,7 +38,8 @@ if __name__ == "__main__":
     for fname in fnames:
         df = pd.read_csv(fname)
         ofname = fname.replace(".csv", "-regularized.csv")
-        rows, index = resample(df)
-        interpolated = interpolate(df, rows)
-        sel = interpolated.columns[1:]
-        interpolated[sel].to_csv(ofname, index=False)
+        if not exists(ofname) or OVERWRITE:
+            rows, index = resample(df)
+            interpolated = interpolate(df, rows)
+            sel = interpolated.columns[1:]
+            interpolated[sel].to_csv(ofname, index=False)
