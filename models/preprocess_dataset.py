@@ -6,7 +6,7 @@ from os.path import exists
 import random
 from hashlib import sha1
 TEST_FRAC=0.1
-OVERWRITE=False
+OVERWRITE=True
 BASE_T="TrashPickup."
 BASE_B="Bottle."
 RELEASED="Released"
@@ -32,15 +32,16 @@ def strip_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 def state_transitions(df: pd.DataFrame) -> pd.DataFrame:
     # Copy over the next values, shift by one, do a row-wise NaN
-    # reduction to eliminate invalid rows, reorder.
+    # reduction to eliminate invalid rows.
+    # DON"T NEED TO REORDER! TARGET COORDINATES ARE AN INPUT PARAMETER,
+    # NOT A LABEL YOU FUCKING MORON
     next_states = df[df.columns[:-3]].iloc[1:]
     next_states.index -= 1
     d = {x:x+NEXT for x in next_states.columns}
     next_states = next_states.rename(columns=d)
     combined = pd.concat([df,next_states], axis=1)
     combined[INVALID] = combined.isnull().any(axis=1)
-    reorder = list(df.columns[:-3]) + list(next_states.columns) + list(df.columns[-3:])
-    return combined.loc[lambda d: ~d[INVALID]][reorder]
+    return combined.loc[lambda d: ~d[INVALID]].drop(columns=INVALID)
 
 # For splitting demonstration-wise
 def split_train_test(fnames):
@@ -93,12 +94,12 @@ if __name__ == "__main__":
     if not exists(trainname) or OVERWRITE:
         print(f"Creating dataset {trainname}")
         train_df = process_demo_list(train_demos)
-        train_df.to_csv(trainname)
+        train_df.to_csv(trainname, index=False)
     else:
         print(f"Dataset {trainname} already exists! Use OVERWRITE to regenerate")
     if not exists(testname) or OVERWRITE:
         print(f"Creating dataset {testname}")
         test_df = process_demo_list(test_demos)
-        test_df.to_csv(testname)
+        test_df.to_csv(testname, index=False)
     else:
         print(f"Dataset {testname} already exists! Use OVERWRITE to regenerate")
