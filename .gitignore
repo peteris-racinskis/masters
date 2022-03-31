@@ -4,9 +4,11 @@
 *.log
 *.out
 *.synctex.gz
+*.csv
 .venv
 .vscode
 rawdata/
 processed_data/
 #*ipynb_checkpoints/
 *.~lock*
+models/naiveBC/

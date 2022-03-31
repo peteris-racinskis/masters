@@ -12,6 +12,7 @@ BASE_B="Bottle."
 RELEASED="Released"
 NEXT="-next"
 INVALID="invalid"
+NOT_DONE="Passed"
 POS="position."
 ROT="orientation."
 DIR="processed_data/labelled/"
@@ -27,6 +28,8 @@ def strip_columns(df: pd.DataFrame) -> pd.DataFrame:
     relevant += [RELEASED]
     relevant += [BASE_B+POS+s for s in ["x-t","y-t","z-t"]]
     d = {x:x.replace(BASE_T,"").replace(BASE_B,"") for x in relevant}
+    # Keep only the throw. Discard things after
+    df = df.loc[lambda d: df[NOT_DONE] == -10]
     df = df[relevant].rename(columns=d)
     return df
 
