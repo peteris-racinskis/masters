@@ -8,8 +8,8 @@ import tensorflow as tf
 from tensorflow.keras import layers, optimizers, losses, activations, regularizers, models
 TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
 TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
-OFILE="models/naiveBC"
-OVERWRITE=True
+OFILE="models/naiveBC-small-780"
+OVERWRITE=False
 
 def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
     values = df.values
@@ -18,11 +18,10 @@ def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
     label_cols = values[:,-8:]
     return data_cols, label_cols
 
-def generate_trajectory(model, initial_state, steps):
+def generate_trajectory(model, initial_state, steps, states=[]):
     reshaped = initial_state.reshape(1,11)
     target = reshaped[:,-3:]
     state = reshaped
-    states = []
     for _ in range(steps):
         state = model(state).numpy()
         state = np.concatenate([state, target], axis=1)
@@ -39,22 +38,22 @@ if __name__ == "__main__":
     if not exists(OFILE) or OVERWRITE:
         model = tf.keras.Sequential([
             layers.Input(shape=train_data[0].shape),
-            layers.Dense(2048),
-            layers.LeakyReLU(),
-            layers.Dense(2048),
-            layers.LeakyReLU(),
+            layers.Dense(128),
+            layers.ReLU(),
+            layers.Dense(128),
+            layers.ReLU(),
             layers.Dense(train_labels[0].size, activation=None),
         ])
 
         model.compile(
-            optimizer=optimizers.Adam(learning_rate=0.0001),
+            optimizer=optimizers.Adam(learning_rate=0.001),
             loss=losses.Huber()
         )
 
         history = model.fit(
             train_data,
             train_labels,
-            epochs=20,
+            epochs=4,
             validation_data=(test_data, test_labels),
             validation_freq=1,
             verbose=2,
@@ -65,10 +64,10 @@ if __name__ == "__main__":
         model = models.load_model(OFILE)
 
     start = pd.read_csv(TRAIN).values[0,:-8]
-    trajectory = generate_trajectory(model, start, 150)
+    trajectory = generate_trajectory(model, start, 100)
     cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     t = pd.Series(data=np.arange(0,5,0.01), name="Time")
     output = pd.concat([t,df], axis=1)
-    output.to_csv(OFILE+".csv", index=False)
+    output.to_csv(OFILE+"-0.csv", index=False)
     pass
