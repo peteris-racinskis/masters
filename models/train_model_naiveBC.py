@@ -8,8 +8,9 @@ import tensorflow as tf
 from tensorflow.keras import layers, optimizers, losses, activations, regularizers, models
 TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
 TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
-OFILE="models/naiveBC-small-780"
+OFILE="models/naiveBC-small-movement-thresh"
 OVERWRITE=False
+STARTINDEX=780
 
 def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
     values = df.values
@@ -63,11 +64,11 @@ if __name__ == "__main__":
     else:
         model = models.load_model(OFILE)
 
-    start = pd.read_csv(TRAIN).values[0,:-8]
+    start = pd.read_csv(TRAIN).values[STARTINDEX,:-8]
     trajectory = generate_trajectory(model, start, 100)
     cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     t = pd.Series(data=np.arange(0,5,0.01), name="Time")
     output = pd.concat([t,df], axis=1)
-    output.to_csv(OFILE+"-0.csv", index=False)
+    output.to_csv(OFILE+f"-{STARTINDEX}-movement-thresh.csv", index=False)
     pass

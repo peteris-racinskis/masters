@@ -24,3 +24,7 @@ models/naiveBC-small-780/keras_metadata.pb
 models/naiveBC-small-780/saved_model.pb
 models/naiveBC-small-780/variables/variables.data-00000-of-00001
 models/naiveBC-small-780/variables/variables.index
+models/naiveBC-small-movement-thresh/keras_metadata.pb
+models/naiveBC-small-movement-thresh/saved_model.pb
+models/naiveBC-small-movement-thresh/variables/variables.data-00000-of-00001
+models/naiveBC-small-movement-thresh/variables/variables.index
