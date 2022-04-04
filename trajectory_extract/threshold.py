@@ -53,9 +53,11 @@ def absolute_velocity(df: pd.DataFrame) -> pd.DataFrame:
     cols = []
     for axis in "xyz":
         cols.append(GRIPPER + axis)
-    velocity = df[cols].diff().pow(2).sum(axis=1).pow(1/2).mul(SAMPLE_RATE)
+    d = {x:x.replace("position", "velocity") for x in cols}
+    velocities = df[cols].diff().rename(columns=d).mul(SAMPLE_RATE)
+    velocity = velocities.pow(2).sum(axis=1).pow(1/2)
     velocity.name = VELOCITY_ABS
-    return pd.concat([df,velocity], axis=1)
+    return pd.concat([df,velocities,velocity], axis=1)
 
 def add_thresholded_series(df, thresh, name):
     length = len(df)

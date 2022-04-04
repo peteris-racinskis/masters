@@ -5,30 +5,13 @@ from os import listdir
 from os.path import exists
 from typing import Tuple
 import tensorflow as tf
-from tensorflow.keras import layers, optimizers, losses, activations, regularizers, models
+from helpers import data_and_label, generate_trajectory
+from tensorflow.keras import layers, optimizers, losses, models
 TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
 TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 OFILE="models/naiveBC-small-movement-thresh"
 OVERWRITE=False
-STARTINDEX=780
-
-def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
-    values = df.values
-    np.random.shuffle(values)
-    data_cols = values[:,:-8]
-    label_cols = values[:,-8:]
-    return data_cols, label_cols
-
-def generate_trajectory(model, initial_state, steps, states=[]):
-    reshaped = initial_state.reshape(1,11)
-    target = reshaped[:,-3:]
-    state = reshaped
-    for _ in range(steps):
-        state = model(state).numpy()
-        state = np.concatenate([state, target], axis=1)
-        states.append(state)
-    arr = np.asarray(states)
-    return arr.reshape(-1,11)
+STARTINDEX=156
 
 
 if __name__ == "__main__":

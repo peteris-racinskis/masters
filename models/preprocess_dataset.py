@@ -21,6 +21,7 @@ OFDIR="processed_data/train_datasets/"
 IFILE=DIR+"demo-22-03-2022-11:39:49-labelled.csv"
 
 
+# This version does not take velocity into the dataset.
 def strip_columns(df: pd.DataFrame) -> pd.DataFrame:
     # the order of the items in this list determines
     # the order of columbs in the resulting dataframe!
@@ -29,7 +30,7 @@ def strip_columns(df: pd.DataFrame) -> pd.DataFrame:
     relevant += [RELEASED]
     relevant += [BASE_B+POS+s for s in ["x-t","y-t","z-t"]]
     d = {x:x.replace(BASE_T,"").replace(BASE_B,"") for x in relevant}
-    # Keep only the throw. Discard things after
+    # Keep only the throw. Discard things after and discard the initial wait
     df = df.loc[lambda d: (d[MOVING] == 10) & (d[NOT_DONE] == -10)]
     df = df[relevant].rename(columns=d)
     return df
