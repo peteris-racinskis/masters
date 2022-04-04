@@ -12,3 +12,15 @@ processed_data/
 #*ipynb_checkpoints/
 *.~lock*
 models/naiveBC/
+models/naiveBC-small/keras_metadata.pb
+models/naiveBC-small/saved_model.pb
+models/naiveBC-small/variables/variables.data-00000-of-00001
+models/naiveBC-small/variables/variables.index
+models/naiveBC-small-150/keras_metadata.pb
+models/naiveBC-small-150/saved_model.pb
+models/naiveBC-small-150/variables/variables.data-00000-of-00001
+models/naiveBC-small-150/variables/variables.index
+models/naiveBC-small-780/keras_metadata.pb
+models/naiveBC-small-780/saved_model.pb
+models/naiveBC-small-780/variables/variables.data-00000-of-00001
+models/naiveBC-small-780/variables/variables.index

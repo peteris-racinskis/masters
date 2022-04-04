@@ -18,7 +18,7 @@ TARGET="-t"
 CZ=NET+"z"
 FREEFALL="Freefall"
 PASSED="Passed"
-OVERWRITE=False
+OVERWRITE=True
 
 # Goals:
 # 2. fit linear model y=My(t), x=Mx(t)

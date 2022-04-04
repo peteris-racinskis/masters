@@ -8,15 +8,19 @@ BOTTLE="Bottle.position."
 GRIPPER="TrashPickup.position."
 CATCHPOS="CatchNet.position.x"
 DISTANCE="Distance"
-VELOCITY="Velocity"
+VELOCITY_REL="Velocity_rel"
+VELOCITY_ABS="Velocity_abs"
 ACCELERATION="Acceleration"
 RELEASED="Released"
 FREEFALL="Freefall"
 PASSED="Passed"
+MOVING="Moving"
 THRESHOLD_RELEASE=0.05
 THRESHOLD_FREEFALL=0.1
+THRESHOLD_MOVING=0.2
 WINDOW=5
-OVERWRITE=False
+OVERWRITE=True
+SAMPLE_RATE=100
 
 # Goals:
 # 1. detect separation using a differential window (rolling sum before/after)
@@ -42,7 +46,16 @@ def take_derivative(df: pd.DataFrame, col_in, col_out, window=WINDOW) -> pd.Data
     return pd.concat([df,velocity], axis=1)
 
 def relative_velocity(df: pd.DataFrame) -> pd.DataFrame:
-    return take_derivative(df, DISTANCE, VELOCITY)
+    return take_derivative(df, DISTANCE, VELOCITY_REL)
+
+# Gripper absolute velocity
+def absolute_velocity(df: pd.DataFrame) -> pd.DataFrame:
+    cols = []
+    for axis in "xyz":
+        cols.append(GRIPPER + axis)
+    velocity = df[cols].diff().pow(2).sum(axis=1).pow(1/2).mul(SAMPLE_RATE)
+    velocity.name = VELOCITY_ABS
+    return pd.concat([df,velocity], axis=1)
 
 def add_thresholded_series(df, thresh, name):
     length = len(df)
@@ -52,12 +65,14 @@ def add_thresholded_series(df, thresh, name):
     return pd.concat([df,pd.Series(off+on, name=name)],axis=1)
 
 def acceleration_thresh(df: pd.DataFrame) -> pd.DataFrame:
-    df_a = take_derivative(df, VELOCITY, ACCELERATION)
+    df_a = take_derivative(df, VELOCITY_REL, ACCELERATION)
     valid = df_a.loc[lambda d: pd.notna(d[GRIPPER+"x"])].iloc[2*WINDOW:-2*WINDOW]
     thresh_r = valid.loc[lambda d: d[ACCELERATION].abs() >= THRESHOLD_RELEASE]
-    thresh_f = valid.loc[lambda d: d[VELOCITY].abs() >= THRESHOLD_FREEFALL]
+    thresh_f = valid.loc[lambda d: d[VELOCITY_REL].abs() >= THRESHOLD_FREEFALL]
+    thresh_v = valid.loc[lambda d: d[VELOCITY_ABS].abs() >= THRESHOLD_MOVING]
     df_r = add_thresholded_series(df_a, thresh_r, RELEASED)
-    return add_thresholded_series(df_r, thresh_f, FREEFALL)
+    df_v = add_thresholded_series(df_r, thresh_v, MOVING)
+    return add_thresholded_series(df_v, thresh_f, FREEFALL)
 
 def position_thresh(df: pd.DataFrame) -> pd.DataFrame:
     catchpos = df[CATCHPOS].mean()
@@ -81,12 +96,13 @@ if __name__ == "__main__":
         if not exists(ofname) or OVERWRITE:
             df = pd.read_csv(fname)
             try:
-                df_d = relative_distance(df)
+                df_av = absolute_velocity(df)
+                df_d = relative_distance(df_av)
                 df_v = relative_velocity(df_d)
                 released = acceleration_thresh(df_v)
                 passed = position_thresh(released)
                 print(fname)
-            except:
+            except Exception as e:
                 print(f"Failed on {fname}")
                 continue
             passed.to_csv(ofname, index=False)
