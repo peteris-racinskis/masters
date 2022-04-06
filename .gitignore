@@ -12,6 +12,7 @@ rawdata/
 processed_data/
 #*ipynb_checkpoints/
 *.~lock*
+*pycache*
 models/naiveBC/
 models/naiveBC-small/keras_metadata.pb
 models/naiveBC-small/saved_model.pb
