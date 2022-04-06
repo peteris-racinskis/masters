@@ -16,16 +16,16 @@ def make_generator(data_element: np.ndarray, label_element: np.ndarray):
     outputs = layers.Dense(label_element.size)(x)
     return Model(inputs, outputs, name="generator")
 
-def make_discriminator(label_element: np.ndarray, classes=2):
-    doubled = np.concatenate([label_element, label_element])
-    inputs = Input(shape=doubled.shape)
+def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2):
+    comb = np.concatenate([data_element, label_element])
+    inputs = Input(shape=comb.shape)
     x = layers.Dense(GEN_H)(inputs) # two parentheses - (constructor)(call)
     x = layers.LeakyReLU()(x)
     outputs = layers.Dense(classes)(x)
     return Model(inputs, outputs, name="discriminator")
 
 def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
-    values = df.values
+    values = df.values.astype(np.float32)
     np.random.shuffle(values)
     data_cols = values[:,:-8]
     label_cols = values[:,-8:]
