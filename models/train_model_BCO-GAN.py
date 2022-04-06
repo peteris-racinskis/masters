@@ -12,7 +12,7 @@ TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 OFILE="models/BCO-256"
 OVERWRITE=False
 STARTINDEX=156
-BATCHSIZE=256
+BATCHSIZE=16
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -33,18 +33,28 @@ def discriminator_loss(predictions_on_real, predictions_on_fake):
     loss_on_fake = cross_entropy(tf.zeros_like(predictions_on_fake), predictions_on_fake)
     return loss_on_fake + loss_on_real
 
+def generator_iterate(gen, initial_state):
+    prev, new = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True), tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
+    state = tf.reshape(initial_state, [1,11])
+    target = tf.reshape(initial_state[8:], [1,3])
+    for i in tf.range(BATCHSIZE):
+        prev = prev.write(i, state)
+        state = gen(state)
+        new = new.write(i, state)
+        state = tf.concat([state, target], axis=1)
+    return tf.squeeze(prev.stack()), tf.squeeze(new.stack())
 
 
 @tf.function
 def train_step(inits, data, labels):
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
-        state_transitions = generator(inits)
+        inits, newstates = generator_iterate(generator, inits[0])
 
         predict_on_real = discriminator(tf.concat([data,labels], axis=1))
-        predict_on_fake = discriminator(tf.concat([inits,state_transitions], axis=1))
+        predict_on_fake = discriminator(tf.concat([inits,newstates], axis=1))
 
-        gen_loss = generator_loss(inits, state_transitions, predict_on_fake)
+        gen_loss = generator_loss(inits, newstates, predict_on_fake)
         disc_loss = discriminator_loss(predict_on_real, predict_on_fake)
     
     gen_grad = gen_tape.gradient(gen_loss, generator.trainable_variables)
@@ -59,9 +69,7 @@ def train(data, labels, epochs=20):
     batched_data = tf.data.Dataset.from_tensor_slices(data).batch(BATCHSIZE)
     labels = tf.data.Dataset.from_tensor_slices(labels).batch(BATCHSIZE)
     for epoch in range(epochs):
-        noise = np.random.normal(0,1,data.shape).astype(np.float32)
-        randomized_states = noise + data
-        initial_states = tf.data.Dataset.from_tensor_slices(randomized_states).shuffle(len(data)).batch(BATCHSIZE)
+        initial_states = tf.data.Dataset.from_tensor_slices(data).shuffle(len(data)).batch(BATCHSIZE)
         for i_batch, d_batch, l_batch in zip(initial_states, batched_data, labels):
             g, d = train_step(i_batch, d_batch, l_batch)
         print(f"Epoch: {epoch} g_loss: {g} d_loss {d}")
