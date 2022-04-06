@@ -29,3 +29,11 @@ models/naiveBC-small-movement-thresh/keras_metadata.pb
 models/naiveBC-small-movement-thresh/saved_model.pb
 models/naiveBC-small-movement-thresh/variables/variables.data-00000-of-00001
 models/naiveBC-small-movement-thresh/variables/variables.index
+models/BCO-256-disc/keras_metadata.pb
+models/BCO-256-disc/saved_model.pb
+models/BCO-256-disc/variables/variables.data-00000-of-00001
+models/BCO-256-disc/variables/variables.index
+models/BCO-256-gen/keras_metadata.pb
+models/BCO-256-gen/saved_model.pb
+models/BCO-256-gen/variables/variables.data-00000-of-00001
+models/BCO-256-gen/variables/variables.index

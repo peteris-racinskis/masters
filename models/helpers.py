@@ -19,8 +19,8 @@ def make_generator(data_element: np.ndarray, label_element: np.ndarray):
 def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2):
     comb = np.concatenate([data_element, label_element])
     inputs = Input(shape=comb.shape)
-    x = layers.Dense(GEN_H)(inputs) # two parentheses - (constructor)(call)
-    x = layers.LeakyReLU()(x)
+    x = layers.Dense(GEN_H / 8)(inputs) # two parentheses - (constructor)(call)
+    x = layers.ReLU()(x)
     outputs = layers.Dense(classes)(x)
     return Model(inputs, outputs, name="discriminator")
 
