@@ -7,11 +7,13 @@ from typing import Tuple
 import tensorflow as tf
 from helpers import data_and_label, generate_trajectory
 from tensorflow.keras import layers, optimizers, losses, models
-TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
-TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
-OFILE="models/naiveBC-small-movement-thresh"
+TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
+TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
+OFILE="models/naiveBC-norm-start-small"
 OVERWRITE=False
-STARTINDEX=156
+STARTINDEX=0
+ID="first-attempt"
+
 
 
 if __name__ == "__main__":
@@ -53,5 +55,5 @@ if __name__ == "__main__":
     df = pd.DataFrame(data=trajectory, columns=cols)
     t = pd.Series(data=np.arange(0,5,0.01), name="Time")
     output = pd.concat([t,df], axis=1)
-    output.to_csv(OFILE+f"-{STARTINDEX}-movement-thresh.csv", index=False)
+    output.to_csv(OFILE+f"-{STARTINDEX}-{ID}.csv", index=False)
     pass

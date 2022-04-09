@@ -38,3 +38,7 @@ models/BCO-256-gen/keras_metadata.pb
 models/BCO-256-gen/saved_model.pb
 models/BCO-256-gen/variables/variables.data-00000-of-00001
 models/BCO-256-gen/variables/variables.index
+models/naiveBC-norm-start-small/keras_metadata.pb
+models/naiveBC-norm-start-small/saved_model.pb
+models/naiveBC-norm-start-small/variables/variables.data-00000-of-00001
+models/naiveBC-norm-start-small/variables/variables.index

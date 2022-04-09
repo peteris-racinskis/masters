@@ -44,7 +44,9 @@ def generator_iterate(gen, initial_state):
         state = tf.concat([state, target], axis=1)
     return tf.squeeze(prev.stack()), tf.squeeze(new.stack())
 
-
+# Real IRL appraoches use algos like actor critic - the output of the discriminator
+# is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
+# that to increase performance?
 @tf.function
 def train_step(inits, data, labels):
 

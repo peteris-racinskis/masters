@@ -3,8 +3,23 @@ filename=recording_with_rotation
 limit_high=1.0
 limit_low=0.9
 
-state_transitions: label
-	models/preprocess_dataset.py
+dataset-default: norm-default
+	models/preprocess_dataset.py default
+
+dataset-start: norm-start
+	models/preprocess_dataset.py start
+
+dataset-target: norm-target
+	models/preprocess_dataset.py target
+
+norm-target: label
+	trajectory_extract/normalize.py target processed_data/labelled/*
+
+norm-start: label
+	trajectory_extract/normalize.py start processed_data/labelled/*
+
+norm-default: label
+	trajectory_extract/normalize.py default processed_data/labelled/*
 
 label: threshold
 	trajectory_extract/regression.py processed_data/thresh/*

@@ -3,6 +3,7 @@ from encodings import utf_8
 import pandas as pd
 from os import listdir
 from os.path import exists
+from sys import argv
 import random
 from hashlib import sha1
 TEST_FRAC=0.1
@@ -16,7 +17,8 @@ MOVING="Moving"
 NOT_DONE="Passed"
 POS="position."
 ROT="orientation."
-DIR="processed_data/labelled/"
+DIR="processed_data/norm/"
+MODE="start"
 OFDIR="processed_data/train_datasets/"
 IFILE=DIR+"demo-22-03-2022-11:39:49-labelled.csv"
 
@@ -89,13 +91,15 @@ if __name__ == "__main__":
     print("####### STARTING STEP #######")
     print("####### PREPROCESSING #######")
     print("####### STARTING STEP #######")
-    fnames = listdir(DIR)
+    mode = argv[1] if len(argv) > 1 else MODE
+    print(f"Normalization mode selected: {mode}")
+    fnames = [f for f in filter(lambda x: (f"norm-{mode}" in x), listdir(DIR))]
     train_demos, test_demos = split_train_test(fnames)
     print(f"Demos put into train dataset: {len(train_demos)}")
     print(f"Demos put into test dataset: {len(test_demos)}")
     dataset_id = get_dataset_id(train_demos, test_demos)
-    trainname = f"{OFDIR}train-{dataset_id}.csv"
-    testname = f"{OFDIR}test-{dataset_id}.csv"
+    trainname = f"{OFDIR}train-{mode}-{dataset_id}.csv"
+    testname = f"{OFDIR}test-{mode}-{dataset_id}.csv"
     if not exists(trainname) or OVERWRITE:
         print(f"Creating dataset {trainname}")
         train_df = process_demo_list(train_demos)
