@@ -8,7 +8,7 @@ OVERWRITE=True
 BOTTLE="Bottle.position."
 GRIPPER="TrashPickup.position."
 IFILE="processed_data/labelled/demo-22-02-2022-10:44:48-labelled.csv"
-MODE="target"
+MODE="start"
 explain = {
     "default":  "Do nothing.",
     "start": "Center trajectory on the first moving entry.",
@@ -21,14 +21,18 @@ def normalize_to_target(df: pd.DataFrame) -> pd.DataFrame:
     target_values = {c:df[tc][0] for c,tc in zip(cols,t_cols)}
     for col in cols:
         df[col] = df[col] - target_values[col]
+    for tcol in t_cols:
+        df[tcol] = 0.0
     return df
 
 def normalize_to_start(df: pd.DataFrame) -> pd.DataFrame:
     start_index = df.loc[lambda d: d["Moving"] == 10].index[0]
     cols = [GRIPPER+c for c in "xyz"]
+    t_cols = [BOTTLE+c+"-t" for c in "xyz"]
     start_values = {c:df[c][start_index] for c in cols}
-    for col in cols:
+    for col, tcol in zip(cols, t_cols):
         df[col] = df[col] - start_values[col]
+        df[tcol] = df[tcol] - start_values[col]
     return df
 
 if __name__ == "__main__":

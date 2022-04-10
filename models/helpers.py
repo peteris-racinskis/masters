@@ -31,7 +31,8 @@ def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
     label_cols = values[:,-8:]
     return data_cols, label_cols
 
-def generate_trajectory(model, initial_state, steps, states=[]):
+def generate_trajectory(model, initial_state, steps):
+    states = []
     reshaped = initial_state.reshape(1,11)
     target = reshaped[:,-3:]
     state = reshaped

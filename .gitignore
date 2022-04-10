@@ -14,6 +14,7 @@ processed_data/
 *.~lock*
 *pycache*
 models/naiveBC/
+models/naiveBC-norm-start-many-trajectories/
 models/naiveBC-small/keras_metadata.pb
 models/naiveBC-small/saved_model.pb
 models/naiveBC-small/variables/variables.data-00000-of-00001
@@ -42,3 +43,15 @@ models/naiveBC-norm-start-small/keras_metadata.pb
 models/naiveBC-norm-start-small/saved_model.pb
 models/naiveBC-norm-start-small/variables/variables.data-00000-of-00001
 models/naiveBC-norm-start-small/variables/variables.index
+models/naiveBC-norm-start-medium/keras_metadata.pb
+models/naiveBC-norm-start-medium/saved_model.pb
+models/naiveBC-norm-start-medium/variables/variables.data-00000-of-00001
+models/naiveBC-norm-start-medium/variables/variables.index
+models/naiveBC-norm-start-medium-bigbatch/keras_metadata.pb
+models/naiveBC-norm-start-medium-bigbatch/saved_model.pb
+models/naiveBC-norm-start-medium-bigbatch/variables/variables.data-00000-of-00001
+models/naiveBC-norm-start-medium-bigbatch/variables/variables.index
+models/naiveBC-norm-start-tiny/keras_metadata.pb
+models/naiveBC-norm-start-tiny/saved_model.pb
+models/naiveBC-norm-start-tiny/variables/variables.data-00000-of-00001
+models/naiveBC-norm-start-tiny/variables/variables.index
