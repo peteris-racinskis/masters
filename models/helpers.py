@@ -3,23 +3,25 @@ from typing import Tuple
 import pandas as pd
 import numpy as np
 from tensorflow.keras import layers, Input, Model
-GEN_H=128
-DISC_H=128
+GEN_H=256
+DISC_H=256
 
 
 def make_generator(data_element: np.ndarray, label_element: np.ndarray):
     inputs = Input(shape=data_element.shape)
     x = layers.Dense(GEN_H)(inputs)
-    x = layers.LeakyReLU()(x)
+    x = layers.ReLU()(x)
     x = layers.Dense(GEN_H)(x)
-    x = layers.LeakyReLU()(x)
+    x = layers.ReLU()(x)
     outputs = layers.Dense(label_element.size)(x)
     return Model(inputs, outputs, name="generator")
 
 def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2):
     comb = np.concatenate([data_element, label_element])
     inputs = Input(shape=comb.shape)
-    x = layers.Dense(GEN_H / 8)(inputs) # two parentheses - (constructor)(call)
+    x = layers.Dense(DISC_H)(inputs) # two parentheses - (constructor)(call)
+    x = layers.ReLU()(x)
+    x = layers.Dense(DISC_H)(x)
     x = layers.ReLU()(x)
     outputs = layers.Dense(classes)(x)
     return Model(inputs, outputs, name="discriminator")

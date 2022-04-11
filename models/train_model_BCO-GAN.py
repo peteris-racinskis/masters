@@ -7,12 +7,17 @@ from typing import Tuple
 import tensorflow as tf
 from tensorflow.keras import layers, optimizers, losses, models
 from helpers import data_and_label, generate_trajectory, make_generator, make_discriminator
-TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
-TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
-OFILE="models/BCO-256"
+#TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
+#TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
+# Normalized data (I think?)
+TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
+TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
+#TRAIN="processed_data/train_datasets/train-target-90cafd98fc61e0ad65be.csv"
+#TEST="processed_data/train_datasets/test-target-90cafd98fc61e0ad65be.csv"
+OFILE="models/BCO-256-256x2-target-dff-regnorelease-10-ep20-b64-norm-s"
 OVERWRITE=False
-STARTINDEX=156
-BATCHSIZE=16
+STARTINDEX=0
+BATCHSIZE=64
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -24,8 +29,8 @@ cross_entropy = losses.BinaryCrossentropy(from_logits=True)
 # (try to fool it)
 def generator_loss(inits, next, predictions_on_fake):
     all_fooled = tf.ones_like(predictions_on_fake)
-    diff = tf.reduce_sum(tf.math.square(tf.math.subtract(inits[:,:8], next))) # penalize big differences between s(t) and s(t+1)
-    return cross_entropy(all_fooled, predictions_on_fake) + diff
+    diff = tf.reduce_sum(tf.math.square(tf.math.subtract(inits[:,:7], next[:,:-1]))) # penalize big differences between s(t) and s(t+1)
+    return cross_entropy(all_fooled, predictions_on_fake) + tf.math.maximum(diff * 10, 1)
 
 # Penalize for not telling generated and actual training data apart
 def discriminator_loss(predictions_on_real, predictions_on_fake):
@@ -72,18 +77,44 @@ def train(data, labels, epochs=20):
     labels = tf.data.Dataset.from_tensor_slices(labels).batch(BATCHSIZE)
     for epoch in range(epochs):
         initial_states = tf.data.Dataset.from_tensor_slices(data).shuffle(len(data)).batch(BATCHSIZE)
+        batched_data = batched_data
         for i_batch, d_batch, l_batch in zip(initial_states, batched_data, labels):
             g, d = train_step(i_batch, d_batch, l_batch)
         print(f"Epoch: {epoch} g_loss: {g} d_loss {d}")
         
 
+def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
+    trajectories = []
+    means = np.repeat(means.reshape(1,-1), num, axis=0)
+    deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
+    target_coords = np.random.normal(means, deviations, means.shape)
+    initial_states = np.concatenate([np.zeros((num, 8)), target_coords], axis=1)
+    for init in initial_states:
+        trajectories.append(generate_trajectory(model, init, length))
+    return np.concatenate(trajectories, axis=0)
+
+
+def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
+    trajectories = []
+    means = np.repeat(means.reshape(1,-1), num, axis=0)
+    deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
+    start_params = np.random.normal(means, deviations, means.shape)
+    initial_states = np.concatenate([start_params, np.zeros((num,4))], axis=1)
+    for init in initial_states:
+        trajectories.append(generate_trajectory(model, init, length))
+    return np.concatenate(trajectories, axis=0)
 
 
 if __name__ == "__main__":
-    if not exists(OFILE) or OVERWRITE:
+
+    train_data, train_labels = data_and_label(pd.read_csv(TRAIN))
+    test_data, test_labels = data_and_label(pd.read_csv(TEST))
+    target_means = np.mean(train_data, axis=0)[-3:]
+    target_sds = np.std(train_data, axis=0)[-3:]
+    start_means = np.mean(train_data, axis=0)[:-4]
+    start_sds = np.std(train_data, axis=0)[:-4]
+    if not exists(OFILE+"-gen") or OVERWRITE:
         np.random.seed(133)
-        train_data, train_labels = data_and_label(pd.read_csv(TRAIN))
-        test_data, test_labels = data_and_label(pd.read_csv(TEST))
 
         generator = make_generator(train_data[0], train_labels[0])
         generator.summary()
@@ -92,16 +123,17 @@ if __name__ == "__main__":
         discriminator.summary()
 
         gen_opt = optimizers.Adam(10e-5)
-        disc_opt = optimizers.Adam(10e-4)
+        disc_opt = optimizers.Adam(10e-5)
 
-        train(train_data, train_labels, 50)
+        train(train_data, train_labels, 20)
         generator.save(OFILE+"-gen")
         discriminator.save(OFILE+"-disc")    
     else:
         generator = models.load_model(OFILE+"-gen")
     
     start = pd.read_csv(TRAIN).values[STARTINDEX,:-8]
-    trajectory = generate_trajectory(generator, start, 40)
+    trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
+    #trajectory = generate_trajectories_with_start(generator, start_means, start_sds)
     cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     t = pd.Series(data=np.arange(0,5,0.01), name="Time")

@@ -9,7 +9,9 @@ from helpers import data_and_label, generate_trajectory
 from tensorflow.keras import layers, optimizers, losses, models
 TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
 TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
-OFILE="models/naiveBC-norm-start-many-trajectories"
+TRAIN="processed_data/train_datasets/train-target-90cafd98fc61e0ad65be.csv"
+TEST="processed_data/train_datasets/test-target-90cafd98fc61e0ad65be.csv"
+OFILE="models/naiveBC-norm-target-many-trajectories"
 OVERWRITE=False
 STARTINDEX=0
 ID="first-attempt"
@@ -24,6 +26,16 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     for init in initial_states:
         trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
+    
+def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
+    trajectories = []
+    means = np.repeat(means.reshape(1,-1), num, axis=0)
+    deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
+    start_params = np.random.normal(means, deviations, means.shape)
+    initial_states = np.concatenate([start_params, np.zeros((num,4))], axis=1)
+    for init in initial_states:
+        trajectories.append(generate_trajectory(model, init, length))
+    return np.concatenate(trajectories, axis=0)
 
 
 
@@ -33,6 +45,9 @@ if __name__ == "__main__":
     test_data, test_labels = data_and_label(pd.read_csv(TEST))
     target_means = np.mean(train_data, axis=0)[-3:]
     target_sds = np.std(train_data, axis=0)[-3:]
+
+    start_means = np.mean(train_data, axis=0)[:-4]
+    start_sds = np.std(train_data, axis=0)[:-4]
    
     if not exists(OFILE) or OVERWRITE:
         model = tf.keras.Sequential([
@@ -68,7 +83,8 @@ if __name__ == "__main__":
 
     #start = pd.read_csv(TRAIN).values[STARTINDEX,:-8]
     #trajectory = generate_trajectory(model, start, 100)
-    trajectory = generate_trajectories_with_target(model, target_means, target_sds)
+    #trajectory = generate_trajectories_with_target(model, target_means, target_sds)
+    trajectory = generate_trajectories_with_start(model, start_means, start_sds)
     cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     t = pd.Series(data=np.arange(0,5,0.01), name="Time")
