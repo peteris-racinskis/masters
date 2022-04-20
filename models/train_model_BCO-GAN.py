@@ -14,10 +14,11 @@ TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
 TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
 #TRAIN="processed_data/train_datasets/train-target-90cafd98fc61e0ad65be.csv"
 #TEST="processed_data/train_datasets/test-target-90cafd98fc61e0ad65be.csv"
-OFILE="models/BCO-256-256x2-target-dff-regnorelease-10-ep20-b64-norm-s"
 OVERWRITE=False
 STARTINDEX=0
 BATCHSIZE=64
+EPOCHS=20
+OFILE=f"models/BCO-512x2-rollout-256x2-start-noreg-10-ep{EPOCHS}-b{BATCHSIZE}-norm-s"
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -29,8 +30,8 @@ cross_entropy = losses.BinaryCrossentropy(from_logits=True)
 # (try to fool it)
 def generator_loss(inits, next, predictions_on_fake):
     all_fooled = tf.ones_like(predictions_on_fake)
-    diff = tf.reduce_sum(tf.math.square(tf.math.subtract(inits[:,:7], next[:,:-1]))) # penalize big differences between s(t) and s(t+1)
-    return cross_entropy(all_fooled, predictions_on_fake) + tf.math.maximum(diff * 10, 1)
+    #diff = tf.reduce_sum(tf.math.square(tf.math.subtract(inits[:,:7], next[:,:-1]))) # penalize big differences between s(t) and s(t+1)
+    return cross_entropy(all_fooled, predictions_on_fake)# + tf.math.maximum(diff * 10, 1)
 
 # Penalize for not telling generated and actual training data apart
 def discriminator_loss(predictions_on_real, predictions_on_fake):
@@ -52,7 +53,7 @@ def generator_iterate(gen, initial_state):
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-@tf.function
+#@tf.function
 def train_step(inits, data, labels):
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
@@ -125,7 +126,7 @@ if __name__ == "__main__":
         gen_opt = optimizers.Adam(10e-5)
         disc_opt = optimizers.Adam(10e-5)
 
-        train(train_data, train_labels, 20)
+        train(train_data, train_labels, EPOCHS)
         generator.save(OFILE+"-gen")
         discriminator.save(OFILE+"-disc")    
     else:

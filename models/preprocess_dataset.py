@@ -5,6 +5,7 @@ from os import listdir
 from os.path import exists
 from sys import argv
 import random
+from typing import List
 from hashlib import sha1
 TEST_FRAC=0.1
 OVERWRITE=True
@@ -67,6 +68,17 @@ def process_single_demo(fname: str, start: int) -> pd.DataFrame:
     df[RELEASED] = (df[RELEASED].values + 10) / 20 
     df[RELEASED+NEXT] = (df[RELEASED+NEXT].values + 10) / 20 
     return df
+
+def process_demos_separately(fnames: list) -> List[pd.DataFrame]:
+    dfs = []
+    index = 0
+    print("Processing demo list ...")
+    for fname in fnames:
+        print(fname)
+        df_step = process_single_demo(DIR+fname, index)
+        index = df_step.index[-1]
+        dfs.append(df_step)
+    return dfs
 
 def process_demo_list(fnames: list) -> pd.DataFrame:
     df = pd.DataFrame()

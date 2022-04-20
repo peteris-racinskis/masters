@@ -5,6 +5,8 @@ import numpy as np
 from tensorflow.keras import layers, Input, Model
 GEN_H=256
 DISC_H=256
+LSTM_H=128
+RNN_FINAL_H=10
 
 
 def make_generator(data_element: np.ndarray, label_element: np.ndarray):
@@ -15,6 +17,14 @@ def make_generator(data_element: np.ndarray, label_element: np.ndarray):
     x = layers.ReLU()(x)
     outputs = layers.Dense(label_element.size)(x)
     return Model(inputs, outputs, name="generator")
+
+def make_rnn_discriminator(data_element: np.ndarray):
+    inputs = Input(shape=(None,)+data_element.shape)
+    x = layers.LSTM(LSTM_H)(x)
+    x = layers.Dense(RNN_FINAL_H)(x)
+    x = layers.ReLU()(x)
+    outputs = layers.Dense(1)(x)
+    return Model(inputs, outputs, name="discriminator")
 
 def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2):
     comb = np.concatenate([data_element, label_element])
