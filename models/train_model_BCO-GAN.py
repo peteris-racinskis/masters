@@ -14,11 +14,13 @@ TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
 TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
 #TRAIN="processed_data/train_datasets/train-target-90cafd98fc61e0ad65be.csv"
 #TEST="processed_data/train_datasets/test-target-90cafd98fc61e0ad65be.csv"
-OVERWRITE=False
+TRAIN="processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+TEST="processed_data/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+OVERWRITE=True
 STARTINDEX=0
 BATCHSIZE=64
-EPOCHS=20
-OFILE=f"models/BCO-512x2-rollout-256x2-start-noreg-10-ep{EPOCHS}-b{BATCHSIZE}-norm-s"
+EPOCHS=100
+OFILE=f"models/BCO-512x2-256x2-start-timesignal-noreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -41,19 +43,22 @@ def discriminator_loss(predictions_on_real, predictions_on_fake):
 
 def generator_iterate(gen, initial_state):
     prev, new = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True), tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
-    state = tf.reshape(initial_state, [1,11])
-    target = tf.reshape(initial_state[8:], [1,3])
+    state = tf.reshape(initial_state, [1,12])
+    target = tf.reshape(initial_state[-3:], [1,3])
+    timesteps = tf.convert_to_tensor(np.arange(0, BATCHSIZE*0.01, 0.01, dtype=np.float32).reshape(BATCHSIZE,1))
+    timesteps = timesteps + initial_state[0]
     for i in tf.range(BATCHSIZE):
+        t = tf.reshape(timesteps[i], [1,1])
         prev = prev.write(i, state)
         state = gen(state)
         new = new.write(i, state)
-        state = tf.concat([state, target], axis=1)
+        state = tf.concat([t, state, target], axis=1)
     return tf.squeeze(prev.stack()), tf.squeeze(new.stack())
 
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-#@tf.function
+@tf.function
 def train_step(inits, data, labels):
 
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
@@ -83,24 +88,22 @@ def train(data, labels, epochs=20):
             g, d = train_step(i_batch, d_batch, l_batch)
         print(f"Epoch: {epoch} g_loss: {g} d_loss {d}")
         
-
 def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
     trajectories = []
     means = np.repeat(means.reshape(1,-1), num, axis=0)
     deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
     target_coords = np.random.normal(means, deviations, means.shape)
-    initial_states = np.concatenate([np.zeros((num, 8)), target_coords], axis=1)
+    initial_states = np.concatenate([np.zeros((num,9)), target_coords], axis=1)
     for init in initial_states:
         trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
-
-
+    
 def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
     trajectories = []
     means = np.repeat(means.reshape(1,-1), num, axis=0)
     deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
     start_params = np.random.normal(means, deviations, means.shape)
-    initial_states = np.concatenate([start_params, np.zeros((num,4))], axis=1)
+    initial_states = np.concatenate([np.zeros((num,1)), start_params, np.zeros((num,4))], axis=1)
     for init in initial_states:
         trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
@@ -135,8 +138,8 @@ if __name__ == "__main__":
     start = pd.read_csv(TRAIN).values[STARTINDEX,:-8]
     trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
     #trajectory = generate_trajectories_with_start(generator, start_means, start_sds)
-    cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
+    cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
-    t = pd.Series(data=np.arange(0,5,0.01), name="Time")
-    output = pd.concat([t,df], axis=1)
-    output.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)
+    #t = pd.Series(data=np.arange(0,5,0.01), name="Time")
+    #output = pd.concat([t,df], axis=1)
+    df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)

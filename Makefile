@@ -6,6 +6,9 @@ limit_low=0.9
 dataset-default: norm-default
 	models/preprocess_dataset.py default
 
+dataset-start-time: norm-start-time
+	models/preprocess_dataset.py start-time
+
 dataset-start: norm-start
 	models/preprocess_dataset.py start
 
@@ -14,6 +17,9 @@ dataset-target: norm-target
 
 norm-target: label
 	trajectory_extract/normalize.py target processed_data/labelled/*
+
+norm-start-time: label
+	trajectory_extract/normalize.py start-time processed_data/labelled/*
 
 norm-start: label
 	trajectory_extract/normalize.py start processed_data/labelled/*

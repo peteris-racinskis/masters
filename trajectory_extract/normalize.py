@@ -3,15 +3,18 @@ from os.path import exists
 from sys import argv
 
 import pandas as pd
+import numpy as np
 
 OVERWRITE=True
 BOTTLE="Bottle.position."
+TIME="Time"
 GRIPPER="TrashPickup.position."
 IFILE="processed_data/labelled/demo-22-02-2022-10:44:48-labelled.csv"
-MODE="start"
+MODE="start-time"
 explain = {
     "default":  "Do nothing.",
     "start": "Center trajectory on the first moving entry.",
+    "start-time": "Center trajectory on the first moving entry. Normalize time too",
     "target": "Center trajectory on the target coordinates"
 }
 
@@ -25,15 +28,18 @@ def normalize_to_target(df: pd.DataFrame) -> pd.DataFrame:
         df[tcol] = 0.0
     return df
 
-def normalize_to_start(df: pd.DataFrame) -> pd.DataFrame:
+def normalize_to_start(df: pd.DataFrame, t=False) -> pd.DataFrame:
     start_index = df.loc[lambda d: d["Moving"] == 10].index[0]
     cols = [GRIPPER+c for c in "xyz"]
     t_cols = [BOTTLE+c+"-t" for c in "xyz"]
     start_values = {c:df[c][start_index] for c in cols}
+    start_time = df[TIME][start_index]
+    df[TIME] = df[TIME] - start_time
     for col, tcol in zip(cols, t_cols):
         df[col] = df[col] - start_values[col]
         df[tcol] = df[tcol] - start_values[col]
     return df
+
 
 if __name__ == "__main__":
     print("####### STARTING STEP #######")
@@ -52,6 +58,8 @@ if __name__ == "__main__":
             df = pd.read_csv(fname)
             if mode == "start":
                 df = normalize_to_start(df)
+            if mode == "start-time":
+                df = normalize_to_start(df, True)
             elif mode == "target":
                 df = normalize_to_target(df)
             df.to_csv(ofname, index=False)

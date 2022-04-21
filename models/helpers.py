@@ -45,12 +45,13 @@ def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
 
 def generate_trajectory(model, initial_state, steps):
     states = []
-    reshaped = initial_state.reshape(1,11)
+    reshaped = initial_state.reshape(1,12)
     target = reshaped[:,-3:]
     state = reshaped
-    for _ in range(steps):
+    for i in range(steps):
+        t = np.asarray(i * 0.01).reshape(-1,1)
         state = model(state).numpy()
-        state = np.concatenate([state, target], axis=1)
+        state = np.concatenate([t, state, target], axis=1)
         states.append(state)
     arr = np.asarray(states)
-    return arr.reshape(-1,11)
+    return arr.reshape(-1,12)
