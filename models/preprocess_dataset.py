@@ -12,7 +12,7 @@ BASE_T="TrashPickup."
 BASE_B="Bottle."
 RELEASED="Released"
 TIME="Time"
-NEXT="-next"
+NEXT="-n"
 INVALID="invalid"
 MOVING="Moving"
 NOT_DONE="Passed"
@@ -22,6 +22,7 @@ DIR="processed_data/norm/"
 MODE="start-time"
 OFDIR="processed_data/train_datasets/"
 IFILE=DIR+"demo-22-03-2022-11:39:49-labelled.csv"
+REPEATS=3
 
 
 # This version does not take velocity into the dataset.
@@ -46,11 +47,14 @@ def state_transitions(df: pd.DataFrame, t=False) -> pd.DataFrame:
     # DON"T NEED TO REORDER! TARGET COORDINATES ARE AN INPUT PARAMETER,
     # NOT A LABEL YOU FUCKING MORON
     startindex = 1 if t else 0
+    shifted = []
     next_states = df[df.columns[startindex:-3]].iloc[1:]
-    next_states.index -= 1
-    d = {x:x+NEXT for x in next_states.columns}
-    next_states = next_states.rename(columns=d)
-    combined = pd.concat([df,next_states], axis=1)
+    for i in range(REPEATS):
+        next_states.index -= 1
+        d = {x:x+NEXT+str(i) for x in next_states.columns}
+        col = next_states.rename(columns=d)
+        shifted.append(col)
+    combined = pd.concat([df]+shifted, axis=1).sort_index()
     combined[INVALID] = combined.isnull().any(axis=1)
     return combined.loc[lambda d: ~d[INVALID]].drop(columns=INVALID)
 
@@ -68,8 +72,9 @@ def split_train_test(fnames):
 def process_single_demo(fname: str, start: int, t) -> pd.DataFrame:
     df = state_transitions(strip_columns(pd.read_csv(fname), t), t)
     df.index = range(start + 1, start + len(df) + 1)
-    df[RELEASED] = (df[RELEASED].values + 10) / 20 
-    df[RELEASED+NEXT] = (df[RELEASED+NEXT].values + 10) / 20 
+    df[RELEASED] = (df[RELEASED].values + 10) / 20
+    for i in range(REPEATS):
+        df[RELEASED+NEXT+str(i)] = (df[RELEASED+NEXT+str(i)].values + 10) / 20 
     return df
 
 def process_demos_separately(fnames: list, t) -> List[pd.DataFrame]:
@@ -114,8 +119,8 @@ if __name__ == "__main__":
     print(f"Demos put into train dataset: {len(train_demos)}")
     print(f"Demos put into test dataset: {len(test_demos)}")
     dataset_id = get_dataset_id(train_demos, test_demos)
-    trainname = f"{OFDIR}train-{mode}-{dataset_id}.csv"
-    testname = f"{OFDIR}test-{mode}-{dataset_id}.csv"
+    trainname = f"{OFDIR}train-{mode}-doubled-{dataset_id}.csv"
+    testname = f"{OFDIR}test-{mode}-doubled-{dataset_id}.csv"
     if not exists(trainname) or OVERWRITE:
         print(f"Creating dataset {trainname}")
         train_df = process_demo_list(train_demos, t)
