@@ -12,10 +12,13 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 # Normalized data (I think?)
 TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
 OVERWRITE=True
+CONTINUE=True
 STARTINDEX=0
 BATCHSIZE=64
-EPOCHS=10
-OFILE=f"models/BCO-512x2-256x2-start-timesignal-doubled-noreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
+EPOCHS=200
+GH=128
+DH=512
+OFILE=f"models/BCO-{GH}x2-{DH}x2-start-timesignal-doubled-noreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -55,7 +58,7 @@ def generator_multi_iterate(gen, initial_state):
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-#@tf.function
+@tf.function
 def train_step(inits, data, labels):
 
 
@@ -75,7 +78,7 @@ def train_step(inits, data, labels):
     disc_opt.apply_gradients(zip(disc_grad, discriminator.trainable_variables))
     return gen_loss, disc_loss
 
-def train(data, labels, epochs=20):
+def train(data, labels, tgms, tgsd, epochs=20):
     # Create batches for initial states, next states
     batched_data = tf.data.Dataset.from_tensor_slices(data).batch(BATCHSIZE)
     labels = tf.data.Dataset.from_tensor_slices(labels).batch(BATCHSIZE)
@@ -85,6 +88,9 @@ def train(data, labels, epochs=20):
         for i_batch, d_batch, l_batch in zip(initial_states, batched_data, labels):
             g, d = train_step(i_batch, d_batch, l_batch)
         print(f"Epoch: {epoch} g_loss: {g} d_loss {d}")
+        if epoch % 7 == 0: # I dunno, minimize chances of weird oscillations?
+            print("Generating trajectories with current policy...")
+            generate_intermediate(generator, tgms, tgsd, epoch, d)
         
 def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
     trajectories = []
@@ -107,35 +113,47 @@ def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.nd
     return np.concatenate(trajectories, axis=0)
 
 
+def generate_intermediate(generator, target_means, target_sds, ep, disc_loss):
+    trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
+    cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
+    df = pd.DataFrame(data=trajectory, columns=cols)
+    dl = "{:.2f}".format(disc_loss)
+    save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
+    while exists(save_name):
+        dl = dl+EPOCHS
+        save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
+    df.to_csv(save_name, index=False)
+
+
+
 if __name__ == "__main__":
 
     train_data, train_labels = data_and_label(pd.read_csv(TRAIN))
-    target_means = np.mean(train_data, axis=0)[-3:]
-    target_sds = np.std(train_data, axis=0)[-3:]
-    start_means = np.mean(train_data, axis=0)[:-4]
-    start_sds = np.std(train_data, axis=0)[:-4]
-    if not exists(OFILE+"-gen") or OVERWRITE:
+    target_means = np.mean(train_data, axis=0)[12-3:12]
+    target_sds = np.std(train_data, axis=0)[12-3:12]
+
+    if not exists(OFILE+"-gen") or OVERWRITE or CONTINUE:
         np.random.seed(133)
-
-        generator = make_generator(train_data[0,:12], train_labels[0])
+        if CONTINUE:
+            generator = models.load_model(OFILE+"-gen")
+            discriminator = models.load_model(OFILE+"-disc")
+            print("Restored models")
+        else:
+            generator = make_generator(train_data[0,:12], train_labels[0], gen_h=GH)
+            discriminator = make_discriminator(train_data[0], train_labels[0], disc_h=DH)
         generator.summary()
-
-        discriminator = make_discriminator(train_data[0], train_labels[0])
         discriminator.summary()
 
         gen_opt = optimizers.Adam(10e-5)
         disc_opt = optimizers.Adam(10e-5)
 
-        train(train_data, train_labels, EPOCHS)
+        train(train_data, train_labels, target_means, target_sds, EPOCHS)
         generator.save(OFILE+"-gen")
         discriminator.save(OFILE+"-disc")    
     else:
         generator = models.load_model(OFILE+"-gen")
     
     trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
-    #trajectory = generate_trajectories_with_start(generator, start_means, start_sds)
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
-    #t = pd.Series(data=np.arange(0,5,0.01), name="Time")
-    #output = pd.concat([t,df], axis=1)
     df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)

@@ -4,16 +4,16 @@ import pandas as pd
 import numpy as np
 from tensorflow.keras import layers, Input, Model
 GEN_H=256
-DISC_H=256
+DISC_H=512
 LSTM_H=128
 RNN_FINAL_H=10
 
 
-def make_generator(data_element: np.ndarray, label_element: np.ndarray):
+def make_generator(data_element: np.ndarray, label_element: np.ndarray, gen_h=GEN_H):
     inputs = Input(shape=data_element.shape)
-    x = layers.Dense(GEN_H)(inputs)
+    x = layers.Dense(gen_h)(inputs)
     x = layers.ReLU()(x)
-    x = layers.Dense(GEN_H)(x)
+    x = layers.Dense(gen_h)(x)
     x = layers.ReLU()(x)
     outputs = layers.Dense(label_element.size)(x)
     return Model(inputs, outputs, name="generator")
@@ -26,12 +26,12 @@ def make_rnn_discriminator(data_element: np.ndarray):
     outputs = layers.Dense(1)(x)
     return Model(inputs, outputs, name="discriminator")
 
-def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2):
+def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, classes=2, disc_h=DISC_H):
     comb = np.concatenate([data_element, label_element])
     inputs = Input(shape=comb.shape)
-    x = layers.Dense(DISC_H)(inputs) # two parentheses - (constructor)(call)
+    x = layers.Dense(disc_h)(inputs) # two parentheses - (constructor)(call)
     x = layers.ReLU()(x)
-    x = layers.Dense(DISC_H)(x)
+    x = layers.Dense(disc_h)(x)
     x = layers.ReLU()(x)
     outputs = layers.Dense(classes)(x)
     return Model(inputs, outputs, name="discriminator")
