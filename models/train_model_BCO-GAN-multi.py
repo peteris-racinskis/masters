@@ -11,13 +11,13 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 #TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 # Normalized data (I think?)
 TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
-OVERWRITE=True
-CONTINUE=True
+OVERWRITE=False
+CONTINUE=False
 STARTINDEX=0
 BATCHSIZE=64
 EPOCHS=200
-GH=128
-DH=512
+GH=256
+DH=256
 OFILE=f"models/BCO-{GH}x2-{DH}x2-start-timesignal-doubled-noreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
 
 # Convenience declaration
@@ -97,7 +97,10 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     means = np.repeat(means.reshape(1,-1), num, axis=0)
     deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
     target_coords = np.random.normal(means, deviations, means.shape)
-    initial_states = np.concatenate([np.zeros((num,9)), target_coords], axis=1)
+    #init_orientation = np.asarray([-0.3134110987186432,0.6126522928476333,0.3159722849726677,0.6526271522045135]) # a random start orientation from the train dataset
+    init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
+    init_orientations = np.repeat(init_orientation.reshape(1,-1), num, axis=0)
+    initial_states = np.concatenate([np.zeros((num,4)), init_orientations, np.zeros((num,1)), target_coords], axis=1) # stick a known good orientation in the set
     for init in initial_states:
         trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
