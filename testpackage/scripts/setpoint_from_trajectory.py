@@ -20,6 +20,7 @@ EE_LINK="panda_link8"
 IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
 IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
 MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
+MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
 #BASE_ROT=np.asarray([ 0.46312436,  0.51316392, -0.48667049,  0.52832292])
 JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
@@ -131,13 +132,21 @@ def rescale_time(trajectory: JointTrajectory, dt=1.0):
     return trajectory
 
 
+def gripper_close(t: JointTrajectory):
+    t.joint_names += ["panda_finger_joint1", "panda_finger_joint2"]
+    t.points[0].positions = t.points[0].positions + (0.035, 0.035)
+    for point in t.points[1:]:
+        point.positions = point.positions + (0,0)
+
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    msgs = msg_from_row_corrected(df)
+    #msgs = msg_from_row_corrected(df)
     # For using a policy model
-    #msgs = msg_from_model(model)
+    model = models.load_model(MODEL_FILE)
+    msgs = msg_from_model(model)
     p,_ = group.compute_cartesian_path([x for x in msgs], 0.1, 0.0)
-    #p.joint_trajectory = rescale_time(p.joint_trajectory, 30)
+    p.joint_trajectory = rescale_time(p.joint_trajectory, 1)
+    gripper_close(p.joint_trajectory)
     for pp in p.joint_trajectory.points:
         pp.velocities = []
         pp.accelerations = []
