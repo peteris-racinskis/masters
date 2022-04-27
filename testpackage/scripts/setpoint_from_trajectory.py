@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # shebang needed because this script gets called from somewhere who knows where
 from ntpath import join
+from platform import release
 from black import out
 import rospy
 from geometry_msgs.msg import PoseStamped, Pose
-from trajectory_msgs.msg import JointTrajectory
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from moveit_msgs.msg import RobotTrajectory
 import pandas as pd
 import numpy as np
 import copy
@@ -74,26 +76,37 @@ def find_rot_offset(q_r):
 def normalize(vector: np.ndarray) -> np.ndarray:
     return vector / np.sqrt(np.sum(vector ** 2))
 
+def release_threshold(model_output):
+    return 0.035 if model_output >= 1 else 0
+
+def release_time_fraction(states: List):
+    for s in states:
+        if s != 0:
+            return states.index(s) / len(states)
+    return 1
 
 def msg_from_row_corrected(df):
     msgs = []
+    released = []
     msg = group.get_current_pose().pose
     init_rot = quat_from_pose(msg)
     offs, rot_restore = find_rot_offset(quat_from_pose(msg))
     pos_offset = np.asarray(point_from_pose(msg))
     i = 0
     for _, row in df.iterrows():
-        #i+=1
-        #if i == 128:
-        #    break
+        i+=1
+        if i == 64:
+            break
         msgs.append(msg)
         msg = Pose()
         pose_from_point(msg, row[["position."+c for c in "xyz"]].values * 0.5 + pos_offset)
         pose_from_quat(msg, normalize(qm(row[["orientation."+c for c in "xyzw"]].values, rot_restore)))
-    return msgs
+        released.append(release_threshold(row["Released"]))
+    return msgs, released
 
 def msg_from_model(model):
     msgs = []
+    released = []
     msg = group.get_current_pose().pose
     init_rot = quat_from_pose(msg)
     rot_offset, rot_restore = find_rot_offset(quat_from_pose(msg))
@@ -111,7 +124,8 @@ def msg_from_model(model):
         pose_from_point(msg, output_state[0,(0,1,2)] * 0.5 + pos_offset)
         #pose_from_quat(msg, init_rot)
         pose_from_quat(msg, qm(output_state[0,3:7], rot_restore))
-    return msgs
+        released.append(release_threshold(output_state[0,-1]))
+    return msgs, released
 
 def int_time_to_float(secs, nsecs):
     return secs + 1e-9 * nsecs
@@ -131,22 +145,28 @@ def rescale_time(trajectory: JointTrajectory, dt=1.0):
         point.time_from_start.secs, point.time_from_start.nsecs = float_time_to_int(newtime)
     return trajectory
 
-
-def gripper_close(t: JointTrajectory):
+def gripper_close(t: JointTrajectory, release_fraction):
     t.joint_names += ["panda_finger_joint1", "panda_finger_joint2"]
-    t.points[0].positions = t.points[0].positions + (0.035, 0.035)
+    t_end = t.points[-1].time_from_start
+    finish_time = int_time_to_float(t_end.secs, t_end.nsecs)
+    release_time = release_fraction * finish_time
+    gripper_start = robot.get_current_state().joint_state.position[-2:]
+    t.points[0].positions = t.points[0].positions + gripper_start
     for point in t.points[1:]:
-        point.positions = point.positions + (0,0)
+        t_point = point.time_from_start
+        finger_state = (0.035,0.035) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0,0)
+        point.positions = point.positions + finger_state
 
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    #msgs = msg_from_row_corrected(df)
+    msgs, released = msg_from_row_corrected(df)
     # For using a policy model
-    model = models.load_model(MODEL_FILE)
-    msgs = msg_from_model(model)
+    #model = models.load_model(MODEL_FILE)
+    #msgs, released = msg_from_model(model)
+    release_fraction = release_time_fraction(released)
     p,_ = group.compute_cartesian_path([x for x in msgs], 0.1, 0.0)
-    p.joint_trajectory = rescale_time(p.joint_trajectory, 1)
-    gripper_close(p.joint_trajectory)
+    #p.joint_trajectory = rescale_time(p.joint_trajectory, 15)
+    gripper_close(p.joint_trajectory, release_fraction)
     for pp in p.joint_trajectory.points:
         pp.velocities = []
         pp.accelerations = []
@@ -173,9 +193,22 @@ if __name__ == "__main__":
     print("============ Printing robot state")
     print(robot.get_current_state())
     print("")
-    #joint_goal = group.get_current_joint_values()
+    joint_goal = group.get_current_joint_values()
     #joint_goal[0] = np.pi / 2
     #joint_goal[6] = np.pi / -4
-    group.go(JOINT_GOAL, wait=True)
+    jnames = robot.get_current_state().joint_state.name
+    current = JointTrajectoryPoint()
+    current.positions = robot.get_current_state().joint_state.position
+    target = JointTrajectoryPoint()
+    target.positions = tuple(JOINT_GOAL + [0.035,0.035])
+    trajectory = JointTrajectory()
+    trajectory.points.append(current)
+    trajectory.points.append(target)
+    trajectory.joint_names = jnames
+    rtr = RobotTrajectory()
+    rtr.joint_trajectory = trajectory
+
+    #group.go(JOINT_GOAL, wait=True)
+    group.execute(rtr, wait=True)
     group.stop()
     execute_trajectory(df)
