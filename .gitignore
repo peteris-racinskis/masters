@@ -351,3 +351,11 @@ models/BCO-2048x2-2048x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen/keras
 models/BCO-2048x2-2048x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen/saved_model.pb
 models/BCO-2048x2-2048x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen/variables/variables.data-00000-of-00001
 models/BCO-2048x2-2048x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen/variables/variables.index
+models/naiveBCx128x2-ep20-norm-start-timesignal/keras_metadata.pb
+models/naiveBCx128x2-ep20-norm-start-timesignal/saved_model.pb
+models/naiveBCx128x2-ep20-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBCx128x2-ep20-norm-start-timesignal/variables/variables.index
+models/naiveBCx2048x2-ep20-norm-start-timesignal/keras_metadata.pb
+models/naiveBCx2048x2-ep20-norm-start-timesignal/saved_model.pb
+models/naiveBCx2048x2-ep20-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBCx2048x2-ep20-norm-start-timesignal/variables/variables.index

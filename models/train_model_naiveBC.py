@@ -11,10 +11,12 @@ TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
 TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
 TRAIN="processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
 TEST="processed_data/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
-OFILE="models/naiveBC-norm-start-timesignal"
+H_NEURONS=128
+EPOCHS=20
+OFILE=f"models/naiveBCx{H_NEURONS}x2-ep{EPOCHS}-norm-start-timesignal"
 OVERWRITE=False
 STARTINDEX=0
-ID="first-attempt"
+ID=""
 
 
 def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
@@ -54,9 +56,9 @@ if __name__ == "__main__":
     if not exists(OFILE) or OVERWRITE:
         model = tf.keras.Sequential([
             layers.Input(shape=train_data[0].shape),
-            layers.Dense(256),
+            layers.Dense(H_NEURONS),
             layers.ReLU(),
-            layers.Dense(256),
+            layers.Dense(H_NEURONS),
             layers.ReLU(),
             layers.Dense(train_labels[0].size, activation=None),
         ])
@@ -72,7 +74,7 @@ if __name__ == "__main__":
         history = model.fit(
             train_data,
             train_labels,
-            epochs=20,
+            epochs=EPOCHS,
             validation_data=(test_data, test_labels),
             validation_freq=1,
             verbose=2,
