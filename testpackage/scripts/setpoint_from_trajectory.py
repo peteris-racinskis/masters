@@ -21,13 +21,14 @@ WORLDLINK="world"
 EE_LINK="panda_link8"
 IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
 IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
-MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
-MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
+#MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
+#MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
+MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
 BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
 #BASE_ROT=np.asarray([ 0.46312436,  0.51316392, -0.48667049,  0.52832292])
 JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
 FRAME_CORR=np.asarray([0,-1,0,1])
-TARGET_COORDS=np.asarray([-2.59361591383002,-0.178823692236341,-0.36553905703157])
+TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
 
 
 def point_from_pose(pose: Pose) -> List:
@@ -77,7 +78,7 @@ def normalize(vector: np.ndarray) -> np.ndarray:
     return vector / np.sqrt(np.sum(vector ** 2))
 
 def release_threshold(model_output):
-    return 0.035 if model_output >= 1 else 0
+    return 0.035 if model_output >= 0.5 else 0
 
 def release_time_fraction(states: List):
     for s in states:
@@ -121,7 +122,7 @@ def msg_from_model(model):
         output_state = model(state).numpy().astype(np.float64)
         output_state[0,3:7] = normalize(output_state[0,3:7])
         msg = Pose()
-        pose_from_point(msg, output_state[0,(0,1,2)] * 0.5 + pos_offset)
+        pose_from_point(msg, output_state[0,(0,1,2)] * 1.0 + pos_offset)
         #pose_from_quat(msg, init_rot)
         pose_from_quat(msg, qm(output_state[0,3:7], rot_restore))
         released.append(release_threshold(output_state[0,-1]))
@@ -151,8 +152,8 @@ def gripper_close(t: JointTrajectory, release_fraction):
     finish_time = int_time_to_float(t_end.secs, t_end.nsecs)
     release_time = release_fraction * finish_time
     gripper_start = robot.get_current_state().joint_state.position[-2:]
-    t.points[0].positions = t.points[0].positions + gripper_start
-    for point in t.points[1:]:
+    #t.points[0].positions = t.points[0].positions + gripper_start
+    for point in t.points[:]:
         t_point = point.time_from_start
         finger_state = (0.035,0.035) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0,0)
         point.positions = point.positions + finger_state
@@ -164,8 +165,8 @@ def execute_trajectory(df: pd.DataFrame):
     #model = models.load_model(MODEL_FILE)
     #msgs, released = msg_from_model(model)
     release_fraction = release_time_fraction(released)
-    p,_ = group.compute_cartesian_path([x for x in msgs], 0.1, 0.0)
-    #p.joint_trajectory = rescale_time(p.joint_trajectory, 15)
+    p,_ = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
+    p.joint_trajectory = rescale_time(p.joint_trajectory, 6.4)
     gripper_close(p.joint_trajectory, release_fraction)
     for pp in p.joint_trajectory.points:
         pp.velocities = []
@@ -200,7 +201,7 @@ if __name__ == "__main__":
     current = JointTrajectoryPoint()
     current.positions = robot.get_current_state().joint_state.position
     target = JointTrajectoryPoint()
-    target.positions = tuple(JOINT_GOAL + [0.035,0.035])
+    target.positions = tuple(JOINT_GOAL + [0.00,0.00])
     trajectory = JointTrajectory()
     trajectory.points.append(current)
     trajectory.points.append(target)
