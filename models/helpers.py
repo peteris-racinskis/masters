@@ -12,9 +12,9 @@ RNN_FINAL_H=10
 def make_generator(data_element: np.ndarray, label_element: np.ndarray, gen_h=GEN_H):
     inputs = Input(shape=data_element.shape)
     x = layers.Dense(gen_h)(inputs)
-    x = layers.ReLU()(x)
+    x = layers.LeakyReLU()(x)
     x = layers.Dense(gen_h)(x)
-    x = layers.ReLU()(x)
+    x = layers.LeakyReLU()(x)
     outputs = layers.Dense(label_element.size)(x)
     return Model(inputs, outputs, name="generator")
 
@@ -55,3 +55,12 @@ def generate_trajectory(model, initial_state, steps):
         states.append(state)
     arr = np.asarray(states)
     return arr.reshape(-1,12)
+
+def quaternion_norm(df: pd.DataFrame):
+    quatnorm = "quaternion_norm"
+    if quatnorm in df.columns:
+        return df
+    quat_cols = ["r"+c for c in "xyzw"]
+    quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
+    quat_norm_series.name = quatnorm
+    return pd.concat([df,quat_norm_series], axis=1)

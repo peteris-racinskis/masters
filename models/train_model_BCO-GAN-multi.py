@@ -11,14 +11,16 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 #TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 # Normalized data (I think?)
 TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
-OVERWRITE=False
+OVERWRITE=True
 CONTINUE=False
 STARTINDEX=0
 BATCHSIZE=64
 EPOCHS=200
 GH=256
 DH=256
-OFILE=f"models/BCO-{GH}x2-{DH}x2-start-timesignal-doubled-noreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
+OFILE=f"models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-doubled-quatreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
+#OFILE=f"models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm"
+
 
 # Convenience declaration
 # apparently this implements the __call__ method, which means
@@ -28,9 +30,14 @@ cross_entropy = losses.BinaryCrossentropy(from_logits=True)
 
 # Compare discriminator's predictions to a vector of 1's
 # (try to fool it)
-def generator_loss(predictions_on_fake):
+def generator_loss(predictions_on_fake, generator_outputs):
     all_fooled = tf.ones_like(predictions_on_fake)
-    return cross_entropy(all_fooled, predictions_on_fake)# + tf.math.maximum(diff * 10, 1)
+    quat_reg = tf.reduce_sum(tf.square(tf.reduce_sum(tf.square(generator_outputs[:,3:7]), axis=-1) - 1))
+
+    #position_term = tf.reduce_sum(tf.math.reduce_euclidean_norm(y_true[:,:3] - y_pred[:,:3], keepdims=True))
+    #orientation_term = tf.reduce_sum(tf.math.reduce_euclidean_norm(y_true[:,3:7] - y_pred[:,3:7], keepdims=True))
+    #release_term = entropy(y_true[:,-1], y_pred[:,-1])
+    return cross_entropy(all_fooled, predictions_on_fake) + 0.1 * quat_reg# + tf.math.maximum(diff * 10, 1)
 
 # Penalize for not telling generated and actual training data apart
 def discriminator_loss(predictions_on_real, predictions_on_fake):
@@ -58,7 +65,7 @@ def generator_multi_iterate(gen, initial_state):
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-@tf.function
+#@tf.function
 def train_step(inits, data, labels):
 
 
@@ -68,7 +75,7 @@ def train_step(inits, data, labels):
         predict_on_real = discriminator(tf.concat([data,labels], axis=1))
         predict_on_fake = discriminator(generator_outputs)
 
-        gen_loss = generator_loss(predict_on_fake)
+        gen_loss = generator_loss(predict_on_fake, generator_outputs)
         disc_loss = discriminator_loss(predict_on_real, predict_on_fake)
     
     gen_grad = gen_tape.gradient(gen_loss, generator.trainable_variables)
@@ -96,9 +103,11 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     trajectories = []
     means = np.repeat(means.reshape(1,-1), num, axis=0)
     deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
-    target_coords = np.random.normal(means, deviations, means.shape)
-    #init_orientation = np.asarray([-0.3134110987186432,0.6126522928476333,0.3159722849726677,0.6526271522045135]) # a random start orientation from the train dataset
-    init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
+    #target_coords = np.random.normal(means, deviations, means.shape)
+    tc = np.asarray([-2.5049639 , -0.03949555, -0.30162135])
+    target_coords = np.repeat(tc.reshape(1,-1), num, axis=0)
+    init_orientation = np.asarray([-0.3134110987186432,0.6126522928476333,0.3159722849726677,0.6526271522045135]) # a random start orientation from the train dataset
+    #init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
     init_orientations = np.repeat(init_orientation.reshape(1,-1), num, axis=0)
     initial_states = np.concatenate([np.zeros((num,4)), init_orientations, np.zeros((num,1)), target_coords], axis=1) # stick a known good orientation in the set
     for init in initial_states:
@@ -127,6 +136,11 @@ def generate_intermediate(generator, target_means, target_sds, ep, disc_loss):
         save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
     df.to_csv(save_name, index=False)
 
+def quaternion_norm(df: pd.DataFrame):
+    quat_cols = ["r"+c for c in "xyzw"]
+    quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
+    quat_norm_series.name = "quaternion_norm"
+    return pd.concat([df,quat_norm_series], axis=1)
 
 
 if __name__ == "__main__":
@@ -159,4 +173,5 @@ if __name__ == "__main__":
     trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
+    df = quaternion_norm(df)
     df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)
