@@ -211,7 +211,6 @@ def execute_trajectory(df: pd.DataFrame):
     custom_objects = {"quaternion_normalized_huber_loss": None}
     with tensorflow.keras.utils.custom_object_scope(custom_objects):
         model = models.load_model(MODEL_FILE)
-    #smodel = models.load_model(MODEL_FILE)
     msgs, u_msgs, released, offs_target = msg_from_model(model)
     msgs_to_csv(msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
