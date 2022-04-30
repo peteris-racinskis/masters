@@ -25,8 +25,8 @@ IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-5
 MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
-#MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep20-norm-start-timesignal-quatreg"
-MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep100-norm-start-timesignal-partloss"
+MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep20-norm-start-timesignal-quatreg"
+#MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep100-norm-start-timesignal-partloss"
 BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
 BASE_ROT=np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973])
 
@@ -35,7 +35,7 @@ JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337
 #JOINT_GOAL=[0, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
 FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
-TARGET_COORDS=np.asarray([-2.5049639 , -0.03949555, -0.30162135])
+TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.30162135])
 
 '''
     WHAT I WAS DOING WRONG:
@@ -211,12 +211,12 @@ def execute_trajectory(df: pd.DataFrame):
     custom_objects = {"quaternion_normalized_huber_loss": None}
     with tensorflow.keras.utils.custom_object_scope(custom_objects):
         model = models.load_model(MODEL_FILE)
-    model = models.load_model(MODEL_FILE)
+    #smodel = models.load_model(MODEL_FILE)
     msgs, u_msgs, released, offs_target = msg_from_model(model)
     msgs_to_csv(msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
     p,_ = group.compute_cartesian_path([x for x in msgs], 0.01, 0.0)
-    p.joint_trajectory = rescale_time(p.joint_trajectory, 20)
+    p.joint_trajectory = rescale_time(p.joint_trajectory, 10)
     gripper_close(p.joint_trajectory, release_fraction)
     for pp in p.joint_trajectory.points:
         pp.velocities = []
