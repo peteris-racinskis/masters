@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from sre_constants import REPEAT
 import pandas as pd
 from os import listdir
 from os.path import exists
@@ -8,6 +9,7 @@ from typing import List
 from hashlib import sha1
 TEST_FRAC=0.1
 OVERWRITE=True
+PREPEND=True
 BASE_T="TrashPickup."
 BASE_B="Bottle."
 RELEASED="Released"
@@ -41,6 +43,15 @@ def strip_columns(df: pd.DataFrame, t=False) -> pd.DataFrame:
     df = df[relevant].rename(columns=d)
     return df
 
+
+def prepend_states(df: pd.DataFrame) -> pd.DataFrame:
+    row = df.loc[df.index[0]:df.index[0],df.columns]
+    for i in range(REPEATS):
+        row.index -= 1
+        row.loc[:,TIME] = -i - 1
+        df = pd.concat([row,df], axis=0)
+    return df
+
 def state_transitions(df: pd.DataFrame, t=False) -> pd.DataFrame:
     # Copy over the next values, shift by one, do a row-wise NaN
     # reduction to eliminate invalid rows.
@@ -48,6 +59,8 @@ def state_transitions(df: pd.DataFrame, t=False) -> pd.DataFrame:
     # NOT A LABEL YOU FUCKING MORON
     startindex = 1 if t else 0
     shifted = []
+    if PREPEND:
+        df = prepend_states(df)
     next_states = df[df.columns[startindex:-3]].iloc[1:]
     for i in range(REPEATS):
         next_states.index -= 1
@@ -121,6 +134,9 @@ if __name__ == "__main__":
     dataset_id = get_dataset_id(train_demos, test_demos)
     trainname = f"{OFDIR}train-{mode}-doubled-{dataset_id}.csv"
     testname = f"{OFDIR}test-{mode}-doubled-{dataset_id}.csv"
+    if PREPEND:
+        trainname = trainname.replace(".csv", "-prep.csv")
+        testname = testname.replace(".csv", "-prep.csv")
     if not exists(trainname) or OVERWRITE:
         print(f"Creating dataset {trainname}")
         train_df = process_demo_list(train_demos, t)
