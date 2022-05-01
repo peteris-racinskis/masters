@@ -10,7 +10,8 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 #TRAIN="processed_data/train_datasets/train-003430811ff20c35ccd5.csv"
 #TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 # Normalized data (I think?)
-TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
+#TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
+TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
 OVERWRITE=True
 CONTINUE=False
 STARTINDEX=0
@@ -18,7 +19,7 @@ BATCHSIZE=64
 EPOCHS=200
 GH=256
 DH=256
-OFILE=f"models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-doubled-quatreg-ep{EPOCHS}-b{BATCHSIZE}-norm"
+OFILE=f"models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-doubled-quatreg-ep{EPOCHS}-b{BATCHSIZE}-prepend"
 #OFILE=f"models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm"
 
 
@@ -32,12 +33,12 @@ cross_entropy = losses.BinaryCrossentropy(from_logits=True)
 # (try to fool it)
 def generator_loss(predictions_on_fake, generator_outputs):
     all_fooled = tf.ones_like(predictions_on_fake)
-    quat_reg = tf.reduce_sum(tf.square(tf.reduce_sum(tf.square(generator_outputs[:,3:7]), axis=-1) - 1))
+    #quat_reg = tf.reduce_sum(tf.square(tf.reduce_sum(tf.square(generator_outputs[:,3:7]), axis=-1) - 1))
 
     #position_term = tf.reduce_sum(tf.math.reduce_euclidean_norm(y_true[:,:3] - y_pred[:,:3], keepdims=True))
     #orientation_term = tf.reduce_sum(tf.math.reduce_euclidean_norm(y_true[:,3:7] - y_pred[:,3:7], keepdims=True))
     #release_term = entropy(y_true[:,-1], y_pred[:,-1])
-    return cross_entropy(all_fooled, predictions_on_fake) + 0.1 * quat_reg# + tf.math.maximum(diff * 10, 1)
+    return cross_entropy(all_fooled, predictions_on_fake) #+ 0.1 * quat_reg# + tf.math.maximum(diff * 10, 1)
 
 # Penalize for not telling generated and actual training data apart
 def discriminator_loss(predictions_on_real, predictions_on_fake):
@@ -48,10 +49,19 @@ def discriminator_loss(predictions_on_real, predictions_on_fake):
 def generator_multi_iterate(gen, initial_state):
     prev, new = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True), tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
     state = tf.reshape(initial_state[:12], [1,12])
+    mod_state = tf.identity(state)
     target = tf.reshape(initial_state[12-3:12], [1,3])
+
+    spoolup_time = tf.convert_to_tensor(np.arange(-3, 0, 1, dtype=np.float32).reshape(3,1))
+    for i in tf.range(3):
+        t = tf.reshape(spoolup_time[i], [1,1])
+        mod_state = tf.concat([t, mod_state[:,1:]], axis=1)
+        prev = prev.write(i, mod_state)
+        new = new.write(i, mod_state[:,1:9])
+
     timesteps = tf.convert_to_tensor(np.arange(0, BATCHSIZE*0.01, 0.01, dtype=np.float32).reshape(BATCHSIZE,1))
     timesteps = timesteps + initial_state[0]
-    for i in tf.range(BATCHSIZE):
+    for i in tf.range(3, BATCHSIZE):
         t = tf.reshape(timesteps[i], [1,1])
         prev = prev.write(i, state)
         state = gen(state)
@@ -65,7 +75,7 @@ def generator_multi_iterate(gen, initial_state):
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-#@tf.function
+@tf.function
 def train_step(inits, data, labels):
 
 
@@ -103,10 +113,11 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     trajectories = []
     means = np.repeat(means.reshape(1,-1), num, axis=0)
     deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
-    #target_coords = np.random.normal(means, deviations, means.shape)
-    tc = np.asarray([-2.5049639 , -0.03949555, -0.30162135])
-    target_coords = np.repeat(tc.reshape(1,-1), num, axis=0)
-    init_orientation = np.asarray([-0.3134110987186432,0.6126522928476333,0.3159722849726677,0.6526271522045135]) # a random start orientation from the train dataset
+    target_coords = np.random.normal(means, deviations, means.shape)
+    #tc = np.asarray([-2.5049639 , -0.03949555, -0.30162135])
+    #target_coords = np.repeat(tc.reshape(1,-1), num, axis=0)
+    #init_orientation = np.asarray([-0.3134110987186432,0.6126522928476333,0.3159722849726677,0.6526271522045135]) # a random start orientation from the train dataset
+    init_orientation = np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973]) # same thing the robot code uses
     #init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
     init_orientations = np.repeat(init_orientation.reshape(1,-1), num, axis=0)
     initial_states = np.concatenate([np.zeros((num,4)), init_orientations, np.zeros((num,1)), target_coords], axis=1) # stick a known good orientation in the set
@@ -173,5 +184,5 @@ if __name__ == "__main__":
     trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
-    df = quaternion_norm(df)
+    df, _ = quaternion_norm(df)
     df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)
