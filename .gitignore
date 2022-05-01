@@ -379,3 +379,11 @@ models/naiveBCx128x2-ep40-norm-start-timesignal-quatreg/keras_metadata.pb
 models/naiveBCx128x2-ep40-norm-start-timesignal-quatreg/saved_model.pb
 models/naiveBCx128x2-ep40-norm-start-timesignal-quatreg/variables/variables.data-00000-of-00001
 models/naiveBCx128x2-ep40-norm-start-timesignal-quatreg/variables/variables.index
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-disc/keras_metadata.pb
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-disc/saved_model.pb
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-disc/variables/variables.data-00000-of-00001
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-disc/variables/variables.index
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/keras_metadata.pb
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/saved_model.pb
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/variables/variables.data-00000-of-00001
+models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/variables/variables.index

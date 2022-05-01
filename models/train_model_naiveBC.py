@@ -119,7 +119,7 @@ if __name__ == "__main__":
     #trajectory = generate_trajectories_with_start(model, start_means, start_sds)
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
-    df = quaternion_norm(df)
+    df, _ = quaternion_norm(df)
     #t = pd.Series(data=np.arange(0,5,0.01), name="Time")
     #output = pd.concat([t,df], axis=1)
     df.to_csv(OFILE+f"-{STARTINDEX}-{ID}.csv", index=False)
