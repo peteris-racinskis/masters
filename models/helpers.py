@@ -59,8 +59,8 @@ def generate_trajectory(model, initial_state, steps):
 def quaternion_norm(df: pd.DataFrame):
     quatnorm = "quaternion_norm"
     if quatnorm in df.columns:
-        return df
+        return df, False
     quat_cols = ["r"+c for c in "xyzw"]
     quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
     quat_norm_series.name = quatnorm
-    return pd.concat([df,quat_norm_series], axis=1)
+    return pd.concat([df,quat_norm_series], axis=1), True
