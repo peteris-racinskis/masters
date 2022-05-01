@@ -9,8 +9,9 @@ if __name__ == "__main__":
     for fname in fnames:
         try:
             df = pd.read_csv(fname)
-            df = quaternion_norm(df)
-            df.to_csv(fname.replace(".csv", "-qn.csv"), index=False)
+            df, replace = quaternion_norm(df)
+            if replace:
+                df.to_csv(fname.replace(".csv", "-qn.csv"), index=False)
         except Exception as e:
             print(f"Failed on {fname} - {repr(e)}")
             pass
