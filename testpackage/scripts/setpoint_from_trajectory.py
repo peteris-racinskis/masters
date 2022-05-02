@@ -7,11 +7,13 @@ import rospy
 from geometry_msgs.msg import PoseStamped, Pose
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from moveit_msgs.msg import RobotTrajectory
+from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryAction
 import pandas as pd
 import numpy as np
 import copy
 import sys
 import moveit_commander
+import actionlib
 from tf.transformations import quaternion_inverse as qi, quaternion_multiply as qm
 from typing import List
 import tensorflow
@@ -31,7 +33,8 @@ BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
 BASE_ROT=np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973])
 
 #BASE_ROT=np.asarray([ 0.46312436,  0.51316392, -0.48667049,  0.52832292])
-JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
+#JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
+JOINT_GOAL=[1.3963414368265257, -1.673500445079532, 2.0627445115287806, -2.0407557772110856, -1.5704981923339751, 1.38]
 #JOINT_GOAL=[0, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
 FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
@@ -146,7 +149,7 @@ def msg_from_model(model):
         msg = Pose()
         u_msg = Pose()
         pose_from_point(u_msg, output_state[0,(0,1,2)] * 1.0 + pos_offset)
-        pose_from_point(msg, output_state[0,(0,1,2)] * 1.0 + pos_offset)
+        pose_from_point(msg, output_state[0,(0,1,2)] * 0.75 + pos_offset)
         #pose_from_quat(msg, init_rot)
         pose_from_quat(u_msg, normalize(output_state[0,3:7]))
         pose_from_quat(msg, qm(normalize(output_state[0,3:7]), rot_restore))
@@ -171,8 +174,24 @@ def rescale_time(trajectory: JointTrajectory, dt=1.0):
         point.time_from_start.secs, point.time_from_start.nsecs = float_time_to_int(newtime)
     return trajectory
 
+def gripper_close_ur5(t: JointTrajectory, release_fraction):
+    t_g = copy.deepcopy(t)
+    t_end = t_g.points[-1].time_from_start
+    t_g.joint_names = ["finger_joint"]
+    finish_time = int_time_to_float(t_end.secs, t_end.nsecs)
+    release_time = release_fraction * finish_time
+    for point in t_g.points:
+        t_point = point.time_from_start
+        finger_state = (0.02,0.02) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0.78,0.78)
+        point.positions = finger_state
+    gtr = RobotTrajectory()
+    gtr.joint_trajectory = t_g
+    return gtr
+
+
 def gripper_close(t: JointTrajectory, release_fraction):
-    t.joint_names += ["panda_finger_joint1", "panda_finger_joint2"]
+    #t.joint_names += ["panda_finger_joint1", "panda_finger_joint2"]
+    t.joint_names += ["finger_joint"]
     t_end = t.points[-1].time_from_start
     finish_time = int_time_to_float(t_end.secs, t_end.nsecs)
     release_time = release_fraction * finish_time
@@ -180,7 +199,8 @@ def gripper_close(t: JointTrajectory, release_fraction):
     #t.points[0].positions = t.points[0].positions + gripper_start
     for point in t.points[:]:
         t_point = point.time_from_start
-        finger_state = (0.035,0.035) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0,0)
+        #finger_state = (0.035,0.035) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0,0)
+        finger_state = (0.02,0.02) if int_time_to_float(t_point.secs, t_point.nsecs) > release_time else (0.78,0.78)
         point.positions = point.positions + finger_state
 
 def msgs_to_csv(msgs: List[Pose], released: List, offs_target):
@@ -214,13 +234,18 @@ def execute_trajectory(df: pd.DataFrame):
     msgs, u_msgs, released, offs_target = msg_from_model(model)
     msgs_to_csv(msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
-    p,_ = group.compute_cartesian_path([x for x in msgs], 0.01, 0.0)
-    p.joint_trajectory = rescale_time(p.joint_trajectory, 10)
-    gripper_close(p.joint_trajectory, release_fraction)
+    p,_ = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
+    p.joint_trajectory = rescale_time(p.joint_trajectory, 0.64)
+    p.joint_trajectory.points[1].time_from_start.nsecs += 200
     for pp in p.joint_trajectory.points:
         pp.velocities = []
         pp.accelerations = []
-    group.execute(p, wait=True)
+    gripper_close(p.joint_trajectory, release_fraction)
+    #g = gripper_close_ur5(p.joint_trajectory, release_fraction)
+    pass
+    group.execute(p, wait=False)
+    #gripper_group.execute(g, wait=False)
+    pass
 
 if __name__ == "__main__":
     df = pd.read_csv(IFILE)
@@ -228,9 +253,10 @@ if __name__ == "__main__":
     rospy.init_node('move_group_python_interface_tutorial',anonymous=True)
     robot = moveit_commander.RobotCommander()
     scene = moveit_commander.PlanningSceneInterface()
-    group_name = "panda_arm"
-    #group_name = "manipulator"
+    #group_name = "panda_arm"
+    group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
+    gripper_group = moveit_commander.MoveGroupCommander("gripper")
     planning_frame = group.get_planning_frame()
     print(f"============ Reference frame: {planning_frame}")
     eef_link = group.get_end_effector_link()
@@ -248,17 +274,49 @@ if __name__ == "__main__":
     #joint_goal[6] = np.pi / -4
     jnames = robot.get_current_state().joint_state.name
     current = JointTrajectoryPoint()
-    current.positions = robot.get_current_state().joint_state.position
+    current.positions = robot.get_current_state().joint_state.position[:7]
     target = JointTrajectoryPoint()
-    target.positions = tuple(JOINT_GOAL + [0.00,0.00])
+    #target.positions = tuple(JOINT_GOAL)
+    target.positions = tuple(JOINT_GOAL + [0.78])
+
+    target.time_from_start.secs = 1
     trajectory = JointTrajectory()
-    trajectory.points.append(current)
+    trajectory.points.append(copy.deepcopy(current))
     trajectory.points.append(target)
-    trajectory.joint_names = jnames
+    trajectory.joint_names = jnames[:7]
     rtr = RobotTrajectory()
     rtr.joint_trajectory = trajectory
+    '''
+    grip_target = JointTrajectoryPoint()
+    grip_target.positions = tuple([0.78])
+    grip_target.time_from_start.secs = 1
+    grip_trajectory = JointTrajectory()
+    grip_trajectory.joint_names = (jnames[6],)
+    current.positions = (current.positions[6],)
+    grip_trajectory.points.append(current)
+    grip_trajectory.points.append(grip_target)
+    gtr = RobotTrajectory()
+    gtr.joint_trajectory = grip_trajectory
+    '''
 
     #group.go(JOINT_GOAL, wait=True)
-    group.execute(rtr, wait=True)
+
+    goal = FollowJointTrajectoryActionGoal()
+    goal.header.stamp = rospy.Time.now()
+    goal.goal_id.stamp = rospy.Time.now()
+    goal.goal.trajectory = trajectory
+    goal.goal.path_tolerance = []
+    goal.goal.goal_tolerance = []
+    client = actionlib.SimpleActionClient("/arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
+    client.wait_for_server()
+    client.send_goal(goal)
+    #topic = "/arm_controller/follow_joint_trajectory/goal"
+    #pub = rospy.Publisher(topic,FollowJointTrajectoryActionGoal,queue_size=10)
+    #rospy.init_node("talker")
+    #pub.publish(goal)
+
+    #group.execute(rtr, wait=True)
+    #gripper_group.execute(gtr, wait=True)
     group.stop()
+    gripper_group.stop()
     execute_trajectory(df)
