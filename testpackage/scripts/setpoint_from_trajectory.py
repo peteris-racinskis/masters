@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-# shebang needed because this script gets called from somewhere who knows where
-from ntpath import join
-from platform import release
-from black import out
+# shebang needed because this script gets called from somewhere who knows 
+from time import sleep
 import rospy
 from geometry_msgs.msg import PoseStamped, Pose
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from moveit_msgs.msg import RobotTrajectory
-from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryAction
+from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryAction, GripperCommandAction, GripperCommandActionGoal
 import pandas as pd
 import numpy as np
 import copy
@@ -222,6 +220,25 @@ def msgs_to_csv(msgs: List[Pose], released: List, offs_target):
     })
     df.to_csv(fname, index=False)
 
+def follow_joint_action(trajectory):
+    goal = FollowJointTrajectoryActionGoal()
+    goal.header.stamp = rospy.Time.now()
+    goal.goal_id.stamp = rospy.Time.now()
+    goal.goal.trajectory = trajectory
+    goal.goal.path_tolerance = []
+    goal.goal.goal_tolerance = []
+    client.send_goal(goal.goal)
+
+def gripper_action(target=1.0):
+    g_goal = GripperCommandActionGoal()
+    g_goal.header.stamp = rospy.Time.now()
+    g_goal.goal_id.stamp = rospy.Time.now()
+    g_goal.goal.command.position = target
+    g_client.send_goal(g_goal.goal)
+
+
+
+
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
     #msgs, released = msg_from_row_corrected(df)
@@ -234,16 +251,21 @@ def execute_trajectory(df: pd.DataFrame):
     msgs, u_msgs, released, offs_target = msg_from_model(model)
     msgs_to_csv(msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
-    p,_ = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
-    p.joint_trajectory = rescale_time(p.joint_trajectory, 0.64)
+    p, f = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
+    totaltime = 20
+    opentime = release_fraction * totaltime
+    p.joint_trajectory = rescale_time(p.joint_trajectory, totaltime)
     p.joint_trajectory.points[1].time_from_start.nsecs += 200
     for pp in p.joint_trajectory.points:
         pp.velocities = []
         pp.accelerations = []
-    gripper_close(p.joint_trajectory, release_fraction)
+    #gripper_close(p.joint_trajectory, release_fraction)
     #g = gripper_close_ur5(p.joint_trajectory, release_fraction)
     pass
-    group.execute(p, wait=False)
+    follow_joint_action(p.joint_trajectory)
+    sleep(opentime)
+    gripper_action(0.0)
+    #group.execute(p, wait=False)
     #gripper_group.execute(g, wait=False)
     pass
 
@@ -274,23 +296,25 @@ if __name__ == "__main__":
     #joint_goal[6] = np.pi / -4
     jnames = robot.get_current_state().joint_state.name
     current = JointTrajectoryPoint()
-    current.positions = robot.get_current_state().joint_state.position[:7]
+    #current.positions = robot.get_current_state().joint_state.position[:7]
+    current.positions = robot.get_current_state().joint_state.position[:6]
     target = JointTrajectoryPoint()
-    #target.positions = tuple(JOINT_GOAL)
-    target.positions = tuple(JOINT_GOAL + [0.78])
+    target.positions = tuple(JOINT_GOAL)
+    #target.positions = tuple(JOINT_GOAL + [0.78])
 
     target.time_from_start.secs = 1
     trajectory = JointTrajectory()
     trajectory.points.append(copy.deepcopy(current))
     trajectory.points.append(target)
-    trajectory.joint_names = jnames[:7]
+    #trajectory.joint_names = jnames[:7]
+    trajectory.joint_names = jnames[:6]
     rtr = RobotTrajectory()
     rtr.joint_trajectory = trajectory
     '''
     grip_target = JointTrajectoryPoint()
     grip_target.positions = tuple([0.78])
     grip_target.time_from_start.secs = 1
-    grip_trajectory = JointTrajectory()
+    #grip_trajectory = JointTrajectory()
     grip_trajectory.joint_names = (jnames[6],)
     current.positions = (current.positions[6],)
     grip_trajectory.points.append(current)
@@ -309,11 +333,20 @@ if __name__ == "__main__":
     goal.goal.goal_tolerance = []
     client = actionlib.SimpleActionClient("/arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
     client.wait_for_server()
-    client.send_goal(goal)
+    client.send_goal(goal.goal)
     #topic = "/arm_controller/follow_joint_trajectory/goal"
     #pub = rospy.Publisher(topic,FollowJointTrajectoryActionGoal,queue_size=10)
     #rospy.init_node("talker")
     #pub.publish(goal)
+
+
+    g_goal = GripperCommandActionGoal()
+    g_goal.header.stamp = rospy.Time.now()
+    g_goal.goal_id.stamp = rospy.Time.now()
+    g_goal.goal.command.position = 1.0
+    g_client = actionlib.SimpleActionClient("/gripper/gripper_cmd", GripperCommandAction)
+    g_client.wait_for_server()
+    g_client.send_goal(g_goal.goal)
 
     #group.execute(rtr, wait=True)
     #gripper_group.execute(gtr, wait=True)
