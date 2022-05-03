@@ -37,6 +37,7 @@ JOINT_GOAL=[1.3963414368265257, -1.673500445079532, 2.0627445115287806, -2.04075
 FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
 TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.30162135])
+SCALER=0.3
 
 '''
     WHAT I WAS DOING WRONG:
@@ -118,7 +119,7 @@ def msg_from_row_corrected(df):
             break
         msgs.append(msg)
         msg = Pose()
-        pose_from_point(msg, row[["position."+c for c in "xyz"]].values * 0.5 + pos_offset)
+        pose_from_point(msg, row[["position."+c for c in "xyz"]].values * SCALER + pos_offset)
         pose_from_quat(msg, normalize(qm(row[["orientation."+c for c in "xyzw"]].values, rot_restore)))
         released.append(release_threshold(row["Released"]))
     return msgs, released
@@ -147,7 +148,7 @@ def msg_from_model(model):
         msg = Pose()
         u_msg = Pose()
         pose_from_point(u_msg, output_state[0,(0,1,2)] * 1.0 + pos_offset)
-        pose_from_point(msg, output_state[0,(0,1,2)] * 0.75 + pos_offset)
+        pose_from_point(msg, output_state[0,(0,1,2)] * SCALER + pos_offset)
         #pose_from_quat(msg, init_rot)
         pose_from_quat(u_msg, normalize(output_state[0,3:7]))
         pose_from_quat(msg, qm(normalize(output_state[0,3:7]), rot_restore))
@@ -202,7 +203,7 @@ def gripper_close(t: JointTrajectory, release_fraction):
         point.positions = point.positions + finger_state
 
 def msgs_to_csv(msgs: List[Pose], released: List, offs_target):
-    fname = "testpackage/generated_trajectory_points.csv"
+    fname = f"testpackage/generated_trajectory_points-{SCALER}.csv"
     df = pd.DataFrame({
         "Time": [0 for p in msgs],
         "x": [p.position.x for p in msgs],
@@ -237,6 +238,13 @@ def gripper_action(target=1.0):
     g_client.send_goal(g_goal.goal)
 
 
+    '''
+
+    PATH TO TRAJECTORY OPTIMIZER CODE:
+    /home/ur5e-robopc/ros_workspace/src/VIZTA_robot_control/vizta/src/trajectory_generation.cpp
+    
+
+    '''
 
 
 def execute_trajectory(df: pd.DataFrame):

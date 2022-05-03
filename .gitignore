@@ -7,6 +7,7 @@
 *.csv
 *.pyc
 .venv
+.py2venv
 .vscode
 rawdata/
 processed_data/
