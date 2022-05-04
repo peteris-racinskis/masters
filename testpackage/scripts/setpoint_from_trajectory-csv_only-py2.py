@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # shebang needed because this script gets called from somewhere who knows 
 from time import sleep
 import rospy
 from geometry_msgs.msg import Pose
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from moveit_msgs.msg import RobotTrajectory
+from robotiq_2f_gripper_control.msg import Robotiq2FGripper_robot_output
 from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryAction, FollowJointTrajectoryFeedback, GripperCommandAction, GripperCommandActionGoal
 import pandas as pd
 import numpy as np
@@ -33,6 +34,7 @@ PLANNING_STEP = 0.1
 PLANNING_JUMP_LIM = 0.0
 TOTALTIME=20
 
+
 class FollowTrajectoryWrapper():
 
     def __init__(self, gripper_action_wrapper):
@@ -40,7 +42,7 @@ class FollowTrajectoryWrapper():
         self._client.wait_for_server()
         self._gripper_action_wrapper = gripper_action_wrapper
 
-    def follow_joint_action(self, trajectory):
+    def throwing_motion(self, trajectory):
         goal = FollowJointTrajectoryActionGoal()
         goal.header.stamp = rospy.Time.now()
         goal.goal_id.stamp = rospy.Time.now()
@@ -56,7 +58,7 @@ class FollowTrajectoryWrapper():
         actual = feedback.actual.positions
         if not self._released and (np.allclose(desired, self._objective, rtol=1e-2) or np.allclose(actual, self._objective, rtol=1e-2)):
             self._released = True
-            self._gripper_action_wrapper.gripper_action(self._gripper_target)
+            self._gripper_action_wrapper.gripper_open()
             self._log("release: {}".format(self._objective))
             self._log("desired: {}".format(desired))
             self._log("actual: {}".format(actual))
@@ -64,19 +66,50 @@ class FollowTrajectoryWrapper():
     def _log(self, msg):
         rospy.loginfo("{}".format(msg))
 
-    def set_callback_objective(self, joint_target, gripper_target=0.0):
+    def set_callback_objective(self, joint_target):
         self._objective = joint_target
-        self._gripper_target = gripper_target
 
 class GripperActionWrapper():
 
     def __init__(self):
-        pass
+        self._pub = rospy.Publisher("/Robotiq2FGripperRobotOutput", Robotiq2FGripper_robot_output, queue_size=1)
+        self._msg = Robotiq2FGripper_robot_output()
 
-    def gripper_action(self, target=1.0):
-        gripper_action(target)
+    def _msg_reset(self):
+        self._msg.rACT = 0 # activation
+        self._msg.rGTO = 0 # go to objective
+        self._msg.rATR = 0 # emergency release
+        self._msg.rPR = 0 # position request open (0) / closed (255)
+        self._msg.rSP = 255 # speed
+        self._msg.rFR = 127 # force
+
+
+    def _gripper_action(self):
+        self._pub.publish(self._msg)
+        self._msg_reset()
         rospy.loginfo("Gripper action was triggered!!")
-        pass
+
+    def _gripper_set_state(self, state):
+        self._msg.rACT = state
+        self._gripper_action()
+
+    def gripper_activate(self):
+        self._gripper_set_state(1)
+
+    def gripper_deactivate(self):
+        self._gripper_set_state(0)
+
+    def _gripper_goto(self):
+        self._msg.rGTO = 1
+        self._gripper_action()
+
+    def gripper_close(self):
+        self._msg.rPR = 255
+        self._gripper_goto()
+
+    def gripper_open(self):
+        self._msg.rPR = 0
+        self._gripper_goto()
 
 
 def point_from_pose(pose):
@@ -213,7 +246,7 @@ def execute_trajectory(df):
 
     follow_trajectory_wrapper.set_callback_objective(joint_target_release)
     pdb.set_trace()
-    follow_trajectory_wrapper.follow_joint_action(p.joint_trajectory)
+    follow_trajectory_wrapper.throwing_motion(p.joint_trajectory)
 
 
 
@@ -240,28 +273,15 @@ if __name__ == "__main__":
     trajectory.joint_names = jnames[:6]
     rtr = RobotTrajectory()
     rtr.joint_trajectory = trajectory
-
-    '''
-
-    PATH TO TRAJECTORY OPTIMIZER CODE:
-    /home/ur5e-robopc/ros_workspace/src/VIZTA_robot_control/vizta/src/trajectory_generation.cpp
-
-
-    '''
     
     gripper_wrapper = GripperActionWrapper()
     follow_trajectory_wrapper = FollowTrajectoryWrapper(gripper_wrapper)
 
     group.execute(rtr, wait=True)
-    g_client = actionlib.SimpleActionClient("/gripper", GripperCommandAction)
-    g_client.wait_for_server()
-    pdb.set_trace()
-    gripper_action()
-
-    '''
-     WAIT FOR THE ROBOT TO ACTUALLY GET INTO POSITION BEFORE COMPUTING THE PATH!!!!
-    '''
-
-    pdb.set_trace()
     group.stop()
+    pdb.set_trace()
+    gripper_wrapper.gripper_activate()
+    gripper_wrapper.gripper_close()
+
+    pdb.set_trace()
     execute_trajectory(df)
