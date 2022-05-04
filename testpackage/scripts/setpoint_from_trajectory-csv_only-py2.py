@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# shebang needed because this script gets called from somewhere who knows 
 from time import sleep
 import rospy
 from geometry_msgs.msg import Pose
@@ -30,9 +29,13 @@ FRAME_CORR=np.asarray([0,0,0,1])
 TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.30162135])
 GROUP_NAME = "manipulator"
 GRIPPER_NAME = "gripper"
-PLANNING_STEP = 0.1
+PLANNING_STEP = 0.2
 PLANNING_JUMP_LIM = 0.0
-TOTALTIME=20
+TOTALTIME=10
+DOWNSAMPLING=10
+OPT_ACCEL_SCALE=0.01
+OPT_SPEED_SCALE=1
+OPT_ALGORITHM="time_optimal_trajectory_generation"
 
 
 class FollowTrajectoryWrapper():
@@ -150,7 +153,7 @@ def release_time_fraction(states):
     for s in states:
         if s != 0:
             return states.index(s) / len(states), states.index(s)
-    return 1
+    return 1, len(states) - 1
 
 def apply_rotation(q, v):
     q_i = qi(q)
@@ -177,6 +180,15 @@ def msgs_to_csv(msgs, released, offs_target):
     }, columns=columns)
     #pdb.set_trace()
     df.to_csv(fname, index=False)
+
+def resample_path(msgs, released, factor=DOWNSAMPLING):
+    r_msg = []
+    r_released = []
+    for i in range(len(msgs[:-1])):
+        if i % factor == 0:
+            r_msg.append(msgs[i])
+            r_released.append(released[i])
+    return r_msg + [msgs[-1]], r_released + [released[-1]]
 
 def msg_from_row_corrected(df):
     msgs = []
@@ -228,18 +240,20 @@ def gripper_action(target=1.0):
 def execute_trajectory(df):
     msgs, released, offs_target = msg_from_row_corrected(df)
     msgs_to_csv(msgs, released, offs_target)
+    msgs, released = resample_path(msgs, released)
     release_fraction, release_index = release_time_fraction(released)
 
     p_release, _ = group.compute_cartesian_path(msgs[:release_index+1], PLANNING_STEP, PLANNING_JUMP_LIM)
     joint_target_release = p_release.joint_trajectory.points[-1].positions
     p, f = group.compute_cartesian_path([x for x in msgs], PLANNING_STEP, PLANNING_JUMP_LIM)
-    pdb.set_trace()
-    p = group.retime_trajectory(group.get_current_state(), p, 1.0, algorithm="time_optimal_trajectory_generation")
-    pdb.set_trace()
-    opentime = release_fraction * TOTALTIME
+
+    p = group.retime_trajectory(group.get_current_state(), p, OPT_SPEED_SCALE, OPT_ACCEL_SCALE, algorithm=OPT_ALGORITHM)
+
     for pp in p.joint_trajectory.points[1:]:
         pp.time_from_start.nsecs += 5e8
+
     p.joint_trajectory = rescale_time(p.joint_trajectory, TOTALTIME)
+
     for pp in p.joint_trajectory.points:
         pp.velocities = []
         pp.accelerations = []
@@ -266,7 +280,7 @@ if __name__ == "__main__":
     target = JointTrajectoryPoint()
     target.positions = tuple(JOINT_GOAL)
 
-    target.time_from_start.secs = 10
+    target.time_from_start.secs = 5
     trajectory = JointTrajectory()
     trajectory.points.append(copy.deepcopy(current))
     trajectory.points.append(target)
