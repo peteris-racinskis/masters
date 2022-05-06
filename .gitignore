@@ -392,3 +392,7 @@ models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/keras_metadata
 models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/saved_model.pb
 models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
 models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/variables/variables.index
+models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/keras_metadata.pb
+models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/saved_model.pb
+models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
+models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.index

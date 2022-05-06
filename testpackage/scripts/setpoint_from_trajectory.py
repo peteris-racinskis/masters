@@ -20,24 +20,31 @@ from tensorflow.keras import models
 SETPOINT_CHANNEL="/pid_setpoint"
 WORLDLINK="world"
 EE_LINK="panda_link8"
-IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
-IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+#IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
+IFILE="/home/user/repos/masters/processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
 MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
-MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep20-norm-start-timesignal-quatreg"
+#MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep20-norm-start-timesignal-quatreg"
+MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep100-norm-start-timesignal-partloss"
-BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
-BASE_ROT=np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973])
+#BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
+#BASE_ROT=np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973])
+BASE_ROT=np.asarray([-0.700575220584869,0.006480328785255,0.712678784132004,0.03341787615791])
+#BASE_ROT=np.asarray([-0.595393347740173,-0.037378676235676, 0.794532498717308,0.04247132204473])
+#    init_orientation = np.asarray([-0.595393347740173,-0.037378676235676, 0.794532498717308,0.04247132204473])
 
 #BASE_ROT=np.asarray([ 0.46312436,  0.51316392, -0.48667049,  0.52832292])
 #JOINT_GOAL=[1.577647875986087, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
-JOINT_GOAL=[1.3963414368265257, -1.673500445079532, 2.0627445115287806, -2.0407557772110856, -1.5704981923339751, 1.38]
+#JOINT_GOAL=[1.3963414368265257, -1.673500445079532, 2.0627445115287806, -2.0407557772110856, -1.5704981923339751, 1.38]
+#JOINT_GOAL=[-2.140, -1.621, -2.010, -1.031, 1.558, 1.532]
+JOINT_GOAL=[-2.267834011708395, -1.8479305706419886, -1.8413517475128174, -1.0335948032191773, 1.5439883470535278, 2.3857996463775635]
 #JOINT_GOAL=[0, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
 FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
-TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.30162135])
-SCALER=0.6
+TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.4162135])
+SCALER=1
+RELEASE_THRESH=0.95
 
 '''
     WHAT I WAS DOING WRONG:
@@ -97,7 +104,7 @@ def normalize(vector: np.ndarray) -> np.ndarray:
     return vector / np.sqrt(np.sum(vector ** 2))
 
 def release_threshold(model_output):
-    return 0.035 if model_output >= 0.95 else 0
+    return 0.035 if model_output >= RELEASE_THRESH else 0
 
 def release_time_fraction(states: List):
     for s in states:
@@ -318,6 +325,7 @@ if __name__ == "__main__":
     trajectory.joint_names = jnames[:6]
     rtr = RobotTrajectory()
     rtr.joint_trajectory = trajectory
+
     '''
     grip_target = JointTrajectoryPoint()
     grip_target.positions = tuple([0.78])
