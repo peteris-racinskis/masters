@@ -1,5 +1,5 @@
 
-filename=recording_with_rotation
+filename=shorter_throws
 limit_high=1.0
 limit_low=0.9
 
@@ -34,7 +34,7 @@ threshold: smooth
 	trajectory_extract/threshold.py processed_data/smoothed/*
 
 smooth: split
-	trajectory_extract/smoothing.py processed_data/*
+	trajectory_extract/smoothing.py processed_data/split/*
 
 split: regularize
 	trajectory_extract/split.py $(limit_high) $(limit_low) processed_data/$(filename)-regularized.csv

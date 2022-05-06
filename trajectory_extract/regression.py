@@ -60,7 +60,7 @@ if __name__ == "__main__":
     fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     print(f"Files: {fnames[0]} ... {fnames[-1]}")
     for fname in fnames:
-        if not "demo-22-0" in fname:
+        if not "demo-" in fname:
             continue
         ofname = fname.replace("/thresh/demo", "/labelled/demo")
         ofname = ofname.replace("-thresh","-labelled")

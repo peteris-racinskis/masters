@@ -15,9 +15,9 @@ if __name__ == "__main__":
     fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     print(f"Files: {fnames[0]} ... {fnames[-1]}")
     for fname in fnames:
-        if not "demo-22-0" in fname:
+        if not "demo-" in fname:
             continue
-        ofname = fname.replace("/demo", "/smoothed/demo")
+        ofname = fname.replace("/split/demo", "/smoothed/demo")
         ofname = f"{ofname[:-4]}-smooth.csv"
         if not exists(ofname) or OVERWRITE:
             print(fname)

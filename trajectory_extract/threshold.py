@@ -15,7 +15,7 @@ RELEASED="Released"
 FREEFALL="Freefall"
 PASSED="Passed"
 MOVING="Moving"
-THRESHOLD_RELEASE=0.05
+THRESHOLD_RELEASE=0.2
 THRESHOLD_FREEFALL=0.1
 THRESHOLD_MOVING=0.2
 WINDOW=5
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     fnames = sys.argv[1:] if len(sys.argv) > 1 else [IFILE]
     print(f"Files: {fnames[0]} ... {fnames[-1]}")
     for fname in fnames:
-        if not "demo-22-0" in fname:
+        if not "demo-" in fname:
             continue
         ofname = fname.replace("/smoothed/demo", "/thresh/demo")
         ofname = ofname.replace("-smooth","-thresh")

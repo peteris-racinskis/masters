@@ -388,3 +388,7 @@ models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepen
 models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/saved_model.pb
 models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/variables/variables.data-00000-of-00001
 models/BCO-leaky_g-256x2-256x2-start-timesignal-doubled-quatreg-ep200-b64-prepend-gen/variables/variables.index
+models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/keras_metadata.pb
+models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/saved_model.pb
+models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
+models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss/variables/variables.index

@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import List
 from sys import argv
 IFILE="processed_data/regular_timeseries.csv"
-OFILE_BASE="processed_data/demo-"
+OFILE_BASE="processed_data/split/demo-"
 TIME="Time"
 GRIPPER_X="TrashPickup.position.x"
 GRIPPER_XLIMU="TrashPickup.position.xlim+"
@@ -12,8 +12,8 @@ GRIPPER_XLIML="TrashPickup.position.xlim-"
 BOTTLE_X="Bottle.position.x"
 BOTTLE_XLIMU="Bottle.position.xlim+"
 BOTTLE_XLIML="Bottle.position.xlim-"
-WINDOW=150
-STEPS=500
+WINDOW=80
+STEPS=150
 # Set this for every batch of demonstrations in the makefile
 BOX_X_H = 1.0 # This is for recording_with_rotation.bag
 BOX_X_L = 0.9 # This is for recording_with_rotation.bag

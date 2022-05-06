@@ -9,7 +9,7 @@ from typing import List
 from hashlib import sha1
 TEST_FRAC=0.1
 OVERWRITE=True
-PREPEND=True
+PREPEND=False
 BASE_T="TrashPickup."
 BASE_B="Bottle."
 RELEASED="Released"
@@ -24,7 +24,7 @@ DIR="processed_data/norm/"
 MODE="start-time"
 OFDIR="processed_data/train_datasets/"
 IFILE=DIR+"demo-22-03-2022-11:39:49-labelled.csv"
-REPEATS=3
+REPEATS=1
 
 
 # This version does not take velocity into the dataset.

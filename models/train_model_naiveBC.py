@@ -11,9 +11,11 @@ TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
 TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
 TRAIN="processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
 TEST="processed_data/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+TEST="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
+TRAIN="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
 H_NEURONS=128
 EPOCHS=100
-OFILE=f"models/naiveBCx{H_NEURONS}x2-ep{EPOCHS}-norm-start-timesignal-partloss"
+OFILE=f"models/naiveBCx{H_NEURONS}x2-newdata-ep{EPOCHS}-norm-start-timesignal-partloss"
 OVERWRITE=False
 STARTINDEX=0
 ID=""
@@ -27,7 +29,8 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     target_coords = np.random.normal(means, deviations, means.shape)
     #tc = np.asarray([-2.5049639 , -0.03949555, -0.30162135])
     #target_coords = np.repeat(tc.reshape(1,-1), num, axis=0)
-    init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
+    #init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
+    init_orientation = np.asarray([-0.595393347740173,-0.037378676235676, 0.794532498717308,0.04247132204473])
     init_orientations = np.repeat(init_orientation.reshape(1,-1), num, axis=0)
     initial_states = np.concatenate([np.zeros((num,4)), init_orientations, np.zeros((num,1)), target_coords], axis=1)
     for init in initial_states:
@@ -60,7 +63,7 @@ def quaternion_norm(df: pd.DataFrame):
     quat_cols = ["r"+c for c in "xyzw"]
     quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
     quat_norm_series.name = "quaternion_norm"
-    return pd.concat([df,quat_norm_series], axis=1)
+    return pd.concat([df,quat_norm_series], axis=1), True
 
 if __name__ == "__main__":
     np.random.seed(133)

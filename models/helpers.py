@@ -49,10 +49,10 @@ def generate_trajectory(model, initial_state, steps):
     target = reshaped[:,-3:]
     state = reshaped
     for i in range(steps):
-        t = np.asarray(i * 0.01).reshape(-1,1)
-        state = model(state).numpy()
-        state = np.concatenate([t, state, target], axis=1)
+        t = np.asarray((i+1) * 0.01).reshape(-1,1)
+        newstate = model(state).numpy()
         states.append(state)
+        state = np.concatenate([t, newstate, target], axis=1)
     arr = np.asarray(states)
     return arr.reshape(-1,12)
 

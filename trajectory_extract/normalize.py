@@ -49,7 +49,7 @@ if __name__ == "__main__":
     fnames = argv[2:] if len(argv) > 2 else [IFILE]
     print(f"Mode: {mode}. {explain[mode]}")
     for fname in fnames:
-        if not "demo-22-" in fname:
+        if not "demo-" in fname:
             continue
         ofname = fname.replace("labelled/demo", "norm/demo")
         ofname = ofname.replace("-labelled", f"-norm-{mode}")
