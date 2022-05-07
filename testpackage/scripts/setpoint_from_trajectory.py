@@ -22,7 +22,8 @@ WORLDLINK="world"
 EE_LINK="panda_link8"
 #IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
 #IFILE="/home/user/repos/masters/processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
-IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46.csv"
+#IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46.csv"
+IFILE="/home/user/repos/masters/models/naiveBC-RNNx128x2-ep300-norm-start-timesignal-0-.csv"
 MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
@@ -47,10 +48,12 @@ FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
 TARGET_COORDS=np.asarray([-1.8 , 0.05, -0.4162135])
 SCALER=1
-RELEASE_THRESH=0.60
+RELEASE_THRESH=1
 TOOL_OFFSET=np.asarray([0.0,0.0,-0.05])
 #EE_LINK="ee_link"
 EE_LINK="tool0"
+DF_START_INDEX=0
+DF_STOP_INDEX=51
 
 '''
     WHAT I WAS DOING WRONG:
@@ -135,14 +138,21 @@ def msg_from_row_corrected(df):
     i = 0
     for _, row in df.iterrows():
         i+=1
-        if i < 64:
+        if i < DF_START_INDEX:
             continue
-        if i == 107:
+        if i == DF_STOP_INDEX:
             break
         msgs.append(msg)
         msg = Pose()
-        pose_from_point(msg, row[["position."+c for c in "xyz"]].values * SCALER + pos_offset)
-        pose_from_quat(msg, normalize(qm(row[["orientation."+c for c in "xyzw"]].values, rot_restore)))
+
+        # For demos
+        #pose_from_point(msg, row[["position."+c for c in "xyz"]].values * SCALER + pos_offset)
+        #pose_from_quat(msg, normalize(qm(row[["orientation."+c for c in "xyzw"]].values, rot_restore)))
+
+        # For model outputs
+        pose_from_point(msg, row[[c for c in "xyz"]].values * SCALER + pos_offset)
+        pose_from_quat(msg, normalize(qm(row[["r"+c for c in "xyzw"]].values, rot_restore)))
+
         released.append(release_threshold(row["Released"]))
     return msgs, released
 
@@ -288,14 +298,14 @@ def shift_trajectory(msgs: List[Pose], shift=TOOL_OFFSET):
 
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    #msgs, released = msg_from_row_corrected(df)
-    #offs_target = np.zeros(3)
+    msgs, released = msg_from_row_corrected(df)
+    offs_target = np.zeros(3)
     # For using a policy model
     # For loading the model with a custom loss
-    custom_objects = {"quaternion_normalized_huber_loss": None}
-    with tensorflow.keras.utils.custom_object_scope(custom_objects):
-        model = models.load_model(MODEL_FILE)
-    msgs, u_msgs, released, offs_target = msg_from_model(model)
+    #custom_objects = {"quaternion_normalized_huber_loss": None}
+    #with tensorflow.keras.utils.custom_object_scope(custom_objects):
+    #    model = models.load_model(MODEL_FILE)
+    #msgs, u_msgs, released, offs_target = msg_from_model(model)
     o_msgs = shift_trajectory(msgs)
     msgs_to_csv(msgs + o_msgs + msgs, released, offs_target)
     #msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)
