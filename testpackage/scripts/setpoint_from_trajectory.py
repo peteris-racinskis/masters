@@ -39,12 +39,16 @@ BASE_ROT=np.asarray([-0.700575220584869,0.006480328785255,0.712678784132004,0.03
 #JOINT_GOAL=[1.3963414368265257, -1.673500445079532, 2.0627445115287806, -2.0407557772110856, -1.5704981923339751, 1.38]
 #JOINT_GOAL=[-2.140, -1.621, -2.010, -1.031, 1.558, 1.532]
 JOINT_GOAL=[-2.267834011708395, -1.8479305706419886, -1.8413517475128174, -1.0335948032191773, 1.5439883470535278, 2.3857996463775635]
+JOINT_GOAL=[-1.2, -1.8479305706419886, -1.8413517475128174, -1.0335948032191773, 1.5439883470535278, 2.3857996463775635]
 #JOINT_GOAL=[0, 0.1062921021035729, -0.6027521208404681, -2.50337521912297, 0.13283492899586027, 2.5984230209111456, -1.443825125350671]
 FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
-TARGET_COORDS=np.asarray([-2.6 , 0.05, -0.4162135])
+TARGET_COORDS=np.asarray([-1.8 , 0.05, -0.4162135])
 SCALER=1
 RELEASE_THRESH=0.95
+TOOL_OFFSET=np.asarray([0.0,0.0,-0.05])
+#EE_LINK="ee_link"
+EE_LINK="tool0"
 
 '''
     WHAT I WAS DOING WRONG:
@@ -55,13 +59,15 @@ RELEASE_THRESH=0.95
 
 
 
-def point_from_pose(pose: Pose) -> List:
+def point_from_pose(pose: Pose, numpy=False) -> List:
     p = pose.position
-    return [p.x, p.y, p.z]
+    point = [p.x, p.y, p.z]
+    return np.asarray(point) if numpy else point
 
-def quat_from_pose(pose: Pose) -> List:
+def quat_from_pose(pose: Pose, numpy=False) -> List:
     o = pose.orientation
-    return [o.x, o.y, o.z, o.w]
+    quat = [o.x, o.y, o.z, o.w]
+    return np.asarray(quat) if numpy else quat
 
 def pose_from_point(pose: Pose, point) -> Pose:
     pose.position.x = point[0]
@@ -73,6 +79,11 @@ def pose_from_quat(pose: Pose, quat) -> Pose:
     pose.orientation.y = quat[1]
     pose.orientation.z = quat[2]
     pose.orientation.w = quat[3]
+
+def apply_rotation(q, v):
+    q_i = qi(q)
+    v_q = np.concatenate([v, np.zeros(1)])
+    return qm(qm(q, v_q), q_i)[:-1]
 
 # need to map whatever the default rotation of the gripper is
 # a roughly centered rotation within the demonstration data
@@ -144,7 +155,8 @@ def msg_from_model(model):
     output_state = np.asarray([0.0]*3 + list(qm(quat_from_pose(msg), rot_offset)) + [0]).reshape(1,-1) # was rotating the initial point by itself, not the computed offset
     pose_from_quat(u_msg, output_state[0,3:7])
     t_base = np.asarray([0.01]).reshape(1,-1)
-    for i in range(64):
+    #for i in range(64):
+    for i in range(100):
         msgs.append(msg)
         uncorr_msgs.append(u_msg)
         t = t_base * i
@@ -220,7 +232,7 @@ def msgs_to_csv(msgs: List[Pose], released: List, offs_target):
         "ry": [p.orientation.y for p in msgs],
         "rz": [p.orientation.z for p in msgs],
         "rw": [p.orientation.w for p in msgs],
-        "Released": [float(r > 0) for r in released + released],
+        "Released": [float(r > 0) for r in released + released + released],
         "x-t": [offs_target[0] for p in msgs],
         "y-t": [offs_target[1] for p in msgs],
         "z-t": [offs_target[2] for p in msgs],
@@ -254,6 +266,22 @@ def gripper_action(target=1.0):
     '''
 
 
+def shift_trajectory(msgs: List[Pose], shift=TOOL_OFFSET):
+    offset_msgs = [copy.deepcopy(msgs[0])]
+    # Get the shift of the first point. It will remain at the origin so no need to shifts
+    start_rot = quat_from_pose(msgs[0], True)
+    first_shift = apply_rotation(start_rot, shift)
+    # Get the shift of all the other points, apply, then subtract the first shift
+    for point in msgs[1:]:
+        pos, rot = point_from_pose(point, True), quat_from_pose(point, True)
+        point_shift = apply_rotation(rot, shift)
+        new_pos = pos + point_shift - first_shift
+        offset_msg = Pose()
+        pose_from_point(offset_msg, new_pos)
+        pose_from_quat(offset_msg, rot)
+        offset_msgs.append(offset_msg)
+    return offset_msgs
+
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
     #msgs, released = msg_from_row_corrected(df)
@@ -264,9 +292,11 @@ def execute_trajectory(df: pd.DataFrame):
     with tensorflow.keras.utils.custom_object_scope(custom_objects):
         model = models.load_model(MODEL_FILE)
     msgs, u_msgs, released, offs_target = msg_from_model(model)
-    msgs_to_csv(msgs + u_msgs, released, offs_target)
+    o_msgs = shift_trajectory(msgs)
+    msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
-    p, f = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
+    p, f = group.compute_cartesian_path([x for x in o_msgs], 0.05, 0.0)
+    #p, f = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
     totaltime = 20
     opentime = release_fraction * totaltime
     p.joint_trajectory = rescale_time(p.joint_trajectory, totaltime)
@@ -293,6 +323,7 @@ if __name__ == "__main__":
     #group_name = "panda_arm"
     group_name = "arm"
     group = moveit_commander.MoveGroupCommander(group_name)
+    group.set_end_effector_link("tool0")
     gripper_group = moveit_commander.MoveGroupCommander("gripper")
     planning_frame = group.get_planning_frame()
     print(f"============ Reference frame: {planning_frame}")
