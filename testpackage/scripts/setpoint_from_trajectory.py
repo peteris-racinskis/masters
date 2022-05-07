@@ -21,7 +21,8 @@ SETPOINT_CHANNEL="/pid_setpoint"
 WORLDLINK="world"
 EE_LINK="panda_link8"
 #IFILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal-0-first-attempt.csv"
-IFILE="/home/user/repos/masters/processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+#IFILE="/home/user/repos/masters/processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+IFILE="/home/user/repos/masters/processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46.csv"
 MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
@@ -133,7 +134,9 @@ def msg_from_row_corrected(df):
     i = 0
     for _, row in df.iterrows():
         i+=1
-        if i == 79:
+        if i < 64:
+            continue
+        if i == 107:
             break
         msgs.append(msg)
         msg = Pose()
@@ -284,16 +287,17 @@ def shift_trajectory(msgs: List[Pose], shift=TOOL_OFFSET):
 
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    #msgs, released = msg_from_row_corrected(df)
+    msgs, released = msg_from_row_corrected(df)
     offs_target = np.zeros(3)
     # For using a policy model
     # For loading the model with a custom loss
     custom_objects = {"quaternion_normalized_huber_loss": None}
-    with tensorflow.keras.utils.custom_object_scope(custom_objects):
-        model = models.load_model(MODEL_FILE)
-    msgs, u_msgs, released, offs_target = msg_from_model(model)
+    #with tensorflow.keras.utils.custom_object_scope(custom_objects):
+    #    model = models.load_model(MODEL_FILE)
+    #msgs, u_msgs, released, offs_target = msg_from_model(model)
     o_msgs = shift_trajectory(msgs)
-    msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)
+    msgs_to_csv(msgs + o_msgs + msgs, released, offs_target)
+    #msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)
     release_fraction = release_time_fraction(released)
     p, f = group.compute_cartesian_path([x for x in o_msgs], 0.05, 0.0)
     #p, f = group.compute_cartesian_path([x for x in msgs], 0.05, 0.0)
