@@ -27,7 +27,8 @@ MODEL_FILE="/home/user/repos/masters/models/naiveBC-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm-gen"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx2048x2-ep20-norm-start-timesignal"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep20-norm-start-timesignal-quatreg"
-MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss"
+##MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-newdata-ep100-norm-start-timesignal-partloss"
+MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss"
 #MODEL_FILE="/home/user/repos/masters/models/naiveBCx128x2-ep100-norm-start-timesignal-partloss"
 #BASE_ROT=np.asarray([0.023,-0.685,0.002,-0.729])
 #BASE_ROT=np.asarray([-0.188382297754288, 0.70863139629364, 0.236926048994064, 0.57675164937973])
@@ -46,7 +47,7 @@ FRAME_CORR=np.asarray([0,-1,0,1])
 #TARGET_COORDS=np.asarray([-3.6,-0.178823692236341,-0.36553905703157])
 TARGET_COORDS=np.asarray([-1.8 , 0.05, -0.4162135])
 SCALER=1
-RELEASE_THRESH=0.95
+RELEASE_THRESH=0.60
 TOOL_OFFSET=np.asarray([0.0,0.0,-0.05])
 #EE_LINK="ee_link"
 EE_LINK="tool0"
@@ -159,7 +160,7 @@ def msg_from_model(model):
     pose_from_quat(u_msg, output_state[0,3:7])
     t_base = np.asarray([0.01]).reshape(1,-1)
     #for i in range(64):
-    for i in range(100):
+    for i in range(45):
         msgs.append(msg)
         uncorr_msgs.append(u_msg)
         t = t_base * i
@@ -287,14 +288,14 @@ def shift_trajectory(msgs: List[Pose], shift=TOOL_OFFSET):
 
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    msgs, released = msg_from_row_corrected(df)
-    offs_target = np.zeros(3)
+    #msgs, released = msg_from_row_corrected(df)
+    #offs_target = np.zeros(3)
     # For using a policy model
     # For loading the model with a custom loss
     custom_objects = {"quaternion_normalized_huber_loss": None}
-    #with tensorflow.keras.utils.custom_object_scope(custom_objects):
-    #    model = models.load_model(MODEL_FILE)
-    #msgs, u_msgs, released, offs_target = msg_from_model(model)
+    with tensorflow.keras.utils.custom_object_scope(custom_objects):
+        model = models.load_model(MODEL_FILE)
+    msgs, u_msgs, released, offs_target = msg_from_model(model)
     o_msgs = shift_trajectory(msgs)
     msgs_to_csv(msgs + o_msgs + msgs, released, offs_target)
     #msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)

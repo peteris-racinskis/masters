@@ -396,3 +396,11 @@ models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/ke
 models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/saved_model.pb
 models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
 models/naiveBCx128x2-newdata-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.index
+models/naiveBCx128x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/keras_metadata.pb
+models/naiveBCx128x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/saved_model.pb
+models/naiveBCx128x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
+models/naiveBCx128x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.index
+models/naiveBC-RNNx128x2-ep300-norm-start-timesignal/keras_metadata.pb
+models/naiveBC-RNNx128x2-ep300-norm-start-timesignal/saved_model.pb
+models/naiveBC-RNNx128x2-ep300-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBC-RNNx128x2-ep300-norm-start-timesignal/variables/variables.index

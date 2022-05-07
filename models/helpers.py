@@ -36,9 +36,10 @@ def make_discriminator(data_element: np.ndarray, label_element: np.ndarray, clas
     outputs = layers.Dense(classes)(x)
     return Model(inputs, outputs, name="discriminator")
 
-def data_and_label(df: pd.DataFrame) -> Tuple[np.ndarray]:
+def data_and_label(df: pd.DataFrame, shuffle=True) -> Tuple[np.ndarray]:
     values = df.values.astype(np.float32)
-    np.random.shuffle(values)
+    if shuffle:
+        np.random.shuffle(values)
     data_cols = values[:,:-8]
     label_cols = values[:,-8:]
     return data_cols, label_cols
