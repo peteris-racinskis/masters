@@ -1,5 +1,5 @@
 from cProfile import label
-from typing import Tuple
+from typing import Tuple, final
 import pandas as pd
 import numpy as np
 from tensorflow.keras import layers, Input, Model
@@ -44,18 +44,20 @@ def data_and_label(df: pd.DataFrame, shuffle=True) -> Tuple[np.ndarray]:
     label_cols = values[:,-8:]
     return data_cols, label_cols
 
-def generate_trajectory(model, initial_state, steps):
+def generate_trajectory(model, initial_state, steps, timesignal=True):
     states = []
-    reshaped = initial_state.reshape(1,12)
+    reshaped = initial_state.reshape(1,-1)
     target = reshaped[:,-3:]
     state = reshaped
     for i in range(steps):
         t = np.asarray((i+1) * 0.01).reshape(-1,1)
         newstate = model(state).numpy()
         states.append(state)
-        state = np.concatenate([t, newstate, target], axis=1)
+        newstate = np.concatenate([t, newstate], axis=1) if timesignal else newstate
+        state = np.concatenate([newstate, target], axis=1)
     arr = np.asarray(states)
-    return arr.reshape(-1,12)
+    final_shape = 12 if timesignal else 11
+    return arr.reshape(-1,final_shape)
 
 def quaternion_norm(df: pd.DataFrame):
     quatnorm = "quaternion_norm"

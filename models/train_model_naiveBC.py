@@ -7,21 +7,26 @@ from typing import Tuple
 import tensorflow as tf
 from helpers import data_and_label, generate_trajectory
 from tensorflow.keras import layers, optimizers, losses, models
-TRAIN="processed_data/train_datasets/train-start-c088196696e9f167c879.csv"
-TEST="processed_data/train_datasets/test-start-c088196696e9f167c879.csv"
-TRAIN="processed_data/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
-TEST="processed_data/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
-TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
-TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
-H_NEURONS=256
-EPOCHS=50
-OFILE=f"models/naiveBCx{H_NEURONS}x2-newdata-fixed-data-fastrelease-ep{EPOCHS}-norm-start-timesignal"
+# Datasets without timesignal
+TRAIN="processed_data_old/train_datasets/train-start-c088196696e9f167c879.csv"
+TEST="processed_data_old/train_datasets/test-start-c088196696e9f167c879.csv"
+# Old timed datasets
+#TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+#TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+# New timed datasets
+#TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
+#TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
+H_NEURONS=1024
+EPOCHS=100
+OFILE=f"models/saved_models/naiveBCx{H_NEURONS}x2-olddata-fixed-data-fastrelease-ep{EPOCHS}-norm-start-notimesignal"
 OVERWRITE=False
+TARGET_COLUMNS=["position."+c+"-t" for c in "xyz"]
 STARTINDEX=0
 ID=""
 TIME="Time"
 REPEATS_IN_DATASET=1
-PREPEND=True
+PREPEND=False
+TIMESIGNAL=False
 huber = losses.Huber()
 entropy = losses.BinaryCrossentropy(from_logits=True)
 
@@ -35,9 +40,11 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     #init_orientation = np.asarray([-0.18197935000062, 0.750300034880638, 0.247823745757341, 0.578429348766804])
     init_orientation = np.asarray([-0.595393347740173,-0.037378676235676, 0.794532498717308,0.04247132204473])
     init_orientations = np.repeat(init_orientation.reshape(1,-1), num, axis=0)
-    initial_states = np.concatenate([np.zeros((num,4)), init_orientations, np.zeros((num,1)), target_coords], axis=1)
+    # For models without timesignal
+    zeros_start = 4 if TIMESIGNAL else 3
+    initial_states = np.concatenate([np.zeros((num, zeros_start)), init_orientations, np.zeros((num,1)), target_coords], axis=1)
     for init in initial_states:
-        trajectories.append(generate_trajectory(model, init, length))
+        trajectories.append(generate_trajectory(model, init, length, TIMESIGNAL))
     return np.concatenate(trajectories, axis=0)
     
 def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
@@ -70,18 +77,25 @@ def quaternion_norm(df: pd.DataFrame):
 
 def validation_on_test(df: pd.DataFrame, model, prep=PREPEND):
     stop_offset = -1 * REPEATS_IN_DATASET if prep else 0
-    start_indices = list(df.loc[lambda d: d[TIME] == 0].index)
+    if TIMESIGNAL:
+        start_indices = list(df.loc[lambda d: d[TIME] == 0].index)
+    else:
+        target_diff = df[TARGET_COLUMNS].diff().abs().any(axis=1)
+        start_indices = list(target_diff.loc[lambda d: d != 0].index)
+        start_indices = [0] + start_indices
     start_indices += [df.index[-1] - stop_offset + 2]
     demos_with_trajectories = []
-    columns = list(df.columns[:12])
+    column_count = 12 if TIMESIGNAL else 11
+    generated_slice = slice(1,-3) if TIMESIGNAL else slice(0,-3)
+    columns = list(df.columns[:column_count])
     columns += [c for c in "xyz"]
     columns += ["r"+c for c in "xyzw"]
     columns += ["Released-model"]
     for i, ii in zip(start_indices[:-1], start_indices[1:]):
         demo, _ = data_and_label(df.iloc[i:ii+stop_offset], shuffle=False)
         initial_state = demo[0:1]
-        trajectory = generate_trajectory(model, initial_state, len(demo))
-        demos_with_trajectories.append(np.concatenate([demo, trajectory[:,1:-3]], axis=1))
+        trajectory = generate_trajectory(model, initial_state, len(demo), TIMESIGNAL)
+        demos_with_trajectories.append(np.concatenate([demo, trajectory[:,generated_slice]], axis=1))
     combined_data = np.concatenate(demos_with_trajectories, axis=0)
     combined_df = pd.DataFrame(data=combined_data, columns=columns)
     return combined_df
@@ -141,11 +155,15 @@ if __name__ == "__main__":
     #trajectory = generate_trajectory(model, start, 100)
     trajectory = generate_trajectories_with_target(model, target_means, target_sds)
     validated_dataset = validation_on_test(pd.read_csv(TEST), model)
+    validated_on_train = validation_on_test(pd.read_csv(TRAIN), model)
     #trajectory = generate_trajectories_with_start(model, start_means, start_sds)
-    cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
+    cols = ["x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
+    if TIMESIGNAL:
+        cols = ["Time"] + cols
     df = pd.DataFrame(data=trajectory, columns=cols)
     df, _ = quaternion_norm(df)
     #t = pd.Series(data=np.arange(0,5,0.01), name="Time")
     #output = pd.concat([t,df], axis=1)
-    df.to_csv(OFILE+f"-{STARTINDEX}-{ID}.csv", index=False)
-    validated_dataset.to_csv(OFILE.replace("models/", "models/validation/")+".csv", index=False)
+    df.to_csv(OFILE.replace("models/saved_models/", "models/generated_trajectories/")+f"-{STARTINDEX}-{ID}.csv", index=False)
+    validated_dataset.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+"-testval.csv", index=False)
+    validated_on_train.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+"-trainval.csv", index=False)
