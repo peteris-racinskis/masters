@@ -422,3 +422,15 @@ models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-
 models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/saved_model.pb
 models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.data-00000-of-00001
 models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal-partloss/variables/variables.index
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal/keras_metadata.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal/saved_model.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep100-norm-start-timesignal/variables/variables.index
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep20-norm-start-timesignal/keras_metadata.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep20-norm-start-timesignal/saved_model.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep20-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep20-norm-start-timesignal/variables/variables.index
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep50-norm-start-timesignal/keras_metadata.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep50-norm-start-timesignal/saved_model.pb
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep50-norm-start-timesignal/variables/variables.data-00000-of-00001
+models/naiveBCx256x2-newdata-fixed-data-fastrelease-ep50-norm-start-timesignal/variables/variables.index
