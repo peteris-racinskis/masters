@@ -179,7 +179,7 @@ def quaternion_norm(df: pd.DataFrame):
     quat_cols = ["r"+c for c in "xyzw"]
     quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
     quat_norm_series.name = "quaternion_norm"
-    return pd.concat([df,quat_norm_series], axis=1)
+    return pd.concat([df,quat_norm_series], axis=1), True
 
 
 if __name__ == "__main__":
