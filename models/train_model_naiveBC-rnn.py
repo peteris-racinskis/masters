@@ -5,7 +5,7 @@ from os import listdir
 from os.path import exists
 from typing import Tuple
 import tensorflow as tf
-from helpers import data_and_label, generate_trajectory
+from helpers import data_and_label, generate_trajectory, quaternion_norm
 from tensorflow.keras import layers, optimizers, losses, models
 BASE_DIR="processed_data/norm/"
 TIME="Time"
@@ -58,12 +58,6 @@ def generate_trajectories_with_target_rnn(model, means: np.ndarray, deviations: 
         trajectories.append(generate_rnn_trajectory(model, init, length))
         #trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
-
-def quaternion_norm(df: pd.DataFrame):
-    quat_cols = ["r"+c for c in "xyzw"]
-    quat_norm_series = df[quat_cols].pow(2).sum(axis=1).pow(1/2)
-    quat_norm_series.name = "quaternion_norm"
-    return pd.concat([df,quat_norm_series], axis=1), True
 
 def create_sequential_dataset(df: pd.DataFrame):
     data_blocks, label_blocks = [], []
