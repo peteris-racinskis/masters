@@ -11,15 +11,28 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 #TEST="processed_data/train_datasets/test-003430811ff20c35ccd5.csv"
 # Normalized data (I think?)
 #TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
-TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
-OVERWRITE=True
+# Timesignal, no doubling, no prepend
+#TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+#TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+## Timesignal, doubling, no prepend
+#TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
+#TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35.csv"
+# Timesignal, doubling, prepend
+TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
+TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
+OVERWRITE=False
 CONTINUE=False
 STARTINDEX=0
 BATCHSIZE=64
 EPOCHS=200
 GH=256
 DH=256
-OFILE=f"models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-doubled-quatreg-ep{EPOCHS}-b{BATCHSIZE}-prepend"
+REPEATS_IN_DATASET=3
+PREPEND=True
+p = "-prepend" if PREPEND else ""
+d = "doubled-" if REPEATS_IN_DATASET == 3 else ""
+TIME="Time"
+OFILE=f"models/saved_models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-{d}ep{EPOCHS}-b{BATCHSIZE}{p}"
 #OFILE=f"models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm"
 
 
@@ -105,10 +118,31 @@ def train(data, labels, tgms, tgsd, epochs=20):
         for i_batch, d_batch, l_batch in zip(initial_states, batched_data, labels):
             g, d = train_step(i_batch, d_batch, l_batch)
         print(f"Epoch: {epoch} g_loss: {g} d_loss {d}")
-        if epoch % 7 == 0: # I dunno, minimize chances of weird oscillations?
+        if epoch % 17 == 0: # I dunno, minimize chances of weird oscillations?
             print("Generating trajectories with current policy...")
             generate_intermediate(generator, tgms, tgsd, epoch, d)
-        
+
+def validation_on_test(df: pd.DataFrame, model, prep=PREPEND):
+    stop_offset = -1 * REPEATS_IN_DATASET if prep else 0
+    start_indices = list(df.loc[lambda d: d[TIME] == 0].index)
+    start_indices += [df.index[-1] - stop_offset + 2]
+    demos_with_trajectories = []
+    column_count = 12
+    generated_slice = slice(1,-3) 
+    columns = list(df.columns[:column_count])
+    columns += [c for c in "xyz"]
+    columns += ["r"+c for c in "xyzw"]
+    columns += ["Released-model"]
+    for i, ii in zip(start_indices[:-1], start_indices[1:]):
+        demo, _ = data_and_label(df.iloc[i:ii+stop_offset], shuffle=False)
+        demo = demo[:,:12] # remove the nextstates
+        initial_state = demo[0:1]
+        trajectory = generate_trajectory(model, initial_state, len(demo))
+        demos_with_trajectories.append(np.concatenate([demo, trajectory[:,generated_slice]], axis=1))
+    combined_data = np.concatenate(demos_with_trajectories, axis=0)
+    combined_df = pd.DataFrame(data=combined_data, columns=columns)
+    return combined_df
+
 def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
     trajectories = []
     means = np.repeat(means.reshape(1,-1), num, axis=0)
@@ -124,17 +158,6 @@ def generate_trajectories_with_target(model, means: np.ndarray, deviations: np.n
     for init in initial_states:
         trajectories.append(generate_trajectory(model, init, length))
     return np.concatenate(trajectories, axis=0)
-    
-def generate_trajectories_with_start(model, means: np.ndarray, deviations: np.ndarray, num=50, length=50):
-    trajectories = []
-    means = np.repeat(means.reshape(1,-1), num, axis=0)
-    deviations = np.repeat(deviations.reshape(1,-1), num, axis=0)
-    start_params = np.random.normal(means, deviations, means.shape)
-    initial_states = np.concatenate([np.zeros((num,1)), start_params, np.zeros((num,4))], axis=1)
-    for init in initial_states:
-        trajectories.append(generate_trajectory(model, init, length))
-    return np.concatenate(trajectories, axis=0)
-
 
 def generate_intermediate(generator, target_means, target_sds, ep, disc_loss):
     trajectory = generate_trajectories_with_target(generator, target_means, target_sds)
@@ -146,6 +169,11 @@ def generate_intermediate(generator, target_means, target_sds, ep, disc_loss):
         dl = dl+EPOCHS
         save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
     df.to_csv(save_name, index=False)
+    validated_on_test = validation_on_test(pd.read_csv(TEST), generator)
+    validated_on_train = validation_on_test(pd.read_csv(TRAIN), generator)
+    validated_on_test.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+f"-at-{ep}-testval.csv", index=False)
+    validated_on_train.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+f"-at-{ep}-trainval.csv", index=False)
+
 
 def quaternion_norm(df: pd.DataFrame):
     quat_cols = ["r"+c for c in "xyzw"]
@@ -186,3 +214,7 @@ if __name__ == "__main__":
     df = pd.DataFrame(data=trajectory, columns=cols)
     df, _ = quaternion_norm(df)
     df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)
+    validated_on_test = validation_on_test(pd.read_csv(TEST), generator)
+    validated_on_train = validation_on_test(pd.read_csv(TRAIN), generator)
+    validated_on_test.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+"-testval.csv", index=False)
+    validated_on_train.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+"-trainval.csv", index=False)
