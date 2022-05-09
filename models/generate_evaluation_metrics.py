@@ -98,12 +98,15 @@ class ModelPerformanceDescriptor():
             "State history" :   self._ds_state_history,
             "Prepend"       :   self._ds_prepend,
             "Pearson"       :   self.pearson_correlation_coefficient(),
-            "Euclidean"     :   self.mean_euclidean_distance(),
-            "Manhattan"     :   self.mean_manhattan_distance(),
+            "Euclidean g"   :   self.global_euclidean_distance(),
+            "Manhattan g"   :   self.global_manhattan_distance(),
             "Cosine"        :   self.cosine_similarity_metric(),
+            "Euclidean m"   :   self.mean_euclidean_distance(),
+            "Manhattan m"   :   self.mean_manhattan_distance(),
             "Pos error"     :   self.mean_position_error(),
             "Rot error"     :   self.mean_angular_error(),
             "Release error" :   self.release_signal_error(),
+            "Filename"      :   self.filename.stem
         }
         cols = data_d.keys()
         return pd.DataFrame(data=data_d, columns=cols, index=[index])
@@ -122,6 +125,12 @@ class ModelPerformanceDescriptor():
         reduction_df = pd.concat(col_reductions, axis=1)
         return reduction_df.sum(axis=1).pow(1/degree).mean()
 
+    def global_euclidean_distance(self):
+        pass
+
+    def global_manhattan_distance(self):
+        pass
+
     def cosine_similarity_metric(self):
         d,g = self._split_and_flatten()
         return np.dot(d, g) / (np.linalg.norm(d) * np.linalg.norm(g))
@@ -132,13 +141,22 @@ class ModelPerformanceDescriptor():
 
     def mean_position_error(self):
         dcols, mcols = self._split_ds_mod_columns()
-        return self.mean_euclidean_distance(dcols[:3], mcols[:3])
+        slice_offs = 1 if self._ds_timesignal else 0
+        return self.mean_euclidean_distance(dcols[slice_offs:3+slice_offs], mcols[slice_offs:3+slice_offs])
 
-    def mean_quaternion_error(self):
-        pass
+    def _row_normalize(self, array):
+        row_norms = np.sqrt(np.square(array).sum(axis=1))
+        return array / row_norms.reshape(-1,1)
 
     def mean_angular_error(self):
-        pass
+        dcols, mcols = self._split_ds_mod_columns()
+        slice_offs = 1 if self._ds_timesignal else 0
+        d_rots = self._df[dcols[slice_offs+3:7+slice_offs]].values
+        m_rots = self._df[mcols[slice_offs+3:7+slice_offs]].values
+        m_rots = self._row_normalize(m_rots)
+        inner_prod = np.sum(d_rots * m_rots, axis=1)
+        angular_error = np.arccos(2 * (inner_prod ** 2) - 1)
+        return np.mean(angular_error)
     
     def _thresh(self, values, cutoff=0.5):
         return values >= cutoff # works because values is a numpy array
