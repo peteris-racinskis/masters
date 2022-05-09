@@ -1,11 +1,13 @@
 import sys
 from pathlib import Path
+from os import listdir
 
 import pandas as pd
 import numpy as np
 from pyparsing import col
 
-
+DIR="/home/user/repos/masters/models/validation/"
+OFILE="models/evaluation_data.csv"
 #IFILE="/home/user/repos/masters/models/validation/BCO-leaky_g-128x2-128x2-start-timesignal-doubled-ep200-b64-prepend-at-187-testval.csv"
 #IFILE="/home/user/repos/masters/models/validation/naiveBC-RNNx128x2-olddata-ep300-norm-start-timesignal-trainval.csv"
 IFILE="/home/user/repos/masters/models/validation/naiveBCx1024x2-olddata-fixed-data-fastrelease-ep20-norm-start-notimesignal-trainval.csv"
@@ -73,9 +75,15 @@ class ModelPerformanceDescriptor():
         self._ds_state_history = 3 if "doubled" in self.filename.stem else 1
         self._ds_prepend = ("-prep" in self.filename.stem)
         self._ds_timesignal = not ("notimesignal" in self.filename.stem)
+
+    def get_learning_rate(self):
+        if self._rnn and not ("lr5" in self._split_fn()):
+            self._learning_rate = 10e-4
+        else:
+            self._learning_rate = 10e-5
         
     def get_epochs(self):
-        if "-at-" in self._split_fn():
+        if "at" in self._split_fn():
             self._ep = int(self._index_fn(-2))
         else:
             self._ep = int([y for y in filter(lambda x: "ep" in x, self._split_fn())][0].replace("ep", ""))
@@ -85,10 +93,13 @@ class ModelPerformanceDescriptor():
         self.get_model_parameter_count()
         self.get_epochs()
         self.get_dataset_type()
+        self.get_learning_rate()
         data_d = {
             "NaiveBC"       :   self._nbc,
             "RNN-BC"        :   self._rnn,
             "GAN-BC"        :   self._gan,
+            "Test"          :   self._ds_val_type_test,
+            "Train"         :   self._ds_val_type_train,
             "Params"        :   self._params,
             "D-Params"      :   self._d_params,
             "Epochs"        :   self._ep,
@@ -97,6 +108,7 @@ class ModelPerformanceDescriptor():
             "Time signal"   :   self._ds_timesignal,
             "State history" :   self._ds_state_history,
             "Prepend"       :   self._ds_prepend,
+            "Learning rate" :   self._learning_rate,
             "Pearson"       :   self.pearson_correlation_coefficient(),
             "Euclidean g"   :   self.global_euclidean_distance(),
             "Manhattan g"   :   self.global_manhattan_distance(),
@@ -126,13 +138,17 @@ class ModelPerformanceDescriptor():
         return reduction_df.sum(axis=1).pow(1/degree).mean()
 
     def global_euclidean_distance(self):
-        pass
+        return self._global_norm_corrected()
 
     def global_manhattan_distance(self):
-        pass
+        return self._global_norm_corrected(1)
+        
+    def _global_norm_corrected(self, order=None):
+        d, g = self._split_and_flatten()
+        return np.linalg.norm(d - g, ord=order) / d.size
 
     def cosine_similarity_metric(self):
-        d,g = self._split_and_flatten()
+        d, g = self._split_and_flatten()
         return np.dot(d, g) / (np.linalg.norm(d) * np.linalg.norm(g))
 
     def pearson_correlation_coefficient(self):
@@ -141,24 +157,24 @@ class ModelPerformanceDescriptor():
 
     def mean_position_error(self):
         dcols, mcols = self._split_ds_mod_columns()
-        slice_offs = 1 if self._ds_timesignal else 0
-        return self.mean_euclidean_distance(dcols[slice_offs:3+slice_offs], mcols[slice_offs:3+slice_offs])
+        return self.mean_euclidean_distance(dcols[:3], mcols[:3])
 
-    def _row_normalize(self, array):
+    @staticmethod
+    def _row_normalize(array):
         row_norms = np.sqrt(np.square(array).sum(axis=1))
         return array / row_norms.reshape(-1,1)
 
     def mean_angular_error(self):
         dcols, mcols = self._split_ds_mod_columns()
-        slice_offs = 1 if self._ds_timesignal else 0
-        d_rots = self._df[dcols[slice_offs+3:7+slice_offs]].values
-        m_rots = self._df[mcols[slice_offs+3:7+slice_offs]].values
+        d_rots = self._df[dcols[3:7]].values
+        m_rots = self._df[mcols[3:7]].values
         m_rots = self._row_normalize(m_rots)
         inner_prod = np.sum(d_rots * m_rots, axis=1)
         angular_error = np.arccos(2 * (inner_prod ** 2) - 1)
         return np.mean(angular_error)
     
-    def _thresh(self, values, cutoff=0.5):
+    @staticmethod
+    def _thresh(values, cutoff=0.5):
         return values >= cutoff # works because values is a numpy array
 
     def release_signal_error(self):
@@ -167,15 +183,17 @@ class ModelPerformanceDescriptor():
         return 1 - self._df.loc[lambda d: d[d_rel] == self._thresh(d[m_rel].values)].size / self._df.size
 
 
-
 if __name__ == "__main__":
     fnames = sys.argv
-    fnames = [IFILE]
+    #fnames = [IFILE]
+    fnames = listdir(DIR)
+    fnames.sort()
     i = 0
     df = pd.DataFrame()
     for fname in fnames:
-        model_eval = ModelPerformanceDescriptor(fname)
+        print(f"processing: {fname}")
+        model_eval = ModelPerformanceDescriptor(DIR+fname)
         row = model_eval.get_metric_data_row(i)
         i += 1
         df = pd.concat([df,row], axis=0)
-        pass
+    df.to_csv(OFILE, index=False)
