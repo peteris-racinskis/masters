@@ -92,23 +92,23 @@ class ModelPerformanceDescriptor():
             "State history" :   self._ds_state_history,
             "Prepend"       :   self._ds_prepend,
             "Pearson"       :   self.pearson_correlation_coefficient(),
-            "Euclidean"     :   self.euclidean_distance(),
-            "Manhattan"     :   self.manhattan_distance(),
+            "Euclidean"     :   self.mean_euclidean_distance(),
+            "Manhattan"     :   self.mean_manhattan_distance(),
             "Cosine"        :   self.cosine_similarity_metric(),
-            "Pos error"     :   self.position_error(),
-            "Rot error"     :   self.angular_error(),
-            "Release error" :   self.release_signal_crossentropy(),
+            "Pos error"     :   self.mean_position_error(),
+            "Rot error"     :   self.mean_angular_error(),
+            "Release error" :   self.release_signal_error(),
         }
         cols = data_d.keys()
         return pd.DataFrame(data=data_d, columns=cols, index=[index])
 
-    def euclidean_distance(self, dcols=None, mcols=None):
-        return self._minkowski_distance(dcols, mcols, 2)
+    def mean_euclidean_distance(self, dcols=None, mcols=None):
+        return self._mean_stepwise_minkowski_distance(dcols, mcols, 2)
 
-    def manhattan_distance(self, dcols=None, mcols=None):
-        return self._minkowski_distance(dcols, mcols, 1)
+    def mean_manhattan_distance(self, dcols=None, mcols=None):
+        return self._mean_stepwise_minkowski_distance(dcols, mcols, 1)
 
-    def _minkowski_distance(self, dcols=None, mcols=None, degree=2):
+    def _mean_stepwise_minkowski_distance(self, dcols=None, mcols=None, degree=2):
         dcols, mcols = (dcols, mcols) if not (dcols is None or mcols is None) else self._split_ds_mod_columns()
         col_reductions = []
         for dcol, mcol in zip(dcols, mcols):
@@ -125,18 +125,23 @@ class ModelPerformanceDescriptor():
         flat_generated = self._df[mcols].to_numpy().flatten()
         return np.corrcoef(flat_data, flat_generated)[0,1] # returns n-row/column corr matrix. Need to specify corr between 0 and 1
 
-    def position_error(self):
+    def mean_position_error(self):
         dcols, mcols = self._split_ds_mod_columns()
-        return self.euclidean_distance(dcols[:3], mcols[:3])
+        return self.mean_euclidean_distance(dcols[:3], mcols[:3])
 
-    def quaternion_error(self):
+    def mean_quaternion_error(self):
         pass
 
-    def angular_error(self):
+    def mean_angular_error(self):
         pass
+    
+    def _thresh(self, values, cutoff=0.5):
+        return values >= cutoff # works because values is a numpy array
 
-    def release_signal_crossentropy(self):
-        pass
+    def release_signal_error(self):
+        dcols, mcols = self._split_ds_mod_columns()
+        d_rel, m_rel = dcols[-1], mcols[-1]
+        return 1 - self._df.loc[lambda d: d[d_rel] == self._thresh(d[m_rel].values)].size / self._df.size
 
 
 
