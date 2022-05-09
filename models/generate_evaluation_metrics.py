@@ -36,6 +36,12 @@ class ModelPerformanceDescriptor():
     def _zip_ds_mod_columns(self):
         x, y = self._split_ds_mod_columns()
         return [z for z in zip(x,y)]
+    
+    def _split_and_flatten(self):
+        dcols, mcols = self._split_ds_mod_columns()
+        flat_data = self._df[dcols].to_numpy().flatten()
+        flat_generated = self._df[mcols].to_numpy().flatten()
+        return flat_data, flat_generated
 
     # naiveBC, recurrentBC, BCO-GAN
     def get_model_type(self):
@@ -117,13 +123,12 @@ class ModelPerformanceDescriptor():
         return reduction_df.sum(axis=1).pow(1/degree).mean()
 
     def cosine_similarity_metric(self):
-        pass
+        d,g = self._split_and_flatten()
+        return np.dot(d, g) / (np.linalg.norm(d) * np.linalg.norm(g))
 
     def pearson_correlation_coefficient(self):
-        dcols, mcols = self._split_ds_mod_columns()
-        flat_data = self._df[dcols].to_numpy().flatten()
-        flat_generated = self._df[mcols].to_numpy().flatten()
-        return np.corrcoef(flat_data, flat_generated)[0,1] # returns n-row/column corr matrix. Need to specify corr between 0 and 1
+        d, g = self._split_and_flatten()
+        return np.corrcoef(d, g)[0,1] # returns n-row/column corr matrix. Need to specify corr between 0 and 1
 
     def mean_position_error(self):
         dcols, mcols = self._split_ds_mod_columns()
