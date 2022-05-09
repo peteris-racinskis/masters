@@ -12,23 +12,23 @@ from helpers import data_and_label, generate_trajectory, make_generator, make_di
 # Normalized data (I think?)
 #TRAIN="processed_data/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
 # Timesignal, no doubling, no prepend
-#TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
-#TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
 ## Timesignal, doubling, no prepend
 #TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35.csv"
 #TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35.csv"
 # Timesignal, doubling, prepend
-TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
-TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
+#TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv" # test prepend, doubling. Training wasn't working without timesignal so disergard.
+#TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
 OVERWRITE=False
 CONTINUE=False
 STARTINDEX=0
 BATCHSIZE=64
 EPOCHS=200
-GH=256
-DH=256
-REPEATS_IN_DATASET=3
-PREPEND=True
+GH=256 # test 128, 256
+DH=256 # test 128, 256
+REPEATS_IN_DATASET=1
+PREPEND=False
 p = "-prepend" if PREPEND else ""
 d = "doubled-" if REPEATS_IN_DATASET == 3 else ""
 TIME="Time"
@@ -59,6 +59,23 @@ def discriminator_loss(predictions_on_real, predictions_on_fake):
     loss_on_fake = cross_entropy(tf.zeros_like(predictions_on_fake), predictions_on_fake)
     return loss_on_fake + loss_on_real
 
+
+### For using 2-step discrimintaor
+def generator_multi_iterate(gen, initial_state):
+    prev, new = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True), tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
+    state = tf.reshape(initial_state, [1,12])
+    target = tf.reshape(initial_state[-3:], [1,3])
+    timesteps = tf.convert_to_tensor(np.arange(0, BATCHSIZE*0.01, 0.01, dtype=np.float32).reshape(BATCHSIZE,1))
+    timesteps = timesteps + initial_state[0]
+    for i in tf.range(BATCHSIZE):
+        t = tf.reshape(timesteps[i], [1,1])
+        prev = prev.write(i, state)
+        state = gen(state)
+        new = new.write(i, state)
+        state = tf.concat([t, state, target], axis=1)
+    return tf.concat([tf.squeeze(prev.stack()), tf.squeeze(new.stack())], axis=1)
+'''
+### For using 4-step discriminator
 def generator_multi_iterate(gen, initial_state):
     prev, new = tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True), tf.TensorArray(dtype=tf.float32, size=0, dynamic_size=True)
     state = tf.reshape(initial_state[:12], [1,12])
@@ -84,7 +101,7 @@ def generator_multi_iterate(gen, initial_state):
     newtensor = tf.squeeze(new.stack())
     leadup = tf.concat([oldtensor, newtensor, tf.roll(newtensor,-1,0), tf.roll(newtensor,-2,0)], axis=1)
     return leadup[:-3]
-
+'''
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
@@ -164,7 +181,7 @@ def generate_intermediate(generator, target_means, target_sds, ep, disc_loss):
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     dl = "{:.2f}".format(disc_loss)
-    save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
+    save_name = OFILE.replace("models/saved_models/", "models/generated_trajectories/")+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
     while exists(save_name):
         dl = dl+EPOCHS
         save_name = OFILE+f"-{STARTINDEX}-at-{ep}-dl-{dl}.csv"
@@ -213,7 +230,7 @@ if __name__ == "__main__":
     cols = ["Time","x","y","z","rx", "ry", "rz", "rw", "Released", "xt", "yt", "zt"]
     df = pd.DataFrame(data=trajectory, columns=cols)
     df, _ = quaternion_norm(df)
-    df.to_csv(OFILE+f"-{STARTINDEX}.csv", index=False)
+    df.to_csv(OFILE.replace("models/saved_models/", "models/generated_trajectories/")+f"-{STARTINDEX}.csv", index=False)
     validated_on_test = validation_on_test(pd.read_csv(TEST), generator)
     validated_on_train = validation_on_test(pd.read_csv(TRAIN), generator)
     validated_on_test.to_csv(OFILE.replace("models/saved_models/", "models/validation/")+"-testval.csv", index=False)
