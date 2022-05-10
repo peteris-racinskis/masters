@@ -1,11 +1,9 @@
 import sys
 from pathlib import Path
 from os import listdir
-from attr import s
 
 import pandas as pd
 import numpy as np
-from pyparsing import col
 
 DIR="/home/user/repos/masters/models/validation/"
 #DIR=""
