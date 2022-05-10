@@ -1,0 +1,68 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Ievads}{3}{section.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1}Darba mērķis un struktūra}{4}{subsection.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2}Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}{4}{subsection.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3}Tehniskās priekšzināšanas, definīcijas}{6}{subsection.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.3.1}Parametriski modeļi, šabloni}{6}{subsubsection.1.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.3.2}Neironu tīkli}{7}{subsubsection.1.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.3.3}Markova lēmumu procesi}{8}{subsubsection.1.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.3.4}Stimulētā mašīnmācīšanās}{9}{subsubsection.1.3.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4}Motivējošais uzdevums}{11}{subsection.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Literatūras analīze}{12}{section.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1}Labi definētu trajektoriju kopēšana}{12}{subsection.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.1}Vienkāršas metodes}{13}{subsubsection.2.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.2}Statistiskas korekcijas}{15}{subsubsection.2.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.3}Inversā stimulētā mācīšanās}{16}{subsubsection.2.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.4}Ģeneratīvie pretinieku tīkli}{16}{subsubsection.2.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.1.5}Uzdevumu simboliska dekompozīcija}{17}{subsubsection.2.1.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2}Novērojumu iegūšana, interpretācija, papildināšana}{18}{subsection.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.1}Nezināmas darbības}{18}{subsubsection.2.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.2}Dinamikas novērojumu iegūšana, izmantošana, vispārināšana}{19}{subsubsection.2.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.3}Demonstrācijas no cilvēka darbībām}{20}{subsubsection.2.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.4}Video demonstrācijas, perspektīvu pārbīde}{21}{subsubsection.2.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.5}Datu sintēze, telpiski modeļi}{21}{subsubsection.2.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3}Atdarināšana un adaptācija, vispārināšana}{23}{subsection.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.1}Neoptimālu demonstrāciju uzlabošana}{23}{subsubsection.2.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.2}Demonstrācija --- sākumpunkts apmācību procesam}{24}{subsubsection.2.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.3}Tūlītēja trajektoriju atdarināšana}{24}{subsubsection.2.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.3.4}Nestrukturētas demonstrācijas, plānu veidošana no galamērķiem}{25}{subsubsection.2.3.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Secinājumi}{28}{section.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1}Svarīgākās atziņas}{28}{subsection.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}Plāns tālākai darbībai}{29}{subsection.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.1}Risinājums}{29}{subsubsection.3.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.2}Maģistra darba izstrādes plāns}{29}{subsubsection.3.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Atsauces}{31}{Item.69}%
+\contentsfinish 
