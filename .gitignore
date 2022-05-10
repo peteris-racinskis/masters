@@ -15,3 +15,4 @@ processed_data/
 *.~lock*
 *pycache*
 models/saved_models/
+models/evaluation_data.ods
