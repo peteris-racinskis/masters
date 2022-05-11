@@ -88,11 +88,47 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2}Datu priekšapstrāde}{31}{subsection.6.2}%
 \defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.1}Ierakstu veikšana, sākuma datu kopas ieguve}{31}{subsubsection.6.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.2}Laika ass regularizācija}{31}{subsubsection.6.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.3}Atsevišķu demonstrāciju atdalīšana}{31}{subsubsection.6.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.4}Trajektoriju gludināšana}{31}{subsubsection.6.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.5}Kritisko punktu noteikšana un papildu signāli}{31}{subsubsection.6.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.6}Brīvā kritiena ekstrapolācija, mērķa koordināšu noteikšana}{31}{subsubsection.6.2.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.7}Sākuma koordināšu kompensācija}{31}{subsubsection.6.2.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.2.8}Apvienošana, stāvokļu pāreju veidošana, jaukšana}{31}{subsubsection.6.2.8}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.3}Modeļu realizācija}{31}{subsection.6.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.3.1}Parastais neironu tīkls}{31}{subsubsection.6.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.3.2}Rekurentais neironu tīkls}{31}{subsubsection.6.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.3.3}Tālāka darbība -- GAN}{31}{subsubsection.6.3.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.4}Validācijas datu ģenerēšana, simulācija, vizualizācija}{31}{subsection.6.4}%
 \defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.4.1}Modeļu pārbaude ar gadījuma sākuma stāvokļiem}{31}{subsubsection.6.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.4.2}Validācija -- demonstrāciju un autoregresoru salīdzinājumi}{31}{subsubsection.6.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.4.3}Trajektoriju telpiska vizualizācija}{31}{subsubsection.6.4.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.4.4}Simulācijas vide}{31}{subsubsection.6.4.4}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.5}Trajektoriju izpilde uz robota}{31}{subsection.6.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.5.1}Ieraksti un modeļi}{31}{subsubsection.6.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.5.2}Robota trajektorijas plānošana un izpilde}{31}{subsubsection.6.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {6.5.3}Satvērējmehānisma vadība}{31}{subsubsection.6.5.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {7}Rezultātu analīze}{32}{section.7}%
 \defcounter {refsection}{0}\relax 
