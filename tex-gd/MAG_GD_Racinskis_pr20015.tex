@@ -762,7 +762,7 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 
 \subsection{ROS}
 
-\subsection{Optitrack -- aprīkojums on programmatūra}
+\subsection{Optitrack -- aprīkojums un programmatūra}
 
 \subsection{Programmēšanas valoda, bibliotēkas}
 
@@ -804,11 +804,58 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 
 Šī maģistra darba ietvaros aptuveni 4 mēneši pavadīti EDI robotikas un mašīn-uztveres laboratorijā, nodarbojoties ar motivējošā uzdevuma praktiska risinājuma mek-lēšanu un izstrādi. Rezultātā ar kustības utveršanas metodēm ierakstītas demonstrāciju datu kopas, veikta to priekšapstrāde un pārveidošana neironu tīklu apmācībai derīgā formātā, apmācīti vairāku veidu modeļi pie dažādiem hiperparametriem, veikta to autoregresijas procesā ģenerēto trajektoriju ierakstīšana, vizualizācija un darbināšana uz robota -- gan simulācijas vidē, gan uz fiziskas aparatūras.
 
-\subsection{Izvēlētā pieeja un pamatojums}
+\subsection{Izvēlētā pieeja}
+
+Tā kā darba mērķis ir pētīt atdarinošās mašīnmācīšanās metodes un to pielietošanas iespējas praktisku industriālajā robotikā sastopamu vadības problēmu risināšanā, jau no paša sākuma tiek krietni sašaurināts motivējošā uzdevuma potenciālo risinājumu klāsts. Kaut gan iespējams metienus ģenerēt parametriski, izmantojot t.s. \textit{``model-based''} pieejas -- kur tiktu speciāli izveidots fizikā un robota kinemātikā balstīts sistēmas modelis, un metieni ģenerēti balstoties uz mērķa koordinātēm -- šāda tradicionāla metode ir, pirmkārt,dārga, darbietilpīga un slikti visparināma, kā jau apspriests darba teorētiskajā daļā, un, otrkārt, nekādi nepalīdzētu papildināt institūta zināšanu bāzi ar ieskatu atdarinošās mašīnmācīšanās metodēs. Līdzīgi apsvērumi attiecināmi uz stimulēto mācī-šanos, kaut gan tādā gadījumā vēl jāņem vērā fakts, ka tehniska realizācija būtu pat sarežģītāka un darbietilpīgāka, nekā zemāk aprakstītie paņēmieni.
+
+Kad nolemts darboties atdarinošās mācīšanās virzienā, pirmais lēmums, no kā atka-rīgs viss tālākais process, ir demonstrāciju iegūšanas metodes izvēle. Atsaucoties uz teo-rētiskajā daļā pārskatīto literatūru, var izvirzīt vairākus priekšlikumus:
 
 
+\begin{enumerate}
+    \item fiziska vai simulēta robota iekšējo stāvokļu ierakstīšana -- demonstrācijas tiek iegū-tas, ar programmu-ekspertu vai (iespējams, simulētu) ārēju fizisku iedarbību vadot robotu pa trajektorijām un saglabājot locītavu pozīciju, ātrumu, paātrinājumu, slodžu datus;
+    \item efektora konfigurāciju ierakstīšana simulācijas vidē -- izmantojot VR vai tradicionālu saskarni, izveidot simulācijas vidi, kurā iespējams precīzi reģistrēt vismaz efektora stāvokļa vektoru laikrindas;
+    \item efektora konfigurācija iegūšana no ārējiem novērojumiem -- izmantojot kustību uz-tveršanu vai cita veida fizikālās vides novērojumus (piemēram, video), rekonstruēt gala efektora pozīcijas, orientācijas un satvērējmehānisma stāvokļa informāciju no netiešu novērojumu laikrindām.
+\end{enumerate}
+
+Vistiešākā pārnese no novērojumiem uz robota kontroles sistēmu, kas darbojas locītavu konfigurāciju telpā, būtu metodēm, kurās jau pašas demonstrācijas sastāv no punktiem šajā telpā. Taču no visām metodēm šī ir visciešāk piesaistīta konkrētam fizikālam izpildījumam -- demonstrācijas ir atkarīgas no konkrētā robota kinemātikas, un nepieciešams izmantot vai nu pašu robotu, vai precīzu tā simulāciju jau treniņa datu kopas ieguvē. Tas prasa lielu sākotnējo laika un darba ieguldījumu šādas vides sagatavošanā, demonstrāciju iegūšanas process kļūst samērā sarežģīts un iegūstamie rezultāti droši vien būs slikti vispārināmi.
+
+Ierakstot gala efektora konfigurācijas simulētā vidē nav jāuztraucas par datu krop-ļojumiem, kas neizbēgami jebkādos no fizikālām sistēmām iegūtos novērojumos. VR cilvēka-datora saskarni padara ļoti tiešu un vienkāršu, ļaujot realizēt gandrīz jebkādas darbības, ko instruktors spētu veikt realitātē. Taču, kaut gan ņemot vērā tikai gala efektoru, tiek ievērojami samazināta datu kopas sasaiste ar kādu konkrētu mehānisku izpildījumu, tik un tā nepieciešams sagatavot adekvātu virtuālu vidi katram uzdevumam.
+
+Fizikālu novērojumu metodēm saikne starp iegūtajiem datiem un robota kontrolera izmantoto informāciju ir visnetiešākā, turklāt jāveic ievērojami pārveidojumi, pirms dati ir pietiekami regulāri, lai tos varētu praktiski izmantot modeļu apmācībā -- jārēķinās ar troksni, neregulāru laika parametrizāciju un nepietiekamu sistēmas konfigurācijas ap-rakstu (ne visus lielumus iespējams tiešā veidā novērot). Pastāv virkne dažādu uztveres metožu un jāmeklē kompromiss starp sistēmas izmaksām/pieejamību un iegūto datu kvalitāti. No aparatūras viedokļa vislētāk būtu izmantot video ierakstu, taču tad modelim jāveic ļoti sarežģīts uzdevums, izlobot no netiešiem novērojumiem robota kontrolei aktuālos parametrus. Var izmantot kustības uztveres tehnoloģiju un īpaši izgatavotus instrumentus, lai visnotaļ precīzi reģistrētu visus konfigurācijas aspektus -- pat papildinot tos ar slēptiem lielumiem kā paātrinājumiem un precīzu satvērējmehānismu vadības signālu stāvokli. Taču kustības uztveres sistēmas ir saistītas ar augstām izmaksām un ne vienmēr būs pieejamas praksē.
+
+Novērtējot robotikas un mašīnuztveres laboratorijas tehnisko nodrošinājumu un paredzamo lietojumu klāstu -- cilvēkam veicamu samērā lielu telpisko izmēru darbību (0,1-1m izmēru diapazona objektu satveršanas, pārvietošanas, metienu, u.c.) atdarināšanu -- izdarīta izvēle izmantot laboratorijā pieejamo, augstāk aprakstīto \textit{``Optitrack''} kustību uztveres aprīkojumu. Ar tā palīdzību iespējams ar samērā augstu precizitāti ierakstīt šāda tipa kustību kinemātiku, un pielāgoties dažādiem uzdevumiem iespējams ātri un vienkārši, piestiprinot marķierus manipulatoru atdarinošam instrumentam un citiem objektiem. Galvenais trūkums ir sarežģītāks datu priekšapstrādes process, taču tas tomēr šķiet mazāk sarežģīti, nekā sagatavot simulācijas vidi vai tiešā veidā izmantot pašu robotu demonstrāciju iegūšanai. Attiecīgi demonstrāciju formāts ir jau pārveidoti novērojumi -- efektora odometrija Dekarta koordināšu telpā. To priekšapstrādes procesa gaitā nepieciešams papildināt ar satvērējmehānisma vadības signālu.
+
+Kad zināms demonstrāciju formāts, iespējams izdarīt nākamo lēmumu -- izvēlēties modelim un robota kontrolerim pieejamo ievades datu formātu. Pastāv divas galvenās iespējas:
+
+\begin{enumerate}
+    \item modelis ģenerē trajektorijas Dekarta koordināšu telpā, kontroleris veic plānošanu un pārveidošanu;
+    \item modelis ģenerē trajektorijas jau locītavu konfigurāciju telpā, kontrolera uzdevums ir to izpilde;
+\end{enumerate}
+
+Realizējot otro, būtu stipri atvieglots robota kontrolera uzdevums un nebūtu nepieciešams papildus plānošanas solis. Taču tad nepieciešams priekšapstrādes procesā datu kopu stingri sasaistīt ar konkrētu mehānisku realizāciju (īstā robota kinemātiku), faktiski pārnesot inversās kinemātikas un kustības plāna aprēķinu uz priekšapstrādes soli. Turklāt jārēķinās, ka modeļa uzdevums kļūst sarežģītāks -- liela daļa lietotāju interesējošo trajektorijas aspektu ir atkarīgi no sistēmas stāvokļa konfigurāciju telpā (piemēram, metiena virziens, attālums, mērķa koordinātes). Tāpēc papildus trajektorijas atdarināšanas uzdevumam tam arī jāspēj veikt attēlošanu starp locītavu konfigurācijas un Dekarta telpām, kas var būt visnotaļ netriviāli.  
+
+Savukārt izvēloties modeli, kas veic regresiju tīri Dekarta telpā, pats modeļa arhi-tektūras un apmācības jautājums kļūst stipri vienkāršāks. Tam jāspēj tikai ģenerēt demonstrāciju kopai tuvu trajektoriju sadalījumu bez papildu pārveidojumiem, un rezul-tāts ir tikai netieši sasaistīts ar konkrētu mehānisku izpildījumu -- demonstrācijām jāņem vērā robota dinamikas un kinemātikas iespēju ierobežojumi, neprasot neiespējamas pozī-cijas, orientācijas, ātrumus vai paātrinājumus. Tomēr par šo atvieglojumu no mašīn-mācīšanās viedokļa jāmaksā ar daudzkārt sarežģītāku klasisko robota kontroles uzdevumu. Nepieciešams iegūtajām telpisko konfigurāciju laikrindām piemeklēt atbilstošu inverso kinemātiku, turklāt bez lēcieniem un, ja metiena precizitātei ir nozīme, ar vismaz aptuveni pareizu laika parametrizāciju (telpas punktiem atbilstošo locītavu konfigurāciju sasniegšana tādā pašā vai tuvā laika momentā) -- kas ar ROS platformā pieejamo rīku klāstu nebūt nav vienkārši sasniedzams mērķis.
+
+Izvērtējot darba pamatmērķi -- tieši mašīnmācīšanas metožu pētīšanu --, pieejamos resursus un laika ierobežojumus, nolemts modeli konstruēt Dekarta koordināšu telpā kā autoregresoru diskrētā laikā. Iespējami MDP formālismam atbilstoši:
+
+
+\begin{equation}
+    s_{t+1} = \pi_{\theta}(s_t)
+\end{equation}
+
+vai neatbilstoši:
+
+\begin{equation}
+    s_{t+1} = \pi_{\theta}((s_t, s_{t-1}, ..., s_{t-n}))
+\end{equation}
+
+modeļi, un iepriekš ir grūti spriest, vai MDP stratēģija būs pietiekama konkrēta uzdevuma risināšanai. Tāpēc nolemts sākt ar vienkāršāko MDP atbilstošo stratēģiju klasi -- \textit{``behavioural cloning''} pieejā konstruētu klasisku vairāku slāņu neironu tīklu. Kā redzams zemāk, jau ar šādu risinājumu motivējošajā uzdevumā sasniegti pozitīvi (bet ne izsmeļoši rezultāti). Metienu precizitātes uzlabojumu meklējumos vispirms papildus attīstīts rekurentais autoregresors -- MDP neatbilstošs un izpildes laika ziņā mazāk efektīvs laikrindu ekstrapolācijas modelis, kas pēc zināmām metrikām sasniedz labākus rezultātus. Tālākas pētnieciskās darbības nolūkos -- meklējot veidus, kā ar MDP formālismam atbilstošu, pret trajektorijas garumu laikā un atmiņā konstantu stratēģiju sasniegt RNN pielīdzināmus rezultātus -- sākta arī GAN modeļa izstrāde.
+
+
+Trajektoriju izpilde uz fiziskā robota nav īpaši augsta prioritāte no pētnieciskā viedokļa, un tīri praktiski ierobežojumi pieejamajā Dekarta telpā dotu maršrutu plā-nošanas programmatūras klāstā nozīmē, ka laikā precīzai izpildei būtu nepieciešams veikt lielu programmēšanas darbu apjomu, kam nav zinātniskās novitātes. Taču, lai provizoriski novērtētu iegūto trajektoriju atbilstību robota kinemātiskajiem ierobežojumiem, veikta arī izpildes programmatūras prototipa izstrāde -- laika paramatrizāciju šobrīd iespējams rekonstruēt tikai aptuveni, bet sasniegtās pozīcijas un orientācijas var rekonstruēt precīzi. Rezultāts ir pietiekami labs, lai varētu izpildīt metienu paraugdemonstrācijas un pār-liecināties par to, ka demonstrāciju iegūšanas un modeļu apmācības metodes ir adekvātas motivējošā uzdevuma realizācijai ilgtermiņā, un modeļu veiktspējas novērtēšanas met-rikām ir sasaiste ar ģenerēto trajektoriju telpisko izpildījumu.
 
 \subsection{Datu priekšapstrāde}
+
 
 \subsubsection{Ierakstu veikšana, sākuma datu kopas ieguve}
 
