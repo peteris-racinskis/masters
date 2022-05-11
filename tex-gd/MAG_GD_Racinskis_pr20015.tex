@@ -764,6 +764,8 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 
 \subsection{Optitrack -- aprīkojums un programmatūra}
 
+kas ir odometrija -- vismaz tik daudz jāpasaka!!
+
 \subsection{Programmēšanas valoda, bibliotēkas}
 
 %
@@ -856,9 +858,13 @@ Trajektoriju izpilde uz fiziskā robota nav īpaši augsta prioritāte no pētni
 
 \subsection{Datu priekšapstrāde}
 
-
+Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \textit{``Optitrack''} rīka iegūtie novērojumi pieejami \textit{``ROS''} vidē, izmantojot \textit{``topic''} -- tematu -- saskarni. Taču, lai no tiem iegūtu demonstrācijas un veiktu modeļu apmācību, nepieciešams veikt virkni priekšapstrādes operāciju. Darba izstrādes gaitā izveidota daļēji automatizēta datu kopu sagatavošanu sistēma, kas balstīta ar \textit{``make''} sistēmas palīdzību secīgi izsauktos \textit{``Python''} skriptos. Tie visi pieejami maģistra darba \textit{``github''} repozitorijā, \textit{``trajectory\_extract''} direktorijā. \cite{md_repo}
 
 \subsubsection{Ierakstu veikšana, sākuma datu kopas ieguve}
+
+Lai saglabātu kādā \textit{``ROS''} tematā publicētos ziņojumus noteiktā laika periodā, var izmantot \textit{``rosbag''} lietojumprogrammu ar \textit{``record''} komandu. Argumentos iespējams norādīt, tieši kurus tematu saturu nepieciešams ierakstīt -- ietaupot vietu uzglabāšanas atmiņā. Šajā gadījumā nepieciešamā informācija pieejama augstāk aprakstīto instrumentu -- efektora simulatora (\textit{``TrashPickup''}), ar marķieriem aprīkotās pudeles (\textit{``Bottle''}) un brīvā kritiena trajektorijas beigu indikatora (\textit{``CatchNet''}) -- odometrijās.  Lietojumprogrammas izvadā tiek iegūts strukturēts fails \textit{``.bag''} formātā, ko tiešā viedā izmantot nav vienkārši.
+
+Tāpēc pirmais priekšapstrādes procesa solis ir šī specifiskā formāta datu pārvei-došana vispārīgi izmantojamā \textit{.csv} -- \textit{``comma separated values''} -- datu korpusā. To paveic skripts \textit{``extract.py''}, kas ir visnotaļ vienkāršs, taču aizņem visilgāko laiku visā priekšapstrādes procesā, jo izmantotā \textit{``bagpy''} bibliotēka, šķiet, nav sevišķi labi optimizēta. Taču šo soli pietiekami veikt vienu reizi pēc katra fizisko metienu ierakstīšanas etapa, kas tiek darīts reti, tāpēc veiktspējai nav īpaši lielas nozīmes.
 
 \subsubsection{Laika ass regularizācija}
 

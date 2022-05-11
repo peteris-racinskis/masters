@@ -1717,6 +1717,37 @@
       \field{volume}{10}
       \field{year}{2021}
     \endentry
+    \entry{md_repo}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9c3a31df188aca98e3c6af47e18610ca}{%
+           family={Račinskis},
+           familyi={R\bibinitperiod},
+           given={Pēteris},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c3a31df188aca98e3c6af47e18610ca}
+      \strng{fullhash}{9c3a31df188aca98e3c6af47e18610ca}
+      \strng{bibnamehash}{9c3a31df188aca98e3c6af47e18610ca}
+      \strng{authorbibnamehash}{9c3a31df188aca98e3c6af47e18610ca}
+      \strng{authornamehash}{9c3a31df188aca98e3c6af47e18610ca}
+      \strng{authorfullhash}{9c3a31df188aca98e3c6af47e18610ca}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Masters -- github repository}
+      \field{urlday}{5}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/peteris-racinskis/masters
+      \endverb
+      \verb{url}
+      \verb https://github.com/peteris-racinskis/masters
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
