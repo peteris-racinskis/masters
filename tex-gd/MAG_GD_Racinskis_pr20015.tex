@@ -858,7 +858,7 @@ Trajektoriju izpilde uz fiziskā robota nav īpaši augsta prioritāte no pētni
 
 \subsection{Datu priekšapstrāde}
 
-Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \textit{``Optitrack''} rīka iegūtie novērojumi pieejami \textit{``ROS''} vidē, izmantojot \textit{``topic''} -- tematu -- saskarni. Taču, lai no tiem iegūtu demonstrācijas un veiktu modeļu apmācību, nepieciešams veikt virkni priekšapstrādes operāciju. Darba izstrādes gaitā izveidota daļēji automatizēta datu kopu sagatavošanu sistēma, kas balstīta ar \textit{``make''} sistēmas palīdzību secīgi izsauktos \textit{``Python''} skriptos. Tie visi pieejami maģistra darba \textit{``github''} repozitorijā, \textit{``trajectory\_extract''} direktorijā. \cite{md_repo}
+Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \textit{``Optitrack''} rīka iegūtie novērojumi pieejami \textit{``ROS''} vidē, izmantojot \textit{``topic''} -- tematu -- saskarni. Taču, lai no tiem iegūtu demonstrācijas un veiktu modeļu apmācību, nepieciešams veikt virkni priekšapstrādes operāciju. Darba izstrādes gaitā izveidota daļēji automatizēta datu kopu sagatavošanu sistēma, kas balstīta ar \textit{``make''} sistēmas palīdzību secīgi izsauktos \textit{``Python''} skriptos. Tie visi pieejami maģistra darba \textit{``github''} repozitorijā, \textit{``trajectory\_extract''} direktorijā \cite{md_repo}. Datu korpusi saglabāti atsevišķā repozitorijā \cite{md_data_repo}.
 
 \subsubsection{Ierakstu veikšana, sākuma datu kopas ieguve}
 
@@ -901,13 +901,32 @@ un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto l
 
 \subsubsection{Atsevišķu demonstrāciju atdalīšana}
 
-Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzdevumu, nevis vienkārši atdarināt visas kustības, kas ierakstītas metienu viekšanas procesā (tai skaitā atgriešanos sākuma pozīcijā, nejaušu pārvietošanos, u.t.t), nepieciešams visu ierakstu sadalīt konkrētās demonstrācijās, kas katra satur vienu metienu. Vispārīgā gadījumā šis ir netriviāls -- lai neteiktu neiespējams -- uzdevums, tāpēc demonstrāciju ievākšana apzināti veikta tā, lai būtu iespējams atrast katra metiena sākumu. Kustību uztveres telpā uz grīdas izvietots marķējums sākuma pozīcijai. Katrs metiens sākts, vispirms novietojot efektora simulatoru virs marķējuma un noturot vismaz sekundi. Visā pārējā laikā pievērsta īpaša uzmanība, lai efektora simulators netiktu novietots šajās koordinātēs. Tādējādi iespējams ar vienkāršu slīdošā loga operāciju atrast vismaz vienu punktu neilgi pirms katra metiena.
+Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzdevumu, nevis vienkārši atdarināt visas kustības, kas ierakstītas metienu viekšanas procesā (tai skaitā atgriešanos sākuma pozīcijā, nejaušu pārvietošanos, u.t.t), nepieciešams visu ierakstu sadalīt konkrētās demonstrācijās, kas katra satur vienu metienu. Vispārīgā gadījumā šis ir netriviāls -- lai neteiktu neiespējams -- uzdevums, tāpēc demonstrāciju ievākšana apzināti veikta tā, lai būtu iespējams atrast katra metiena sākumu. Kustību uztveres telpā uz grīdas izvietots marķējums sākuma pozīcijai. Katrs metiens sākts, vispirms novietojot efektora simulatoru virs marķējuma un noturot vismaz sekundi. Visā pārējā laikā pievērsta īpaša uzmanība, lai efektora simulators netiktu novietots šajās koordinātēs. Tādējādi iespējams ar vienkāršu slīdošā loga operāciju atrast vismaz vienu punktu neilgi pirms katra metiena:
 
+\begin{multline}
+    t_{start} \in [t'_{k}]^p_1: t < t_{start} \land \vert t - t_{start} \vert < \Delta t_{max} \Rightarrow \\ \Rightarrow x_t \in (x_{0} - \delta x, x_{0} + \delta x ), y_t \in  (y_{0} - \delta y, y_{0} + \delta y )
+\end{multline}
 
-Ievērojot pietiekami ilgu intervālu starp metieniem, katra demonstrācija tad ir vienkārši
+kur sākuma koordinātes $x_0, y_0$ un pieļaujamie nobīdes intervālu rādiusi $\delta x, \delta y$ tiek atrasti, cilvēkam pārbaudot ierakstīto datu kopu, atrodot marķētā sākuma punkta koordinātes ieraksta koordinātu sistēmā un nosakot, cik lielas nobīdes ļaus precīzi identificēt visu (vai vismaz daudzu) trajektoriju sākuma punktus. Ievērojot pietiekami ilgu intervālu starp metieniem -- garāku par $\frac{steps}{f}$ ar empīriski izvēlētu soļu skaitu $steps$ --  katra demonstrācija tad ir vienkārši 
 
+\begin{equation}
+    t_{j} \in [t'_{k}]^{start+steps}_{start}
+\end{equation}
+
+Sekmīgai demonstrāciju iegūšanai tātad ir nepieciešams katru reizi mainot sākuma marķiera novietojumu telpā vai demonstrāciju iegūšanas stilu (īsākus, garākus laika intervālus pirms/pēc metiena) nomainīt arī sākuma koordinātes $x_0, y_0$, sākuma pozīciju intervālu rādiusus $\delta x, \delta y$ un soļu skaitu $steps$. Katra demonstrācija tiek saglabāta atsevišķā \textit{.csv} failā.
 
 \subsubsection{Trajektoriju gludināšana}
+
+Ar laika ass reparametrizāciju nepietiek, lai novērstu visas neregularitātes iegūtajos datos. Odometrijas dati saņemti sadrumstalotā formā, turklāt, šķiet, ka laika izkliede starp \textit{``ROS''} vidē saņemtajiem punktiem ir lielāka, nekā reālajiem novērojumiem -- novē-rojama pakāpieniem vai zāģa asmenim līdzīgu kontūru esamība ierakstos. T.i., fiktīvas augstas frekvences nesinusoidālu svārstību komponentes. 
+
+Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līganus metienus video ierakstā un to raustītāš reprezentācijas trajektoriju datos), nospriests, ka tās nesastāda fiziskajā trajektorijā novē-rojamu parādību bet gan ieraksta procesā pievienotu datu kropļojumu. Tāpēc pirms modeļa apmācības tās nepieciešams likvidēt. To paveic skripts \textit{``smoothing.py''}, kurā piemērots t.s. ``slīdošās vidējās vērtības'' aprēķins pēc sekojošā vienādojuma:
+
+
+\begin{equation}
+    t_{i} = \frac \sum_{i-\delta i}^{i+\delta i}
+\end{equation}
+
+
 
 \subsubsection{Kritisko punktu noteikšana un papildu signāli}
 
