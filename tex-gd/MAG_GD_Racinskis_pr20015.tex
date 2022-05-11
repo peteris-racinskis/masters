@@ -864,11 +864,48 @@ Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \te
 
 Lai saglabātu kādā \textit{``ROS''} tematā publicētos ziņojumus noteiktā laika periodā, var izmantot \textit{``rosbag''} lietojumprogrammu ar \textit{``record''} komandu. Argumentos iespējams norādīt, tieši kurus tematu saturu nepieciešams ierakstīt -- ietaupot vietu uzglabāšanas atmiņā. Šajā gadījumā nepieciešamā informācija pieejama augstāk aprakstīto instrumentu -- efektora simulatora (\textit{``TrashPickup''}), ar marķieriem aprīkotās pudeles (\textit{``Bottle''}) un brīvā kritiena trajektorijas beigu indikatora (\textit{``CatchNet''}) -- odometrijās.  Lietojumprogrammas izvadā tiek iegūts strukturēts fails \textit{``.bag''} formātā, ko tiešā viedā izmantot nav vienkārši.
 
-Tāpēc pirmais priekšapstrādes procesa solis ir šī specifiskā formāta datu pārvei-došana vispārīgi izmantojamā \textit{.csv} -- \textit{``comma separated values''} -- datu korpusā. To paveic skripts \textit{``extract.py''}, kas ir visnotaļ vienkāršs, taču aizņem visilgāko laiku visā priekšapstrādes procesā, jo izmantotā \textit{``bagpy''} bibliotēka, šķiet, nav sevišķi labi optimizēta. Taču šo soli pietiekami veikt vienu reizi pēc katra fizisko metienu ierakstīšanas etapa, kas tiek darīts reti, tāpēc veiktspējai nav īpaši lielas nozīmes.
+Tāpēc pirmais priekšapstrādes procesa solis ir šī specifiskā formāta datu pārvei-došana vispārīgi izmantojamā \textit{.csv} -- \textit{``comma separated values''} -- datu korpusā. To paveic skripts \textit{``extract.py''}, kas ir visnotaļ vienkāršs, taču aizņem visilgāko laiku visā priekšapstrādes procesā, jo izmantotā \textit{``bagpy''} bibliotēka, šķiet, nav sevišķi labi optimizēta. Taču šo soli pietiekami veikt vienu reizi pēc katra fizisko metienu ierakstīšanas etapa, kas tiek darīts reti, tāpēc veiktspējai nav īpaši lielas nozīmes. Datu korpusa iegūšanas procesā no visa ieraksta tiek atlasītas tikai tālākām operācijam svarīgas kolonnas.
 
-\subsubsection{Laika ass regularizācija}
+\subsubsection{Laika ass reparametrizācija}
+
+Pirmā problēma, ar ko nākas saskarties, strādājot ar kustību uztveres procesā iegū-tiem kinemātikas datiem, ir neregulārā laika parametrizācija. Jau iepriekš minēts, ka modeli paredzēts izstrādāt kā autoregresoru ar diskrētu laika soli -- kam, ja nepieciešams, lai iegūtā trajektorija spētu atspoguļot ne tikai pozīciju un orientāciju, bet arī to atvasinājums laikā, jāatbilst konstantam laika intervālam. Taču no \textit{``Optitrack''} iegūtajos datos pastāv divas nevēlamas parādības:
+
+\begin{enumerate}
+    \item katrā novērojuma ietverta tikai vienā odometrijas tematā pieejamā informācija -- t.i., katrā laika momentā zināma tikai viena no triju izsekoto ķermeņu konfigurācijām;
+    \item intervāli starp novērojumiem ir nejauši, un faktiski sastāv no īsām (dažu mili-sekunžu) garām virknēm, kurās saņemti novērojumi par vienu no ķermeņiem;
+\end{enumerate}
+
+Abu rezultātā saņemot datu virknes ilustratīvi pieņem sekojošo formu:
+
+
+\begin{equation}
+    s^a_{t1}, s^a_{t2}, ..., s^b_{tm-1}, s^b_{tm},
+\end{equation}
+
+kur $s^a, s^b$ -- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$ -- nejauši laika momenti, kur $k < j \Rightarrow t_k < t_j$. Lai datus varētu izmantot tālāk, nepieciešams laikrindu pārveidot formā
+
+\begin{equation}
+    (s^a_{t'1}, s^b_{t'1}, s^c_{t'1}), ..., (s^a_{t'p}, s^a_{t'p}, s^c_{t'p}), ...
+\end{equation}
+
+kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$ -- diskrētā laika soļu frekvence. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki, kas pieder diskrēto laika soļu rindai:
+
+\begin{equation}
+    t'_1 = min(t'_k) : t'_k > t_1
+\end{equation}
+\begin{equation}
+    t'_p = min(t'_k) : t'_p > t_m
+\end{equation}
+
+un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto laika soļu virk-ne $t'_1, t'_2, ..., t'_p$. Datu korpuss tiek papildināts ar tukšām rindām šajos laika intervālos (kolīzijas novērstas netiek; duplikāti pēc laika tiek atmesti -- kolīzijas varbūtība ir ārkārtīgi zema, strādājot ar peldošā komata skaitļiem). Pēc tam visas tukšās vērtības datu korpusā tiek aizpildītas ar pēdējo zināmo -- pēc t.s. \textit{``forward fill''} interpolācijas metodes. Šādi, protams, dati tiek nedaudz kropļoti, taču pie pietiekami augstām novērojumu frekvencēm rezultējošās nobīdes ir nelielas un grūti manāmas. Visbeidzot, tikai tās korpusa rindas, kuru laika solis pieder pie $t'_k$ virknes, tiek saglabātas. Iegūtais datu korpuss tātad atbilst diskrētam laika solim un tajā nav tukšu vērtību.
 
 \subsubsection{Atsevišķu demonstrāciju atdalīšana}
+
+Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzdevumu, nevis vienkārši atdarināt visas kustības, kas ierakstītas metienu viekšanas procesā (tai skaitā atgriešanos sākuma pozīcijā, nejaušu pārvietošanos, u.t.t), nepieciešams visu ierakstu sadalīt konkrētās demonstrācijās, kas katra satur vienu metienu. Vispārīgā gadījumā šis ir netriviāls -- lai neteiktu neiespējams -- uzdevums, tāpēc demonstrāciju ievākšana apzināti veikta tā, lai būtu iespējams atrast katra metiena sākumu. Kustību uztveres telpā uz grīdas izvietots marķējums sākuma pozīcijai. Katrs metiens sākts, vispirms novietojot efektora simulatoru virs marķējuma un noturot vismaz sekundi. Visā pārējā laikā pievērsta īpaša uzmanība, lai efektora simulators netiktu novietots šajās koordinātēs. Tādējādi iespējams ar vienkāršu slīdošā loga operāciju atrast vismaz vienu punktu neilgi pirms katra metiena.
+
+
+Ievērojot pietiekami ilgu intervālu starp metieniem, katra demonstrācija tad ir vienkārši
+
 
 \subsubsection{Trajektoriju gludināšana}
 
