@@ -923,12 +923,68 @@ Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līgan
 
 
 \begin{equation}
-    t_{i} = \frac \sum_{i-\delta i}^{i+\delta i}
+    \vec{x}'_{t} = \frac{1}{2m+1} \sum_{i=t-m}^{t+m} \vec{x}_i
+\end{equation}
+
+kur $\vec{x}$ -- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
+
+\subsubsection{Kritisko punktu noteikšana un papildu signāli}
+
+Šādi ir iegūtas gludinātas, nošķirtas kinemātiku trajektorijas. Taču katrā no tām metiens var sākties pēc dažāda garuma stacionāra perioda, trajektorija satur arī nejaušas kustības pēc metiena beigām, kas traucētu apmācīt modeli, un nav nekādas informācijas par satvērējmehānisma stāvokli (ierakstītas tikai efektora, pudeles un gala stāvokļa marķiera odometrijas; sk. sadaļu par kustības uztveres aprīkojumu). Turklāt, lai būtu iespējams parametrizēt metienus pēc mērķa koordinātēm, nepieciešams katru demonstrāciju papildināt ar paredzamo pudeles maršruta krustpunktu ar grīdu. 
+
+Kritisko punktu meklēšanu veic skripts \textit{``threshold.py''}. Pirmais un vienkāršākais uzdevums ir atrast brīvā kritiena beigu nosacījumu. Brīvā kritiena posms ir nepieciešams nākamajā apakšnodaļā aprakstītā regresijas un mērķa koordināšu noteikšanas soļa izpildei. Lai neņemtu vērā pudeles piezemēšanos tīklā, zem tā novietots beigu pozīcijas marķieris (vecais satveršanas tīkls, \textit{``Optitrack''} kontekstā -- ķermenis \textit{``CatchNet''}). Lidojuma ballistiskā fāze uzskatāma par pabeigtu, kad pudeles $x$ koordināte vismaz vienu reizi sasniegusi šo marķieri:
+
+\begin{equation}
+    f_{passed} (t) = \begin{cases}
+        0 \text{ ja } \forall u < t, x_{Bottle}(u) \geq x_{CatchNet}(u) \\
+        1 \text{ citādi }
+    \end{cases}
+\end{equation}
+
+Pārējo punktu meklēšanai nepieciešams iegūt pozīciju atvasinājuma aproksimāciju. Diskrētai virknei, protams, atvasinājumi nepastāv. Taču nepārtrauktajai telpiskajai trajektorijai, no kuras iegūti diskrētie novērojumi, atvasinājumi pastāv. Vienkāršākais veids, kā tos atrast, būtu izmantot novērojumu starpības:
+
+\begin{equation}
+    x'(t) \approx \frac{x(t'_{k+1}) - x(t'_{k})}{\Delta t'} = f \cdot \left (x(t'_{k+1}) - x(t'_{k}) \right )
+\end{equation}
+
+Ja atvasinājumu absolūtās vērtības konkrētās mērvienībās nav svarīgas, konstanti $f$ -- novērojumu frekvenci, šajā gadījumā $100$ Hz -- nav nepieciešams ņemt vērā. Empīriski novērots, ka pēc šādas metodes aproksimējot atvasinājumu, katrā solī pieaug svārstību amplitūda. Varētu aprēķinātajam ``atvasinājumam'' izmantot to pašu ``slīdošās vidējās vērtības metodi'', kas aprakstīta pie gludināšanas. Praksē izrādās, ka pietiekami labi strādā sekojošais, stipri vienkāršotais novērtējums, kas apvieno diferences un gludināšanas soļus:
+
+\begin{equation}
+    x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m} \vec{x}_i - \sum_{i=t-m}^{t} \vec{x}_i
+\end{equation}
+
+Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasinājumam -- paātrinājumam -- proporcionālu vērtību. Lai noteiktu, vai pudele ir brīvajā kritienā, tiek piemērota tāda pati sliekšņa funkcija ar histerēzi -- t.i., visas vērtības pēc pirmās, kas ir 1, arī ir 1 -- pudeles un efektora simulatora savstarpējās distances atvasinājuma aproksimatoram:
+
+
+\begin{equation}
+    f_{freefall} (t) = \begin{cases}
+        0 \text{ ja } \forall u < t,  \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ]'_u < \overline{v}_{freefall} \\
+        1 \text{ citādi }
+    \end{cases}
+\end{equation}
+
+Lai noteiktu, vai satvērējmehānisms ir sācis atlaisties, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
+
+
+\begin{equation}
+    f_{release} (t) = \begin{cases}
+        0 \text{ ja } \forall u < t,  \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ]''_u < \overline{a}_{release} \\
+        1 \text{ citādi }
+    \end{cases}
+\end{equation}
+
+Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, slieksnis tiek piemērots efektora simulatora pozīcijas atvasinājuma novērtējumam (ievērojot, ka iepriekš ``atvasināta'' tiek distances vektora norma, bet šoreiz tiek meklēta norma vektora ``atvasinājumam''):
+
+\begin{equation}
+    f_{moving} (t) = \begin{cases}
+        0 \text{ ja } \forall u < t,  \lVert \left [ \vec{r}_{TrashPickup}(u) \right ]'_u \rVert  < \overline{v}_{moving} \\
+        1 \text{ citādi }
+    \end{cases}
 \end{equation}
 
 
 
-\subsubsection{Kritisko punktu noteikšana un papildu signāli}
+
 
 \subsubsection{Brīvā kritiena ekstrapolācija, mērķa koordināšu noteikšana}
 
