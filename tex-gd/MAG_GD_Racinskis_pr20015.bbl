@@ -550,6 +550,37 @@
       \verb https://www.df.lu.lv/fileadmin/user_upload/LU.LV/Apaksvietnes/Fakultates/www.df.lu.lv/Studijas/Magistrantura/Konferences_stenda_referati/2019/Blumberga_Liana.pdf
       \endverb
     \endentry
+    \entry{trashbot}{online}{}
+      \name{author}{1}{}{%
+        {{hash=8a516408eada0fdafa3f11bb4115c9ff}{%
+           family={Steffen},
+           familyi={S\bibinitperiod},
+           given={Andrea\bibnamedelima D.},
+           giveni={A\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \strng{fullhash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \strng{bibnamehash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \strng{authorbibnamehash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \strng{authornamehash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \strng{authorfullhash}{8a516408eada0fdafa3f11bb4115c9ff}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Robotics Takes Plastic Recycling To The Next Level}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.intelligentliving.co/robotics-plastic-recycling-next-level/
+      \endverb
+      \verb{url}
+      \verb https://www.intelligentliving.co/robotics-plastic-recycling-next-level/
+      \endverb
+    \endentry
     \entry{notation}{online}{}
       \name{author}{1}{}{%
         {{hash=482952eb401d9a72aac275223c4e997d}{%
@@ -689,8 +720,8 @@
       \strng{authorbibnamehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
       \strng{authornamehash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
       \strng{authorfullhash}{0666eaaeea7a4ef9a20d1ecc46ae5dbf}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{The International Journal of Robotics Research}
@@ -723,8 +754,8 @@
       \strng{authorbibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
       \strng{authornamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
       \strng{authorfullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Reinforcement learning: An introduction}
@@ -778,37 +809,6 @@
       \field{year}{2018}
       \field{pages}{6292\bibrangedash 6299}
       \range{pages}{8}
-    \endentry
-    \entry{trashbot}{online}{}
-      \name{author}{1}{}{%
-        {{hash=8a516408eada0fdafa3f11bb4115c9ff}{%
-           family={Steffen},
-           familyi={S\bibinitperiod},
-           given={Andrea\bibnamedelima D.},
-           giveni={A\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
-      }
-      \strng{namehash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \strng{fullhash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \strng{bibnamehash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \strng{authorbibnamehash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \strng{authornamehash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \strng{authorfullhash}{8a516408eada0fdafa3f11bb4115c9ff}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Robotics Takes Plastic Recycling To The Next Level}
-      \field{urlday}{20}
-      \field{urlmonth}{1}
-      \field{urlyear}{2022}
-      \field{year}{2021}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://www.intelligentliving.co/robotics-plastic-recycling-next-level/
-      \endverb
-      \verb{url}
-      \verb https://www.intelligentliving.co/robotics-plastic-recycling-next-level/
-      \endverb
     \endentry
     \entry{muench1994robot}{inproceedings}{}
       \name{author}{4}{}{%

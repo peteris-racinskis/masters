@@ -96,9 +96,9 @@ class ModelPerformanceDescriptor():
 
     def get_learning_rate(self):
         if self._rnn and not ("lr5" in self._split_fn()):
-            self._learning_rate = 10e-4
+            self._learning_rate = 1e-4
         else:
-            self._learning_rate = 10e-5
+            self._learning_rate = 1e-5
         
     def get_epochs(self):
         if "at" in self._split_fn():

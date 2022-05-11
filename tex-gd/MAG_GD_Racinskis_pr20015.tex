@@ -113,13 +113,62 @@ Biežāk izmantoti matemātiskie apzīmējumi:
     \item $\mathbb{E}$ --- matemātiskā cerība
 \end{enumerate}
 
+\subsection{Motivējošais uzdevums}
 
+Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā --- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme --- gan no EDI, gan autora puses --- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
 
-\subsection{Tehniskās priekšzināšanas, definīcijas}
+Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi --- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, un tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo iespējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā --- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. Protams, mēģinot manuāli programmēt katru metienu rodas virkne problēmu --- dažādi trajektoriju sākumpunkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Tāpēc analītisku risinājumu atrast varētu būt ļoti nepraktiski, un tiek apsvērts mašīnmācīšanās metožu lietojums.
+
+Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
+\begin{enumerate}
+    \item var pieņemt, ka sākuma stāvoklī robots jau ir satvēris objektu, ja nepieciešams;
+    \item trajektorijas sākumpunkti ir mainīgi --- jāspēj izdarīt metiens no dažādām pozīcijām;
+    \item ir zināma objekta klasifikācija un līdz ar to --- tā vēlamais galamērķis;
+    \item vēlamie galamērķi var būt dažādi un mainīgi;
+    \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
+\end{enumerate}
+
+Nav grūti redzēt, ka šādam uzdevumam par atalgojuma kritēriju pieņemot trāpīšanu pareizajā tvertnē, funkcijas vērtības būs ļoti retinātas, kas apgrūtina klasisko stimulētās metožu pielietojumu. Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīn-mācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku --- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslēgumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarī-gākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+% CHAPTER 2
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+\newpage
+\section{Lēmuma procesi, regresija}
 
 Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā ievada daļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu veikt literatūras analīzi un izdarīt secinājumus.
 
-\subsubsection{Parametriski modeļi, šabloni}
+\subsection{Parametriski modeļi, šabloni}
 
 Viens no visplašāk izmantotajiem formālismiem datizraces un mašīnmācīšanās lau-kos ir parametriskais modelis. Pamatā tam ir ideja, ka nezināmu funkciju, kuras rezultātus vēlamies paredzēt, var aproksimēt ar citu funkciju jeb modeli:
 
@@ -208,7 +257,7 @@ bet apmācības process parasti kādā veidā tiecas minimizēt šīs vērtības
 Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās mašīnmācīšanās literatūrā to ļoti bieži izsaka kā $\pi_{\theta}(x)$. Mazliet mulsinošs ir tieši ar imitējošām metodēm saistītos rakstos lietotais apzīmējums $\pi^*$, ar ko apzīmē t.s. ``ekspertu stratēģijas'' --- kas pašas ir nezināmās funkcijas, ko cenšamies aproksimēt pēc to ģenerēto punktu kopām. 
 
 
-\subsubsection{Neironu tīkli}
+\subsubsection{Neironu tīkli -- vispārīgi}
 
 Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas formas funkciju aproksimēšanai --- tie var būt gan klasifikatori, gan regresori. Neironu tīklu kopīgais elements ir t.s. perceptorns, kas izteikts jau pašos pirmsākumos \cite{mcculloch1943logical}. Perceptrons funkcija, kas piemēro nelineāru aktviācijas funkciju $\sigma$ argumentu vektora $\vec{x}$ elementu savstarpējai lineārai kombinācijai, t.i,
 
@@ -241,7 +290,11 @@ Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc p
 
 Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem slāņiem (neskaitot ievades slāni), taču ir plaši izplatīti arī, piemēram, konvolūciju neironu tīkli \cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolūcijā tīklā ir kodolu (\textit{kernel}) izmantošana - konvolūciju slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. 
 
-\subsubsection{Markova lēmumu procesi}
+\subsubsection{Laikrindu modelēšana}
+
+\subsubsection{Rekurentie neironu tīkli}
+
+\subsection{Markova lēmumu procesi}
 
 Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes mērķiem, lai ar tiem varētu veikt matemātiskas operācijas. Izplatīti atdarinošās un stimulētās mašīnmācīšanās literatūrā ir Markova lēmumu procesi (MDP --- \textit{Markov decision processes}). Šis formālisms ir piemērojams  situācijām, kurās, lai paredzētu procesa atribūtu vērtības pēc laika soļa $t$, netiek izmantota nekāda informācija par to vērtībām pagātnē --- laika soļos $t' < t$. Dažādi autori, kas darbojas dažādos izpētes virzienos, mēdz piedāvāt atšķirīgus tā formulējumus, taču parasti tie ir ekvivalenti sekojošam \cite{attia2018global}
 
@@ -257,9 +310,9 @@ Faktiski gandrīz nekad nav pieejams vides momentānā stāvokļa pilns raksturo
 
 Trajektoriju caur sistēmas stāvokļu (konfigurāciju) telpu, kādai process seko ar laika soļiem $t = \lbrace 1, 2, ..., T \rbrace$, var izteikt kā laikrindu formā, kas sastāv no \textit{state-action} pāriem --- $((s_1, a_1), (s_2, a_2), ..., (s_T, a_T))$. Ja šī laikrinda tiek izmantota kā paraugs treniņa procesā, to var saukt par demonstrāciju. Stāvokļus tajā, protams, iespējams aizstāt ar novērojumiem situācijās, kad tiek izmantota nepilnīga informācija. Ne vienmēr vēlams vai iespējams modelēt sistēmu ar MDP. Ir iespējami gadījumi, kad pārejas funkcija vai stratēģija ir atkarīga no laika soļa, t.i, $T(s,a \vert t), \pi(s,a \vert t)$. Var būt arī tā, ka ar novērojumiem nepietiek lēmuma pieņemšanai un nepieciešams ņemt vērā iepriekšējo stāvokļu un darbību virkni, lai pareizi spriestu par slēptiem stāvokļa atribūtiem. 
 
-\subsubsection{Stimulētā mašīnmācīšanās}
+\subsection{Stimulētā mašīnmācīšanās}
 
-Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu, kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni \cite{gupta2019relay, brown2019extrapolating}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimu-lēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas \cite{englert2018learning}. Tāpēc nav nekāds pārsteigums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētījumos, citreiz bez nekādiem papildus paskaidrojumiem.
+Stimulētā mašīnmācīšanās ir pati par sevi ļoti aktuāla izpētes nozare, un nereti nodarbojas ar to pašu vai līdzīgu uzdevumu risināšanu kā atdarinošā. Pastāv ne tikai kombinēti paņēmieni \cite{gupta2019relay, brown2019extrapolating}, bet arī atdarināšanas metodes, kas tiešā veidā izmanto stimu-lēto mācīšanos, lai atdarinātu trajektoriju demonstrācijas \cite{englert2018learning}. Tāpēc nav nekāds pārsteigums, ka šis termins visnotaļ bieži parādās ar atdarinošo mašīnmācīšanos saistītos pētījumos, citreiz bez nekādiem papildus paskaidrojumiem.
 
 Stimulētās mašīnmācīšanās teorētiskie pamati ir galīgi MDP un Belmana vienādo-jums \cite{sutton2018reinforcement}. Pieņem, ka katram stāvoklim ir kāds atalgojums $R(s_t)$, bet uzdevums --- maksimizēt šo atalgojumu summu visā trajektorijas garumā $\sum_{t=1}^T R(s_t)$. Tad var izteikt arī varbūtību sadalījumu atalgojumam katram stāvokļa un darbības pārim
 
@@ -297,25 +350,42 @@ Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama i
 
 Lai uzdevumu varētu risināt, nepieciešams spēt izteikt kādu analītisku funkciju, kas apraksta pašreizējā stāvokļa lietderību --- izšķir labus rezultātus no sliktiem, vai starpstāvokļiem. Robotikā var būt sarežģīti šādu funkciju izdomāt, turklāt tā var būt ļoti retināta stāvokļu-darbību telpā, t.i., tikai ļoti nelielam skaitam (vai ar ļoti nelielu varbūtību) sasniegto stāvokļu atalgojuma funkcija $R(s_t)$ pieņem nenulles vērtību. Tieši šādu trūkumu mēģina risināt metodes, kas kombinē ekspertu demonstrāciju aproksi-mēšanu ar adaptīvu pielāgošanos \cite{nair2018overcoming}
 
-\subsection{Motivējošais uzdevums}
 
-Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā --- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme --- gan no EDI, gan autora puses --- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
-
-Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi --- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, un tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo iespējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā --- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. Protams, mēģinot manuāli programmēt katru metienu rodas virkne problēmu --- dažādi trajektoriju sākumpunkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Tāpēc analītisku risinājumu atrast varētu būt ļoti nepraktiski, un tiek apsvērts mašīnmācīšanās metožu lietojums.
-
-Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
-\begin{enumerate}
-    \item var pieņemt, ka sākuma stāvoklī robots jau ir satvēris objektu, ja nepieciešams;
-    \item trajektorijas sākumpunkti ir mainīgi --- jāspēj izdarīt metiens no dažādām pozīcijām;
-    \item ir zināma objekta klasifikācija un līdz ar to --- tā vēlamais galamērķis;
-    \item vēlamie galamērķi var būt dažādi un mainīgi;
-    \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
-\end{enumerate}
-
-Nav grūti redzēt, ka šādam uzdevumam par atalgojuma kritēriju pieņemot trāpīšanu pareizajā tvertnē, funkcijas vērtības būs ļoti retinātas, kas apgrūtina klasisko stimulētās metožu pielietojumu. Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīn-mācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku --- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslēgumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarī-gākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+% CHAPTER 3
+%
+%
+%
+%
+%
+%
+%
+%
+%
 
 \newpage
-\section{Literatūras analīze}
+\section{Atdarinošā mašīnmācīšanās -- pārskats}
 
 Šīs nodaļas mērķis ir izveidot aptuvenu nozares pētniecības saturisku pārskatu; aprakstīt galvenos sasniegtos rezultātus, gūtās atziņas katrā no tematiskajiem apakš-virzieniem. Protams, ne visus pētījumus iespējams vienkārši klasificēt pēc to piederības šeit izvēlētajām kategorijām, un daudzi varbūt tajā vispār neiederas --- taču cenšoties gūt personisku izpratni par kādu tēmu, lai motivētu tālākus pētījumus, ir svarīgi nostatīt iepriekšējus rezultātus to kontekstā. Saprast, kāpēc tieši šobrīd aktuālie pētniecības virzieni ir tādi, kādus tos varam redzēt kādā akadēmisko publikāciju datubāzē vai neseno pētījumu pārskatā.
 
@@ -601,6 +671,223 @@ Pamatā risinājumam ir hierarhiskā stimulētā mācīšanās --- tiek iegūta 
 \end{enumerate}
 
 Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, kā sasniegt patvaļīgus galamērķus, bet pēc tam --- uzlabot iegūtās stratēģijas ar stimulētās mācīšanās palīdzību. To parāda rezultāti --- dažādos uzdevumos šāda pieeja pārspēj iepriekš aprakstīto latento plānu pieeju \cite{lynch2020learning}, taču attiecīgi tai ir nepieciešams papildu patstāvīgas mācīšanās etaps.
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+% CHAPTER 4
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+\newpage
+\section{Robotikas teorētiskie pamati}
+
+\subsection{Robota matemātiskais modelis -- kinemātiskās ķēdes}
+
+\subsubsection{Tiešie un inversie kinemātikas uzdevumi}
+
+\subsubsection{Rotāciju kodēšana kvaternionos}
+
+\subsection{Trajektoriju plānošana}
+
+\subsubsection{Dinamika}
+
+\subsubsection{Metodes, plānotāji}
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+\newpage
+\section{Izmantotie rīki, aprīkojums un platformas}
+
+\subsection{ROS}
+
+\subsection{Optitrack -- aprīkojums on programmatūra}
+
+\subsection{Programmēšanas valoda, bibliotēkas}
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+% CHAPTER 6
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+\newpage
+\section{Praktiskā realizācija}
+
+\subsection{Izvēlētā pieeja un pamatojums}
+
+\subsection{Datu priekšapstrāde}
+
+\subsection{Modeļu realizācija}
+
+\subsection{Trajektoriju izpilde uz robota}
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+% CHAPTER 7
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+\newpage
+\section{Rezultātu analīze}
+
+\subsection{Novērtējuma metriku izvēle un pamatojums}
+
+\subsection{Sasniegtie rezultāti dažādām modeļu klasēm}
+
+\subsection{Parastie neironu tīkli}
+
+\subsection{Rekurentie neironu tīkli}
+
+\subsection{Trajektoriju vizualizācija un kvalitatīvie novērtējumi}
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+% CHAPTER 8
+%
+%
+%
+%
+%
+%
+%
+%
+%
 
 \newpage
 \section{Secinājumi}
