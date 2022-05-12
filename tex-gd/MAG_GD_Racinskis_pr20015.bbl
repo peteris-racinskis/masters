@@ -1710,6 +1710,26 @@
       \verb https://www.tensorflow.org/api_docs/python/tf/nn/relu
       \endverb
     \endentry
+    \entry{tf_img_tutorial}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Tensorflow Tutorials -- image classification}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/tutorials/keras/classification?hl=en#compile_the_model
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/tutorials/keras/classification?hl=en#compile_the_model
+      \endverb
+    \endentry
     \entry{torabi2018behavioral}{article}{}
       \name{author}{3}{}{%
         {{hash=c30972d13f4b1691b887f92fb8f4b6f5}{%

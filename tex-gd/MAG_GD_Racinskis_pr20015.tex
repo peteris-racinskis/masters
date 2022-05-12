@@ -1204,7 +1204,7 @@ kur
 \end{equation}
 
 
-No treniņa datu kopas tiek iegūts tādas pašas formas tenzors ar ierakstītām stāvokļu pārejām $\tau_{dem}$. Diskriminators tiek izsaukts uz abiem tenzoriem ar klasikācijas uzdevumu
+No treniņa datu kopas tiek sagatavots tādas pašas formas tenzors ar ierakstītām stāvokļu pārejām $\tau_{dem}$. Diskriminators tiek izsaukts uz abiem tenzoriem ar klasikācijas uzdevumu
 
 \begin{equation}
     d_{\phi}: (s_1, s^{\theta}_2 , ..., s^{\theta}_m) \rightarrow \mathbb{R}
@@ -1217,7 +1217,7 @@ un tam tiek aprēķināta mērķa funkcijas vērtība
     \sum_{obs \in \tau_{dem}} \mathcal{L}_H(obs,1) 
 \end{equation}
 
-kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funkcija. Tā kā ģeneratora uzdevums ir pretējs, bet tā parametri ietekmē tikai ģenerēto trajektoriju klasifikāciju, tā mērķa funkcija ir pretēja:
+kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funkcija. Tā kā ģeneratora uzdevums ir pretējs, bet tā parametri ietekmē tikai ģenerēto trajektoriju klasifikāciju, mērķa funkcija ir pretēja:
 
 \begin{equation}
     \mathcal{L}_{\pi} = \sum_{pred \in \tau_{gen}} \mathcal{L}_H(pred,1) 
@@ -1226,6 +1226,10 @@ kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funk
 Tāpat kā klasiskā neironu tīkla variantā, izmēģinātas dažu veidu regularizācijas -- kvaternionu normas, attāluma starp ģenerētās trajektorijas soļiem -- taču nopietna to iedarbības izpēte atstāta turpmākai pētnieciskai darbībai.
 
 \subsection{Validācijas datu ģenerēšana, simulācija, vizualizācija}
+
+Populāriem un plaši pētītiem mašīnmācīšanās uzdevumiem -- piemēram, attēlu klasifikācijai -- pastāv standartizēti modeļa veiktspējas mēri un atliek tikai izvēlēties atbilstošo skaitlisko vērtību, kuras vertībai sekot, apmācot dažādus modeļus \cite{tf_img_tutorial}. Taču risinot netipiskas vai pat iepriekš neredzētas problēmas ar netriviālu problēmas nostādni, var būt grūti spriest par modeļa kvalitāti pēc virspusējiem skaitliskiem novērtējumiem kā mērķa funkcijas vērtībai. 
+
+It sevišķi problēma saasinās situācijās ka šī darba agrīnajās stadijās, kad vēl nav nekādas skaidrības par izvēlēto metožu spēju pat ļoti aptuveni pietuvoties vēlamajiem rezultātiem -- nevar vērtēt modeļa spēju sviest pudeli mērķī, ja vēl nav sasniegts modelis, kā ģenerētā trajektorija pat aptuveni izskatās pēc metiena. Tāpēc ļoti svarīgi ir izveidot attīstīt metodes, kas ļauj novērtēt iegūto rezultātu kvalitatīvos aspektus -- trajektorijas ``formu'' telpā, satvērējmehānisma atlaišanas signāla esamību vai neesamību dažādos to punktos, u.t.t. Tā kā uzdevums pamatā ir kinemātikas atdarināšana, ļoti noderīga ir spēja vizualizēt iegūtos rezultātus -- gan kā līknes laikā, gan maršrutus telpā, gan robota kustību simulatorā. Attiecīgi projekta gaitā izstrādātas metodes ģenerētu demonstrāciju ierakstīšanai un attēlošanai.
 
 \subsubsection{Modeļu pārbaude ar gadījuma sākuma stāvokļiem}
 
