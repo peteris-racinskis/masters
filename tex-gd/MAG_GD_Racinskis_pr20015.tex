@@ -1083,7 +1083,7 @@ Viss modeļu apmācības kods ir atrodams maģistra darba repozitorijā, direkto
 
 \subsubsection{Parastais neironu tīkls}
 
-Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir klasiskais \textit{``feedforward''} jeb viena virziena dziļais neironu tīkls ar pilnībā savienotiem slēptiem slāņiem. Tas pilda klasisku MDP stratēģijas (vai lakrindu ekstrapolācijas ar vienu stāvokli garu vēsturi) uzdevumu formā
+Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir klasiskais \textit{``feedforward''} jeb viena virziena dziļais neironu tīkls ar pilnībā savienotiem slēptiem slāņiem. Šī projekta ietvaros šāda pieeja visu pirmkoda un datu failu nosakumos apzīmēta ar \textit{``naiveBC''} -- \textit{``naive behavioural cloning''}, ``naivā uzvedības klonēšana''. Tas pilda klasisku MDP stratēģijas (vai lakrindu ekstrapolācijas ar vienu stāvokli garu vēsturi) uzdevumu formā
 
 \begin{equation}
     a_t = s'_t = \pi_{\theta}(s_t)
@@ -1106,7 +1106,7 @@ Taču jau izsen zināms, ka šī metode nav sevišķi noturīga pret lielām nob
 
 
 \begin{equation}
-    \mathcal{L}_{\delta} = 
+    \mathcal{L}_{\delta} =  \sum_{i=1}^n 
     \begin{cases}
     \frac{1}{2} (s'_i - \pi_{\theta}(s)_i)^2, \text{ ja } \vert (s'_i - \pi_{\theta}(s)_i) \vert < \delta \\
     \delta \cdot \left (  \vert (s'_i - \pi_{\theta}(s)_i) - \frac{\delta}{2} \vert  \right ) \text{ citādi}
@@ -1114,7 +1114,41 @@ Taču jau izsen zināms, ka šī metode nav sevišķi noturīga pret lielām nob
 \end{equation}
 
 
-Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}
+Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}. Papildus veikti eksperimenti arī īpaši šim uzdevumam konstruētām mērķa funkcijām. Viens no izmēģinātajiem papildinājumiem bijis jau teorijas daļā aplūkotajā \textit{QuaterNet} izmantota kvaternionu normas regularizācija \cite{pavllo2018quaternet}
+
+\begin{equation}
+    \mathcal{L}_{q}(\theta) = \lambda_{q} * (\Vert q^{\theta} \Vert - 1)^2
+\end{equation}
+
+kur $q^{\theta}$ apzīmē modeļa ģenerētā izvada $\pi_{\theta}(s)$ tos elementus, kas kopā veido kvaternionu, bet $\lambda_q$ -- svara koeficientu. Šī regularizācija izmantota, jo pirmajos mēģinājumos apmācīt modeli izmantot kvadrātu summas un Hūbera funkcijas, iegūtās kvaternionu vērtības bijušas ļoti atskirīgas no 1-normētiem versoriem, kas apzīmē telpisko orientāciju robotu vadības kontekstā. 
+
+Vēl viena speciāli šim uzdevumam paredzēta mērķa funkciju saime, kas izmēģināta agrīnās projekta fāzēs, ir tradicionālās regresijas funkcijas papildināšana vai aizstāšana ar dažādu metriku piemērošanu dažādiem izvades vektora elementiem, piemēram
+
+\begin{equation}
+    \mathcal{L}_{combined}(s,s',\theta) = \lambda_p \Vert r^{\theta} - r^{s'}\Vert^2 + 
+    \lambda_q \Vert q^{\theta} - q^{s'}\Vert^2 - 
+    \lambda_g  g^{s'} \log(g^{\theta})
+\end{equation}
+
+kur $r^{\theta}, r^{s'}$ apzīmē $\pi_[\theta](s)$ un $s'$ pārvietojuma vektora komponentes, $g^{\theta}, g^{s'}$  -- to satvērējmehānisma (\textit{``gripper''}) konfigurāciju (atvērts/aizvērts), bet $-x\log(\hat{x})$ ir savstarpējās entropijas mērķa funkcija, kas parasti tiek izmantota diskrētas klasifikācijas tipa uzdevumos \cite{keras_crossentropy}. Tas darīts ar mērķi atvieglot modeļa apmācību, jau uzreiz nokodējot dažado izvades vektora elementu savstarpējās sakarības -- pirmajos eksperimentos modeļa izvadā iegūtie rezultāti nav pat aptuveni sakrituši ar demonstrāciju kopas datiem.
+
+Taču vēlāki eksperimenti atklājuši, ka abas augstāk minētās problēmas var novērst, vienkārši izmantojot citus hiperparametrus modeļa apmācības procesā (perceptronu skai-tu, apmācības ātrumu, treniņa epohu skaitu). Tāpēc visiem rezultātu analīzes sadaļā apskatītajiem \textit{``naiveBC''} modeļiem izmantota neizmainīta Hūbera funkcija.
+
+Lai instancētu pašu modeli, izmantota \textit{tensorflow.keras.Sequential} klases piedāvātā augsta līmeņa saskarne. Šīs klases konstruktora metodei argumentā iespējams nodot sarakstu ar \textit{tensorflow.keras.layers.Layer} apakšklašu instancēm, kas katra apzīmē vienu modeļa slāni. Atgrieztajā vērtībā tad tiek saņemta \textit{tensorflow.keras.Model} klases instance, kuras aprēķinu grafā ietverti visi šie slāņu objekti.
+
+Pēc sākotnējiem izmēģinājumiem konstatēts, ka uzdevumam piemērots ir modelis ar diviem vienāda platuma slēptiem slāņiem, kam katram piemērota \textit{``Rectified Linear Unit''} nelineārā aktivācijas funkcija \cite{tf_relu}:
+
+\begin{equation}
+    \sigma_{ReLU}(x) = 
+    \begin{cases}
+        x, \text{ ja } x > 0 \\
+        0
+    \end{cases}
+\end{equation}
+
+Pilnīgi savienotu slāni \textit{keras} vidē apzīmē klase \textit{keras.layers.Dense}. Aktivācijas funkcijas šajā kontekstā tiek modelētas kā atsevišķi slāņi, un tos pievieno ar \textit{keras.la-yers.ReLU} instancēm. Ievaddatu formātu definē \textit{keras.layers.Input}, kuras konstruktorā iespējams norādīt ievaddatu formu, bet pēdējā norādītā slāņa perceptronu vektors sastāda modeļa izvadu. Lai izmantotu \textit{keras} iebūvēto treniņa metodi \textit{Model.fit()}, nepieciešams definēt optimizatoru un mērķa funkciju, izsaucot \textit{Model.compile()} metodi. Šajā solī arī tiek noteikti modeļa parametru izmēri un sagatavoti tenzori to vērtībām, ja nav iepriekš atsevišķi norādīta modeļa ievada tenzora forma. Iespējams reģistrēt agrīnas apstāšanās nosacījuma funkciju (\textit{tf.keras.callbacks.EarlyStopping} instanci), lai pārtrauktu treniņa procesu, balstoties uz pārbaudes datu kopā iegūtu modeļa novērtējumu un no-vērstu pārpielāgošanos. Šī funkcija jānodod kopā ar citiem argumentiem -- treniņa datu kopu, validācijas datu kopu, epohu skaitu, u.t.t -- izsaucot \textit{Model.fit()} funkciju, kas pilnībā automatizē visu modeļa apmācības procesu.
+
+Pēc apmācības modelis tiek saglabāts ar aprakstošu nosaukumu. Skriptā paredzēta iespēja pārbaudīt, vai pastāv ar atbilstošajiem parametriem jau iepriekš apmācīts modelis pastāv modeļu direktorijā un izlaist treniņa soli. Pēc tam tiek veikti divi validācijas procesa soļi -- trajektoriju ģenerēšana uz gadījuma mērķa koordinātēm un salīdzinājumi gan ar treniņa, gan testa datu kopām. Šis process detalizēti aprakstīts zemāk.
 
 \subsubsection{Rekurentais neironu tīkls}
 

@@ -1189,6 +1189,38 @@
       \field{pages}{3828\bibrangedash 3834}
       \range{pages}{7}
     \endentry
+    \entry{pavllo2018quaternet}{article}{}
+      \name{author}{3}{}{%
+        {{hash=39dec1a53e037c34ffea851dd3531bb0}{%
+           family={Pavllo},
+           familyi={P\bibinitperiod},
+           given={Dario},
+           giveni={D\bibinitperiod}}}%
+        {{hash=83c82248603da0738e20a4913d94e597}{%
+           family={Grangier},
+           familyi={G\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d3ff0eff0a1d1258618c88f2ec57095f}{%
+           family={Auli},
+           familyi={A\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0900947b535fa87201bc89e78257a0c5}
+      \strng{fullhash}{0900947b535fa87201bc89e78257a0c5}
+      \strng{bibnamehash}{0900947b535fa87201bc89e78257a0c5}
+      \strng{authorbibnamehash}{0900947b535fa87201bc89e78257a0c5}
+      \strng{authornamehash}{0900947b535fa87201bc89e78257a0c5}
+      \strng{authorfullhash}{0900947b535fa87201bc89e78257a0c5}
+      \field{sortinit}{P}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1805.06485}
+      \field{title}{Quaternet: A quaternion-based recurrent model for human motion}
+      \field{year}{2018}
+    \endentry
     \entry{pomerleau1989alvinn}{report}{}
       \name{author}{1}{}{%
         {{hash=4e5f05606e47b1676579799cf7e84220}{%
@@ -1598,6 +1630,26 @@
       \field{pages}{60\bibrangedash 77}
       \range{pages}{18}
     \endentry
+    \entry{keras_crossentropy}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Tensorflow Core v2.8.0 API documentation -- Binary Cross-Entropy loss}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy
+      \endverb
+    \endentry
     \entry{keras_huber}{online}{}
       \list{organization}{1}{%
         {Google}%
@@ -1616,6 +1668,26 @@
       \endverb
       \verb{url}
       \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/Huber
+      \endverb
+    \endentry
+    \entry{tf_relu}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Tensorflow Core v2.8.0 API documentation -- ReLU activation function}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/api_docs/python/tf/nn/relu
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/api_docs/python/tf/nn/relu
       \endverb
     \endentry
     \entry{torabi2018behavioral}{article}{}
