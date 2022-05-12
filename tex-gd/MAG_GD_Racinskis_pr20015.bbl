@@ -1670,6 +1670,26 @@
       \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/Huber
       \endverb
     \endentry
+    \entry{tf_ragged}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Tensorflow Core v2.8.0 API documentation -- Ragged Tensors}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/guide/ragged_tensor
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/guide/ragged_tensor
+      \endverb
+    \endentry
     \entry{tf_relu}{online}{}
       \list{organization}{1}{%
         {Google}%

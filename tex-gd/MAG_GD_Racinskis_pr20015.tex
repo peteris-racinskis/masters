@@ -1152,7 +1152,28 @@ Pēc apmācības modelis tiek saglabāts ar aprakstošu nosaukumu. Skriptā pare
 
 \subsubsection{Rekurentais neironu tīkls}
 
+Pētot klasiskā neironu tīkla sasniegtos rezultātus, konstatēts, ka dažus trajektorijas parametrus -- piemēram, precīzu satvērējmehānisma atlaišānas brīdi -- šādam modelim ir grūrības atdarināt. Vēlāk atkārtojot eksperimentus ar citiem hiperparametriem rezultātus izdevies uzlabot, taču pirms tam jau nolemts papildināt darba ietvaros izstrādāto risi-nājumu klāstu ar sarežģītākas arhitektūras modeli. Atkāpjoties no stingrā MDP formā-lisma un salīdzinot darba uzdevumu ar citiem, kļuvis skaidrs, ka šādai atdarināšanai pastāv lielas līdzības ar laikrindu ekstrapolāciju. Tāpēc izvēlētā alternatīvā pieeja ir rekurenta autoregresora izstrāde.
+
+Kā jau minēts darba teorētiskajā daļā, pastāv vairākas labi zināmas un visnotaļ spējīgas rekurento tīklu arhitektūras. Divas no tām -- LSTM un GRU -- iebūvētas \textit{keras} vidē kā \textit{Layer} apakšklases. Papildus iespējams arī realizēt vienkāršu pilnīgi savienotu rekurento tīklu. Šīs klases ietver realizāciju iterācijai, inicializācijai un slēptā stāvokļa izvada vektora padošanai atpakaļ rekurentā modeļa ievadā. Līdz ar to programmētājam nav jādomā par šo sarežģīto sistēmas aspektu -- vienīgais, ko nepieciešams precizēt, ir izvadā atgriezto datu formāts. Ar argumenta \textit{return\_sequences} palīdzību tiek norādīts, vai modeļa izvads ir viens vektors, vai vektoru virkne, kuras garums ir vienāds ar ievadā saņemto laika soļu skaitu.
+
+Tā kā atdarinošās mācīšanās kontekstā tiek strādāts ar nelielām datu kopām, un zināms, ka GRU pārspēj LSTM rezultātus šādā situācijā, par modeļa pamatu izvēlēts \textit{layers.GRU} slānis. Analoģiski augstāk aprakstītajam klasiskajam neironu tīklam tad iespējams konstruēt rekurento neironu tīklu. Tāpat kā iepriekš, apmācība ir ļoti vienkārši konfigurējama un izsaucama.
+
+Galvenos sarežģījumus rekurenta modeļa realizācijā rada pareizi strukturētu ievaddatu sagatavošana. Izņemot īpašo gadījumu, kad tiek strādāts ar vienāda garuma laik-rindām, nepieciešams nodrošināt, ka viena no tenzora asīm ir neregulāra garuma. Šeit ļoti noderīgi izrādās nesen ieviestie ``robainie tenzori'' \cite{tf_ragged}, kas paredzēti īpaši šim lietojumam. Tie nodrošina visu \textit{tensorflow} operāciju saderību ar patiešām neregulāras formas tenzoru -- bez aizpildītām fiktīvām vērtībām vai nepieciešamības programmētājam izstrādāt pašam savu treniņa procedūru.
+
+Attiecīgi, izņemot pašu modeļa deklarāciju un pēcāko trajektoriju ģenerēšanu vali-dācijas mērķiem, galvenā atšķirība starp rekurentā un klasiskā tīkla realizācijas skriptiem ir datu kopas sagatavošanas funkcija. Pirmkārt, tā kā rekurentais tīkls uzreiz apstrādā veselu trajektoriju, datu kopas elementus nedrīkst sajaukt -- vismaz ne pirms tam, kad iegūtas pilnas trajektorijas. Otrkārt, nepieciešams atšķirt katras trajektorijas sākumu un beigas, lai varētu veidot atsevišķu laikrindu datu tenzorā. Treškārt, nepieciešams ievaddatu laikrindai piekārtot vēlamo vērtību laikrindu, t.i,
+
+
+\begin{equation}
+    (s_1, s_2, ..., s_{n-1} ) \rightarrow (s_2, s_3, ..., s_n )
+\end{equation}
+
+Funkcija \textit{create\_sequential\_dataset} veic visus trīs uzdevumus un atgriež divus tenzorus -- treniņa ievades datus un vēlamās vērtības. Demonstrciju secību jaukt nav nepieciešams, jo visa datu kopa sadalīta sērijās (\textit{``batches''}), kas katra satur vairākas demonstrācijas. Pie katras no tām tiek vienreiz aprēķināti mērķa funkcijas gradienti un piemēroti modeļa parametriem. Sērijas tiek automātiski jauktas savā starpā. Jaukšanas procedūrai ir lielāka nozīme pie klasiskā neironu tīkla, jo citādi katra sērija, iespējams, saturēs tikai vienas demonstrācijas datus -- kas varētu novest pie optimizācijas procesa ``lēkāšanas''.
+
 \subsubsection{Tālāka darbība -- GAN}
+
+Kaut gan šī darba pētniecisko daļu galvenokārt sastādījusi datu ieguves, priekš-apstrādes, klasiskā un rekurentā modeļa apmācības un validācijas procesu izstrāde, balstoties uz teorētiskajā literatūrā gūtām atziņām par vienu no galvenajiem virzieniem tālākiem pētījumiem iezīmēta ģeneratīvā pretinieku tīkla realizācija kā paņēmiens, kas varētu apvienot vienkāršu un konstantā laikā izpildāmu stratēģijas modeli ar daudz spē-jīgāku apmācības metodi. Attiecīgi uzsākta arī GAN modeļa realizācijas izstrāde.
+
+Atšķirībā no abiem augstāk minētajiem variantiem, kur iespējams izmantot \textit{keras.Se-quential} šablonu klasi, GAN apmācības procesā nepieciešams izmantot divus atsevišķus modeļus un sarežģītāku mērķa funkcijas sakarību ar to parametriem. Līdz ar to nepieciešams citādi strukturēt apmācības programmu.
 
 \subsection{Validācijas datu ģenerēšana, simulācija, vizualizācija}
 
