@@ -891,10 +891,10 @@ kur $s^a, s^b$ -- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$
 kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$ -- diskrētā laika soļu frekvence. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki, kas pieder diskrēto laika soļu rindai:
 
 \begin{equation}
-    t'_1 = min(t'_k) : t'_k > t_1
+    t'_1 = min(\lbrace t'_k : t'_k > t_1 \rbrace)
 \end{equation}
 \begin{equation}
-    t'_p = min(t'_k) : t'_p > t_m
+    t'_p = min(\lbrace t'_k : t'_p > t_m \rbrace)
 \end{equation}
 
 un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto laika soļu virk-ne $t'_1, t'_2, ..., t'_p$. Datu korpuss tiek papildināts ar tukšām rindām šajos laika intervālos (kolīzijas novērstas netiek; duplikāti pēc laika tiek atmesti -- kolīzijas varbūtība ir ārkārtīgi zema, strādājot ar peldošā komata skaitļiem). Pēc tam visas tukšās vērtības datu korpusā tiek aizpildītas ar pēdējo zināmo -- pēc t.s. \textit{``forward fill''} interpolācijas metodes. Šādi, protams, dati tiek nedaudz kropļoti, taču pie pietiekami augstām novērojumu frekvencēm rezultējošās nobīdes ir nelielas un grūti manāmas. Visbeidzot, tikai tās korpusa rindas, kuru laika solis pieder pie $t'_k$ virknes, tiek saglabātas. Iegūtais datu korpuss tātad atbilst diskrētam laika solim un tajā nav tukšu vērtību.
@@ -958,7 +958,7 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
 
 \begin{equation}
     f_{freefall} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ]'_u < \overline{v}_{freefall} \\
+        0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] }'_u < \overline{v}_{freefall} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -968,7 +968,7 @@ kur $\vec{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ]''_u < \overline{a}_{release} \\
+        0 \text{ ja } \forall u < t, \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] }''_u < \overline{a}_{release} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -977,12 +977,12 @@ Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, sl
 
 \begin{equation}
     f_{moving} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \lVert \left [ \vec{r}_{TrashPickup}(u) \right ]'_u \rVert  < \overline{v}_{moving} \\
+        0 \text{ ja } \forall u < t,  \lVert \overline{\left [ \vec{r}_{TrashPickup}(u) \right ]}'_u \rVert  < \overline{v}_{moving} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
 
-Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām -- tālākā darbībā varētu būt vērts ievākt detalizētu informāciju par šo konstanšu izvēles ietekmi uz metienu precizitāti, taču jau pēc vizuālas laikrindu grafiku novērtēšanas izvēlēti skaitļi izrādījušies pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Protams, it sevišķi satvērējmehānisma gadījumā, pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtība tiešā veidā.
+Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām -- tālākā darbībā varētu būt vērts ievākt detalizētu informāciju par šo konstanšu izvēles ietekmi uz metienu precizitāti, taču jau pēc vizuālas laikrindu grafiku novērtēšanas izvēlēti skaitļi izrādījušies pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Protams, it sevišķi satvērējmehānisma gadījumā, pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
 
 
 
