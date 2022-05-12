@@ -152,5 +152,5 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {8.2.2}Maģistra darba izstrādes plāns}{52}{subsubsection.8.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{54}{Item.78}%
+\contentsline {section}{Atsauces}{54}{Item.82}%
 \contentsfinish 

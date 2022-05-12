@@ -1252,7 +1252,7 @@ Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais l�
 \begin{figure}[t!]
     \centering
     \includegraphics[height=5cm,page=1]{../img/qualitative_plots.png}
-    \caption{Pa kreisi, trajektorija ierakstīta ar agrīnu modeli, kam nepareizi definēta mērķa funkciju -- novedot pie autoregresora rezultātu diverģences. Pa labi, trajektorija, kuras kvalitatīvie aspekti liecina, ka parametru izvēle ir uz pareizā ceļa.}
+    \caption{Pa kreisi, trajektorija ierakstīta ar agrīnu modeli, kam nepareizi definēta mērķa funkcija -- novedot pie autoregresora rezultātu diverģences. Pa labi, trajektorija, kuras kvalitatīvie aspekti liecina, ka parametru izvēle ir uz pareizā ceļa.}
 \end{figure}
 
 \subsubsection{Validācija -- demonstrāciju un autoregresoru salīdzinājumi}
@@ -1278,7 +1278,20 @@ Apvienotās trajektorijas atkal tiek savietotas vienā datu korpusā, un tas ar 
 
 Protams, ne divdimensionālas līknes, kas katra attēlo vienu konfigurācijas koor-dināti, ne dažādi abstrakti statistiski skaitliskie rezultāti nesniedz stabilu priekštatu par to, vai iegūtais rezultāts telpā atgādina metienu, vai tas ietilpst robota kinemātisko ierobežojumu definētajā darba zonā, un vai tas radikāli nepārkāpj robota dinamiskās iespējas. Pirmkārt, šīs iekārtas ir jaudīgas un vērtīgas -- nepieciešams ar lielu piesardzību novērtēt jebkuru vadības sistēmu, pirms tiek pieļauta to radīto komandu izpilde uz fiziskas aparatūras. Otrkārt, pat, ja pieejama simulācijas vide, dažādu koordināšu sistēmu nesakritības, pārtraukuma punktu klātbūtne un citi faktori var nozīmēt, ka trajektoriju vai nu nav iespējams izpildīt -- plānošanas fāzē tiek pārkāpti kādi drošības nosacījumi -- vai arī grūti saprast, kas notiek, jo tiek veikti lieli lēcieni konfigurāciju telpā.
 
-Tāpēc izstrādāta programma, kas spēj attēlot vienu vai daudzas pozīcijas un orientācijas vektoru laikrindas 3-dimensiju telpā.
+Tāpēc izstrādāta programma, kas spēj attēlot vienu vai daudzas pozīcijas un orientācijas vektoru laikrindas 3-dimensiju telpā. Kā svarīgākās prasības šim rīkam noteiktas sekojošās:
+
+\begin{enumerate}
+    \item jāspēj viennozīmigi noteikt katra laikrindas punkta telpiskā pozīcija un orientācija robota pamatnes koordinātu sistēmā;
+    \item jābūt iespējai uzreiz vizualizēt daudzas trajektorijas ar tām piekārtotajām mērķa koordinātēm. Lietotājam jāspēj skaidri atšķirt blakus esošie metieni un to mērķi;
+    \item jābūt iespējai savietot šīs vizualizācijas ar robota modeli, lai būtu iespējams tās izmantot dažādu nevēlamu nobīžu atkļūdošanā;
+    \item jābūt uzskatāmam veidam kā noteikt, ka padots satvērējmehānisma atlaišanas sig-nāls.
+\end{enumerate}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/trajectory_vis.png}
+    \caption{Telpiski attēlotas autoregresora trajektorijas. Pa kreisi vizualizēts korpuss ar no gadījuma stāvokļiem ģenerētiem metieniem, pa labi -- trajektorija, kam piemēroti visi nepieciešami pārveidojumi, lai tā sakristu ar robota kontrolera koordinātu sistēmu.}
+\end{figure}
 
 \subsubsection{Simulācijas vide}
 
