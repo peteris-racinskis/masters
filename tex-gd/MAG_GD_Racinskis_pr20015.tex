@@ -1290,18 +1290,36 @@ Tāpēc izstrādāta programma, kas spēj attēlot vienu vai daudzas pozīcijas 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=16cm,page=1]{../img/trajectory_vis.png}
-    \caption{Telpiski attēlotas autoregresora trajektorijas. Pa kreisi vizualizēts korpuss ar no gadījuma stāvokļiem ģenerētiem metieniem, pa labi -- trajektorija, kam piemēroti visi nepieciešami pārveidojumi, lai tā sakristu ar robota kontrolera koordinātu sistēmu.}
+    \caption{Telpiski attēlotas autoregresora trajektorijas. Pa kreisi vizualizēts korpuss ar no gadījuma stāvokļiem ģenerētiem metieniem, pa labi -- trajektorija, kam piemēroti visi nepieciešamie pārveidojumi, lai tā sakristu ar robota efektora koordinātu sistēmu.}
 \end{figure}
 
-\subsubsection{Simulācijas vide}
+Šiem mērķiem ar robotikas un mašīnuztveres personāla palīdzību izveidota ROS pakotne \textit{trajectory\_vis}, kas sastāv no viena valodā \textit{C++} rakstīta izpildfaila -- \textit{visualize.cpp}. Par grafisko attēlošanas vidi izvēlēts ROS platformā iekļautais rīks \textit{rviz}. Šajā rīkā iespējams attēlot patvaļīgi novietotus, patvaļīgas formas marķierus vai to masīvus. Šo marķieru iestatīšanai tiek izmantota tematu saskarne. Saskarni ar robota koordinātu sistēmām un marķieru modeļu zīmēšanu nodrošina bibliotēkas \textit{MoveitVisualTools} un \textit{Rviz-VisualTools}. 
+
+Izsaucot lietojumprogrammu, tiek norādīti sekojošie argumenti:
+
+\begin{enumerate}
+    \item failsistēmas ceļš uz pareizi strukturētu \textit{.csv} failu, kas satur trajektorijas;
+    \item attēlojamo trajektoriju skaits;
+    \item pirmās trajektorijas sākuma indekss;
+    \item pirmās trajektorijas beigu indekss.
+\end{enumerate}
+
+Programma nolasa datu korpusu un atrod tajā pozīcijas un orientācijas vektorus. Šie vektori tiek izmantoti, lai zīmētu koordinātu sistēmas marķierus -- simbolus, kas parāda, kā tiktu pārveidota pamata koordinātu sistēma, piemērojot tai attiecīgo pārvietojuma vektoru un rotācijas kvaternionu. Katru reizi, kad tiek sasniegts beigu indekss, pārvietojuma vektora $y$ ass tiek pārbīdīta un skaitīšana tiek atsākta -- tādējādi nodrošinot, ka daudzas trajektorijas var tikt attēlotas viena otrai blakus. 
+
+To mērķa koordinātes apzīmē ar kuba formas marķieriem. Tā kā vizuāli ir grūti nošķirt, kurš beigu marķieris sakrīt ar kuru trajektoriju, ieviests vēl viens marķieris zem katra sākuma punkta. Katrai trajektorijai atbilstošie marķieri iezīmēti vienā krāsā, un secīgi tiek atkārtota virkne ar konstrastējošām krāsām. 
+
+Papildus tiek nolasīts arī satvērējmehānisma konfigurācijas parametrs. To, vai satvērējmehānisms tiek uzskatīts par atvērtu, nosaka ar sliekšņa funkciju, kas piemērota tā skaitliskajai vērtībai. Vizuāli, tie punkti laikrindā, kad pudele teorētiski vēl būtu satverta, attēloti ar lielākiem marķieriem, bet tie, kuros tā jau ir atlaista -- ar samazinātiem.
+ 
 
 \subsection{Trajektoriju izpilde uz robota}
 
 \subsubsection{Ieraksti un modeļi}
 
+\subsubsection{Simulācijas vide}
+
 \subsubsection{Robota trajektorijas plānošana un izpilde}
 
-\subsubsection{Satvērējmehānisma vadība}
+\subsubsection{Asinhrona satvērējmehānisma vadība -- atšķirības no simulācijas}
 
 
 %
