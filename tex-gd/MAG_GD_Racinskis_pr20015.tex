@@ -1247,9 +1247,17 @@ Savukārt rekurentā neironu tīkla gadījumā sarežģījumus rada fakts, ka vi
 
 Kad iegūtas autoregresoru ģenerētās trajektorijas, tās nepieciešams apvienot un saglabāt. Tās tiek papildinātas ar mērķa koordinātēm, kvaternionu normu orientācijas elementiem un, gadījumos, kad modelis apmācīts bez laika signāla ievades datos, laika soli.  Šim mērķim tiek izmantota \textit{pandas} bibliotēka, un izvades \textit{.csv} formāta faila struktūra ir līdzīgs treniņa datu korpusam. Kā jau minēts, apmācītie modeļi tiek saglabāti, lai būtu iespējams jebkuru no tiem izmantot vizualizācijas vai validācijas datu ieraks-tīšanai bez atkārtotas apmācības. 
 
-Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais līdzeklis iegūto rezultātu novērtēšanai bija ROS vidē pieejamā \textit{plotjuggler} lietojumprogramma, kas ļauj uzskatāmi attēlot laikrindu datus \textit{.csv} formātā. Galvenie kvalitatīvie aspekti, kam pievērsta uzmanība šājā agrīnajā projekta fāzē, bijusi trajektorijas $x, z$ koordināšu līkņu forma atkarībā no $x_{target}$ parametra, atlaišanas signāla pārejas moments un vērtība (vai vispār tiek komandēta atlaišana? Vai novērojama tās atkarība no metiena attāluma?) un vispārīgi nevēlamu pazīmju -- pārtraukuma punktu, svārstību -- klātbūtne.
+Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais līdzeklis iegūto rezultātu novērtēšanai bija ROS vidē pieejamā \textit{plotjuggler} lietojumprogramma, kas ļauj uzskatāmi attēlot laikrindu datus \textit{.csv} formātā. Galvenie kvalitatīvie aspekti, kam pievērsta uzmanība šājā agrīnajā projekta fāzē, bijusi trajektorijas $x, z$ koordināšu līkņu forma atkarībā no $x_{target}$ parametra, atlaišanas signāla pārejas moments un vērtība (vai vispār tiek komandēta atlaišana? Vai novērojama tās atkarība no metiena attāluma?) un vispārīgi nevēlamu pazīmju -- pārtraukuma punktu, svārstību -- klātbūtne. Lai gan grūti izdarīt objektīvus spriedumus par cilvēka intuīcijā balstītiem mēriem, tiem ir nesamērojama nozīme procesa atkļūdošanā -- 4. att. redzamo salīdzinājumu var ņemt kā uzskatāmu paraugu situācijai, kad nepieciešami uzskatāmi rezultāti.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[height=5cm,page=1]{../img/qualitative_plots.png}
+    \caption{Pa kreisi, trajektorija ierakstīta ar agrīnu modeli, kam nepareizi definēta mērķa funkciju -- novedot pie autoregresora rezultātu diverģences. Pa labi, trajektorija, kuras kvalitatīvie aspekti liecina, ka parametru izvēle ir uz pareizā ceļa.}
+\end{figure}
 
 \subsubsection{Validācija -- demonstrāciju un autoregresoru salīdzinājumi}
+
+Taču kā jau minēts, ar subjektīviem vizuāliem spriedumiem vien nepietiek, lai būtu iespējams salīdzināt dažādu modeļu arhitektūru un hiperparametru kopu ietekmi uz rezultātiem. Kad pabeigta procesa sākotnējā atkļūdošana un iegūti modeļi, kas konverģē uz šķietami derīgiem rezultātiem, nākamais solis ir kvantitatīvu salīdzinājuma rādītāju ieguve. 
 
 \subsubsection{Trajektoriju telpiska vizualizācija}
 
