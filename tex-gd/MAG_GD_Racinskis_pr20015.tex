@@ -1233,6 +1233,22 @@ It sevišķi problēma saasinās situācijās ka šī darba agrīnajās stadijā
 
 \subsubsection{Modeļu pārbaude ar gadījuma sākuma stāvokļiem}
 
+Pirmā metode, kas izstrādāta lai aptuveni novērtētu, vai izvēlētie apmācības para-metri noved pat pie ļoti aptuvenas vēlamo rezultātu aproksimācijas, ir modeļu autoregresijas rezultātu ierakstīšana pie gadījuma mērķa koordinātēm. Tā balstīta uz pieņēmuma, ka treniņa kopā sastaptās mērķa koordinātes $x_{target}, y_{target}, z_{target}$ veido gadījuma izlasi no nezināma normālā sadalījuma:
+
+\begin{equation}
+    \mathbf{r}_{target} \sim \mathcal{N}(\hat{\boldsymbol{\mu}}(\mathbf{r}_{target}), \hat{\boldsymbol{\sigma}}(\mathbf{r}_{target}))
+\end{equation}
+
+Tādā gadījumā iespējams ģenerēt pēc vajadzības lielu pārbaudes trajektoriju kopu, veicot gadījuma izlasi no šī sadalījuma ar empīriski nosakāmiem parametriem. Tā kā demonstrāciju dati ir normalizēti pēc sākuma koordinātēm, sākuma pārvietojums vienmēr ir vienāds ar 0. Savukārt sākuma orientācijai pietiek piemeklēt tādu kvaternionu, kas atbilst aptuveni centrētam efektora simulatora stāvoklim.
+
+Dažādiem modeļiem ir nedaudz atšķirīgas autoregresijas trajektoriju ģenerēšanas prasības. Visi MDP formālismam atbilstošie modeļi ir ļoti vienkārši izpildāmi -- pietiek sākt ar pirmo stāvokli un atkārtoti izsaukt modeli uz tā izvades datiem, līdz sasniegts prasītais trajektorijas garums, tāpat kā vienādojumā (6.39). Šāda tipa autoregresors ir lineārs tā asimptotiskajā sarežģītībā -- gan atmiņas, gan laika -- pret trajektorijas garumu. 
+
+Savukārt rekurentā neironu tīkla gadījumā sarežģījumus rada fakts, ka visa \textit{tensorflow} saskarne būvēta ap sērijās apkopotu tenzoru apstrādi. Lai nodrošinātu lineāru asimptotisko sarežģītību būtu nepieciešams rakstīt sevis definētu modeļa apakšklasi ar speciālu izsaukuma metodi, kas jau skaitļošanas grafa līmenī pieļauj autoregresiju no viena sākuma ievada. Izmantojot augsta līmeņa \textit{Sequential} šablonu, vienkāršākais veids, kā realizēt autoregresoru, ir atkārtoti izsaukt modeli un katru reizi papildināt tā ievades datu tenzoru ar jaunāko izvadu. Protams, šāda metode ir kvadrātiskas tās asimptotiskajā sarežģītībā izpildes laika ziņā. Taču, tā kā tiek stādāts ar īsām datu virknēm un nelielu kopējo datu apjomu, šī daudzkārt vienkāršākā pieeja arī izvēlēta realizēšanai praksē.
+
+Kad iegūtas autoregresoru ģenerētās trajektorijas, tās nepieciešams apvienot un saglabāt. Tās tiek papildinātas ar mērķa koordinātēm, kvaternionu normu orientācijas elementiem un, gadījumos, kad modelis apmācīts bez laika signāla ievades datos, laika soli.  Šim mērķim tiek izmantota \textit{pandas} bibliotēka, un izvades \textit{.csv} formāta faila struktūra ir līdzīgs treniņa datu korpusam. Kā jau minēts, apmācītie modeļi tiek saglabāti, lai būtu iespējams jebkuru no tiem izmantot vizualizācijas vai validācijas datu ieraks-tīšanai bez atkārtotas apmācības. 
+
+Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais līdzeklis iegūto rezultātu novērtēšanai bija ROS vidē pieejamā \textit{plotjuggler} lietojumprogramma, kas ļauj uzskatāmi attēlot laikrindu datus \textit{.csv} formātā. Galvenie kvalitatīvie aspekti, kam pievērsta uzmanība šājā agrīnajā projekta fāzē, bijusi trajektorijas $x, z$ koordināšu līkņu forma atkarībā no $x_{target}$ parametra, atlaišanas signāla pārejas moments un vērtība (vai vispār tiek komandēta atlaišana? Vai novērojama tās atkarība no metiena attāluma?) un vispārīgi nevēlamu pazīmju -- pārtraukuma punktu, svārstību -- klātbūtne.
+
 \subsubsection{Validācija -- demonstrāciju un autoregresoru salīdzinājumi}
 
 \subsubsection{Trajektoriju telpiska vizualizācija}
