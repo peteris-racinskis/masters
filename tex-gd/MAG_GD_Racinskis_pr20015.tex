@@ -1077,7 +1077,9 @@ Tā kā to, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmāc�
 
 \subsection{Modeļu realizācija}
 
-Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām iespējām, neironu tīkļu modeļu izstrāde programmatūras kodā ir samērā vienkārša. Par spīti šo modeļu lielajiem parametru skaitiem un sarežģītajiem aprēķiniem -- piemēram, mērķa funkcijas gradientu meklēšanai vai optimizācijas metodēm, kas sastāv no vairākiem, dinamiskiem etapiem -- mūsdienās iespējams konfigurēt un apmācīt neironu tīklu ar dažām augsta abstrakcijas līmeņa komandām. Līdz ar to viena pētnieciska darba ietvaros ir bijis iespējams izstrādāt divu dažādu un radikāli atšķirīgu veidu regresorus -- klasisku dziļo neironu tīklu un rekurento autoregresoru -- un uzsākts darbs arī pie pirmā soļa tālākiem pētijumiem -- MDP formālismam atbistoša GAN modeļa.
+Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām iespējām, neironu tīkļu modeļu izstrāde programmatūras kodā ir samērā vienkārša. Par spīti šo modeļu lielajiem parametru skaitiem un sarežģītajiem aprēķiniem -- piemēram, mērķa funkcijas gradientu meklēšanai vai optimizācijas metodēm, kas sastāv no vairākiem, dinamiskiem etapiem -- mūsdienās iespējams konfigurēt un apmācīt neironu tīklu ar dažām augsta abstrakcijas līmeņa komandām. Līdz ar to viena pētnieciska darba ietvaros ir bijis iespējams izstrādāt divu dažādu un radikāli atšķirīgu veidu regresorus -- klasisku dziļo neironu tīklu un rekurento autoregresoru -- un uzsākts darbs arī pie pirmā soļa tālākiem pētijumiem -- MDP formālismam atbistoša GAN modeļa. 
+
+Viss modeļu apmācības kods ir atrodams maģistra darba repozitorijā, direktorijā \textit{``models/''}. Tas ir organizēts atsevišķos skriptos. Viena no īpatnībām, ar ko nākas saskarties, strādājot eksperimentālā zinātnes nozarē, ir visu darbību mainīgā un iteratīvā daba. Uzrakstītais kods nav sevišķi apjomīgs, bet provizoriskas izpētes un strukturētu eksperimentu gaitā mainot paņēmienus modeļu uzbūvē, apmācībā, datu priekšapstrādē un izvades failu formātos, nepārtraukti tiek veiktas izmaiņas. Bieži vien pat lielas programmas daļas tiek pilnībā pārrakstītas vai atmestas. Tāpēc grūti šādu kodu organizēt pēc programminženierijas labās prakses. Tā vietā, katra tipa modeļa apmācībai ir savs skripts, kas satur konfigurācijas mainīgos un visas funkcijas, kas netiek precīzi dublētas visur -- pat tad, ja pastāv ievērojamas līdzības starp tām dažādu modeļu izpildījumos. 
 
 \subsubsection{Parastais neironu tīkls}
 
@@ -1093,7 +1095,26 @@ Līdz ar to treniņa uzdevuma mērķa funkciju iespējams definēt formā
     \mathcal{L}_{policy} = f \left (s,s',\pi_{\theta}(s) \right ), (s,s') \in \mathcal{D}
 \end{equation}
 
+Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījumā modeļa izvads ir nepārtrauktu vērtību vektors, atkrīt dažādas kategoriskās kļūdas un varbūtību sadalījumu distances metrikas, kādas izmantotas daudzos no teorētiskajā daļā apskatītajiem pētī-jumiem. Tas pats sakāms arī par diskrētu darbību kopu stratēģijām paredzētām regularizācijas metodēm. Tā vietā nākas izvēlēties kādu no regresijas mērķiem paredzētajiem novērtējumiem. Pirmā iespēja būtu izmantot klasisko kvadrātu summas metodi, kas ir pamatā jau priekšapstrādes sadaļā apskatītajā lineārās regresijas modeļu ieguvei (atceroties, ka $s, s'$ apzīmē $n$-dimensionālus vektorus):
 
+
+\begin{equation}
+    \mathcal{L}_{ss} (\vec{s},\vec{s'},\theta) = \sum_{i=1}^n (s'_i - \pi_{\theta}(s)_i)^2 
+\end{equation}
+
+Taču jau izsen zināms, ka šī metode nav sevišķi noturīga pret lielām nobīdēm atsevišķu dimensiju dispersijās -- izlēcējiem -- un piedāvātas alternatīvas mērķa funkcijas dažādu optimizācijas uzdevumu risināšanai, no kurām šeit izvēlēta izgudrotāja P. Dž. Hūbera vārdā nosauktā \textit{``huber loss''} funkcija \cite{huber_loss}:
+
+
+\begin{equation}
+    \mathcal{L}_{\delta} = 
+    \begin{cases}
+    \frac{1}{2} (s'_i - \pi_{\theta}(s)_i)^2, \text{ ja } \vert (s'_i - \pi_{\theta}(s)_i) \vert < \delta \\
+    \delta \cdot \left (  \vert (s'_i - \pi_{\theta}(s)_i) - \frac{\delta}{2} \vert  \right ) \text{ citādi}
+    \end{cases}
+\end{equation}
+
+
+Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}
 
 \subsubsection{Rekurentais neironu tīkls}
 

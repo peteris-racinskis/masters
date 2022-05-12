@@ -632,6 +632,44 @@
       \field{pages}{4565\bibrangedash 4573}
       \range{pages}{9}
     \endentry
+    \entry{huber_loss}{article}{}
+      \name{author}{1}{}{%
+        {{hash=2e7489c001c33b64b64d65458065bd5c}{%
+           family={Huber},
+           familyi={H\bibinitperiod},
+           given={Peter\bibnamedelima J.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Institute of Mathematical Statistics}%
+      }
+      \strng{namehash}{2e7489c001c33b64b64d65458065bd5c}
+      \strng{fullhash}{2e7489c001c33b64b64d65458065bd5c}
+      \strng{bibnamehash}{2e7489c001c33b64b64d65458065bd5c}
+      \strng{authorbibnamehash}{2e7489c001c33b64b64d65458065bd5c}
+      \strng{authornamehash}{2e7489c001c33b64b64d65458065bd5c}
+      \strng{authorfullhash}{2e7489c001c33b64b64d65458065bd5c}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{number}{1}
+      \field{title}{{Robust Estimation of a Location Parameter}}
+      \field{volume}{35}
+      \field{year}{1964}
+      \field{pages}{73\bibrangedash 101}
+      \range{pages}{29}
+      \verb{doi}
+      \verb 10.1214/aoms/1177703732
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1214/aoms/1177703732
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1214/aoms/1177703732
+      \endverb
+    \endentry
     \entry{ijspeert2002movement}{inproceedings}{}
       \name{author}{3}{}{%
         {{hash=24891b832d1efe728d70caf5eb6ee0a4}{%
@@ -1228,8 +1266,8 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Masters -- github repository}
-      \field{urlday}{5}
-      \field{urlmonth}{11}
+      \field{urlday}{11}
+      \field{urlmonth}{5}
       \field{urlyear}{2022}
       \field{year}{2022}
       \field{urldateera}{ce}
@@ -1260,8 +1298,8 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Masters Data -- github repository}
-      \field{urlday}{5}
-      \field{urlmonth}{11}
+      \field{urlday}{11}
+      \field{urlmonth}{5}
       \field{urlyear}{2022}
       \field{year}{2022}
       \field{urldateera}{ce}
@@ -1559,6 +1597,26 @@
       \field{year}{2018}
       \field{pages}{60\bibrangedash 77}
       \range{pages}{18}
+    \endentry
+    \entry{keras_huber}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Tensorflow Core v2.8.0 API documentation -- Huber loss}
+      \field{urlday}{12}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/Huber
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/api_docs/python/tf/keras/losses/Huber
+      \endverb
     \endentry
     \entry{torabi2018behavioral}{article}{}
       \name{author}{3}{}{%
