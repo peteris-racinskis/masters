@@ -1130,7 +1130,7 @@ Vēl viena speciāli šim uzdevumam paredzēta mērķa funkciju saime, kas izmē
     \lambda_g  g^{s'} \log(g^{\theta})
 \end{equation}
 
-kur $r^{\theta}, r^{s'}$ apzīmē $\pi_[\theta](s)$ un $s'$ pārvietojuma vektora komponentes, $g^{\theta}, g^{s'}$  -- to satvērējmehānisma (\textit{``gripper''}) konfigurāciju (atvērts/aizvērts), bet $-x\log(\hat{x})$ ir savstarpējās entropijas mērķa funkcija, kas parasti tiek izmantota diskrētas klasifikācijas tipa uzdevumos \cite{keras_crossentropy}. Tas darīts ar mērķi atvieglot modeļa apmācību, jau uzreiz nokodējot dažado izvades vektora elementu savstarpējās sakarības -- pirmajos eksperimentos modeļa izvadā iegūtie rezultāti nav pat aptuveni sakrituši ar demonstrāciju kopas datiem.
+kur $r^{\theta}, r^{s'}$ apzīmē $\pi_{\theta}(s)$ un $s'$ pārvietojuma vektora komponentes, $g^{\theta}, g^{s'}$  -- to satvē-rējmehānisma (\textit{``gripper''}) konfigurāciju (atvērts/aizvērts), bet $-x\log(\hat{x})$ ir savstarpējās entropijas mērķa funkcija $\mathcal{L}_H$, kas parasti tiek izmantota diskrētas klasifikācijas tipa uzdevumos \cite{keras_crossentropy}. Tas darīts ar mērķi atvieglot modeļa apmācību, jau uzreiz nokodējot dažado izvades vektora elementu savstarpējās sakarības -- pirmajos eksperimentos modeļa izvadā iegūtie rezultāti nav pat aptuveni sakrituši ar demonstrāciju kopas datiem.
 
 Taču vēlāki eksperimenti atklājuši, ka abas augstāk minētās problēmas var novērst, vienkārši izmantojot citus hiperparametrus modeļa apmācības procesā (perceptronu skai-tu, apmācības ātrumu, treniņa epohu skaitu). Tāpēc visiem rezultātu analīzes sadaļā apskatītajiem \textit{``naiveBC''} modeļiem izmantota neizmainīta Hūbera funkcija.
 
@@ -1173,7 +1173,57 @@ Funkcija \textit{create\_sequential\_dataset} veic visus trīs uzdevumus un atgr
 
 Kaut gan šī darba pētniecisko daļu galvenokārt sastādījusi datu ieguves, priekš-apstrādes, klasiskā un rekurentā modeļa apmācības un validācijas procesu izstrāde, balstoties uz teorētiskajā literatūrā gūtām atziņām par vienu no galvenajiem virzieniem tālākiem pētījumiem iezīmēta ģeneratīvā pretinieku tīkla realizācija kā paņēmiens, kas varētu apvienot vienkāršu un konstantā laikā izpildāmu stratēģijas modeli ar daudz spē-jīgāku apmācības metodi. Attiecīgi uzsākta arī GAN modeļa realizācijas izstrāde.
 
-Atšķirībā no abiem augstāk minētajiem variantiem, kur iespējams izmantot \textit{keras.Se-quential} šablonu klasi, GAN apmācības procesā nepieciešams izmantot divus atsevišķus modeļus un sarežģītāku mērķa funkcijas sakarību ar to parametriem. Līdz ar to nepieciešams citādi strukturēt apmācības programmu.
+Atšķirībā no abiem augstāk minētajiem variantiem, kur iespējams izmantot \textit{keras.Se-quential} šablonu klasi, GAN apmācības procesā nepieciešams izmantot divus atsevišķus modeļus un sarežģītāku mērķa funkcijas sakarību ar to parametriem. Līdz ar to nepieciešams citādi strukturēt apmācības programmu. 
+
+Vispirms tiek instancēti divi modeļi izmantojot \textit{keras functional API}, kas ļauj konstruēt skaitļošanas grafu ar secīgu slāņu reprezentācijas objektu izsaukšanu. Pirmais modelis -- ģenerators $\pi_{\theta}$, kas ir arī rezultējošā stratēģija -- līdz šim veiktajos eksperimentos ir ticis strukturēts tāpat, kā klasiskais neironu tīkls. Otrs modelis -- diskriminators $d_{\phi}$ -- kalpo kā mērķa funkcija ģeneratora apmācībā, un ievadā saņem vai nu stāvokļu pāreju, vai garāku virkni ar stāvokļiem. Neironu tīkla iekšēja struktūra arī pagaidām ir tāda pati, kā klasiskajam neironu tīklam. Galvenā atšķirība abos gadīijumos ir tāda, ka izmēģināta arī \textit{``Leaky ReLU''} aktivācijas funkcija, kas ievieš nelielu gradientu citādi plakanos mērķa funkcijas atvasinājuma apgabalos
+
+\begin{equation}
+    \sigma_{LeakyReLU}(x) = 
+    \begin{cases}
+        x, \text{ ja } x > 0 \\
+        -k, 0 < k \ll 1
+    \end{cases}
+\end{equation}
+
+Lai veiktu apmācību, nepieciešams lokāli definēt procedūru. Vienu treniņa soli ietver procedūra \textit{train\_step}, kas, pateicoties \textit{tensorflow.function} dekoratoram, tiek kompilēta uz daudzkārt ātrāku reprezentāciju pirms izpildes. Visas diferencējamās darbības tiek ietvertas \textit{Python} konteksta blokā, kura ietvaros divi \textit{GradientTape} objekti -- viens katram modelim -- ieraksta mērķa funkciju parciālos atvasinājumus pret to parametriem. Iegūtie gradienti tiek izmantoti, lai izmainītu modeļu parametru vērtības.
+
+Pats diferencējamais etaps sastāv no diviem soļiem. Vispirms tiek izsaukta ģene-ratora autoregresijas funkcija (vienu no \textit{generator\_multi\_iterate} versijām atkarībā no tā, vai tiek izmantots viens vai vairāki iepriekšējie stāvokļi). Lai būtu iespējams kompilēt visas darbības uz ātri izpildāmu grafu reprezentāciju, svarīgi izmantot tikai ar tenzoru saskarni savietojamas datu struktūras. Šī funkcija atgriež tenzoru ar ģeneratora ievadiem un izvadiem
+
+\begin{equation}
+    s_1 \rightarrow \left ( (s_1, s^{\theta}_2 , ..., s^{\theta}_m), ...,  (s^{\theta}_{n-m}, ..., s^{\theta}_{n}) \right ) = \tau_{gen}
+\end{equation}
+
+kur
+
+\begin{equation}
+    s^{\theta}_n = 
+    \begin{cases}
+        \pi_{\theta}(s_1), \text{ ja } n = 2 \\
+        \pi_{\theta}(s_{n-1}) \text{ citādi}
+    \end{cases}
+\end{equation}
+
+
+No treniņa datu kopas tiek iegūts tādas pašas formas tenzors ar ierakstītām stāvokļu pārejām $\tau_{dem}$. Diskriminators tiek izsaukts uz abiem tenzoriem ar klasikācijas uzdevumu
+
+\begin{equation}
+    d_{\phi}: (s_1, s^{\theta}_2 , ..., s^{\theta}_m) \rightarrow \mathbb{R}
+\end{equation}
+
+un tam tiek aprēķināta mērķa funkcijas vērtība 
+
+\begin{equation}
+    \mathcal{L}_{d} = \sum_{pred \in \tau_{gen}} \mathcal{L}_H(pred,0) + 
+    \sum_{obs \in \tau_{dem}} \mathcal{L}_H(obs,1) 
+\end{equation}
+
+kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funkcija. Tā kā ģeneratora uzdevums ir pretējs, bet tā parametri ietekmē tikai ģenerēto trajektoriju klasifikāciju, tā mērķa funkcija ir pretēja:
+
+\begin{equation}
+    \mathcal{L}_{\pi} = \sum_{pred \in \tau_{gen}} \mathcal{L}_H(pred,1) 
+\end{equation}
+
+Tāpat kā klasiskā neironu tīkla variantā, izmēģinātas dažu veidu regularizācijas -- kvaternionu normas, attāluma starp ģenerētās trajektorijas soļiem -- taču nopietna to iedarbības izpēte atstāta turpmākai pētnieciskai darbībai.
 
 \subsection{Validācijas datu ģenerēšana, simulācija, vizualizācija}
 
