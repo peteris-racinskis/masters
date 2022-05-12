@@ -838,17 +838,17 @@ Realizējot otro, būtu stipri atvieglots robota kontrolera uzdevums un nebūtu 
 
 Savukārt izvēloties modeli, kas veic regresiju tīri Dekarta telpā, pats modeļa arhi-tektūras un apmācības jautājums kļūst stipri vienkāršāks. Tam jāspēj tikai ģenerēt demonstrāciju kopai tuvu trajektoriju sadalījumu bez papildu pārveidojumiem, un rezul-tāts ir tikai netieši sasaistīts ar konkrētu mehānisku izpildījumu -- demonstrācijām jāņem vērā robota dinamikas un kinemātikas iespēju ierobežojumi, neprasot neiespējamas pozī-cijas, orientācijas, ātrumus vai paātrinājumus. Tomēr par šo atvieglojumu no mašīn-mācīšanās viedokļa jāmaksā ar daudzkārt sarežģītāku klasisko robota kontroles uzdevumu. Nepieciešams iegūtajām telpisko konfigurāciju laikrindām piemeklēt atbilstošu inverso kinemātiku, turklāt bez lēcieniem un, ja metiena precizitātei ir nozīme, ar vismaz aptuveni pareizu laika parametrizāciju (telpas punktiem atbilstošo locītavu konfigurāciju sasniegšana tādā pašā vai tuvā laika momentā) -- kas ar ROS platformā pieejamo rīku klāstu nebūt nav vienkārši sasniedzams mērķis.
 
-Izvērtējot darba pamatmērķi -- tieši mašīnmācīšanas metožu pētīšanu --, pieejamos resursus un laika ierobežojumus, nolemts modeli konstruēt Dekarta koordināšu telpā kā autoregresoru diskrētā laikā. Iespējami MDP formālismam atbilstoši:
+Izvērtējot darba pamatmērķi -- tieši mašīnmācīšanas metožu pētīšanu --, pieejamos resursus un laika ierobežojumus, nolemts modeli konstruēt Dekarta koordināšu telpā kā autoregresoru diskrētā laikā. T.i., katra ``darbība'' ir vienkārši paredzētais sistēmas stāvoklis nākamajā laika solī. Iespējami MDP formālismam atbilstoši
 
 
 \begin{equation}
     s_{t+1} = \pi_{\theta}(s_t)
 \end{equation}
 
-vai neatbilstoši:
+vai neatbilstoši (laikrindu ekstrapolācijas)
 
 \begin{equation}
-    s_{t+1} = \pi_{\theta}((s_t, s_{t-1}, ..., s_{t-n}))
+    s_{t+1} = \pi_{\theta}(s_t, s_{t-1}, ..., s_{t-n})
 \end{equation}
 
 modeļi, un iepriekš ir grūti spriest, vai MDP stratēģija būs pietiekama konkrēta uzdevuma risināšanai. Tāpēc nolemts sākt ar vienkāršāko MDP atbilstošo stratēģiju klasi -- \textit{``behavioural cloning''} pieejā konstruētu klasisku vairāku slāņu neironu tīklu. Kā redzams zemāk, jau ar šādu risinājumu motivējošajā uzdevumā sasniegti pozitīvi (bet ne izsmeļoši rezultāti). Metienu precizitātes uzlabojumu meklējumos vispirms papildus attīstīts rekurentais autoregresors -- MDP neatbilstošs un izpildes laika ziņā mazāk efektīvs laikrindu ekstrapolācijas modelis, kas pēc zināmām metrikām sasniedz labākus rezultātus. Tālākas pētnieciskās darbības nolūkos -- meklējot veidus, kā ar MDP formālismam atbilstošu, pret trajektorijas garumu laikā un atmiņā konstantu stratēģiju sasniegt RNN pielīdzināmus rezultātus -- sākta arī GAN modeļa izstrāde.
@@ -1072,12 +1072,28 @@ ar iespēju veidot arī datu kopas, kurās katram rezultējošam stāvoklim zin�
 
 Šajā posmā katrs novērojums tiek reducēts uz tikai modelim nepieciešamo kolonnu apakškopu. Pastāv iespēja pievienot laika signālu, bez kuras sākotnēji veikti modeļu apmācības mēģinājumi. Daļa demonstrāciju tiek ietvertas treniņa datu kopā, daļa -- testa un validācijas kopā. Attiecība starp to izmēriem ir iestatāma. Rezultāts tiek sa-glabāts parametriski nosauktos datu kopas \textit{.csv} failos, kuru unikālie identifikatori iegūti, piemērojot jaucējfunkciju korpusa ģenerēšanā izmantoto demonstrāciju failu nosaukumu kopai.
 
-Tā kā to, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmācības vai validācijas uzdevuma specifika, šis solis tiek atstāts jau nākamo soļu pārziņā. Failā \textit{``helpers.py''} definētas dažādas funkcijas, kas izmantotas vairākās vietās. Viena no tām ir \textit{``data\_and\_label''}, kas nolasa sagatavoto treniņa datu kopu, sadala to modeļa ievadu (\textit{``input data''}) un vēlamo rezultātu (\textit{``label''}) tensoros. Ja nepieciešams, šīs kopas elementu secība tiek sajaukta.
+Tā kā to, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmācības vai validācijas uzdevuma specifika, šis solis tiek atstāts jau nākamo soļu pārziņā. Failā \textit{``helpers.py''} definētas dažādas funkcijas, kas izmantotas vairākās vietās. Viena no tām ir \textit{``data\_and\_label''}, kas nolasa sagatavoto treniņa datu kopu, sadala to modeļa ievadu (\textit{``input data''}) un vēlamo rezultātu (\textit{``label''}) tenzoros. Ja nepieciešams, šīs kopas elementu secība tiek sajaukta.
 
 
 \subsection{Modeļu realizācija}
 
+Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām iespējām, neironu tīkļu modeļu izstrāde programmatūras kodā ir samērā vienkārša. Par spīti šo modeļu lielajiem parametru skaitiem un sarežģītajiem aprēķiniem -- piemēram, mērķa funkcijas gradientu meklēšanai vai optimizācijas metodēm, kas sastāv no vairākiem, dinamiskiem etapiem -- mūsdienās iespējams konfigurēt un apmācīt neironu tīklu ar dažām augsta abstrakcijas līmeņa komandām. Līdz ar to viena pētnieciska darba ietvaros ir bijis iespējams izstrādāt divu dažādu un radikāli atšķirīgu veidu regresorus -- klasisku dziļo neironu tīklu un rekurento autoregresoru -- un uzsākts darbs arī pie pirmā soļa tālākiem pētijumiem -- MDP formālismam atbistoša GAN modeļa.
+
 \subsubsection{Parastais neironu tīkls}
+
+Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir klasiskais \textit{``feedforward''} jeb viena virziena dziļais neironu tīkls ar pilnībā savienotiem slēptiem slāņiem. Tas pilda klasisku MDP stratēģijas (vai lakrindu ekstrapolācijas ar vienu stāvokli garu vēsturi) uzdevumu formā
+
+\begin{equation}
+    a_t = s'_t = \pi_{\theta}(s_t)
+\end{equation}
+
+Līdz ar to treniņa uzdevuma mērķa funkciju iespējams definēt formā
+
+\begin{equation}
+    \mathcal{L}_{policy} = f \left (s,s',\pi_{\theta}(s) \right ), (s,s') \in \mathcal{D}
+\end{equation}
+
+
 
 \subsubsection{Rekurentais neironu tīkls}
 
