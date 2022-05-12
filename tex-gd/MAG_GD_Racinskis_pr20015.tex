@@ -1262,12 +1262,23 @@ Taču kā jau minēts, ar subjektīviem vizuāliem spriedumiem vien nepietiek, l
 Atceroties atdarinošās mašīnmācīšanās (un laikrindu ekstrapolācijas) problēmu pamatnostādnes, modeļa mērķis ir radīt tādas laikrindas konfigurāciju telpā, kas nav atšķi-ramas no tāda slēptā sadalījuma, kura izlase veido demonstrāciju kopu. Nekas nav zināms par pašu šo sadalījumu, un kaut kāda veida mākslīga tā izlases papildināšana ir ekvivalenta šīs pašas problēmas atrisinājumam. Taču pastāv divi teorētiski krasi atšķirīgi, bet praktiskā izpildījuma ziņā tuvi radniecīgi paņēmieni, ko var izmantot, lai izdarītu spriedumus par apmācības procesa spēju izpildīt pamatnostādni:
 
 \begin{enumerate}
-    \item novērtēt modeļa spēju aproksimēt pašu treniņu datu kopu. No teorētiskā viedokļa, jebkurš pietiekami liels un ``elastīgs'' modelis var pilnībā apgūt jebkuru treniņa datu kopu, taču praksē tas ne vienmēr izdodas. Var salīdzināt autoregresijas rezultātus ar treniņa kopas demonstrācijām pie tādiem pašiem sākuma parametriem;
-    \item salīdzināt modeli ar izlasi no tā paša sadalījuma, kas veidojis apmācības datu kopu, bet kuras elementi tajā neietilpst. T.i., nošķirt pieejamos datus treniņa un validācijas kopās, no kurām tikai pirmā izmantota modeļa parametru iestatīšanai.
+    \item novērtēt modeļa spēju aproksimēt pašu treniņu datu kopu. No teorētiskā viedokļa, jebkurš pietiekami liels un ``elastīgs'' modelis var pilnībā apgūt jebkuru tā apmācībā izmantoto datu kopu, taču praksē tas ne vienmēr izdodas. Var salīdzināt autoregresijas rezultātus ar treniņa kopas demonstrācijām pie tādiem pašiem sākuma parametriem;
+    \item salīdzināt modeli ar izlasi no tā paša sadalījuma, kas veidojis apmācības datu kopu, bet kuras elementi tajā neietilpst. Jebšu, nošķirt pieejamos datus treniņa un validācijas kopās, no kurām tikai pirmā izmantota modeļa parametru iestatīšanai. Šādi tiek gūts priekštats par iegūtā modeļa vispārināmību nezināmā sadalījuma ietvaros.
 \end{enumerate}
 
+Reālā izpildījuma ziņā abas metodes ir pilnīgi identiskas, atšķiras tikai datu kopa, kas tiek izmantota salīdzināšānai. To veic procedūras ar nosaukumu \textit{validation\_on\_test}, kas dažādajiem neironu tīklu izpildījumiem ir atšķirīgas, taču principā veic to pašu darbību secību. Tiek nolasīta izvēlētais datu korpuss -- apmācības vai validācijas. Tiek nošķirtas visas tā demonstrācijas, un katrai no tām tiek piekārtota atbilstoša tāda paša garuma autoregresora trajektorija un pievienota datu korpusa rindai
+
+\begin{equation}
+    (s_1, s_2, ..., s_n) \rightarrow \left ( (s_1, s_1), (s_2, s^{\theta}_2), ...,      (s_n, s^{\theta}_n) \right )
+\end{equation}
+
+Apvienotās trajektorijas atkal tiek savietotas vienā datu korpusā, un tas ar modeļa parametriem atbilstošu nosaukumu tiek saglabāts \textit{models/validation/} direktorijā. Visos apmācības skriptos tiek piemērota šī operācija gan ar apmācības, gan pārbaudes datu kopu. Kad pieejamas statistiski salīdzināmas laikrindas, iespējams aprēķināt dažādus skaitliskus novērtējumus to līdzībai -- par ko sīkāk diskutēts nākamajā nodaļā.
 
 \subsubsection{Trajektoriju telpiska vizualizācija}
+
+Protams, ne divdimensionālas līknes, kas katra attēlo vienu konfigurācijas koor-dināti, ne dažādi abstrakti statistiski skaitliskie rezultāti nesniedz stabilu priekštatu par to, vai iegūtais rezultāts telpā atgādina metienu, vai tas ietilpst robota kinemātisko ierobežojumu definētajā darba zonā, un vai tas radikāli nepārkāpj robota dinamiskās iespējas. Pirmkārt, šīs iekārtas ir jaudīgas un vērtīgas -- nepieciešams ar lielu piesardzību novērtēt jebkuru vadības sistēmu, pirms tiek pieļauta to radīto komandu izpilde uz fiziskas aparatūras. Otrkārt, pat, ja pieejama simulācijas vide, dažādu koordināšu sistēmu nesakritības, pārtraukuma punktu klātbūtne un citi faktori var nozīmēt, ka trajektoriju vai nu nav iespējams izpildīt -- plānošanas fāzē tiek pārkāpti kādi drošības nosacījumi -- vai arī grūti saprast, kas notiek, jo tiek veikti lieli lēcieni konfigurāciju telpā.
+
+Tāpēc izstrādāta programma, kas spēj attēlot vienu vai daudzas pozīcijas un orientācijas vektoru laikrindas 3-dimensiju telpā.
 
 \subsubsection{Simulācijas vide}
 
