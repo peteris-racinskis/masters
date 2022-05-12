@@ -891,10 +891,10 @@ kur $s^a, s^b$ -- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$
 kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$ -- diskrētā laika soļu frekvence. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki, kas pieder diskrēto laika soļu rindai:
 
 \begin{equation}
-    t'_1 = min(\lbrace t'_k : t'_k > t_1 \rbrace)
+    t'_1 = min(\lbrace t'_k \mid t'_k > t_1 \rbrace)
 \end{equation}
 \begin{equation}
-    t'_p = min(\lbrace t'_k : t'_p > t_m \rbrace)
+    t'_p = min(\lbrace t'_k \mid t'_p > t_m \rbrace)
 \end{equation}
 
 un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto laika soļu virk-ne $t'_1, t'_2, ..., t'_p$. Datu korpuss tiek papildināts ar tukšām rindām šajos laika intervālos (kolīzijas novērstas netiek; duplikāti pēc laika tiek atmesti -- kolīzijas varbūtība ir ārkārtīgi zema, strādājot ar peldošā komata skaitļiem). Pēc tam visas tukšās vērtības datu korpusā tiek aizpildītas ar pēdējo zināmo -- pēc t.s. \textit{``forward fill''} interpolācijas metodes. Šādi, protams, dati tiek nedaudz kropļoti, taču pie pietiekami augstām novērojumu frekvencēm rezultējošās nobīdes ir nelielas un grūti manāmas. Visbeidzot, tikai tās korpusa rindas, kuru laika solis pieder pie $t'_k$ virknes, tiek saglabātas. Iegūtais datu korpuss tātad atbilst diskrētam laika solim un tajā nav tukšu vērtību.
@@ -958,7 +958,7 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
 
 \begin{equation}
     f_{freefall} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] }'_u < \overline{v}_{freefall} \\
+        0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -968,7 +968,7 @@ kur $\vec{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t, \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] }''_u < \overline{a}_{release} \\
+        0 \text{ ja } \forall u < t, \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -977,20 +977,103 @@ Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, sl
 
 \begin{equation}
     f_{moving} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \lVert \overline{\left [ \vec{r}_{TrashPickup}(u) \right ]}'_u \rVert  < \overline{v}_{moving} \\
+        0 \text{ ja } \forall u < t,  \lVert \overline{\left [ \vec{r}_{TrashPickup}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
 
-Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām -- tālākā darbībā varētu būt vērts ievākt detalizētu informāciju par šo konstanšu izvēles ietekmi uz metienu precizitāti, taču jau pēc vizuālas laikrindu grafiku novērtēšanas izvēlēti skaitļi izrādījušies pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Protams, it sevišķi satvērējmehānisma gadījumā, pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
-
-
+Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām. Tālākā darbībā varētu būt vērts ievākt detalizētu informāciju par šo konstanšu izvēles ietekmi uz metienu precizitāti, taču jau pēc vizuālas laikrindu grafiku novērtēšanas izvēlēti skaitļi izrādījušies pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Protams, it sevišķi satvērējmehānisma gadījumā, pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
 
 \subsubsection{Brīvā kritiena ekstrapolācija, mērķa koordināšu noteikšana}
 
+Demonstrāciju ievākšanas procesā, ja vien netiek ļoti cieši kontrolēti metiena para-metri (piemēram, visu laiku metot nelielā mērķī) tīri dabiski rodas ievērojama dispersija pudeles telpiskajās trajektorijās. To varētu pilnībā ignorēt un apmācīt modeli bez papildu brīvības pakāpēm vienkārši atdarināt kādu paraugu no kopas, taču no pētnieciskā viedokļa interesantāk ir jau uzreiz paredzēt iespēju parametrizēt metienus pēc mērķa koordinātēm. Protams, tā kā process neparedz demonstrāciju ierakstīšanu ar zināmu galamērķi, šīs koordinātes nav zināmas -- tās ir nepieciešams noteikt.
+
+Lai to darītu, izveidots skripts \textit{``regression.py''}, kas veic ekstrapolāciju pudeles trajektorijas brīvā kritiena fāzei un nosaka aptuveno punktu telpā, kur tā šķērsotu grīdas plakni. Par atskaites punktu pieņemta beigu pozīcijas marķiera z-koordināte $z_{ref}$. Vis-pirms tiek atrasta demonstrācijas brīvā kritiena fāze pēc nosacījuma
+
+
+\begin{equation}
+    \mathcal{D}_{fi} = \lbrace s \in \mathcal{D}_i \mid f_{freefall}(t(s)) \land \lnot f_{passed}(t(s)) \rbrace
+\end{equation}
+
+kur $\mathcal{D}_i$ -- demonstrācijas novērojumu kopa, $\mathcal{D}_{fi}$ -- tās apakškopa, kuras novērojumos pudeles konfigurācijas sastāda ballistisku trajektoriju. Jāņem vērā, ka šādi iegūtā trajektorija tikai aptuveni atbilst īstajai, jo faktiskais pudeles smaguma centrs var ašķirties no kustību uztveres procesā izmantotās cietā ķermeņa definīcijas centroīdas. Taču līdz šim ievāktajās trajektorijās nav manītas lielas nobīdes -- tālāk aprakstītās idealizētās regresijas līknes ļoti tuvu atbilst faktiskajām laikrindām. Tātad, pat ja centru nobīdes inducēta svārstību komponente šajā signālā pastāv, tā ir pārāk neliela, lai to varētu pamanīt -- un, visticamāk, pie šobrīd sagaidāmās procesa precizitātes lielu iespaidu uz rezultātu neatstāj.
+
+Lai atrastu mērķa koordinātes, var izmantot vienkāršāko ballistiskās trajektorijas modeli. Pieņem, ka xy plakne ir precīzi normāla gravitācijas paātrinājuma vektoram, tāpēc šīm koordinātēm piemēro lineāro regresiju:
+
+
+\begin{equation}
+    x_{pred} = \theta_{x1}(t) + \theta_{x0}
+\end{equation}
+\begin{equation}
+    y_{pred} = \theta_{y1}(t) + \theta_{y0}
+\end{equation}
+
+savukārt z-koordinātes vērtības ekstrapolē, veicot kvadrātisko regresiju -- jeb lineāro regresiju ar divām mainīgā parametra $t$ (laika) pakāpēm:
+
+\begin{equation}
+    z_{pred} = \theta_{z2}(t^2) + \theta_{z1}(t) + \theta_{z0}
+\end{equation}
+
+Laika momentu, kad kritiens krusto grīdas plakni, var noteikt,  atrodot sekojošā vienādojuma lielāko sakni:
+
+\begin{equation}
+    \theta_{z2}(t_{-1}^2) + \theta_{z1}(t_{-1}) + \theta_{z0} - z_{ref} = 0
+\end{equation}
+
+Taču, tā kā praksē demonstrācijas ir garākas nekā lidojumi, var arī aprēķināt šo vērtību visiem punktiem datu korpusā un atrast pēdējo pozitīvo izteiksmes vērtību. Tas, protams, ir asimptotiski lēnāk, taču praktiski \textit{``pandas''} bibliotēkā šādas operācijas ir ļoti ātras. Tad mērķa koordinātes atrod, ievietojot šo laika vērtību regresijas vienādojumos:
+
+\begin{equation}
+    x_{target} = \theta_{x1}(t_{-1}) + \theta_{x0}
+\end{equation}
+\begin{equation}
+    y_{target} = \theta_{y1}(t_{-1}) + \theta_{y0}
+\end{equation}
+\begin{equation}
+    z_{target} = \theta_{z2}(t_{-1}^2) + \theta_{z1}(t_{-1}) + \theta_{z0}
+\end{equation}
+
 \subsubsection{Sākuma koordināšu kompensācija}
 
+Visas demonstrācijas nav iegūtas no tā paša punkta kustību uztveres rīka koordinātu sistēmā, un tas var nesakrist ar robota efektora sākuma koordinātēm. Tāpēc, lai varētu apmācīt modeli ar vairākās epizodēs iegūtiem novērojumiem, un izmantot šo modeli, vadot robotu, kas nav novietots tādā pašā telpiskā pozīcijā, nepieciešams veikt koordināšu sistēmas centrēšanu.
+
+Apsvērti divi varianti, centrēšana pēc metiena sākuma un mērķa. Lai iegūtu metiena sākuma punktu, izmantota iepriekš aprakstītā sliekšņa funkcija:
+
+\begin{equation}
+    t_{moving} = min(\lbrace t \mid f_{moving}(t) = 1 \rbrace)
+\end{equation}
+\begin{equation}
+    \vec{r}_{0} = \vec{r}_{t_{moving}}
+\end{equation}
+
+Bet metiena beigu punktu iegūst no mērķa koordinātēm:
+
+\begin{equation}
+    \vec{r}_{0} = ( x_{target}, y_{target}, z_{target} )
+\end{equation}
+
+Tad korekciju ievieš, vienkārši atņemot atskaites pozīciju no novērotajām:
+
+\begin{equation}
+    \vec{r}_{tnorm} = \vec{r}_t - \vec{r}_0
+\end{equation}
+
 \subsubsection{Apvienošana, stāvokļu pāreju veidošana, jaukšana}
+
+Visu iepriekšējo soļu rezultātā iegūts liels skaits atsevišķu demonstrāciju, kas katra ietverta savā failā. Lai tās varētu izmantot modeļa apmācībā, šīs datu korpusa vērtības jāielasa atmiņā tenzora formā. Tā kā kopējais datu apjoms nav ārkārtīgi liels, iespējams izveidot datu kopu, kas ietver visas demonstrācijas uzreiz. Tādu uzdevumu veic pēdējais skripts -- \textit{``preprocess\_dataset.py''}, kas atrodams repozitorija \textit{``models/''} direktorijā. Šeit arī notiek laikrindas pārveidošana stāvokļu pāreju formātā:
+
+\begin{equation}
+    s_t, s_{t+1}, s_{t+2}, ... \rightarrow (s,s')_t, (s,s')_{t+1}, ...
+\end{equation}
+
+ar iespēju veidot arī datu kopas, kurās katram rezultējošam stāvoklim zināmi vairāki iepriekšējie. Ši funkcionalitāte ieviesta, sākot strādāt pie nākamā posma -- GAN modeļu izstrādes, kur diskriminatoram var būt nepieciešamas garākas virknes:
+
+\begin{equation}
+    s_t, s_{t+1}, ..., s_{t+n}, ... \rightarrow (s,s^{'1}, s^{'2}, ..., s^{'n})_t, ...
+\end{equation}
+
+Šajā posmā katrs novērojums tiek reducēts uz tikai modelim nepieciešamo kolonnu apakškopu. Pastāv iespēja pievienot laika signālu, bez kuras sākotnēji veikti modeļu apmācības mēģinājumi. Daļa demonstrāciju tiek ietvertas treniņa datu kopā, daļa -- testa un validācijas kopā. Attiecība starp to izmēriem ir iestatāma. Rezultāts tiek sa-glabāts parametriski nosauktos datu kopas \textit{.csv} failos, kuru unikālie identifikatori iegūti, piemērojot jaucējfunkciju korpusa ģenerēšanā izmantoto demonstrāciju failu nosaukumu kopai.
+
+Tā kā to, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmācības vai validācijas uzdevuma specifika, šis solis tiek atstāts jau nākamo soļu pārziņā. Failā \textit{``helpers.py''} definētas dažādas funkcijas, kas izmantotas vairākās vietās. Viena no tām ir \textit{``data\_and\_label''}, kas nolasa sagatavoto treniņa datu kopu, sadala to modeļa ievadu (\textit{``input data''}) un vēlamo rezultātu (\textit{``label''}) tensoros. Ja nepieciešams, šīs kopas elementu secība tiek sajaukta.
+
 
 \subsection{Modeļu realizācija}
 
