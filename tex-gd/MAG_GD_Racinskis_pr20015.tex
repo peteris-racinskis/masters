@@ -1247,7 +1247,7 @@ Savukārt rekurentā neironu tīkla gadījumā sarežģījumus rada fakts, ka vi
 
 Kad iegūtas autoregresoru ģenerētās trajektorijas, tās nepieciešams apvienot un saglabāt. Tās tiek papildinātas ar mērķa koordinātēm, kvaternionu normu orientācijas elementiem un, gadījumos, kad modelis apmācīts bez laika signāla ievades datos, laika soli.  Šim mērķim tiek izmantota \textit{pandas} bibliotēka, un izvades \textit{.csv} formāta faila struktūra ir līdzīgs treniņa datu korpusam. Kā jau minēts, apmācītie modeļi tiek saglabāti, lai būtu iespējams jebkuru no tiem izmantot vizualizācijas vai validācijas datu ieraks-tīšanai bez atkārtotas apmācības. 
 
-Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais līdzeklis iegūto rezultātu novērtēšanai bija ROS vidē pieejamā \textit{plotjuggler} lietojumprogramma, kas ļauj uzskatāmi attēlot laikrindu datus \textit{.csv} formātā. Galvenie kvalitatīvie aspekti, kam pievērsta uzmanība šājā agrīnajā projekta fāzē, bijusi trajektorijas $x, z$ koordināšu līkņu forma atkarībā no $x_{target}$ parametra, atlaišanas signāla pārejas moments un vērtība (vai vispār tiek komandēta atlaišana? Vai novērojama tās atkarība no metiena attāluma?) un vispārīgi nevēlamu pazīmju -- pārtraukuma punktu, svārstību -- klātbūtne. Lai gan grūti izdarīt objektīvus spriedumus par cilvēka intuīcijā balstītiem mēriem, tiem ir nesamērojama nozīme procesa atkļūdošanā -- 4. att. redzamo salīdzinājumu var ņemt kā uzskatāmu paraugu situācijai, kad nepieciešami uzskatāmi rezultāti.
+Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais līdzeklis iegūto rezultātu novērtēšanai bija ROS vidē pieejamā \textit{plotjuggler} lietojumprogramma, kas ļauj uzskatāmi attēlot laikrindu datus \textit{.csv} formātā. Galvenie kvalitatīvie aspekti, kam pievērsta uzmanība šājā agrīnajā projekta fāzē, bijusi trajektorijas $x, z$ koordināšu līkņu forma atkarībā no $x_{target}$ parametra, atlaišanas signāla pārejas moments un vērtība (vai vispār tiek komandēta atlaišana? Vai novērojama tās atkarība no metiena attāluma?) un vispārīgi nevēlamu pazīmju -- pārtraukuma punktu, svārstību -- klātbūtne. Lai gan grūti izdarīt objektīvus spriedumus par cilvēka intuīcijā balstītiem mēriem, tiem ir nesamērojama nozīme procesa atkļūdošanā -- 4. att. redzamo salīdzinājumu var ņemt kā paraugu situācijai, kad nepieciešami uzskatāmi rezultāti.
 
 \begin{figure}[t!]
     \centering
@@ -1257,7 +1257,15 @@ Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais l�
 
 \subsubsection{Validācija -- demonstrāciju un autoregresoru salīdzinājumi}
 
-Taču kā jau minēts, ar subjektīviem vizuāliem spriedumiem vien nepietiek, lai būtu iespējams salīdzināt dažādu modeļu arhitektūru un hiperparametru kopu ietekmi uz rezultātiem. Kad pabeigta procesa sākotnējā atkļūdošana un iegūti modeļi, kas konverģē uz šķietami derīgiem rezultātiem, nākamais solis ir kvantitatīvu salīdzinājuma rādītāju ieguve. 
+Taču kā jau minēts, ar subjektīviem vizuāliem spriedumiem vien nepietiek, lai būtu iespējams salīdzināt dažādu modeļu arhitektūru un hiperparametru kopu ietekmi uz rezultātiem. Kad pabeigta procesa sākotnējā atkļūdošana un iegūti modeļi, kas konverģē uz šķietami derīgiem rezultātiem, nākamais solis ir kvantitatīvu salīdzinājuma rādītāju ieguve. Problēma ar no gadījuma izlases ģenerētām trajektorijām ir objektīvu kvalitātes kritēriju trūkums. 
+
+Atceroties atdarinošās mašīnmācīšanās (un laikrindu ekstrapolācijas) problēmu pamatnostādnes, modeļa mērķis ir radīt tādas laikrindas konfigurāciju telpā, kas nav atšķi-ramas no tāda slēptā sadalījuma, kura izlase veido demonstrāciju kopu. Nekas nav zināms par pašu šo sadalījumu, un kaut kāda veida mākslīga tā izlases papildināšana ir ekvivalenta šīs pašas problēmas atrisinājumam. Taču pastāv divi teorētiski krasi atšķirīgi, bet praktiskā izpildījuma ziņā tuvi radniecīgi paņēmieni, ko var izmantot, lai izdarītu spriedumus par apmācības procesa spēju izpildīt pamatnostādni:
+
+\begin{enumerate}
+    \item novērtēt modeļa spēju aproksimēt pašu treniņu datu kopu. No teorētiskā viedokļa, jebkurš pietiekami liels un ``elastīgs'' modelis var pilnībā apgūt jebkuru treniņa datu kopu, taču praksē tas ne vienmēr izdodas. Var salīdzināt autoregresijas rezultātus ar treniņa kopas demonstrācijām pie tādiem pašiem sākuma parametriem;
+    \item salīdzināt modeli ar izlasi no tā paša sadalījuma, kas veidojis apmācības datu kopu, bet kuras elementi tajā neietilpst. T.i., nošķirt pieejamos datus treniņa un validācijas kopās, no kurām tikai pirmā izmantota modeļa parametru iestatīšanai.
+\end{enumerate}
+
 
 \subsubsection{Trajektoriju telpiska vizualizācija}
 
