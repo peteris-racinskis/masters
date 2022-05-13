@@ -792,6 +792,35 @@
       \field{pages}{1097\bibrangedash 1105}
       \range{pages}{9}
     \endentry
+    \entry{kunz2012time}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2750e238d5f8fc792a35ea91c60ef5e7}{%
+           family={Kunz},
+           familyi={K\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=bea76e6f0bb1d4014aa9c82e6d26c63a}{%
+           family={Stilman},
+           familyi={S\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \strng{fullhash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \strng{bibnamehash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \strng{authorbibnamehash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \strng{authornamehash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \strng{authorfullhash}{9b49f5c1b1b9b6a09436b00e7768795a}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Robotics: Science and Systems VIII}
+      \field{title}{Time-optimal trajectory generation for path following with bounded acceleration and velocity}
+      \field{year}{2012}
+      \field{pages}{1\bibrangedash 8}
+      \range{pages}{8}
+    \endentry
     \entry{linnainmaa1970representation}{article}{}
       \name{author}{1}{}{%
         {{hash=19a5090e76b7afca7304dc4cc43e88ba}{%

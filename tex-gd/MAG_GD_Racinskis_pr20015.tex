@@ -1337,10 +1337,65 @@ Galvenā problēma ar plānošanu ROS platformā ir fakts, ka, kaut gan ļoti vi
 \subsubsection{Robota trajektorijas plānošana un izpilde}
 
 
+Tīri praktisku ierobežojumu dēļ trajektoriju plānošanas un izpildes programmatūru nācies radīt ar spēju darboties gan ar modeli, gan iepriekš ierakstītām laikrindām \textit{.csv} failos. Tas tāpēc, ka visa modeļu izstrāde šī projekta ietvaros ir veikta ar \textit{tensorflow} otro versiju, savukārt datori, kas tiek izmantoti fizisko robotu kontrolei, izmanto novecojušu ROS versiju -- kuras \textit{Python} versija nav savietojama ar jauno \textit{tensorflow}. Tāpēc sākotnēji simulācijas videi sagatavotais skripts \textit{setpoint\_from\_trajectory.py}, kas pieejams \textit{testpackage/scripts} direktorijā, papildināts ar iespēju nolasīt iepriekš sagatavotus failus un pārveidots saderībai ar \textit{Python 2.7}.
 
-\subsubsection{Simulācijas vide}
+Vadības programmas pamatā ir \textit{moveit} bibliotēkas piedāvātā saskarne. Atkarībā no datu avota iespējams vai nu ielādēt iepriekš apmācītu modeli un noģenerēt autoregresora trajektoriju, vai arī tiešā veidā šādu trajektoriju iegūt no faila. Svarīgi, ka atkarībā no izvēlētā robota un kustību uztveres procesā izmantoto cieto ķermeņu konfigurācijas, iespējamas atšķirības starp to izmantotajām koordinātu sistēmām. Tāpēc nepieciešams veikt orientācijas pārveidojumus un novietojuma pārbīdi.
 
-\subsubsection{Asinhrona satvērējmehānisma vadība -- atšķirības no simulācijas}
+Tiek atrasti orientācijas nobīdes versori
+
+\begin{equation}
+    q_{offset} = q_r^{-1}q^{\pi}_{base}
+\end{equation}
+\begin{equation}
+    q_{restore} = q_{offset}^{-1}
+\end{equation}
+
+$q^{\pi}_0$ apzīmē sākuma rotāciju -- kvaternionu, kura apzīmētā efektora simulatora orientācija ir ekvivalenta robota neitrālai robota sākuma orientācijai, ko apzīmē ar $q_r$. $q_{offset}$ tad ir nobīde starp šīm orientācijām, ņemot vērā arī atšķirīgo koordinātu sistēmu. Modeļa izmantošanai nepieciešams pārnest robota sākuma stāvokli uz tā apmācības kopā pielīdzināmu efektora stāvokli
+
+\begin{equation}
+    s^{\pi}_0 = (r^{\pi}_0, q^{\pi}_0 , g_0)
+\end{equation}
+\begin{equation}
+    r_0 = x_0, y_0, z_0 = 0 = r^r_0 - r^r_0
+\end{equation}
+\begin{equation}
+    q^{\pi}_0 = q^{r}_0q_{offset}
+\end{equation}
+\begin{equation}
+    g_0 = 
+    \begin{cases}
+        1, \text{ ja atvērts} \\
+        0
+    \end{cases}
+\end{equation}
+
+kur $r^r, r^{\pi}$ apzīmē robota, modeļa pozīciju, $q^{\pi}, q^r$ apzīmē to orientācijas, bet $g_0$ -- sākotnējo satvērējmehānisma stāvokli. Iegūto laikrindu pēc tam pārveido atpakaļ uz robota koordinātu sistēmu 
+
+\begin{equation}
+    s^{r}_t = (r^r_t, q^r_t , g_t)
+\end{equation}
+\begin{equation}
+    r^r_t = r^{\pi}_t + r^r_0
+\end{equation}
+\begin{equation}
+    q^r_t = q^{\pi}_tq_{restore}
+\end{equation}
+
+bet satvērējmehānisma vadības signālam tiek piemērota sliekšņa funkcija ar histerēzi
+
+\begin{equation}
+    g^r_t = 
+    \begin{cases}
+        0, \text{ ja } \forall u < t, g^{\pi}_u < \delta \\
+        1
+    \end{cases}
+\end{equation}
+
+Faktiski vienīgais pārveidojums, kas jāveic tiešājā virzienā (no robota uz modeļa sistēmu) ir sākuma orientācija, ja tā atšķiras no neitrālas efektora orientācijas. Strā-dājot ar ierakstītu trajektoriju, notiek tikai inversie pārveidojumi (no modeļa uz robota sistēmu).
+
+Lai varētu punktus izmantot trajektorijas plāna ieguvē, nepieciešams no tiem izveidot ROS komunikācijas modeļa robota pozas (pozīcijas un orientācijas) apraksta ziņojuma struktūras \textit{trajectory\_msgs.msg.Pose}. No šādu objektu masīva var iegūt kustības plānu ar \textit{move\_group.compute\_cartesian\_path} metodi, taču šādam plānam ir patvaļīga laika para-metrizācija. Lai to tuvinātu reālai demonstrācijai, vispirms tiek veikta laika repara-metrizācija, kas minimizē telpiskos un lenķiskos paātrinājumus, izmantojot \textit{``Time-Opti-mal Trajectory Generation''} algoritmu \cite{kunz2012time}. Pēc tam visi laika intervāli tiek proprcionāli pārveidoti, lai kopējais plāna ilgums sakristu ar trajektorijā paredzēto.
+
+\subsubsection{Asinhrona satvērējmehānisma vadība, ātrdarbība}
 
 
 %
