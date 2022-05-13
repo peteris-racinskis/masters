@@ -1315,12 +1315,24 @@ Papildus tiek nolasīts arī satvērējmehānisma konfigurācijas parametrs. To,
 
 No pētnieciskā viedokļa galvenā praktiskā darba daļa veltīta datu ieguves un modeļu apmācības uzdevumiem. Tā arī veido galveno zinātnisko pienesumu. Taču pēdējais un, iespējams, sarežģītākais uzdevums, kas veikts šī darba ietvaros, ir iegūto rezultātu izpilde uz fiziskas aparatūras. Tādi identificēti daudzi potenciālie šķēršļi iepriekš pētīto datizraces metožu pielietojumam ekspluatācijā un atrasts vismaz viens svarīgs virziens tālākai darbībai. Taču par spīti sastaptajiem sarežģījumiem izdevies realizēt paraug-demonstrāciju -- modeļa ģenerētu, uz reālas iekārtas izpildītu metiena kustību, kas veik-smīgi aizmet satvertu pudeli.
 
-\subsubsection{Ieraksti un modeļi}
+\subsubsection{Kā savietot modeli ar kontroleri?}
 
+Kā jau sīkāk apspriests darba nodaļā par robotiem un to vadības problemātiku, ar pozīciju Dekarta koordinātu sistēmā vēl ne tuvu nepietiek, lai būtu iespējams izpildīt kādas robota darbības. Nepieciešams pārveidot telpisku pozīcijas informāciju robota asu dziņu vadības sistēmām saprotamos signālos, kas saistīti ar ātrumiem un paātrinājumiem locītavu konfigurācijas telpā. 
 
-\subsubsection{Simulācijas vide}
+Atgriežoties pie izvēlētās modeļa arhitektūras un tā ģenerēto datu formāta, redzams, ka tie sastāda ar nemainīgu frekvenci atjaunotu pozīcijas un orientācijas mērķu virkni. Šāda tipa kontroles signāls sevī ietver visu nepieciešamo informāciju par vadāmo lielumu atvasinājumiem pēc laika, taču netiešā veidā. Darba gaitā aplūkoti augsta līmeņa paņē-mienu veidi, kā pārveidot šādu mērķu secību vadības signālos:
+
+\begin{enumerate}
+    \item kontroleris -- pozas un orientācijas sekotājs, kas darbojas reālā laikā un potenciāli veido atgriezenisko saiti ar modeli;
+    \item pilna kustības plāna aprēķināšana pirms izpildes;
+\end{enumerate}
+
+Uzskatāmākā priekšrocība kontrolera realizācijai ir iespēja izmantot modeli jau vairs ne kā tīru autoregresoru, bet ieviest atgriezenisko saiti caur fizikālo vai simulēto izpildes vidi. Kā ievadu nākamā stāvokļa mērķa iegūšanai varētu izmantot pozīcijas un orientācijas faktisko mērījumu, iespējams, mazinot sistemātiskas nobīdes starp modeļa inducēto stāvokļu kopu tīrā autoregresijā un reāli ieņemto konfigurāciju sadalījumu. Protams, jārēķinās arī ar iespēju, ka šādas sistemātiskas nobīdes pārak daudz diverģē no inducētā sadalījuma, uz kura modelis ir apmācīts, un noved pie pasliktinātiem rezultātiem. Taču, ja paredzams kādreiz papildināt sistēmu ar stimulētās mācīšanās soli kā dažos literatūras analīzē aplūkotos pētījumos, atgriezeniskā saite ar vidi ir svarīga. Tāpat nav jāuztraucas par trajektoriju plānotāju piedāvātām laika parametrizācijas iespējām -- ja izdevies realizēt pozas sekotāju, ātruma informācija jau automātiski nokodēta vadības signālos.
+
+Savukārt pilna trajektoriju plāna aprēķināšana ir metode, kuras izstrādes process saistīts ar mazākiem riskiem. Pastāv plašs atbalsts šadiem risinājumiem, un ROS kontekstā faktiski visas saksarnes ar robotu kontroleriem balstītas uz pieņēmuma, ka uzdevums tiek realizēts kā diskrētu, iepriekš plānotu kustību virkne. Lai sagatavotu kustības plānu no punktu virknes Dekarta telpā, pietiek vien izsaukt augsti abstrahētu plānošanas komandu \textit{moveit} bibliotēkā, kas no programmētāja slēpj visu 
 
 \subsubsection{Robota trajektorijas plānošana un izpilde}
+
+\subsubsection{Simulācijas vide}
 
 \subsubsection{Asinhrona satvērējmehānisma vadība -- atšķirības no simulācijas}
 

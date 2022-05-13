@@ -122,35 +122,35 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.5}Trajektoriju izpilde uz robota}{50}{subsection.6.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.5.1}Ieraksti un modeļi}{50}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.1}Kā savietot modeli ar kontroleri?}{50}{subsubsection.6.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.5.2}Simulācijas vide}{50}{subsubsection.6.5.2}%
+\contentsline {subsubsection}{\numberline {6.5.2}Robota trajektorijas plānošana un izpilde}{51}{subsubsection.6.5.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.5.3}Robota trajektorijas plānošana un izpilde}{50}{subsubsection.6.5.3}%
+\contentsline {subsubsection}{\numberline {6.5.3}Simulācijas vide}{51}{subsubsection.6.5.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {6.5.4}Asinhrona satvērējmehānisma vadība -- atšķirības no simulācijas}{50}{subsubsection.6.5.4}%
+\contentsline {subsubsection}{\numberline {6.5.4}Asinhrona satvērējmehānisma vadība -- atšķirības no simulācijas}{51}{subsubsection.6.5.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Rezultātu analīze}{51}{section.7}%
+\contentsline {section}{\numberline {7}Rezultātu analīze}{52}{section.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Novērtējuma metriku izvēle un pamatojums}{51}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.1}Novērtējuma metriku izvēle un pamatojums}{52}{subsection.7.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Sasniegtie rezultāti dažādām modeļu klasēm}{51}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.2}Sasniegtie rezultāti dažādām modeļu klasēm}{52}{subsection.7.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Parastie neironu tīkli}{51}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.3}Parastie neironu tīkli}{52}{subsection.7.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.4}Rekurentie neironu tīkli}{51}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.4}Rekurentie neironu tīkli}{52}{subsection.7.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.5}Trajektoriju vizualizācija un kvalitatīvie novērtējumi}{51}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.5}Trajektoriju vizualizācija un kvalitatīvie novērtējumi}{52}{subsection.7.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8}Secinājumi}{52}{section.8}%
+\contentsline {section}{\numberline {8}Secinājumi}{53}{section.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1}Svarīgākās atziņas}{52}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.1}Svarīgākās atziņas}{53}{subsection.8.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.2}Plāns tālākai darbībai}{53}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.2}Plāns tālākai darbībai}{54}{subsection.8.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.1}Risinājums}{53}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.1}Risinājums}{54}{subsubsection.8.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.2}Maģistra darba izstrādes plāns}{53}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.2}Maģistra darba izstrādes plāns}{54}{subsubsection.8.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{55}{Item.86}%
+\contentsline {section}{Atsauces}{56}{Item.88}%
 \contentsfinish 
