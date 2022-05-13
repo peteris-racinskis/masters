@@ -97,21 +97,16 @@ def apply_rotation(q, v):
 # q1 - roughly centered rot in demo dataset
 # q2 - initial state of the robot gripper
 # p - transform
-# find according to:
-# q2 = q1*p'
-# p*q2 = p*q1*p' = q1
-# q2'*p*q2 = p = q2'*q1
-
-# with frame shift:
-# f*p*q_r = q_m
-# q_m*p_i*f_i = q_r
 def find_rot_offset(q_r):
-    fs_f = normalize(FRAME_CORR) # frame shift forward
-    fs_i = qi(fs_f)
+    #fs_f = normalize(FRAME_CORR) # frame shift forward
+    #fs_i = qi(fs_f)
+    #q_ri = qi(q_r)
+    #p = qm(fs_i,qm(q_ri, normalize(BASE_ROT)))
+    ##p = qm(qm(normalize(BASE_ROT), q_ri), fs_i)
+    #offset = qm(fs_f, p)
+    #restore = qi(offset)
     q_ri = qi(q_r)
-    p = qm(fs_i,qm(q_ri, normalize(BASE_ROT)))
-    #p = qm(qm(normalize(BASE_ROT), q_ri), fs_i)
-    offset = qm(fs_f, p)
+    offset = qm(q_ri, normalize(BASE_ROT))
     restore = qi(offset)
     return normalize(offset), normalize(restore)
     #return normalize(fs_f), normalize(fs_i)
@@ -298,14 +293,14 @@ def shift_trajectory(msgs: List[Pose], shift=TOOL_OFFSET):
 
 def execute_trajectory(df: pd.DataFrame):
     # for using a static dataframe
-    msgs, released = msg_from_row_corrected(df)
-    offs_target = np.zeros(3)
+    #msgs, released = msg_from_row_corrected(df)
+    #offs_target = np.zeros(3)
     # For using a policy model
     # For loading the model with a custom loss
-    #custom_objects = {"quaternion_normalized_huber_loss": None}
-    #with tensorflow.keras.utils.custom_object_scope(custom_objects):
-    #    model = models.load_model(MODEL_FILE)
-    #msgs, u_msgs, released, offs_target = msg_from_model(model)
+    custom_objects = {"quaternion_normalized_huber_loss": None}
+    with tensorflow.keras.utils.custom_object_scope(custom_objects):
+        model = models.load_model(MODEL_FILE)
+    msgs, u_msgs, released, offs_target = msg_from_model(model)
     o_msgs = shift_trajectory(msgs)
     msgs_to_csv(msgs + o_msgs + msgs, released, offs_target)
     #msgs_to_csv(msgs + o_msgs + u_msgs, released, offs_target)
