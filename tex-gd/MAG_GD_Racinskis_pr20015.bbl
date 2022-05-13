@@ -133,6 +133,33 @@
       \field{title}{Global overview of imitation learning}
       \field{year}{2018}
     \endentry
+    \entry{quat_distance}{online}{}
+      \name{author}{1}{}{%
+        {{hash=94794459af85aa77d133683824a56c42}{%
+           family={Belk},
+           familyi={B\bibinitperiod},
+           given={Jim},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{94794459af85aa77d133683824a56c42}
+      \strng{fullhash}{94794459af85aa77d133683824a56c42}
+      \strng{bibnamehash}{94794459af85aa77d133683824a56c42}
+      \strng{authorbibnamehash}{94794459af85aa77d133683824a56c42}
+      \strng{authornamehash}{94794459af85aa77d133683824a56c42}
+      \strng{authorfullhash}{94794459af85aa77d133683824a56c42}
+      \field{sortinit}{B}
+      \field{sortinithash}{8de16967003c7207dae369d874f1456e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Mathematics Stack Exchange}
+      \field{title}{Quaternion distance}
+      \verb{urlraw}
+      \verb https://math.stackexchange.com/q/90098
+      \endverb
+      \verb{url}
+      \verb https://math.stackexchange.com/q/90098
+      \endverb
+    \endentry
     \entry{billard2008handbook}{article}{}
       \name{author}{4}{}{%
         {{hash=3cd4f444d840eee2580ddf886f20b1c8}{%
@@ -199,6 +226,37 @@
       \endverb
       \verb{url}
       \verb https://www.df.lu.lv/fileadmin/user_upload/LU.LV/Apaksvietnes/Fakultates/www.df.lu.lv/Studijas/Magistrantura/Konferences_stenda_referati/2019/Blumberga_Liana.pdf
+      \endverb
+    \endentry
+    \entry{pearson_vector}{online}{}
+      \name{author}{1}{}{%
+        {{hash=626cc151613864abeb653c0d8172d98c}{%
+           family={Brett},
+           familyi={B\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{626cc151613864abeb653c0d8172d98c}
+      \strng{fullhash}{626cc151613864abeb653c0d8172d98c}
+      \strng{bibnamehash}{626cc151613864abeb653c0d8172d98c}
+      \strng{authorbibnamehash}{626cc151613864abeb653c0d8172d98c}
+      \strng{authornamehash}{626cc151613864abeb653c0d8172d98c}
+      \strng{authorfullhash}{626cc151613864abeb653c0d8172d98c}
+      \field{sortinit}{B}
+      \field{sortinithash}{8de16967003c7207dae369d874f1456e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Correlation and projection}
+      \field{urlday}{13}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2016}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://matthew-brett.github.io/teaching/correlation_projection.html
+      \endverb
+      \verb{url}
+      \verb https://matthew-brett.github.io/teaching/correlation_projection.html
       \endverb
     \endentry
     \entry{brown2019extrapolating}{inproceedings}{}
@@ -1276,6 +1334,37 @@
       \field{type}{techreport}
       \field{year}{1989}
     \endentry
+    \entry{cosine_sim}{online}{}
+      \name{author}{1}{}{%
+        {{hash=26c0127937d6ae192a70eb148c6beee7}{%
+           family={Prabhakaran},
+           familyi={P\bibinitperiod},
+           given={Selva},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{26c0127937d6ae192a70eb148c6beee7}
+      \strng{fullhash}{26c0127937d6ae192a70eb148c6beee7}
+      \strng{bibnamehash}{26c0127937d6ae192a70eb148c6beee7}
+      \strng{authorbibnamehash}{26c0127937d6ae192a70eb148c6beee7}
+      \strng{authornamehash}{26c0127937d6ae192a70eb148c6beee7}
+      \strng{authorfullhash}{26c0127937d6ae192a70eb148c6beee7}
+      \field{sortinit}{P}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Cosine Similarity - Understanding the math and how it works (with python codes)}
+      \field{urlday}{13}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.machinelearningplus.com/nlp/cosine-similarity/
+      \endverb
+      \verb{url}
+      \verb https://www.machinelearningplus.com/nlp/cosine-similarity/
+      \endverb
+    \endentry
     \entry{enc_stim}{online}{}
       \name{author}{1}{}{%
         {{hash=eef1e50c27feed6ce7c73ba532c06b64}{%
@@ -1922,6 +2011,37 @@
       \field{year}{2020}
       \field{pages}{162\bibrangedash 170}
       \range{pages}{9}
+    \endentry
+    \entry{metrics}{online}{}
+      \name{author}{1}{}{%
+        {{hash=17eacc833e74f76c6cac4522224a09e3}{%
+           family={Weisstein},
+           familyi={W\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{17eacc833e74f76c6cac4522224a09e3}
+      \strng{fullhash}{17eacc833e74f76c6cac4522224a09e3}
+      \strng{bibnamehash}{17eacc833e74f76c6cac4522224a09e3}
+      \strng{authorbibnamehash}{17eacc833e74f76c6cac4522224a09e3}
+      \strng{authornamehash}{17eacc833e74f76c6cac4522224a09e3}
+      \strng{authorfullhash}{17eacc833e74f76c6cac4522224a09e3}
+      \field{sortinit}{W}
+      \field{sortinithash}{1af34bd8c148ffb32de1494636b49713}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Wolfram Math World -- Metric}
+      \field{urlday}{13}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mathworld.wolfram.com/Metric.html
+      \endverb
+      \verb{url}
+      \verb https://mathworld.wolfram.com/Metric.html
+      \endverb
     \endentry
     \entry{zhang2018deep}{inproceedings}{}
       \name{author}{7}{}{%

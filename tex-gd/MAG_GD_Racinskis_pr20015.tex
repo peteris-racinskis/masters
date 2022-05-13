@@ -3,6 +3,7 @@
 \usepackage{titlesec}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsfonts} % for the real number symbol
 \usepackage{geometry}
 \usepackage[unicode]{hyperref}
@@ -671,6 +672,8 @@ Pamatā risinājumam ir hierarhiskā stimulētā mācīšanās --- tiek iegūta 
 \end{enumerate}
 
 Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, kā sasniegt patvaļīgus galamērķus, bet pēc tam --- uzlabot iegūtās stratēģijas ar stimulētās mācīšanās palīdzību. To parāda rezultāti --- dažādos uzdevumos šāda pieeja pārspēj iepriekš aprakstīto latento plānu pieeju \cite{lynch2020learning}, taču attiecīgi tai ir nepieciešams papildu patstāvīgas mācīšanās etaps.
+
+\subsubsection{Ļoti lielu laikrindu regresoru pielietošana}
 
 
 %
@@ -1453,7 +1456,161 @@ Taču mēģinot veikt paraugdemonstrāciju ar fizisko robotu konstatēts, ka ele
 \newpage
 \section{Rezultātu analīze}
 
-\subsection{Novērtējuma metriku izvēle un pamatojums}
+Paraugdemonstrācijas uz robota atstāj iespaidu uz skatītājiem no malas un pa-līdz popularizēt gūtos rezultātus, taču tās nav darba pašmērķis, un pilnīgi noteikti nav pietiekamas, lai izdarītu objecktīvus spriedumus par dažādus datu ieguves un modeļu apmācības procesa aspektu priekšrocībām un trūkumiem. Nepieciešams atrast piemērotus skaitliskus novērtējumus, kas ļauj pēc iespējas vienlīdzīgāk salīdzināt dažādus risinājumus.
+
+\subsection{Novērtējumi, to aprēķins}
+
+Iepriekšējā nodaļā aprakstīts, kā tiek iegūti trajektoriju paraugi validācijai -- ap-mācības un pārbaudes datu kopu demonstrācijas ar tām piekārtotām modeļu ģenerētām trajektorijām pie tādiem pašiem sākuma nosacījumiem. Lai aprēķinātu novērtējuma mērus un apkopotu tos vienā datu korpusā, izvedots skripts \textit{generate\_evaluation\_me-trics.py}, kas atrodams projekta repozitorijā, \textit{models/} direktorijā.
+
+Tā kā pie katra ar dažādiem parametriem apmācīta modeļa iegūtas divi validācijas datu faili -- treniņa un testa -- to skaits ir pārāk liels, lai būtu praktiski veikt aprēķinu katram atsevišķi, iestatot nepieciešamos parametrus manuāli. Tāpēc uzrakstītais kods iegūst katru modeli aprakstošo informāciju no saglabātā faila nosaukuma. Tie ir lielumi kā modeļa paveids, parametru skaits, apmacībā izmantotā datu kopa -- neilgi pirms darba noslēguma ievākta jauna demonstrācijas datu kopa, kas labāk atbilst robota kine-mātiskajiem ierobežojumiem un ļauj praktiski izpildīt trajektorijas, neuztraucoties par pozām ārpus tiem -- apmācības epohu skaits, laika signāla esamība vai neesamība (agrīni modeļi apmācīti bez tā). Šī informācija var tikt izmantota, lai grupētu un filtrētu rezultātu tabulas rindas analīzes mērķiem.
+
+Lai varētu veikt dažādo novērtējumu aprēķinus, pats datu fails tiek nolasīts, izmantojot \textit{pandas} datu korpusu apstrādes bibliotēku, un dažādās skaitliskās vērtības tiek aprēķinātas pamatā ar tenzoru operācijām \textit{numpy} skaitļošanas bibliotēkā.
+
+\subsubsection{Datu kopu tuvības mēri}
+
+Pirmā skaitlisko novērtējumu kategorija, ko var aprēķināt, lai salīdiznātu jebkādus datus, ir datu kopu tuvības mēri, kas aizgūti no statistikas -- Pīrsona korelācijas koeficients, dažādu pakāpju distances metrikas, kosīnusu līdzība. Problēma ar šādu metožu izmantošanu ir fakts, ka tās visas ir operācijas, kurām argumentā nepieciešams padot divus vektorus -- vienā rindā sakārtotas skaitļu virknes. Efektora konfigurāciju laikrindas sastāv no vektora katrā laika solī -- tātad tās ir matricas no lineārās algebras viedokļa. Šeit pielietotais risinājums ir gaužām vienkāršs -- datu kopas sašķeltas demonstrācijas un ģenerētajās matricās. Katra no tām tiek ``saplacināta'':
+
+\begin{equation}
+    \begin{bmatrix}
+        x_{11} & \ldots & x_{1m} \\
+        \vdots & \ddots & \vdots \\
+        x_{n1} & \ldots & x_{nm}
+    \end{bmatrix}
+    \rightarrow
+    (x_{11}, ..., x_{n1}, x_{12}, ..., x_{nm})
+\end{equation}
+
+Tad tām var aprēķināt vektoru līdzības novērtējumus. Pirmais ir statistikā ļoti plaši izmantotais Pīrsona korelācijas koeficients $r_{xy}$, kam var atrast vienkāršu vektoriālu izteiksmi, kura izmanto centrētus vektorus $x^c, y^c$ \cite{pearson_vector}. 
+
+\begin{equation}
+    \overline{x} = \frac{1}{nm} \sum_{i=1}^{nm} x_i
+\end{equation}
+\begin{equation}
+    x^c = (x_i - \overline{x}, x_2 - \overline{x}, ..., x_{nm} - \overline{x})
+\end{equation}
+\begin{equation}
+    r_{xy} = \frac{x^c \cdot y^c}{\Vert x^c \Vert \Vert y^c \Vert}
+\end{equation}
+
+Ļoti līdzīga izteiksme ir kosīnusu līdzībai, kas ir vienāda ar $1$ paralēliem vektoriem, $0$ -- ortogonāliem, bet pretējiem ir $-1$ \cite{cosine_sim}. Aplūkojot formulu uzreiz arī kļūst skaidrs, ka Pīrsona korelācijas koeficienta ģeometriskā interpretācija ir šī pati kosīnusu līdzība, tikai centrētiem vektoriem.
+
+\begin{equation}
+    d_{cos}(x,y) = \frac{x \cdot y}{\Vert x \Vert \Vert y \Vert}
+\end{equation}
+
+Eiklīda un Manhetenas distance pieder pie distances metrikām -- funkcijām kas ir simetriskas un kam izpildās trīsstūra nevienādība \cite{metrics}.
+
+\begin{equation}
+    d_{euclidean}(x,y) = \Vert x - y \Vert
+\end{equation}
+\begin{equation}
+    d_{manhattan}(x,y) = \Vert x - y \Vert_1 = \sum_{i=1}^{nm} \vert x_i - y_i \vert
+\end{equation}
+
+Kā redzams, pirmā atbilst telpiskajam attāluma jēdzienam, savukārt otrā vienkārši pilnīgi neatkarīgi novērtē atšķirību katrā vektora dimensijā, tad saskaita visas.
+
+\subsubsection{Vidējās novirzes laika soļa ietvaros}
+
+Iespējams mērīt ne tikai tuvību starp datu kopām kopumā, bet novērtēt to vidējās, maksimālās, minimālās, u.c. nobīdes katra laikrindas soļa ietvaros. Tiek aprēķinātas vidējās Eiklīda un Manhetenas distances, kur tiek uzreiz novērtēti konfigurāciju vektori $x_t, y_t$
+
+\begin{equation}
+    \overline{d_{euclidean}}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \Vert x_t - y_t \Vert
+\end{equation}
+\begin{equation}
+    \overline{d_{manhattan}}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \Vert x_t - y_t \Vert_1
+\end{equation}
+
+Eiklīda distanci var aprēķināt arī konkrēti pozīcijas kļūdai.
+
+\begin{equation}
+    \overline{\Delta r}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \Vert r^x_t - r^y_t \Vert
+\end{equation}
+
+Savukārt orientācijas kļūdai var aprēķināt lenķisko nobīdi starp kvaternioniem \cite{quat_distance}.
+
+\begin{equation}
+    \overline{\alpha}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \arccos \left (2(q^x_t \cdot q^y_t)^2 - 1 \right )
+\end{equation}
+
+Primitīvs atlaišanas signāla kvalitātes novērtējums būtu kategorisks salīdzinājums (vienāds ar 0, ja signāli laika solī sakrīt, bet 1, ja nesakrīt):
+
+\begin{equation}
+    g'_t = 
+    \begin{cases}
+        1, \text{ ja } g_t > 0,5 \\
+        0
+    \end{cases}
+\end{equation}
+\begin{equation}
+    \overline{\Delta g}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \vert g^x_t - g^y_t \vert
+\end{equation}
+
+\subsubsection{Metiena parametru aplēšana}
+
+Augstāk uzskaitītie vispārīgi pielietojamie rādītāji var būt noderīgi dažādu modeļu apmācības aspektu vērtēšanai, taču, tā kā sasniedzamais rezultāts ir metiena realizācija, iespējams sastādīt daudz specifiskākus modeļa novērtējumu. Pirmās kārtas aproksimācijai var pieņemt, ka metienu pilnībā definē tā palaišanas punkts un ātruma vektors. Lai salīdzinātu ātrumu vektorus, ar kosīnusu līdzību vien nepietiek -- svarīga ir arī vektoru norma. Vispirms, atceramies, ka katrs validācijas datu korpuss sastāv no demonstrāciju un ģenerētu trajektoriju pāriem
+
+
+\begin{equation}
+    \mathcal{D}_{val} = \left (  (\tau_{d1}, \tau_{g1}), ...
+     (\tau_{dk}, \tau_{gk}) \right )
+\end{equation}
+
+Tāpēc sastādīts sekojošais vienādojums
+
+\begin{equation}
+    v_t = r_t - r_{t-1}
+\end{equation}
+\begin{equation}
+    \overline{\epsilon_v}(\mathcal{D}_{val}) = \frac{1}{k} \sum_{\mathcal{D}_{val}}
+    \vert \Vert v^d_{trd} \Vert - v^d_{trd} \cdot v^g_{trg} \vert 
+\end{equation}
+
+kur $t_{rd}, t_{rg}$ ir attiecīgi $\tau_{d}, \tau_{g}$ atlaišanas signāla paceļošās frontes laika soļi, bet $v_t$ apzīmē aptuvenos ātrumus (pār-vietojumu diferences). Lai šādam novērtējumam būtu jebkāda nozīme, gadījumos, kad kādā no ģenerētajām trajektorijām $\tau_{g}$ atlaišanas signāls nav padots, tas pieņem nedefinētu vērtību.
+
+\begin{equation}
+    \nexists s_t \in \tau_{g}, g(s_t) = 1 
+    \Rightarrow
+    \overline{\epsilon_v}(\tau_{d},\tau_{g}) \equiv +\infty 
+\end{equation}
+
+Līdzīgi var novērtēt arī kļūdu palaišanas momenta pārvietojumos.
+
+\begin{equation}
+    \overline{\epsilon_r}(\mathcal{D}_{val}) = \frac{1}{k} \sum_{\mathcal{D}_{val}}
+    \Vert r^d_{trd} - r^g_{trg} \Vert 
+\end{equation}
+
+Pacilājot jautājumu par to, kā abas šīs vērtības varētu apvienot vienā novērtējumā, secināts, ka tik tālu izdarīto var novest līdz galam un aplēst novirzi starp abu palašanas ātruma un pozīcijas vektoru pāru definēto brīvā kritiena parabolu krustpunktiem ar mērķa koordinātu horizontālo plakni. Īsāk, ģeometriski ``simulēt'' metienu un novērtēt, cik tālu no demonstrācijas modelis ir trāpījis. No pamatskolas matemātikas zināms, ka brīvo kritienu var aprakstīt ar vienādojumiem
+
+\begin{equation}
+    x(t) = x_0 + v_xt 
+\end{equation}
+\begin{equation}
+    y(t) = y_0 + v_yt 
+\end{equation}
+\begin{equation}
+    z(t) = z_0 + v_{z0}t - \frac{g}{2}t^2 
+\end{equation}
+
+kur $q \approx 9,81 \frac{m}{s^2}$ ir tipiska gravitācijas paātrinājuma vērtība uz zemes virsmas. Tad lai atrastu $x,y$ koordinātes parabolas krustpunktam ar plakni, vispirms tiek atrasta pozitīvā sakne $t_{intersect}$ sekojošam vienādojumam
+
+\begin{equation}
+    z_0 - z_{target} + v_{z0}t_{intersect} - \frac{g}{2}t_{intersect}^2 = 0
+\end{equation}
+
+un ievietota horizontālo koordināšu vienādojumos
+
+\begin{equation}
+    r_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z_{target} \right )
+\end{equation}
+
+Vidējo metiena kļūdu tad var novērtēt kā
+
+\begin{equation}
+    \overline{\epsilon_{throw}}(\mathcal{D}_{val}) = \frac{1}{n} \sum_{\mathcal{D}_{val}}
+    \Vert r^d_{trd} - r^g_{trg} \Vert 
+\end{equation}
+
 
 \subsection{Sasniegtie rezultāti dažādām modeļu klasēm}
 
