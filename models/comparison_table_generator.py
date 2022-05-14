@@ -25,6 +25,13 @@ RDXY="Missed by"
 MIN="min"
 MAX="max"
 
+COLUMN_RENAME={
+    GAN: "GAN",
+    RNN: "RNN",
+    NAIVE: NAIVE,
+    None: "All"
+}
+
 class ModelEvalDataset():
 
     def __init__(self, df: pd.DataFrame):
@@ -110,8 +117,10 @@ class ModelEvalDataset():
     def _create_tables(self, sequence_keys, table_type="sequences"):
         for mtype, metric, param, cb in sequence_keys:
             self.filter_by_col(mtype)
+            mtype = COLUMN_RENAME[mtype]
             filename = f"models/comparison_tables/{table_type}-{mtype}-{param}-{metric}-{cb}.csv"
             table = self._partition_minmaxes(metric, param, self._cbs[cb])
+            table = table.rename(columns={GAN:"GAN", RNN:"RNN"})
             table.to_csv(filename, index=False)
 
 
