@@ -15,4 +15,5 @@ processed_data/
 *.~lock*
 *pycache*
 models/saved_models/
+models/comparison_charts/
 models/evaluation_data.ods

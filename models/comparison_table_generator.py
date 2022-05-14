@@ -18,6 +18,7 @@ EUC_M="Euclidean m"
 MAN_M="Manhattan m"
 DPOS="Pos error"
 DROT="Rot error"
+DREL="Release error"
 RDPOS="Rel. pos. err"
 RDVEL="Rel. vel. err"
 RDXY="Missed by"
@@ -47,7 +48,7 @@ class ModelEvalDataset():
             EUC_G : MIN, 
             MAN_G : MIN
         }
-        self._stepwise_metrics = {x:MIN for x in [EUC_M, MAN_M, DPOS, DROT]}
+        self._stepwise_metrics = {x:MIN for x in [EUC_M, MAN_M, DPOS, DROT, DREL]}
         self._throw_metrics = {x:MIN for x in [RDPOS, RDVEL, RDXY]}
         self._metrics = {}
         for d in self._corpus_metrics, self._stepwise_metrics, self._throw_metrics:

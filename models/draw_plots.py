@@ -1,11 +1,17 @@
 from abc import abstractmethod, ABC
+from curses import nonl
 import pandas as pd
 import numpy as np
 
+from os import listdir
+from os.path import exists
 from pathlib import Path
 from matplotlib import axes, figure
 from matplotlib import pyplot as plt
 
+
+DIR="models/comparison_tables/"
+ODIR="models/comparison_charts/"
 #IFILE1="models/comparison_tables/sequences-GAN-Epochs-Euclidean g-min.csv"
 #IFILE2="models/comparison_tables/sequences-GAN-Epochs-Manhattan g-min.csv"
 IFILE="models/comparison_tables/sequences-RNN-Old dataset-Missed by-min.csv"
@@ -49,6 +55,7 @@ class CategorialChart(Chart):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.str_xax = self.xax
         #assert self.ttype == "categorical", "Underlying data is sequence"
 
     def rename_xax(self, d):
@@ -69,6 +76,7 @@ class SequenceChart(Chart):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         assert self.ttype == "sequences", "Underlying data is categorical"
+        
 
     def plot(self):
         self.ax.plot(self.xax, self.yax, color=self.color, label=self.metric)
@@ -77,11 +85,69 @@ class SequenceChart(Chart):
         self.ax.set_ylabel(self.y_axis_name)
         self.ax.set_xlabel(self.x_axis_name)
 
-def comparison_charts():
-    pass
+def comparison_charts(fnames):
+    def condition(s):
+        expressions = [
+            "categorical" in s,
+            "Old dataset" in s,
+            "Train" in s,
+            "Learning rate" in s,
+            "Time signal" in s
+        ]
+        return any(expressions)
 
-def NaiveBC_charts():
-    pass
+    remap_class = {
+        1: "Naive",
+        2: "RNN",
+        3: "GAN"
+    }
+
+    # the learning rate is wrong to begin with.
+    remap_lr = {
+        1e-5: "1e-5",
+        1e-4: "1e-4",
+    }
+
+    fnames = [x for x in filter(condition, fnames)]
+
+    for f in fnames:
+        if exists(ODIR+f):
+            continue
+        fig1, ax1 = plt.subplots()
+        fig2, ax2 = plt.subplots()
+        chart1 = CategorialChart(ax1, DIR+f)
+        chart2 = CategorialChart(ax2, DIR+f)
+        if "categorical" in f:
+            chart1.rename_xax(remap_class)
+            chart2.rename_xax(remap_class)
+            chart2.plot(False)
+            fig2.savefig(f"{ODIR}{chart2._filename.stem}.png")
+        if "Learning rate" in f:
+            chart1.rename_xax(remap_lr)
+        chart1.plot(True)
+        fig1.savefig(f"{ODIR}{chart1._filename.stem}-all.png")
+        plt.close('all')
+
+
+def seq_charts(fnames):
+    def condition(s):
+        expressions = [
+            "categorical" not in s,
+            "Old dataset" not in s,
+            "Train" not in s,
+            "Learning rate" not in s,
+            "Time signal" not in s
+        ]
+        return all(expressions)
+    
+    fnames = [DIR+x for x in filter(condition, fnames)]
+
+    for f in fnames:
+        fig1, ax1 = plt.subplots()
+        chart1 = SequenceChart(ax1, f)
+        chart1.plot()
+        fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
+        plt.close('all')
 
 def RNN_charts():
     pass
@@ -91,9 +157,6 @@ def GAN_charts():
 
 
 if __name__ == "__main__":
-    f, a = plt.subplots()
-    #c = SequenceChart(a, IFILE, color="red")
-    c = CategorialChart(a, IFILE)
-    c.rename_xax({0:"New", 1:"Old"})
-    c.plot(True)
-    f.savefig("models/testimage.png")
+    fnames = listdir(DIR)
+    comparison_charts(fnames)
+    seq_charts(fnames)
