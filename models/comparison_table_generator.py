@@ -115,16 +115,8 @@ class ModelEvalDataset():
             table.to_csv(filename, index=False)
 
 
-
-
-    
-
-
 if __name__ == "__main__":
     df = pd.read_csv(IFILE)
     dataset = ModelEvalDataset(df)
-    dataset.filter_by_col("GAN-BC")
-    dataset.partition_maxes("Pearson", "Epochs")
     dataset.generate_sequence_dfs()
     dataset.generate_categorical_dfs()
-    pass
