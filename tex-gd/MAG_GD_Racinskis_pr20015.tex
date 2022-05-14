@@ -1611,7 +1611,26 @@ Vidējo metiena kļūdu tad var novērtēt kā
     \Vert r^d_{intersect} - r^g_{intersect} \Vert 
 \end{equation}
 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/rnn-naive-global-stepwise.png}
+    \caption{Datu korpusu vispārīgās tuvības rādītāji (kosinusu līdzība, Eiklīda distance) un vidējās telpiskās/rotācijas novirzes laika soļa ietvaros -- RNN un klasiskajam neironu tīklam.}
+\end{figure}
+
 \subsection{Sasniegtie rezultāti dažādām modeļu klasēm}
+
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/throw_metrics_gan.png}
+    \caption{Augšējā rindā -- labākās sasniegtās vidējā atlaišanas punkta novietojuma un ātruma vektora noviržu vērtības. Apakšā pa kreisi -- pietiek ar jau rudimentāru GAN arhitektūru, lai vispār notiktu modeļa konverģence. Tomēr no RNN un klasiskā neironu tīkla sasniegtajiem rezultātiem tā tomēr atpaliek.}
+\end{figure}
+
+Pirmais, ko var darīt, kad iegūti šādi sistemātiski aprēķināti kvalitātes mēri, ir salīdzināt ar dažādām modeļu arhitektūrām sasniegtos labākos rezultātus. 7. attēlā redzamas diagrammas, kurās salīdzināti labākie iegūtie globālie $\tau_d, \tau_g$ tuvības mēri un novirzes katrā laika solī iegūtajās konfigurācijās. Kā redzams, kosīnusu līdzība ir ļoti augsta abiem modeļiem, liecinot, ka datu kopa tik tiešām tiek apgūta. Metrikas bieži vien labākas ir rekurentiem modeļiem, tas pats attiecas arī uz vidējām nobīdēm. 
+
+Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no treniņa kopā novērotajiem metieniem, taču šī atšķirība nav radikāla. Izsakot grafiku mērogu cilvēkam saprotamās mērvienībās, rekurentais tīkls uzlabo vidējo pozīcijas kļūdu no 2,5 uz 2cm, bet vidējo orientācijas vektora lenķisko nobīdi -- no 11,5 uz 9,8 grādiem.
+
+8. attēlā savukārt salīdzināti metiena novērtējumi. Redzams, ka ātruma vektora nobīdes vērtējumos rekurentais tīkls pārspēj klasisko. Pozīcijas kļūda abos gadījumos ir neliela, taču labāko rezultātu šajā gadījumā ir sasniedzis klasisks modelis. Taču pārstei-dzošā kārtā, arī labāko rezultātu simulētā metiena nobīdē sasniedz viens no parastajiem modeļiem, kaut gan atšķirība ir ļoti neliela un precizitāte abiem modeļiem ir ~0,1m diapazonā. Kā apspriests zemāk pie divu izmantoto demonstrāciju kopu salīdzinājuma, tas visticamāk skaidrojams ar nelielo validācijas kopu ``mazo metienu'' korpusā -- novedot pie lielākas dispersijas šajā kvalitātes mērā. Attēloti arī daži rezultāti, kas gūti, sākot GAN modeļa attīstību. Kā redzams, sasniegta modeļa konverģence -- vērtējamie kritēriji manāmi uzlabojas, pieaugot treniņa epohu skaitam. Taču vēl nav sasniegta konkurētspējīga veiktspēja, tāpēc šī darba ietvaros sīkāk rezultāti pētīti netiks. 
 
 \subsection{Parastie neironu tīkli}
 

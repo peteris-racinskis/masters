@@ -20,6 +20,9 @@ TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv
 # Timesignal, doubling, prepend
 #TRAIN="processed_data_old/train_datasets/train-start-time-doubled-5e9156387f59cb9efb35-prep.csv" # test prepend, doubling. Training wasn't working without timesignal so disergard.
 #TEST="processed_data_old/train_datasets/test-start-time-doubled-5e9156387f59cb9efb35-prep.csv"
+# Newdata. Can we get comparable release errors?
+TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
+TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
 OVERWRITE=False
 CONTINUE=False
 STARTINDEX=0
@@ -32,7 +35,7 @@ PREPEND=False
 p = "-prepend" if PREPEND else ""
 d = "doubled-" if REPEATS_IN_DATASET == 3 else ""
 TIME="Time"
-OFILE=f"models/saved_models/BCO-leaky_g-{GH}x2-{DH}x2-start-timesignal-{d}ep{EPOCHS}-b{BATCHSIZE}{p}"
+OFILE=f"models/saved_models/BCO-leaky_g-{GH}x2-{DH}x2-newdata-start-timesignal-{d}ep{EPOCHS}-b{BATCHSIZE}{p}"
 #OFILE=f"models/BCO-256x2-256x2-start-timesignal-doubled-noreg-ep200-b64-norm"
 
 
@@ -105,7 +108,7 @@ def generator_multi_iterate(gen, initial_state):
 # Real IRL appraoches use algos like actor critic - the output of the discriminator
 # is used as the reward for a classical RL algorithm like actor-critic. Perhaps need to do
 # that to increase performance?
-@tf.function
+#@tf.function
 def train_step(inits, data, labels):
 
 

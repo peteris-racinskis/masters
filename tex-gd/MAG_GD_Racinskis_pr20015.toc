@@ -140,23 +140,23 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {7.1.3}Metiena parametru aplēšana}{57}{subsubsection.7.1.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Sasniegtie rezultāti dažādām modeļu klasēm}{58}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.2}Sasniegtie rezultāti dažādām modeļu klasēm}{59}{subsection.7.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Parastie neironu tīkli}{58}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.3}Parastie neironu tīkli}{60}{subsection.7.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.4}Rekurentie neironu tīkli}{58}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.4}Rekurentie neironu tīkli}{60}{subsection.7.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.5}Trajektoriju vizualizācija un kvalitatīvie novērtējumi}{58}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.5}Trajektoriju vizualizācija un kvalitatīvie novērtējumi}{60}{subsection.7.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8}Secinājumi}{59}{section.8}%
+\contentsline {section}{\numberline {8}Secinājumi}{61}{section.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1}Svarīgākās atziņas}{59}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.1}Svarīgākās atziņas}{61}{subsection.8.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.2}Plāns tālākai darbībai}{60}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.2}Plāns tālākai darbībai}{62}{subsection.8.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.1}Risinājums}{60}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.1}Risinājums}{62}{subsubsection.8.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {8.2.2}Maģistra darba izstrādes plāns}{60}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.2}Maģistra darba izstrādes plāns}{62}{subsubsection.8.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{62}{Item.88}%
+\contentsline {section}{Atsauces}{64}{Item.88}%
 \contentsfinish 
