@@ -1626,7 +1626,7 @@ Vidējo metiena kļūdu tad var novērtēt kā
     \caption{Augšējā rindā -- labākās sasniegtās vidējā atlaišanas punkta novietojuma un ātruma vektora noviržu vērtības. Apakšā pa kreisi -- pietiek ar jau rudimentāru GAN arhitektūru, lai vispār notiktu modeļa konverģence. Tomēr no RNN un klasiskā neironu tīkla sasniegtajiem rezultātiem tā tomēr atpaliek.}
 \end{figure}
 
-Pirmais, ko var darīt, kad iegūti šādi sistemātiski aprēķināti kvalitātes mēri, ir salīdzināt ar dažādām modeļu arhitektūrām sasniegtos labākos rezultātus. 7. attēlā redzamas diagrammas, kurās salīdzināti labākie iegūtie globālie $\tau_d, \tau_g$ tuvības mēri un novirzes katrā laika solī iegūtajās konfigurācijās. Kā redzams, kosīnusu līdzība ir ļoti augsta abiem modeļiem, liecinot, ka datu kopa tik tiešām tiek apgūta. Metrikas bieži vien labākas ir rekurentiem modeļiem, tas pats attiecas arī uz vidējām nobīdēm. 
+Pirmais, ko var darīt, kad iegūti šādi sistemātiski aprēķināti kvalitātes mēri, ir salīdzināt ar dažādām modeļu arhitektūrām sasniegtos labākos rezultātus. 7. attēlā redzamas diagrammas, kurās salīdzināti labākie globālie $\tau_d, \tau_g$ tuvības mēri un novirzes katrā laika solī iegūtajās konfigurācijās. Kā redzams, kosīnusu līdzība ir ļoti augsta abiem modeļiem, liecinot, ka datu kopa tik tiešām tiek apgūta. Metrikas bieži vien labākas ir rekurentiem modeļiem, tas pats attiecas arī uz vidējām nobīdēm. 
 
 Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no treniņa kopā novērotajiem metieniem, taču šī atšķirība nav radikāla. Izsakot grafiku mērogu cilvēkam saprotamās mērvienībās, rekurentais tīkls uzlabo vidējo pozīcijas kļūdu no 2,5 uz 2cm, bet vidējo orientācijas vektora lenķisko nobīdi -- no 11,5 uz 9,8 grādiem.
 
@@ -1634,9 +1634,29 @@ Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no 
 
 \subsection{Parastie neironu tīkli}
 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/naivebc_missed.png}
+    \caption{Klasiskā neironu tīkla ģenerēto trajektoriju simulēto metienu nobīdes atkarībā no: apmācības epohu skaita; jaunās/vecās datu kopas; parametru skaita; laika signāla neesamības/esamības.}
+\end{figure}
+
+9. attēlā redzamas galvenās atziņas, kas gūtas strādājot ar parasto neironu tīklu. Gan pret epohu skaitu, gan modeļa izmēriem novērotās sakarības liecina, ka problēmas dinamikas modelēšanai varētu būt samērā nedaudzas brīvības pakāpes. Līdz ar to neliels modelis un ne pārāk ilga apmācība ir pietiekami -- pēc tam veiktspēja atkal samazinās, visticamāk pārpielāgošanās rezultātā. Labākie rezultāti gūti pie 256 perceptroniem katrā slēptajā slānī un 50 treniņa epohām. 
+
+Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla -- balstoties uz pieņēmumu, ka orientācijas izmaiņa varētu būt pietiekama, lai dotu stratēģijai kontekstu par to, kurā metiena fāzē tā šobrīd atrodas. Savā ziņā pieņēmums apstiprinājās -- modelis konverģē, un arī kaut kas līdzīgs metienam tiek noģenerēts. Taču, kā redzams rezultātos, pievienojot atsevišķu laika signālu vektoram rezultāti tiek radikāli uzlaboti.
+
+Visbeidzot, lielākā daļa demonstrāciju tikušas ierakstītas vairākās stadijās vēl mē-nešus pirms autoregresijas rezultātus mēģināts atkārtot ar fizisku robotu. Izrādās, ka tās neatbilst robota izmēriem -- veiktie vēzieni ir pārāk lieli, un mēģinājumi proporcionāli koriģēt tos noved pie nesakritības starp efektora pozīciju un orientāciju (tiek mēģināts lielas rotācijas apvienot ar nelieliem pārvietojumiem, kas noved pie bremzēšanas reālā robotā). Tāpēc neilgi pirms darba noslēguma iegūta jauna demonstrāciju kopa, kas gan ir mazāka par veco. Protams, arī validācijas kopa ir attiecīgi mazāka.  Tajā ir līdzīga mērķa koordinātu dispersija un, varbūt svarīgāk, tās ir tuvāk metiena sākumpunktam. Augstākās simulēto metienu precizitātes sasniegtas tieši uz šīs kopas. Mazākas absolūtās vērtības kombinētas ar relatīvi lielāku dispersiju liek domāt, ka varētu būt ievērojams nejaušības faktors labāko metienu mērā. Turpmākiem pētījumiem nepieciešams strādāt ar lielāku validācijas kopu. Tomēr jāpiebilst, ka vecajā datu kopā sasniegtās precizitātes patiešām varētu būt zemākas, jo tajā ir daudz lielāka \textit{sākuma orientāciju} dispersija -- rezultātā modelis paredz agresīvākas rotācijas, bet validācijas trajektorijas ievāktas ar neitrālu sākuma stāvokli.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/rnn_missed.png}
+    \caption{Rekurentā neironu tīkla ģenerēto trajektoriju simulēto metienu nobīdes atkarībā no: datu kopas; parametru skaita; apmācības ātruma; epohu skaita.}
+\end{figure}
+
 \subsection{Rekurentie neironu tīkli}
 
-\subsection{Trajektoriju vizualizācija un kvalitatīvie novērtējumi}
+10. attēlā salīdzināta rekurentā tīkla simulēto metienu precizitāte pie dažādiem hiperparametriem. Pirmkārt, redzams, ka ne pēc epohām, ne modeļa izmēriem skaidras sakarības nav novērojamas -- vērtībām ir ļoti neliela dispersija. Tas rada zināmas cerības, ka vēl nav atrastas optimālas hiperparametru kombinācijas, un iespējami tālāki uzlabojumi. Svarīgi arī pamanīt, ka pie vecās datu kopas -- kas ir lielāka un ar daudz lielākām efektora orientācijas izmaiņām -- rekurentais modelis sasniedz ievērojami labākus rezul-tātus, nekā klasiskais. Tomēr pie nelielās jaunā datu korpusa validācijas kopas sasniegtā precizitāte ir mazliet zemāka.
+
+No praktiska apmācības procesa uzlabošanas viedokļa galvenā gūtā atziņa ir tā, ka rekurentajam tīklam precizitāti ievērojami iespaido apmācības ātrums. Labākie rezultāti pie izmēģinātajām hiperparametru kombinācijām ir ar augstāku vērtību, taču raustītās sakarības starp rezultātu un modeļa izmēriem, epohu skaitu liek domāt, ka iespējams vēl palielināt modeli un trenēt to ilgāk ar pazeminātu apmācības ātrumu -- tādējādi, iespējams, sasniedzot tālākus uzlabojumus.
 
 
 %

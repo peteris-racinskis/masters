@@ -16,9 +16,11 @@ TEST="processed_data_old/train_datasets/test-start-c088196696e9f167c879.csv"
 # New timed datasets
 #TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
 #TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46-prep.csv"
-H_NEURONS=128
+TRAIN="/home/user/repos/masters/processed_data/train_datasets/train-start-doubled-2e4c5b481281add6c86a.csv"
+TEST="/home/user/repos/masters/processed_data/train_datasets/test-start-doubled-2e4c5b481281add6c86a.csv"
+H_NEURONS=1024
 EPOCHS=20
-OFILE=f"models/saved_models/naiveBCx{H_NEURONS}x2-olddata-fixed-data-fastrelease-ep{EPOCHS}-norm-start-notimesignal"
+OFILE=f"models/saved_models/naiveBCx{H_NEURONS}x2-newdata-fixed-data-fastrelease-ep{EPOCHS}-norm-start-notimesignal"
 OVERWRITE=False
 TARGET_COLUMNS=["position."+c+"-t" for c in "xyz"]
 STARTINDEX=0
