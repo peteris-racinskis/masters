@@ -34,6 +34,10 @@ COLUMN_RENAME={
     None: "All"
 }
 
+KEY="Key"
+ARGUMENT="Argument"
+VALUE="Value"
+
 class ModelEvalDataset():
 
     def __init__(self, df: pd.DataFrame):
@@ -140,7 +144,7 @@ class ModelEvalDataset():
             ret += f"{c}-{p}:"
         return ret
     
-    def _gen_ind_seq(self, mtype, metrics, independent_columns):
+    def _gen_ind_seq(self, mtype, independent_columns):
         mtype_out = COLUMN_RENAME[mtype]
         uniques_d = self.get_uniques(independent_columns, mtype)
 
@@ -155,7 +159,7 @@ class ModelEvalDataset():
             for p in range(n_perm):
                 permutations.append(self.get_permutation(p, uniques))
             
-            for metric in metrics:
+            for metric, cb in self._metrics.items():
                 odf = pd.DataFrame()
                 for permutation in permutations:
                     key = self.perm_key(rest, permutation)
@@ -165,23 +169,27 @@ class ModelEvalDataset():
                     data = self._masked[[ic,metric]].values
                     key_list = [key] * data.shape[0]
                     data_dict = {
-                        "Key": key_list,
-                        "Argument": data[:,0],
-                        "Value": data[:,1]
+                        KEY: key_list,
+                        ARGUMENT: data[:,0],
+                        VALUE: data[:,1]
                     }
                     odf = pd.concat([odf,pd.DataFrame(data=data_dict)])
+                
+                ascending = (cb == MIN)
+                best_keys = odf.sort_values(VALUE, ascending=ascending)[KEY].unique()[:3]
+                only_best = odf.loc[lambda d: (d[KEY].isin(best_keys))]
 
                 filename = f"models/comparison_tables/independent-{mtype_out}-{ic}-{metric}-nocb.csv"
                 print(f"processed: {filename} n_perm = {n_perm}")
-                odf.to_csv(filename, index=False)
+                only_best.to_csv(filename, index=False)
 
     def generate_independent_sequences(self):
                 
         independent_columns_naive = [EPOCHS, PARAMS, OLD, TIME, TRAIN]
-        self._gen_ind_seq(NAIVE, self._metrics.keys(), independent_columns_naive)
+        self._gen_ind_seq(NAIVE, independent_columns_naive)
 
         independent_columns_rnn = [EPOCHS, PARAMS, OLD, LR, TRAIN]
-        self._gen_ind_seq(RNN, self._metrics.keys(), independent_columns_rnn)
+        self._gen_ind_seq(RNN, independent_columns_rnn)
 
     def generate_categorical_dfs(self):
 
