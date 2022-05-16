@@ -10,14 +10,14 @@ from tensorflow.keras import layers, optimizers, losses, models
 BASE_DIR="processed_data/norm/"
 TIME="Time"
 # Old timed datasets
-TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
-TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
+#TRAIN="processed_data_old/train_datasets/train-start-time-5e9156387f59cb9efb35.csv"
+#TEST="processed_data_old/train_datasets/test-start-time-5e9156387f59cb9efb35.csv"
 # New timed datasets
-#TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46.csv"
-#TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46.csv"
-H_NEURONS=512
-EPOCHS=1200
-OFILE=f"models/saved_models/naiveBC-RNNx{H_NEURONS}x2-olddata-ep{EPOCHS}-norm-start-timesignal"
+TEST="processed_data/train_datasets/test-start-time-doubled-7db3d40f19abc9f24f46.csv"
+TRAIN="processed_data/train_datasets/train-start-time-doubled-7db3d40f19abc9f24f46.csv"
+H_NEURONS=1024
+EPOCHS=2400
+OFILE=f"models/saved_models/naiveBC-RNNx{H_NEURONS}x2-newdata-ep{EPOCHS}-norm-start-timesignal"
 OVERWRITE=False
 STARTINDEX=0
 ID=""
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         ])
 
         model.compile(
-            optimizer=optimizers.Adam(10e-4),
+            optimizer=optimizers.Adam(10e-5),
             loss=huber
         ) 
 

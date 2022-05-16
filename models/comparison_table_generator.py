@@ -1,3 +1,4 @@
+from calendar import EPOCH
 import pandas as pd
 IFILE="models/evaluation_data.csv"
 
@@ -81,6 +82,62 @@ class ModelEvalDataset():
             return
         self._masked = self._df.loc[lambda d: d[col]]
 
+    def filter_by_column_key(self, col_values):
+        pass
+
+
+    def get_uniques(self, cols):
+        uniques = []
+        for c in cols:
+            uniques.append(self._df[c].unique())
+        return uniques
+
+    @staticmethod
+    def count_permutations(iterables):
+        x = 1
+        for i in iterables:
+            x *= len(i)
+        return x
+
+    @staticmethod
+    def get_permutation(index, iterables):
+        lengths = []
+        permutation = []
+        for iterable in iterables:
+            lengths.append(len(iterable))
+        for i in range(len(iterables)):
+            permutation.append(iterables[i][index % lengths[i]])
+        return permutation
+
+    @staticmethod
+    def list_exclude(element, iterable):
+        ret = []
+        for e in iterable:
+            if not element == e:
+                ret.append(e)
+        return ret
+    
+    def generate_independent_sequences(self):
+        
+        self.clear_mask()
+        # produce a sequence for every permutation of the independent variables
+        # store the permutation as a key string for the legend
+        independent_columns_naive = [EPOCHS, PARAMS, OLD, TIME]
+        # for every column used as a param, get sequences with the others held constant
+        for metric, cb in self._metrics.items():
+            for ic in independent_columns_naive:
+                rest = self.list_exclude(ic, independent_columns_naive)
+                uniques = self.get_uniques(rest)
+                n_perm = self.count_permutations(uniques)
+                permutations = []
+                for p in range(n_perm):
+                    permutations.append(self.get_permutation(p, uniques))
+                pass
+
+
+
+
+
     def generate_categorical_dfs(self):
 
         self.clear_mask()
@@ -130,3 +187,4 @@ if __name__ == "__main__":
     dataset = ModelEvalDataset(df)
     dataset.generate_sequence_dfs()
     dataset.generate_categorical_dfs()
+    dataset.generate_independent_sequences()
