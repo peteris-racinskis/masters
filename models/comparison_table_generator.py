@@ -82,14 +82,17 @@ class ModelEvalDataset():
             return
         self._masked = self._df.loc[lambda d: d[col]]
 
-    def filter_by_column_key(self, col_values):
-        pass
+    def filter_by_column_keys(self, cols, values):
+        for c,v in zip(cols,values):
+            self._masked = self._masked.loc[lambda d: d[c] == v]
 
 
-    def get_uniques(self, cols):
-        uniques = []
+    def get_uniques(self, cols, mtype):
+        uniques = {}
+        self.filter_by_col(mtype)
         for c in cols:
-            uniques.append(self._df[c].unique())
+            uniques[c] = self._masked[c].unique()
+        self.clear_mask()
         return uniques
 
     @staticmethod
@@ -117,26 +120,55 @@ class ModelEvalDataset():
                 ret.append(e)
         return ret
     
+    @staticmethod
+    def perm_key(cols, permutation):
+        ret = ""
+        for c,p in zip(cols, permutation):
+            ret += f"{c}-{p}:"
+        return ret
+    
+    def _gen_ind_seq(self, mtype, metrics, independent_columns):
+        mtype_out = COLUMN_RENAME[mtype]
+        uniques_d = self.get_uniques(independent_columns, mtype)
+
+        for ic in independent_columns:
+            if len(uniques_d[ic]) < 3:
+                continue 
+            rest = self.list_exclude(ic, independent_columns)
+            uniques = [uniques_d[x] for x in rest]
+            n_perm = self.count_permutations(uniques)
+            permutations = []
+
+            for p in range(n_perm):
+                permutations.append(self.get_permutation(p, uniques))
+            
+            for metric in metrics:
+                odf = pd.DataFrame()
+                for permutation in permutations:
+                    key = self.perm_key(rest, permutation)
+                    self.clear_mask()
+                    self.filter_by_col(mtype)
+                    self.filter_by_column_keys(rest, permutation)
+                    data = self._masked[[ic,metric]].values
+                    key_list = [key] * data.shape[0]
+                    data_dict = {
+                        "Key": key_list,
+                        "Argument": data[:,0],
+                        "Value": data[:,1]
+                    }
+                    odf = pd.concat([odf,pd.DataFrame(data=data_dict)])
+
+                filename = f"models/comparison_tables/independent-{mtype_out}-{ic}-{metric}.csv"
+                print(f"processed: {filename} n_perm = {n_perm}")
+                odf.to_csv(filename, index=False)
+
     def generate_independent_sequences(self):
-        
-        self.clear_mask()
-        # produce a sequence for every permutation of the independent variables
-        # store the permutation as a key string for the legend
-        independent_columns_naive = [EPOCHS, PARAMS, OLD, TIME]
-        # for every column used as a param, get sequences with the others held constant
-        for metric, cb in self._metrics.items():
-            for ic in independent_columns_naive:
-                rest = self.list_exclude(ic, independent_columns_naive)
-                uniques = self.get_uniques(rest)
-                n_perm = self.count_permutations(uniques)
-                permutations = []
-                for p in range(n_perm):
-                    permutations.append(self.get_permutation(p, uniques))
-                pass
+                
+        independent_columns_naive = [EPOCHS, PARAMS, OLD, TIME, TRAIN]
+        self._gen_ind_seq(NAIVE, self._metrics.keys(), independent_columns_naive)
 
-
-
-
+        independent_columns_rnn = [EPOCHS, PARAMS, OLD, LR, TRAIN]
+        self._gen_ind_seq(RNN, self._metrics.keys(), independent_columns_rnn)
 
     def generate_categorical_dfs(self):
 
@@ -179,6 +211,7 @@ class ModelEvalDataset():
             filename = f"models/comparison_tables/{table_type}-{mtype}-{param}-{metric}-{cb}.csv"
             table = self._partition_minmaxes(metric, param, self._cbs[cb])
             table = table.rename(columns={GAN:"GAN", RNN:"RNN"})
+            print(f"processed: {filename}")
             table.to_csv(filename, index=False)
 
 
