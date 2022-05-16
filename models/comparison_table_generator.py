@@ -102,14 +102,19 @@ class ModelEvalDataset():
             x *= len(i)
         return x
 
-    @staticmethod
-    def get_permutation(index, iterables):
+
+    def get_permutation(self, index, iterables):
         lengths = []
+        prods = []
+        mods = []
         permutation = []
         for iterable in iterables:
             lengths.append(len(iterable))
+        for i in  range(len(lengths)):
+            prods.append(prod(lengths[:i]))
+        #mods = prods[1:] + prods[0:1]
         for i in range(len(iterables)):
-            permutation.append(iterables[i][index % lengths[i]])
+            permutation.append(iterables[i][int(index/prods[i]) % lengths[i]])
         return permutation
 
     @staticmethod
@@ -118,6 +123,14 @@ class ModelEvalDataset():
         for e in iterable:
             if not element == e:
                 ret.append(e)
+        return ret
+
+    @staticmethod
+    def index_exclude(index, iterable):
+        ret = []
+        for i in range(len(iterable)):
+            if not i == index:
+                ret.append(iterable[i])
         return ret
     
     @staticmethod
@@ -158,7 +171,7 @@ class ModelEvalDataset():
                     }
                     odf = pd.concat([odf,pd.DataFrame(data=data_dict)])
 
-                filename = f"models/comparison_tables/independent-{mtype_out}-{ic}-{metric}.csv"
+                filename = f"models/comparison_tables/independent-{mtype_out}-{ic}-{metric}-nocb.csv"
                 print(f"processed: {filename} n_perm = {n_perm}")
                 odf.to_csv(filename, index=False)
 
@@ -213,6 +226,13 @@ class ModelEvalDataset():
             table = table.rename(columns={GAN:"GAN", RNN:"RNN"})
             print(f"processed: {filename}")
             table.to_csv(filename, index=False)
+
+
+def prod(iterable):
+    x = 1
+    for i in iterable:
+        x *= i
+    return x
 
 
 if __name__ == "__main__":

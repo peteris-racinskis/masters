@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABC
-from curses import nonl
 import pandas as pd
 import numpy as np
 
+from random import randint
 from os import listdir
 from os.path import exists
 from pathlib import Path
@@ -18,6 +18,10 @@ IFILE="models/comparison_tables/sequences-RNN-Old dataset-Missed by-min.csv"
 #IFILE1="models/comparison_tables/categorical-All-ModelClass-Rel. vel. err-min.csv"
 #IFILE2="models/comparison_tables/categorical-All-ModelClass-Rel. pos. err-min.csv"
 
+KEY="Key"
+ARGUMENT="Argument"
+VALUE="Value"
+
 
 class Chart(ABC):
 
@@ -28,7 +32,6 @@ class Chart(ABC):
         self.title = multi_title
         self.ax = ax
         self.parse_filename()
-        self.get_data()
 
     def parse_filename(self):
         (
@@ -55,6 +58,7 @@ class CategorialChart(Chart):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.get_data()
         self.str_xax = self.xax
         #assert self.ttype == "categorical", "Underlying data is sequence"
 
@@ -75,6 +79,7 @@ class SequenceChart(Chart):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.get_data()
         assert self.ttype == "sequences", "Underlying data is categorical"
         
 
@@ -84,6 +89,50 @@ class SequenceChart(Chart):
         self.ax.set_title(self.title)
         self.ax.set_ylabel(self.y_axis_name)
         self.ax.set_xlabel(self.x_axis_name)
+
+
+class ManySequenceChart(Chart):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.keys = self._unique_sequences()
+        self.colors = self.sample_rgb(len(self.keys))
+    
+    def _unique_sequences(self):
+        return self._df[KEY].unique()
+    
+    def _filter_on_key(self, key):
+        return self._df.loc[lambda d: d[KEY] == key]
+    
+    def _plot(self, key, color):
+        df = self._filter_on_key(key).sort_values(ARGUMENT)
+        values = df.values
+        xax = values[:,1]
+        yax = values[:,2]
+        self.ax.plot(xax, yax, color=color, label=key)
+    
+    def plot(self, title="None"):
+        for k, c in zip(self.keys, self.colors):
+            self._plot(k,c)
+        handles, labels = self.ax.get_legend_handles_labels()
+        self.ax.legend(handles, labels, fontsize="xx-small")
+        self.ax.set_title(self.title)
+        self.ax.set_ylabel(self.y_axis_name)
+        self.ax.set_xlabel(self.x_axis_name)
+        
+    
+    @staticmethod
+    def sample_rgb(times):
+        colors = []
+        for t in range(times):
+            s = "#"
+            for i in range(3):
+                value = randint(0,255)
+                s += "{:02x}".format(value)
+            colors.append(s)
+        return colors
+
+
 
 def comparison_charts(fnames):
     def condition(s):
@@ -149,14 +198,22 @@ def seq_charts(fnames):
         fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
         plt.close('all')
 
-def RNN_charts():
-    pass
+def independent_sequence_charts(fnames):
+    def condition(s):
+        return "independent" in s
+        
+    fnames = [DIR+x for x in filter(condition, fnames)]
 
-def GAN_charts():
-    pass
-
+    for f in fnames:
+        print(f"processing: {f}")
+        fig1, ax1 = plt.subplots()
+        chart1 = ManySequenceChart(ax1, f)
+        chart1.plot()
+        fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
+        plt.close('all')
 
 if __name__ == "__main__":
     fnames = listdir(DIR)
-    comparison_charts(fnames)
-    seq_charts(fnames)
+    #comparison_charts(fnames)
+    #seq_charts(fnames)
+    independent_sequence_charts(fnames)
