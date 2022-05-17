@@ -591,6 +591,46 @@
       \field{title}{Relay policy learning: Solving long-horizon tasks via imitation and reinforcement learning}
       \field{year}{2019}
     \endentry
+    \entry{harib2012parallel}{incollection}{}
+      \name{author}{4}{}{%
+        {{hash=6e1e3741db402061b685148a0a95dad7}{%
+           family={Harib},
+           familyi={H\bibinitperiod},
+           given={Khalifa\bibnamedelima H},
+           giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=2ba45132423b1172c32606aad0347c48}{%
+           family={Moustafa},
+           familyi={M\bibinitperiod},
+           given={Kamal\bibnamedelima AF},
+           giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=26f3965da369b12239fd70e6879f5d61}{%
+           family={Ullah},
+           familyi={U\bibinitperiod},
+           given={AMM\bibnamedelima Sharif},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=dfb8436273b821798f98e3f4806288e8}{%
+           family={Zenieh},
+           familyi={Z\bibinitperiod},
+           given={Salah},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IntechOpen}%
+      }
+      \strng{namehash}{546d892c04e8c0f6bc6972a734ad56bc}
+      \strng{fullhash}{e37e8f2aa1136f0accacc3c071f6c35a}
+      \strng{bibnamehash}{546d892c04e8c0f6bc6972a734ad56bc}
+      \strng{authorbibnamehash}{546d892c04e8c0f6bc6972a734ad56bc}
+      \strng{authornamehash}{546d892c04e8c0f6bc6972a734ad56bc}
+      \strng{authorfullhash}{e37e8f2aa1136f0accacc3c071f6c35a}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Serial and Parallel Robot Manipulators-Kinematics, Dynamics, Control and Optimization}
+      \field{title}{Parallel, serial and hybrid machine tools and robotics structures: comparative study on optimum kinematic designs}
+      \field{year}{2012}
+    \endentry
     \entry{hester2018deep}{inproceedings}{}
       \true{moreauthor}
       \true{morelabelname}
