@@ -13,6 +13,7 @@
 \usepackage{xurl}
 \usepackage{enumitem}
 \usepackage{indentfirst}
+\usepackage{multirow}
 \usepackage{tocloft}
 \numberwithin{equation}{section} % number equations by section
 \renewcommand{\figurename}{Att.}
@@ -352,19 +353,96 @@ Lai uzdevumu varētu risināt, nepieciešams spēt izteikt kādu analītisku fun
 
 \subsection{Robotikas teorētiskie pamati}
 
-Pirms iespējams padziļināti analizēt ar robotu kontroli saistītu zinātnisko literatūru vai patstāvīgi izstrādāt programmatūru to vadībai, nepieciešams iepazīties ar matemā-tiskajiem formālismiem, kas izmantoti šajā nozarē. Kā jebkurā citā briedumu sasniegušā inženierzinātņu laukā, pastāv virkne vairāk vai mazāk standartizētu paņēmienu, kā izpaust un risināt dažādas problēmas. Svarīgi izprast ģeometriskās un algebriskās konvencijas robotu stāvokļa aprakstam un kā tie tiek izmantoti praktisku uzdevumu izpildē.
+Pirms iespējams padziļināti analizēt ar robotu kontroli saistītu zinātnisko literatūru vai patstāvīgi izstrādāt programmatūru to vadībai, nepieciešams iepazīties ar matemā-tiskajiem formālismiem, kas izmantoti šajā nozarē. Kā jebkurā citā briedumu sasniegušā inženierzinātņu laukā, pastāv virkne vairāk vai mazāk standartizētu paņēmienu, kā izpaust un risināt dažādas problēmas. Svarīgi izprast ģeometriskās un algebriskās konvencijas robotu stāvokļa aprakstam un kā tās tiek izmantotas praktisku uzdevumu izpildē.
 
 \subsubsection{Robota matemātiskais modelis -- kinemātiska, kvaternioni}
 
 
-
-\subsubsection{Trajektoriju plānošana}
-
 \begin{figure}[t!]
     \centering
-    \includegraphics[height=8cm,page=1]{../img/6dof-kinematics.png}
-    \caption{Tipiska 6-brīvības pakāpju industriālā robota shematisks attēls ar kinemātiskās ķēdes elementiem \cite{harib2012parallel}.}
+    \includegraphics[width=16cm,page=1]{../img/6dof-kinematics.png}
+    \caption{Pa kreisi -- tipiska 6-brīvības pakāpju industriālā robota shematisks attēls ar kinemātiskās ķēdes elementiem -- sešiem rotācijas pāriem jeb locītavām, kam katrai ir viena brīvības pakāpe \cite{harib2012parallel}. Pa labi -- apzīmējumi kinemātiskajā kēdē ar rotācijas pāriem un fiksētām nobīdēm \cite{kinematics_illinois}.}
 \end{figure}
+
+Robotu mehāniskie izpildījumi var būt ļoti dažādi, taču kopīga ir matemātisko modeļu saime, kas tiek izmantoti, lai attēlotu to izpildmehānismu tiešā veidā nomērāmos stāvokļus -- locītavu leņķus, bīdes pāru lineāros pārvietojumus -- telpiskajā (Dekarta) koordināšu telpā un otrādi. Tos dēvē par kinemātiskajām ķēdēm \cite{kinematics_illinois}. Kinemātiskā ķēde sastāv no savienojumu virknes, kas katrs ietver kinemātisko pāri un nobīdi. Katrs kinemātiskais pāris pieļauj kādu mainīgu cietķermeņa ģeometrisko pārveidojumu -- rotāciju un pārvietojumu -- kombināciju. Nobīde definē saiti starp diviem kinemātiskiem pāriem. Piemēram, ja divas rotācijas asis ir savienotas ar robota rokas segmentu, to attālums veido fiksētu telpisku pārveidojumu. Katram kinemātiskā pāra veidam ir t.s. brīvības pakāpju skaits, kas nosaka to, cik dimensiju vektors ir nepieciešams, lai viennozīmīgi aprakstītu šī pāra konfigurāciju.
+
+Atkarībā no mehānisma uzbūves kinemātiskās ķēdes var būt atvērtas (ar vienu fiksētu punktu) vai slēgtas (ar diviem); virknē (katrs nākamais kinemātiskais pāris sa-vienots ar iepriekšējā pārveidotu koordinātu sistēmu) vai paralēlas (vairāki pāri savienoti ar vienu elementu un to stāvokļi ir savstarpēji neatkarīgi). Par kinemātiskās ķēdes konfigurāciju var saukt vektoru, kas apraksta visu kienmātisko pāru individuālās konfigurācijas -- rotācijas pāru jeb locītavu gadījumā (pieņemot, ka rotācija nav ierobežota) tie var būt lenķi
+
+\begin{equation}
+    \boldsymbol{\alpha} = (\alpha_1, ..., \alpha_n), \alpha_i \in (-\pi;+\pi]
+\end{equation}
+
+kur $n$ -- locītavu skaits. Tā kā darba ietvaros galvenokārt strādāts ar 6-asu industriālajiem manipulatoriem, ilustratīvam piemēram ir vērts izmantot tieši šādu robotu. Kinemātikas kontekstā pamatā tiek strādāts ar diviem uzdevumiem -- tiešo un inverso. Robota izpildmehānisms ir piestiprināts pie kinemātiskās ķēdes pēdējā elementa, un pa-rasti nepieciešams pārveidot pozīcijas no šīs pārvietojamās koordinātu sistēmas uz robota pamatnes -- apkārtējās vides -- fiksēto. Tiešās kinemātikas uzdevums ir iegūt summāro pārvietojumu un rotāciju, ko piemērojot kādam vektoram efektora koordinātu sistēmā, var iegūt atbilstošu pārvietojuma vektoru un orientācijas reprezentāciju (sk. zemāk) globālajā koordinātu sistēmā. 
+
+Viens no veidiem, kā definēt pārveidojumu katrā locītavā un savienojumā, ir ar pārveidojuma matricām formā
+
+\begin{equation}
+    T_{l_i}(q_i) =
+    \begin{bmatrix}
+        \multicolumn{3}{c}{\multirow{3}{*}{$R(\boldsymbol{a_i},\alpha_i)$}} & \multirow{3}{*}{$L_i$} \\
+        \multicolumn{3}{c}{} & \multirow{3}{*}{} \\
+        \multicolumn{3}{c}{} & \multirow{3}{*}{} \\
+        0 & 0 & 0 & 1
+    \end{bmatrix}
+\end{equation}
+
+kur $\alpha_i$ -- locītavas lenķis (mainīgais parametrs), $\boldsymbol{a_i}$ -- rotācijas ass vienības vektors savienojuma koordinātu sistēmā (ap to tiek piemērota rotācija), $L_i$ -- pārvietojums uz nākamo atskaites punktu (3-dimensionāls vektors). $R(\boldsymbol{a_i},\alpha_i)$ ir $3 \times 3$ telpiskā rotācijas matrica, kas atbilst rotācijai ap doto asi pa doto lenķi. Tā kā šie ir lineāri pārveidojumi, tos var kombinēt
+
+\begin{equation}
+    T_{n}(\boldsymbol{\alpha}) = T_{l_n}(\alpha_n)T_{l_{n-1}}(\alpha_{n-1})...T_{l_{1}}(\alpha_{1})
+\end{equation}
+
+un piemērot pārvietojuma vektoram gala efektora koordinātu sistēmā ar matricu reizināšanu
+
+\begin{equation}
+    \boldsymbol{x}_{world} = T_{n}(\boldsymbol{\alpha})\boldsymbol{x}_{ee}
+\end{equation}
+
+Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotācijas \newline komponente augšējā kreisajā stūrī. Cits populārs veids, kā apzīmēt rotācijas 3-dimensiju telpā, ir izmantojot kvaternionus \cite{quaternions_illinois}. Tos var uztvert kā komplekso skaitļu 4-dimen-sionālu ekvivalentu. Šī darba ietvaros padziļināti aprakstīt to algebriskās īpašības nav nepieciešams, pietiek tikai minēt, ka, lai izteiktu telpisku rotāciju, tiek izmantota t.s. versora forma
+
+\begin{equation}
+    q = w + x\boldsymbol{i} + y\boldsymbol{j} + x\boldsymbol{k}
+\end{equation}
+\begin{equation}
+    \Vert q \Vert = \sqrt{w^2 + x^2 + y^2 + z^2} = 1
+\end{equation}
+
+kur $w$ ir rotācijas skalārā komponente bet $x,y,z$ veidotais 3-dimensiju vektors ir paralēls atbilstošai rotācijas asij. Kvaternioniem ir reizinājuma operācija, kam ir vienības vērtība un inversās vērtības
+
+\begin{equation}
+    qq^{-1} \equiv 1 +  0\boldsymbol{i} + 0\boldsymbol{j} + 0\boldsymbol{k}
+\end{equation}
+
+un rotāciju vektoram 3-dimensiju telpā piemēro, to papildinot ar 0 un piemērojot rotācijas operatoru.
+
+\begin{equation}
+    L_q(\boldsymbol{v} \in \mathbb{R}^3) \equiv q(0,\boldsymbol{v})q^{-1}
+\end{equation}
+
+Šādām rotācijas operācijām iespējama kompozīcija
+
+\begin{equation}
+    L_q \circ L_p (\boldsymbol{v}) = L_{qp}(\boldsymbol{v}) = (qp)(0,\boldsymbol{v})(qp)^{-1}
+\end{equation}
+
+kas ļauj kinemātisko ķēdes konfigurācijai atbilstošo koordinātu sistēmas pārvei-dojumu aprakstīt kā rotētu nobīžu vektoru summu
+
+\begin{equation}
+    \boldsymbol{x}_{world} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_n...q_1}(\boldsymbol{x}_{ee})
+\end{equation}
+
+Robota vadības programmatūras kontekstā bieži var nākties strādāt ar t.s. robota efektora pozu, kas sastāv no divām komponentēm -- efektora koordinātu sistēmas sākumpunkta nobīdes un summārās rotācijas
+
+\begin{equation}
+    \boldsymbol{x}_{position} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_{n-1}...q_1}(\boldsymbol{L}_{n-1})
+\end{equation}
+\begin{equation}
+    \boldsymbol{q}_{orientation} = \prod_{i=1}^n q_i
+\end{equation}
+
+Ja tiešās kinemātikas uzdevumā nepieciešams no zināmas robota locītavu konfi-gurācijas iegūt telpisko pozīciju, tad inversā kinemātika nodarbojas ar atbilstošu locītavu lenķu piemeklēšanu konkrētai telpiskai pozīcijai \cite{inverse_kinematics_illinois}.
+
+\subsubsection{Trajektoriju plānošana}
 
 \subsubsection{Kinemātikas rekonstrukcija no novērojumiem}
 

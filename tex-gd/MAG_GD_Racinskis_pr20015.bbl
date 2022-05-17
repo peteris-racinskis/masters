@@ -631,6 +631,111 @@
       \field{title}{Parallel, serial and hybrid machine tools and robotics structures: comparative study on optimum kinematic designs}
       \field{year}{2012}
     \endentry
+    \entry{quaternions_illinois}{online}{}
+      \name{author}{1}{}{%
+        {{hash=2ea8f995e9e39a336c9e3e3d5aae1750}{%
+           family={Hauser},
+           familyi={H\bibinitperiod},
+           given={Kris},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {University of Illinois}%
+      }
+      \strng{namehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{fullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{bibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorbibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authornamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorfullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \field{extraname}{1}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Robotic Systems -- Chapter 4. 3D Rotations}
+      \field{urlday}{17}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/3DRotations.html
+      \endverb
+      \verb{url}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/3DRotations.html
+      \endverb
+    \endentry
+    \entry{inverse_kinematics_illinois}{online}{}
+      \name{author}{1}{}{%
+        {{hash=2ea8f995e9e39a336c9e3e3d5aae1750}{%
+           family={Hauser},
+           familyi={H\bibinitperiod},
+           given={Kris},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {University of Illinois}%
+      }
+      \strng{namehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{fullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{bibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorbibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authornamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorfullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \field{extraname}{2}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Robotic Systems -- Chapter 5. Inverse Kinematics}
+      \field{urlday}{17}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
+      \endverb
+      \verb{url}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
+      \endverb
+    \endentry
+    \entry{kinematics_illinois}{online}{}
+      \name{author}{1}{}{%
+        {{hash=2ea8f995e9e39a336c9e3e3d5aae1750}{%
+           family={Hauser},
+           familyi={H\bibinitperiod},
+           given={Kris},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {University of Illinois}%
+      }
+      \strng{namehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{fullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{bibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorbibnamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authornamehash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \strng{authorfullhash}{2ea8f995e9e39a336c9e3e3d5aae1750}
+      \field{extraname}{3}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Robotic Systems -- Chapter 5. Robot Kinematics}
+      \field{urlday}{17}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
+      \endverb
+      \verb{url}
+      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
+      \endverb
+    \endentry
     \entry{hester2018deep}{inproceedings}{}
       \true{moreauthor}
       \true{morelabelname}
