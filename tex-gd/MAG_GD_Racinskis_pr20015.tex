@@ -165,9 +165,9 @@ Nav grūti redzēt, ka šādam uzdevumam par atalgojuma kritēriju pieņemot tr�
 %
 
 \newpage
-\section{Lēmuma procesi, regresija}
+\section{Vispārīgi teorētiskie pamati}
 
-Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā ievada daļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu veikt literatūras analīzi un izdarīt secinājumus.
+Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā nodaļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu veikt literatūras analīzi un izdarīt secinājumus.
 
 \subsection{Parametriski modeļi, šabloni}
 
@@ -350,6 +350,15 @@ un sasniedzot trajektorijas beigas --- vai nu pēc noteikta soļu skaita $T$, va
 Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama iterāciju skaita, ļoti strauji pieaug tās modeļa --- tenzora $Q$ --- parametru skaits, pieaugot iespējamo stāvokļu un darbību skaitam --- nepieciešams atsevišķi optimizēt katru iespējamo kombināciju, iespējams, ļoti daudzās iterācijās. Tāpēc praksē parasti tiek lietoti modeļi, kas aproksimē $v_{\pi}(s)$, piemēram, aģenta-kritiķa (\textit{actor-critic}) neironu tīkli, kas reizē iemācās paredzēt gan sagaidāmo vērtību, gan labāko darbību katram stāvoklim ar potenciāli daudz kompaktāku modeli.
 
 Lai uzdevumu varētu risināt, nepieciešams spēt izteikt kādu analītisku funkciju, kas apraksta pašreizējā stāvokļa lietderību --- izšķir labus rezultātus no sliktiem, vai starpstāvokļiem. Robotikā var būt sarežģīti šādu funkciju izdomāt, turklāt tā var būt ļoti retināta stāvokļu-darbību telpā, t.i., tikai ļoti nelielam skaitam (vai ar ļoti nelielu varbūtību) sasniegto stāvokļu atalgojuma funkcija $R(s_t)$ pieņem nenulles vērtību. Tieši šādu trūkumu mēģina risināt metodes, kas kombinē ekspertu demonstrāciju aproksi-mēšanu ar adaptīvu pielāgošanos \cite{nair2018overcoming}
+
+
+\subsection{Robotikas teorētiskie pamati}
+
+\subsubsection{Robota matemātiskais modelis -- kinemātiska, kvaternioni}
+
+\subsubsection{Trajektoriju plānošana}
+
+\subsubsection{Kinemātikas rekonstrukcija no novērojumiem}
 
 
 %
@@ -676,56 +685,6 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 \subsubsection{Ļoti lielu laikrindu regresoru pielietošana}
 
 
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-% CHAPTER 4
-%
-%
-%
-%
-%
-%
-%
-%
-%
-
-\newpage
-\section{Robotikas teorētiskie pamati}
-
-\subsection{Robota matemātiskais modelis -- kinemātiskās ķēdes}
-
-\subsubsection{Tiešie un inversie kinemātikas uzdevumi}
-
-\subsubsection{Rotāciju kodēšana kvaternionos}
-
-\subsection{Trajektoriju plānošana}
-
-\subsubsection{Dinamika}
-
-\subsubsection{Metodes, plānotāji}
-
-\subsection{Kinemātikas rekonstrukcija no novērojumiem}
-
 
 %
 %
@@ -750,50 +709,6 @@ Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, k�
 % CHAPTER 5
 % CHAPTER 5
 % CHAPTER 5
-%
-%
-%
-%
-%
-%
-%
-%
-%
-
-\newpage
-\section{Izmantotie rīki, aprīkojums un platformas}
-
-\subsection{ROS}
-
-\subsection{Optitrack -- aprīkojums un programmatūra}
-
-kas ir odometrija -- vismaz tik daudz jāpasaka!!
-
-\subsection{Programmēšanas valoda, bibliotēkas}
-
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
-% CHAPTER 6
 %
 %
 %
@@ -808,6 +723,15 @@ kas ir odometrija -- vismaz tik daudz jāpasaka!!
 \section{Praktiskā realizācija}
 
 Šī maģistra darba ietvaros aptuveni 4 mēneši pavadīti EDI robotikas un mašīn-uztveres laboratorijā, nodarbojoties ar motivējošā uzdevuma praktiska risinājuma mek-lēšanu un izstrādi. Rezultātā ar kustības utveršanas metodēm ierakstītas demonstrāciju datu kopas, veikta to priekšapstrāde un pārveidošana neironu tīklu apmācībai derīgā formātā, apmācīti vairāku veidu modeļi pie dažādiem hiperparametriem, veikta to autoregresijas procesā ģenerēto trajektoriju ierakstīšana, vizualizācija un darbināšana uz robota -- gan simulācijas vidē, gan uz fiziskas aparatūras.
+
+
+\subsection{Izmantotie rīki, aprīkojums un platformas}
+
+\subsubsection{ROS}
+
+\subsubsection{Optitrack -- aprīkojums un programmatūra}
+
+\subsubsection{Programmēšanas valoda, bibliotēkas}
 
 \subsection{Izvēlētā pieeja}
 
@@ -1430,19 +1354,19 @@ Taču mēģinot veikt paraugdemonstrāciju ar fizisko robotu konstatēts, ka ele
 %
 %
 %
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
-% CHAPTER 7
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
+% CHAPTER 5
 %
 %
 %
