@@ -1514,6 +1514,111 @@
       \verb https://github.com/peteris-racinskis/masters_data
       \endverb
     \endentry
+    \entry{radford2018improving}{article}{}
+      \name{author}{4}{}{%
+        {{hash=a812c46caad94fc8701be37871f303ba}{%
+           family={Radford},
+           familyi={R\bibinitperiod},
+           given={Alec},
+           giveni={A\bibinitperiod}}}%
+        {{hash=997c3143c2e5d593e816d2ff704fbf98}{%
+           family={Narasimhan},
+           familyi={N\bibinitperiod},
+           given={Karthik},
+           giveni={K\bibinitperiod}}}%
+        {{hash=e6f76e1a4d058df028530916774ad3a7}{%
+           family={Salimans},
+           familyi={S\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod}}}%
+        {{hash=8d569d1d5b8b5a7836017a98b430f959}{%
+           family={Sutskever},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{fullhash}{fbc85d06f02fc1534a6ba28d0d6e5c89}
+      \strng{bibnamehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{authorbibnamehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{authornamehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{authorfullhash}{fbc85d06f02fc1534a6ba28d0d6e5c89}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Improving language understanding by generative pre-training}
+      \field{year}{2018}
+    \endentry
+    \entry{reed2022generalist}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=698ee61a2f3fa29734204496d2d36aef}{%
+           family={Reed},
+           familyi={R\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod}}}%
+        {{hash=623b2518d730a538a3e522b46c2fcdc8}{%
+           family={Zolna},
+           familyi={Z\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f432a700f86fcb79a7721a1f2475f36c}{%
+           family={Parisotto},
+           familyi={P\bibinitperiod},
+           given={Emilio},
+           giveni={E\bibinitperiod}}}%
+        {{hash=8006d0b2d468ff6af5b41fbd18822177}{%
+           family={Colmenarejo},
+           familyi={C\bibinitperiod},
+           given={Sergio\bibnamedelima Gomez},
+           giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=7bdd145d92cfa3763c41441779b1d37d}{%
+           family={Novikov},
+           familyi={N\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4fe722edec22e43136b8c369d4906a77}{%
+           family={Barth-Maron},
+           familyi={B\bibinithyphendelim M\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=c9f83ecaa1eeb1943adfe77825cd8ff2}{%
+           family={Gimenez},
+           familyi={G\bibinitperiod},
+           given={Mai},
+           giveni={M\bibinitperiod}}}%
+        {{hash=22eaafdd6c3038933341b729e199e0ce}{%
+           family={Sulsky},
+           familyi={S\bibinitperiod},
+           given={Yury},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=56a21a482f349b9aa485ad72542881e1}{%
+           family={Kay},
+           familyi={K\bibinitperiod},
+           given={Jackie},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d52162d1c5497f647e12128f74d58da4}{%
+           family={Springenberg},
+           familyi={S\bibinitperiod},
+           given={Jost\bibnamedelima Tobias},
+           giveni={J\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{225dee12c579570621661f9d368fb291}
+      \strng{fullhash}{5830725f4aafe4703ca2e4a0c14a6865}
+      \strng{bibnamehash}{225dee12c579570621661f9d368fb291}
+      \strng{authorbibnamehash}{225dee12c579570621661f9d368fb291}
+      \strng{authornamehash}{225dee12c579570621661f9d368fb291}
+      \strng{authorfullhash}{5830725f4aafe4703ca2e4a0c14a6865}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2205.06175}
+      \field{title}{A Generalist Agent}
+      \field{year}{2022}
+    \endentry
     \entry{ross2011no}{inproceedings}{}
       \name{author}{3}{}{%
         {{hash=1e091ec9b01606e483f22db48ddc73ef}{%

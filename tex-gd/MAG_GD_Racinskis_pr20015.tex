@@ -291,9 +291,7 @@ Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc p
 
 Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem slāņiem (neskaitot ievades slāni), taču ir plaši izplatīti arī, piemēram, konvolūciju neironu tīkli \cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolūcijā tīklā ir kodolu (\textit{kernel}) izmantošana - konvolūciju slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. 
 
-\subsubsection{Laikrindu modelēšana}
-
-\subsubsection{Rekurentie neironu tīkli}
+\subsubsection{Laikrindu modelēšana, rekurentie neironu tīkli}
 
 \subsection{Markova lēmumu procesi}
 
@@ -682,7 +680,21 @@ Pamatā risinājumam ir hierarhiskā stimulētā mācīšanās --- tiek iegūta 
 
 Tiek iegūts algoritms, kas spēj no nestrukturētas datu kopas iemācīties, kā sasniegt patvaļīgus galamērķus, bet pēc tam --- uzlabot iegūtās stratēģijas ar stimulētās mācīšanās palīdzību. To parāda rezultāti --- dažādos uzdevumos šāda pieeja pārspēj iepriekš aprakstīto latento plānu pieeju \cite{lynch2020learning}, taču attiecīgi tai ir nepieciešams papildu patstāvīgas mācīšanās etaps.
 
-\subsubsection{Ļoti lielu laikrindu regresoru pielietošana}
+\subsubsection{Ļoti lielu, vispārināmu laikrindu regresoru pielietošana}
+
+Sekojot līdzi tikai literatūrai, kas uzsver tieši atdarinošās un stimulētās mašīn-mācīšanās nozarē pielietotās terminoloģijas lietojumu, būtu viegli palaist garām problemātikas ziņā tuvu radniecīgus rezultātus, kuru autori līdz tiem nonākuši no citu nozaru pētniecības. MDP formālisms tā klasiskajā formā izslēdz dažādus sarežģītāka izpildījuma autoregresorus, kaut gan tiem iespējams piemeklēt visnotaļ produktīvus pielietojumus arī atdarināšanas uzdevuma risināšanā.
+
+Veiksmīgas sagadīšanās dēļ aptuveni nedēļu pirms šī darba iesniegšanas vērtēšanai radusies iespēja to papildināt ar pavisam jaunu, ļoti aktuālu publikāciju no \textit{DeepMind}. \textit{``A Generalist Agent''} ir 2022. gada 12. maijā pirmspublikācijā izplatīts raksts, kura pamatā ir viena laikrindu autoregresora pielietojums dažāda veida sekvenciālu datu atdarināšanai, tai skaitā -- atdarinošajam uzdevumam robotikā \cite{reed2022generalist}.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/gato.png}
+    \caption{\textit{Gato} -- vispārināms atdarināšanas aģents, kas ar vienu un to pašu transformatora modeli spēj paredzēt radikāli dažādu sistēmu vektorizētu reprezentāciju laikrindas \cite{reed2022generalist}.}
+\end{figure}
+
+Izmantotais modelis ir t.s. transformers jeb pašuzmanības tīkls -- pirmo reizi pie-dāvāts šobrīd jau ļoti slavenajā 2107. gada rakstā \textit{``Attention is all you need''} kā risinājums teksta virkņu tulkošanas un autoregresijas uzdevumiem \cite{vaswani2017attention}. Tā ir modulāra neironu tīkla arhitektūra, kas sastāv no potenciāli daudziem līdzīgiem transformeru blokiem, kuram katram ir klasisku neironu tīklu un uzmanības mehānisma elementi. Šādus modeļus ar ļoti lieliem parametru skaitiem pēdējo gadu laikā veiksmīgi izmanto dažādu dabiskās valodas apstrādes uzdevumu risināšanā, kur tie pakāpeniski aizstāj vēl nesen populārās rekurentās tīklu arhitektūras \cite{radford2018improving}.
+
+Konkrētajā pētījumā dažādu modalitāšu ievaddati tiek pārveidoti atbilstošos semantisko marķieru vektoros (\textit{``tokens''}), kas pēc tam tiek attēloti modeļa ievadā izmantotajā vektoru telpā ar apmācāmu iegulšanas modeli. Tiek nodalīti novērojumu marķieri un darbību marķieri. Modelis tiek darbināts kā autoregresors, tāpēc tas paredz visus marķierus ievada virknē, taču mērķa funkcija tiek piemērota tikai tiem, kas ir uzskatāmi par ``darbībām'' -- teksta autoregresijas gadījumā tie būtu visi izvadītie marķieri, jo katrs atbilst apakšvārda iegultai formai, bet robotu vadības uzdevumā daļa no marķieriem atbilst novērojumam un daļa -- darbībai. Atkarībā no uzdevuma problemātikas, novērojuma un darbības reprezentācijai var atbilst dažādu garumu marķieru virknes. Par to rekonstrukciju izmantojamā formā atbild katram uzdevumam atsevišķa dekodera sekcija, kas ir inversā operācija iepriekš aprakstītajai marķieru kodēšanai un attēlošanai vektoru telpā. Robotu vadības kontekstā apmācībai izmantotas iepriekš sagatavotu stimulētās mācīšanāš modeļu -- ekspertu -- demonstrācijas, kas, par spīti neatbilstībai MDP formālismam, padara šo par klasisku atdarinošās mācīšanās uzdevumu. Rezultāti liecina, ka šāds modelis ļoti veiksmīgi apgūst ekspertu stratēģijas un sasniedz augstus novērtējumus, piemērojot to apmācībā izmantotās atalgojuma funkcijas -- kaut gan pats atdarinošais modelis apmācības procesā tās neizmanto. 
 
 
 
@@ -1330,17 +1342,17 @@ Tāpēc nepieciešams izmantot paralēlus un neatkarīgus ziņapmaiņas kanālus
 
 Tāpēc nolemts tiešā veidā izmantot robota locītavu kontrolera piedāvāto darbības serveri -- apejot \textit{MoveGroup} -- un izmantot pēc robota reālās pozīcijas parametrizētu atzvanīšanas funkciju, lai nodotu satvērēja atlaišanas signālu. Tā tiek izsaukta katru reizi, kad darbības serveris publicē atgriezeniskās saites ziņu. Principā iespējams izsaukuma ietvaros iegūt robota telpisko pozu, taču tas nozīmē, ka jāveic papildu saziņa ziņampaiņas sistēmā -- ar papildu aizturēm. Tā kā izpildāmās trajektorijas ir ātras -- vēlamā atlaišanas signāla izpildes precizitāte ir ne zemāka kā 0,05 sekundes -- nolemts jau iepriekš noteikt vēlamo locītavu konfigurāciju un salīdzināt robota pašreizējo stāvokli ar to. Šī vēlamā konfigurācija tiek noteikta, aprēķinot kustības plānu telpiskajai trajektorijai līdz atlaišanas punktam un ņemot pēdējo. Visas darbības, kas veicamas ar locītavu stāvokļa kontrolera darbību servera palī-dzību, apkopotas klasē \textit{``FollowTrajectoryWrapper''}, jo nepieciešama iespēja nodot dinamiskus papildu argumentus atzvanīšanas funkcijai. 
 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[height=9.2cm,page=1]{../img/action_sequence.png}
+    \caption{Paraugdemonstrācija -- klasiska neironu tīkla ģenerēta trajektorija.}
+\end{figure}
+
+
 Tā kā citu pētījumu ietvaros izvē-lētais robots parasti ir aprīkots ar \textit{``Robotiq 2f''} efektoru, kas piedziņai izmanto elektromotorus, saziņu realizē pār \textit{EtherCAT} protokolu un arī kontrolējams ar darbības servera palīdzību, tam izveidota klienta klase \textit{GripperActionWrapper}. Simulācijas vidē šis ir pietiekams risinājums, un ar to izdodas veikt trajektoriju izpildi.
 
 Taču mēģinot veikt paraugdemonstrāciju ar fizisko robotu konstatēts, ka elektromotoru piedziņa nav pietiekami ātrdarbīga, lai paredzami un īstajā trajektorijas punktā veiktu elastīga metamā objekta atlaišanu -- pat iestatot maksimālu darbības ātrumu. Var, protams, ieviest manuālas korekcijas programmas kodā -- mākslīgi pārbīdīt atlaišanas punktu, to pielāgojot katras trajektorijas formai, vai ieregulējot satveršanas ciešumu tā, lai tas ļoti precīzi atbilstu konkrētajai pudelei un tās pašreizējam tvērienam. Taču tādā gadījumā vairs netiek objektīvi vērtēta modeļa spēja pareizā laika un telpas punktā padot atlaišanas signālu. Lai risinātu šo problēmu, robots aprīkots ar daudz ātrāku pneimatisko satvērējmehānismu. Tā darbībai pietiek ar robota kontrolera digitālā izvada pieslēgšanu 5/2 solenoīdvārstam. \textit{Ur5e} robota kontroleris nepiedāvā darbības serveri digitālo izvadu vadībai, tāpēc jāizmanto trešā no ROS pieejamajām saziņas metodēm -- pakalpojuma serveris. Komunikāciju ar \textit{set\_io} pakalpojumu realizē klase \textit{GripperServiceWrapper}.
 
-
-
-\begin{figure}[t!]
-    \centering
-    \includegraphics[height=10cm,page=1]{../img/action_sequence.png}
-    \caption{Paraugdemonstrācija -- klasiska neironu tīkla ģenerēta trajektorija.}
-\end{figure}
 
 
 
