@@ -96,6 +96,7 @@ class ManySequenceChart(Chart):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.keys = self._unique_sequences()
+        self.base_colors = ["Red", "Orange", "Green", "Blue", "Gray", "Yellow"]
         self.colors = self.sample_rgb(len(self.keys))
     
     def _unique_sequences(self):
@@ -121,15 +122,19 @@ class ManySequenceChart(Chart):
         self.ax.set_xlabel(self.x_axis_name)
         
     
-    @staticmethod
-    def sample_rgb(times):
+    #@staticmethod
+    def sample_rgb(self, times):
         colors = []
+        '''
         for t in range(times):
             s = "#"
             for i in range(3):
                 value = randint(0,255)
                 s += "{:02x}".format(value)
             colors.append(s)
+        '''
+        for t in range(times):
+            colors.append(self.base_colors[t])
         return colors
 
 

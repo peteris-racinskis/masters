@@ -1154,6 +1154,60 @@
       \field{pages}{6292\bibrangedash 6299}
       \range{pages}{8}
     \endentry
+    \entry{nakkiran2021deep}{article}{}
+      \name{author}{6}{}{%
+        {{hash=40e2f3b9e5b92b654aa9f0b7daf86b17}{%
+           family={Nakkiran},
+           familyi={N\bibinitperiod},
+           given={Preetum},
+           giveni={P\bibinitperiod}}}%
+        {{hash=723227e59eb378f3c109acd8fdf92ae1}{%
+           family={Kaplun},
+           familyi={K\bibinitperiod},
+           given={Gal},
+           giveni={G\bibinitperiod}}}%
+        {{hash=35a3e1d37bd752bf6670132d23fe6397}{%
+           family={Bansal},
+           familyi={B\bibinitperiod},
+           given={Yamini},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e1cd0505a976e2627a032e654fb88ac3}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Tristan},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ef4505bdcbc58ae15e11f8bc6c51af7e}{%
+           family={Barak},
+           familyi={B\bibinitperiod},
+           given={Boaz},
+           giveni={B\bibinitperiod}}}%
+        {{hash=8d569d1d5b8b5a7836017a98b430f959}{%
+           family={Sutskever},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IOP Publishing}%
+      }
+      \strng{namehash}{64e67062f362bfd1a20ee69a1596698b}
+      \strng{fullhash}{45c4992ace609564bb7e78357f1a5214}
+      \strng{bibnamehash}{64e67062f362bfd1a20ee69a1596698b}
+      \strng{authorbibnamehash}{64e67062f362bfd1a20ee69a1596698b}
+      \strng{authornamehash}{64e67062f362bfd1a20ee69a1596698b}
+      \strng{authorfullhash}{45c4992ace609564bb7e78357f1a5214}
+      \field{sortinit}{N}
+      \field{sortinithash}{98cf339a479c0454fe09153a08675a15}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Statistical Mechanics: Theory and Experiment}
+      \field{number}{12}
+      \field{title}{Deep double descent: Where bigger models and more data hurt}
+      \field{volume}{2021}
+      \field{year}{2021}
+      \field{pages}{124003}
+      \range{pages}{1}
+    \endentry
     \entry{teach_pendant}{online}{}
       \name{author}{1}{}{%
         {{hash=9fa7b9da52f689016da6a7aafbfa50de}{%

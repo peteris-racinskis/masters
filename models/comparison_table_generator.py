@@ -176,8 +176,9 @@ class ModelEvalDataset():
                     odf = pd.concat([odf,pd.DataFrame(data=data_dict)])
                 
                 ascending = (cb == MIN)
-                best_keys = odf.sort_values(VALUE, ascending=ascending)[KEY].unique()[:3]
-                only_best = odf.loc[lambda d: (d[KEY].isin(best_keys))]
+                best_keys_train = odf.sort_values(VALUE, ascending=ascending).loc[lambda d: d[KEY].str.contains("Train-True")][KEY].unique()[:2]
+                best_keys_test = odf.sort_values(VALUE, ascending=ascending).loc[lambda d: d[KEY].str.contains("Train-False")][KEY].unique()[:2]
+                only_best = odf.loc[lambda d: (d[KEY].isin(best_keys_train)) | (d[KEY].isin(best_keys_test))]
 
                 filename = f"models/comparison_tables/independent-{mtype_out}-{ic}-{metric}-nocb.csv"
                 print(f"processed: {filename} n_perm = {n_perm}")
@@ -246,6 +247,6 @@ def prod(iterable):
 if __name__ == "__main__":
     df = pd.read_csv(IFILE)
     dataset = ModelEvalDataset(df)
-    dataset.generate_sequence_dfs()
-    dataset.generate_categorical_dfs()
+    #dataset.generate_sequence_dfs()
+    #dataset.generate_categorical_dfs()
     dataset.generate_independent_sequences()
