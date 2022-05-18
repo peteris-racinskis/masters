@@ -1529,6 +1529,26 @@
       \field{pages}{124003}
       \range{pages}{1}
     \endentry
+    \entry{odometry}{online}{}
+      \list{organization}{2}{%
+        {MIT CS}%
+        {AI Laboratory}%
+      }
+      \field{sortinit}{O}
+      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
+      \field{labeltitlesource}{title}
+      \field{title}{Odometry}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://groups.csail.mit.edu/drl/courses/cs54-2001s/odometry.html
+      \endverb
+      \verb{url}
+      \verb https://groups.csail.mit.edu/drl/courses/cs54-2001s/odometry.html
+      \endverb
+    \endentry
     \entry{teach_pendant}{online}{}
       \name{author}{1}{}{%
         {{hash=9fa7b9da52f689016da6a7aafbfa50de}{%
@@ -1939,6 +1959,63 @@
       \field{journaltitle}{arXiv preprint arXiv:2205.06175}
       \field{title}{A Generalist Agent}
       \field{year}{2022}
+    \endentry
+    \entry{ros_org}{online}{}
+      \list{organization}{1}{%
+        {Open Robotics}%
+      }
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labeltitlesource}{title}
+      \field{title}{Robot Operating System}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ros.org
+      \endverb
+      \verb{url}
+      \verb https://www.ros.org
+      \endverb
+    \endentry
+    \entry{ros_comm_patterns}{online}{}
+      \list{organization}{1}{%
+        {Open Robotics}%
+      }
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labeltitlesource}{title}
+      \field{title}{ROS wiki -- communication patterns}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://wiki.ros.org/ROS/Patterns/Communication
+      \endverb
+      \verb{url}
+      \verb http://wiki.ros.org/ROS/Patterns/Communication
+      \endverb
+    \endentry
+    \entry{roslaunch_file}{online}{}
+      \list{organization}{1}{%
+        {Open Robotics}%
+      }
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labeltitlesource}{title}
+      \field{title}{ROS wiki -- roslaunch}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb http://wiki.ros.org/roslaunch
+      \endverb
+      \verb{url}
+      \verb http://wiki.ros.org/roslaunch
+      \endverb
     \endentry
     \entry{ross2011no}{inproceedings}{}
       \name{author}{3}{}{%

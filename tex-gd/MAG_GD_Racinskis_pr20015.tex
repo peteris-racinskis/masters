@@ -918,9 +918,19 @@ Rezultāti liecina, ka šāds modelis ļoti veiksmīgi apgūst ekspertu stratē�
 
 \subsection{Izmantotie rīki, aprīkojums un platformas}
 
+Tas, kuru no ļoti daudziem teorētiski iespējamiem risinājumiem izrādās praktiskāk realizēt, bieži vien ir atkarīgs no pieejamā aprīkojuma un citiem resursiem. Robotikā it sevišķi tiek integrētas tehnoloģijas no ļoti daudzām nozarēm, tāpēc lietoto rīku ietekme uz darbības virzienu ir ļoti jūtama.
+
 \subsubsection{ROS}
 
-\subsubsection{Optitrack -- aprīkojums un programmatūra}
+Viens no robotikas un mašīnuztveres laboratorijā veiktās pētniecības stūrakmeņiem ir atvērtā koda \textit{``Robot Operating System''} (turpmāk -- ROS) platforma \cite{ros_org}. par spīti nosaukumam, tā gan nav operētājsistēma, bet gan programmatūras pakotņu kopums, kas paredzēts tiražējamai dažādu robotikas problēmu risināšanai. Šie rīki pieejami \textit{Linux} saimes operētājsistēmās, taču īpaši peielāgoti \textit{``Ubuntu LTS''} versijām. Līdzīgi kā \textit{Python} programmēšanas valodā, šobrīd platformā ir šķelšanās starp ROS1 un jaunāko, nesaderīgo ROS2 versiju. Tā kā laboratorijā lietota vēl joprojām tiek platformas pirmā versija, par to arī tālāk runāts.
+
+Varētu teikt, ka ROS platformas pamatfunkcija ir starpprocesu komunikācijas mehā-nisma nodrošināšana, kam piedāvāti trīs dažādi paveidi \cite{ros_comm_patterns}:
+
+\begin{enumerate}
+    \item Tematu-abonentu modelis (\textit{``topics''}) -- paredzēts nepārtrauktu datu plūsmu organizēšanai. Nenoteikts skaits publicētāju, kas jebkurā brīdī var saziņas kanālā publicēt stringri noteikta formāta ziņojumu. Abonenti ir procesi, kas reģistrē atzvanīšanas funkcijas datu saņemšanai. Nav nekādas plūsmas kontroles, un ziņojumi var ``izkrist'' bez nekādām iespējamām korekcijām;
+    \item Pakalpojumu modelis (\textit{``services''}) -- paredzēts momentāniem ārēju funkciju izsaukumiem, kurus nav iespējams pārtraukt. Klienta-servera modelis, kur klienta process uzsāk komunikāciju;
+    \item Darbību modelis (\textit{``actions''}) -- paredzēts garāku darbību izpildei, kur nepieciešams sekot līdzi procesa stāvoklim. Arī realizēts kā klienta-servera saziņas process, taču šoreiz jau ar sarežģītāku galīgo automātu, kas nosaka savstarpējo komandu un informācijas apmaiņas modeli, un paredz iespēju ar ārēju izsaukumu pārtraukt (\textit{``preempt''}) uzsāktu darbību.
+\end{enumerate}
 
 
 \begin{figure}[t!]
@@ -928,6 +938,18 @@ Rezultāti liecina, ka šāds modelis ļoti veiksmīgi apgūst ekspertu stratē�
     \includegraphics[width=16cm,page=1]{../img/throw_demo.jpg}
     \caption{Demonstrāciju ievākšana kustības uztveres sistēmā \textit{Optitrack}. Robota efektoru simulē atkritumu savākšanas instruments. Pudele arī aprīkota ar marķieriem, lai būtu iespējams demonstrācijas parametrizēt pēc tās ekstrapolētajām galamērķa koordinātēm. Tīkls izgatavots, lai netiktu bojāti marķieri. Brīvā kritiena posma beigu kritērijam izmantotais marķieris šajā attēlu sērijā nav redzams.}
 \end{figure}
+
+Papildus šai pamatinfrastrukūrai, ROS nodrošina arī pakotņu kompilācijas un instalācijas sistēmu, kā arī ļauj ar vides mainīgo un utilītu palīdzību viegli apvienot dažādu ROS pakotņu izsaukumus lietotāja skriptos. Pakotnes tiek izstrādātas kā \textit{C++} un/vai \textit{Python} lietojumprogrammas, ko izsaukumi tiek kontrolēti ar speciāliem XML for-māta palaišana failiem (\textit{``Launch Files''}), bieži vien vienlaicīgi palaižot daudzas izpildāmās programmas ar dinamiski konfigurētiem parametriem \cite{roslaunch_file}. \textit{C++} programmatūras izstrādei pieejamas daudzas bibliotēkas, kam parasti ir arī automātiski ģenerētas \textit{Python} saskarnes.
+
+Apjomīgākās lietojumprogrammas, kas izmantotas šī darba ietvaros, ir telpisku elementu vizualizācijas rīks \textit{rviz}, laikrindu datu kopu attēlotājs \textit{plotjuggler}. Bet saskarni ar robotiem nodrošina to ražotāju izstrādātie draiveri un vairāki abstrakcijas slāņi virs tiem -- no kuriem nozīmīgākais ir \textit{moveit}, kas nodrošina darbību servera tipa saziņu ar robotu draiveriem. Jāpiemin, ka arī kustību uztveres sistēma \textit{Optitrack} piedāvā iespēju saņemt reālā laikā straumētos odometrijas datus (sk. zemāk) ar ROS tematu -- tā tie arī ierakstīti.
+
+\subsubsection{Optitrack -- aprīkojums un programmatūra}
+
+Laboratorijā pieejams \textit{Optitrack} kustību uztveres aprīkojums, un tas arī beigās izmantots demonstrāciju trajektoriju ieguvei. Sistēma sastāv no 8 kamerām, kas nosaka īpašu ļoti atstarojošu marķieru pozīciju telpā. Lai varētu izsekot kādu objektu, nepieciešams tam piestiprināt pietiekami daudzus šādus marķierus, lai jebkurā iespējamā orientācijā vairākas kameras spētu viennozīmīgi identificēt konkrēto ķermeni un triangulēt tā pozu. Kaut gan ROS kontekstā pieņemts jebkādi novērotas un rekonstruētas ķermeņa pozas datus apzīmēt ar terminu ``odometrija'', jāpiebilst, ka šis termins gan īstenībā ir attiecināms tikai uz pozīcijas aplēšanu ar riteņu rotācijas integrēšanu \cite{odometry}.
+
+Saskarni ar kustību uztveres aprīkojumu nodrošina ražotāja izplatītā \textit{Motive} programmatūra, kas gan pieejama tikai operētājsistēmā \textit{Windows}. Tāpēc nepieciešama atsevišķa darbstacija šim mērķim, un iegūtie dati tiek straumēti iekšējā tīklā. Lai šiem straumētiem datiem varētu piekļūt ar tematu metodi ROS vidē tiek izmantota ROS pakotne \textit{mocap\_optitrack}, kas publicē saņemtās datu paketes kā tematu ziņojumus. Ziņo-jumu ierakstīšanu tad var realizēt ar ROS utilītu \textit{rosbag}, kas visus tematā publicētos ziņojumus apkopo izvaddatu failā.
+
+Demonstrāciju ievākšanas mērķiem izstrādāti vairāki fiziski darbarīki. 
 
 
 \subsubsection{Programmēšanas valoda, bibliotēkas}
@@ -940,6 +962,13 @@ Tā kā darba mērķis ir pētīt atdarinošās mašīnmācīšanās metodes un 
 Kad nolemts darboties atdarinošās mācīšanās virzienā, pirmais lēmums, no kā atka-rīgs viss tālākais process, ir demonstrāciju iegūšanas metodes izvēle. Atsaucoties uz teo-rētiskajā daļā pārskatīto literatūru, var izvirzīt vairākus priekšlikumus:
 
 
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/mocap_equipment.jpg}
+    \caption{No kreisās puses: \textit{Optitrack} aprīkojuma būris; ar marķieriem aprīkotie rīki -- pirmais tīkls (izmantots kā lidojuma beigu atskaites punkts), efektora simulators, pudele; cietu ķermeņu definīcijas \textit{Motive} programmatūras vidē.}
+\end{figure}
+
 \begin{enumerate}
     \item fiziska vai simulēta robota iekšējo stāvokļu ierakstīšana -- demonstrācijas tiek iegū-tas, ar programmu-ekspertu vai (iespējams, simulētu) ārēju fizisku iedarbību vadot robotu pa trajektorijām un saglabājot locītavu pozīciju, ātrumu, paātrinājumu, slodžu datus;
     \item efektora konfigurāciju ierakstīšana simulācijas vidē -- izmantojot VR vai tradicionālu saskarni, izveidot simulācijas vidi, kurā iespējams precīzi reģistrēt vismaz efektora stāvokļa vektoru laikrindas;
@@ -947,12 +976,6 @@ Kad nolemts darboties atdarinošās mācīšanās virzienā, pirmais lēmums, no
 \end{enumerate}
 
 Vistiešākā pārnese no novērojumiem uz robota kontroles sistēmu, kas darbojas locītavu konfigurāciju telpā, būtu metodēm, kurās jau pašas demonstrācijas sastāv no punktiem šajā telpā. Taču no visām metodēm šī ir visciešāk piesaistīta konkrētam fizikālam izpildījumam -- demonstrācijas ir atkarīgas no konkrētā robota kinemātikas, un nepieciešams izmantot vai nu pašu robotu, vai precīzu tā simulāciju jau treniņa datu kopas ieguvē. Tas prasa lielu sākotnējo laika un darba ieguldījumu šādas vides sagatavošanā, demonstrāciju iegūšanas process kļūst samērā sarežģīts un iegūstamie rezultāti droši vien būs slikti vispārināmi.
-
-\begin{figure}[t!]
-    \centering
-    \includegraphics[width=16cm,page=1]{../img/mocap_equipment.jpg}
-    \caption{No kreisās puses: \textit{Optitrack} aprīkojuma būris; ar marķieriem aprīkotie rīki -- pirmais tīkls (izmantots kā lidojuma beigu atskaites punkts), efektora simulators, pudele; cietu ķermeņu definīcijas \textit{Motive} programmatūras vidē.}
-\end{figure}
 
 Ierakstot gala efektora konfigurācijas simulētā vidē nav jāuztraucas par datu krop-ļojumiem, kas neizbēgami jebkādos no fizikālām sistēmām iegūtos novērojumos. VR cilvēka-datora saskarni padara ļoti tiešu un vienkāršu, ļaujot realizēt gandrīz jebkādas darbības, ko instruktors spētu veikt realitātē. Taču, kaut gan ņemot vērā tikai gala efektoru, tiek ievērojami samazināta datu kopas sasaiste ar kādu konkrētu mehānisku izpildījumu, tik un tā nepieciešams sagatavot adekvātu virtuālu vidi katram uzdevumam.
 
