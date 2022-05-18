@@ -666,7 +666,7 @@
       \verb http://motion.cs.illinois.edu/RoboticSystems/3DRotations.html
       \endverb
     \endentry
-    \entry{inverse_kinematics_illinois}{online}{}
+    \entry{kinematics_illinois}{online}{}
       \name{author}{1}{}{%
         {{hash=2ea8f995e9e39a336c9e3e3d5aae1750}{%
            family={Hauser},
@@ -688,20 +688,20 @@
       \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Robotic Systems -- Chapter 5. Inverse Kinematics}
+      \field{title}{Robotic Systems -- Chapter 5. Robot Kinematics}
       \field{urlday}{17}
       \field{urlmonth}{5}
       \field{urlyear}{2022}
       \field{year}{2020}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
+      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
       \endverb
       \verb{url}
-      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
+      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
       \endverb
     \endentry
-    \entry{kinematics_illinois}{online}{}
+    \entry{inverse_kinematics_illinois}{online}{}
       \name{author}{1}{}{%
         {{hash=2ea8f995e9e39a336c9e3e3d5aae1750}{%
            family={Hauser},
@@ -723,17 +723,17 @@
       \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Robotic Systems -- Chapter 5. Robot Kinematics}
+      \field{title}{Robotic Systems -- Chapter 6. Inverse Kinematics}
       \field{urlday}{17}
       \field{urlmonth}{5}
       \field{urlyear}{2022}
       \field{year}{2020}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
+      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
       \endverb
       \verb{url}
-      \verb http://motion.cs.illinois.edu/RoboticSystems/Kinematics.html
+      \verb http://motion.cs.illinois.edu/RoboticSystems/InverseKinematics.html
       \endverb
     \endentry
     \entry{hester2018deep}{inproceedings}{}

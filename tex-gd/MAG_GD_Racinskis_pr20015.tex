@@ -53,8 +53,9 @@
 \newpage
 \setcounter{page}{3}
 
+\section*{Ievads} % * nepieliks numuru pie nosaukuma
+\addcontentsline{toc}{section}{Ievads}
 
-\section{Ievads}
 
 Mašīnmācīšanās šobrīd tiek plaši uzskatīta par vienu no aktuālākajām datorzinātņu pētniecības nozarēm \cite{no_shit}. Pēdējās desmitgades laikā šī pētniecības lauciņa popularitāte ir daudzkārt pieaugusi, pateicoties galvenokārt diviem faktoriem: ļoti vispārīgiem neironu tīklu modeļiem un skaitļošanas resursu veiktspējai, kas beidzot ļāvusi šos teorētiski jau ļoti sen \cite{mcculloch1943logical, linnainmaa1970representation, fukushima1988neocognitron} iedomātos mākslīgā intelekta uzbūves elementus realizēt praksē. Tā risināti uzdevumi, ko izsenis daudzi uzskatījuši par neiespējamiem, un lietojuši kā argumentu pret mašīnmācīšanos kā rīku, kas spētu konkurēt ar bioloģiskas izcelsmes prātiem --- semantiskas nozīmes meklēšana attēlos \cite{krizhevsky2012imagenet}, tekstu korpusu analīze un ģenerēšana ar "izpratni" par to saturu \cite{vaswani2017attention} un visspējīgāko spēlētāju pārspēšana nepilnīgas informācijas spēlēs ar neaptverami milzīgiem iespējamo stāvokļu permutāciju skaitem \cite{silver2016mastering}.
 
@@ -62,10 +63,9 @@ Nav arī īpaši grūti atrast vēsturisko saikni starp mākslīgo intelektu un 
 
 Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņēmieniem, ar kuriem tiek mēģināts risināt šādas sarežģītas vadības problēmas. Lai gan pamatu pamatos nevar apgalvot, ka tā ir tikai robotikai piemērota metožu saime, lielākā daļa izpētes virzīta tieši šajā virzienā --- problēmas tiek formulētas kā fizikālu (vai nosacīti fizikālu --- virtuālās vidēs simulētu) procesu kontroles uzdevumi, un risinājumi tiek rasti no pēc iespējas mazāka skaita veiksmīgas darbības piemēru \cite{attia2018global}. Mašīnmācīšanās nozarē bioloģiskas analoģijas un iedvesma nav nekāds retums, un savā ziņā šāda mācīšanās  atspoguļo vienu no izplatītiem paņēmieniem, kā cilvēki vai sabiedriski dzīvnieki nodod prasmes viens otram - demonstrējot. Nevar nepieminēt, ka izpēte šajā jomā bieži aizņemas pieejas un iespaidojas no rezultātiem, kas gūti ar stimulēto mašīnmācīšanos (\textit{reinforcement learning}) - savā ziņā vispārīgu, pašmācībai un treniņam analoģisku paņēmienu. Arī abu metožu apvienojums ir ideja, kas pavīd visai regulāri --- cerībā, ka, atdarinot ekspertus, var ātrāk nonākt pie derīgām stratēģijām, kas var kalpot kā sākumpunkts dziļākai pašmācībai \cite{hester2018deep}; vai arī izmantot šādu stimulēto metodi, lai precīzāk imitētu treniņa datus \cite{abbeel2004apprenticeship}.
 
-
-\subsection{Darba mērķis un struktūra}
-
-Šis ir maģistra kursa darbs --- pirmais konkrētais rezultāts, kas sasniegts maģistra darba izstrādes procesā. Tātad saturs un formāts ir lielā mērā atkarīgs no nākamajā semestrī aizstāvamā gala darba izstrādei individuāli nospraustajiem mērķiem un iztecējušā semestra gaitā reāli paveiktā. 
+\phantomsection
+\subsection*{Darba mērķis un struktūra} % * nepieliks numuru pie nosaukuma
+\addcontentsline{toc}{subsection}{Darba mērķis un struktūra}
 
 Kopējā maģistra darba tēma izvēlēta ar Elektronikas un datorzinātņu centra eks-pertu palīdzību, meklējot šobrīd aktuālu pētniecības virzienu. Izvērtējot dažādus pieejamos variantus, izvēlēts pētniecības virziens --- atdarinošā mašīnmācīšanās --- un konkrēts motivējošais uzdevums --- atkritumu šķirošanas līnijas robots, kas spēj nogādāt pudeles vai citus objektus tiem atbilstošajās tvertnēs, izmantojot mešanas kustības. Faktiski līdz šim galvenokārt veikta nozares literatūras avotu izpēte un nepieciešamo pamatzināšanu apguve. Līdz ar to šī darba mērķis ir noskaidrot, vai atdarinošās mācīšanās metodes ir piemērotas motivējošās problēmas risināšanai, atrast piemērotākos paņēmienus un aktuā-lākos rezultātus jau eksistējošajā zinātniskās literatūras korpusā un ieskicēt risinājuma plānu, kura praktiska izpilde un novērtēšana tad arī veidotu noslēguma darba pētniecisko jaunpienesumu. Attiecīgi, kursadarbs sastāv no trijām daļām:
 \begin{enumerate}
@@ -75,7 +75,9 @@ Kopējā maģistra darba tēma izvēlēta ar Elektronikas un datorzinātņu cent
 \end{enumerate}
 
 
-\subsection{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}
+\phantomsection
+\subsection*{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi} % * nepieliks numuru pie nosaukuma
+\addcontentsline{toc}{subsection}{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}
 
 Viena no īpatnībām, ar ko ir nācies saskarties, strādājot tieši ar mašīnmācīšanās nozari, ir nepārprotamas terminoloģijas trūkums latviešu valodā. Pati zinātnes nozare, lai arī nebūt ne tik jauna kopumā, piedzīvojusi milzīgas izmaiņas un nepieredzētu uzplaukumu pēdējās desmitgades laikā. Protams, datorzinātnes laukā pirmā un galvenā saziņas valoda ir angļu. Attiecīgi novērojami divējādi un saistīti fenomeni - publikācijas un terminoloģija, kas radītas senāk, veidojušas dziļi specifisku nišu, kas nav iedvesmojusi daudz mēģinājumu tulkot to uz citām valodām, savukārt uzplaukuma laikos vēl ir ļoti daudz materiāla, ko vienkārši neviens nav paguvis iztulkot.
 
@@ -115,7 +117,10 @@ Biežāk izmantoti matemātiskie apzīmējumi:
     \item $\mathbb{E}$ --- matemātiskā cerība
 \end{enumerate}
 
-\subsection{Motivējošais uzdevums}
+
+\phantomsection
+\subsection*{Motivējošais uzdevums} % * nepieliks numuru pie nosaukuma
+\addcontentsline{toc}{subsection}{Motivējošais uzdevums}
 
 Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā --- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme --- gan no EDI, gan autora puses --- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
 
@@ -464,9 +469,6 @@ Singularitāšu pastāvēšana, vairāku vai bezgalīgi daudzu konfigurāciju pa
 
 \subsubsection{Trajektoriju plānošana}
 
-
-
-\subsubsection{Kinemātikas rekonstrukcija no novērojumiem}
 
 
 %
@@ -1761,11 +1763,14 @@ Apakšējā rindā kā mainīgais hiperparametrs izmantots perceptronu skaits mo
 
 
 \newpage
-\section{Secinājumi}
+\section*{Secinājumi} % * nepieliks numuru pie nosaukuma
+\addcontentsline{toc}{section}{Secinājumi}
 
 Literatūras analīzē sniegts īss par atdarinošo mašīnmācīšanos līdz šim veiktās pētnie-ciskās darbības pārskats. Jau izvēloties, par kurām tēmām vērts rakstīt plašāk, iespaidu uz darba saturu ir atstājusi motivējošās problēmas specifika. Tagad nepieciešams pie tās atgriezties un novērtēt, kas no visa nozarē pētītā un izgudrotā attiecas uz darba ievadā aprakstīto uzdevumu --- mešanas kustību iestrādāšanu atkritumu vai citu objektu pārvietošanā --- un izstrādāt rīcības plānu tālākai maģistra darba izstrādei.
 
-\subsection{Svarīgākās atziņas}
+\phantomsection
+\subsection*{Svarīgākās atziņas}
+\addcontentsline{toc}{subsection}{Svarīgākās atziņas}
 
 Tūlīt kļūst skaidrs, ka pašas vienkāršākās metodes --- klasiskā uzvedības klonēšana \cite{pomerleau1989alvinn} vai kādas tās tiešās korekcijas --- uzdevumam piemērotas nav. Tās darbojas gadī-jumos, kad demonstrāciju kopa labi nosedz visas iespējamās trajektorijas sistēmas konfigurāciju telpā, nav robustas pret nobīdēm, un jaunu trajektoriju programmēšana prasa apmācības procesa atkārtošanu. Problēmu grūti nostādīt formā, kur robotam vienkārši jāapgūst maksimāli precīzi atdarināt detalizētu un pilnībā aprakstošu demonstrāciju kopu. Vēl jāatzīst, ka metodes, kas ir ļoti specifiskas tieši robotikas uzdevumiem un prasa no algoritma izstrādātājiem pieņēmumus par uzdevuma struktūru --- t.i, pamatā risinājumi, kas nodarbojas ar simbolisko dekompozīciju \cite{ijspeert2002movement,schaal2003computational, wang2020framework,pastor2011online,pastor2011skill} --- nešķiet sevišķi perspektīvas, jo tās ir grūtāk attīstīt un vispārināt. Protams, no inženiertehniskā viedokļa tās varētu zināmos uzdevumos pārspēt vispārīgākas pieejas, tomēr ilgtermiņa pieredze rāda, ka dažādas lokālas priekšrocības mēdz izgaist, pieaugot daudzparametru neironu tīklu veiktspējai.
 
@@ -1775,11 +1780,15 @@ Visbeidzot, no adaptīvo un imitējošo metožu kombinācijas virziena ļoti sva
 
 
 
-\subsection{Plāns tālākai darbībai}
+\phantomsection
+\subsection*{Vieta tālākai darbībai}
+\addcontentsline{toc}{subsection}{Vieta tālākai darbībai}
 
 Apkopojot visu augstāk minēto, var ieskicēt iespējamu risinājumu uzdevumam, kas arī kalpos par pamatu tālākās rīcības plānam. 
 
-\subsubsection{Risinājums}
+\phantomsection
+\subsubsection*{Risinājums}
+\addcontentsline{toc}{subsubsection}{Risinājums}
 
 Lai apmācītu modeli, kas realizē metiena kustību ar jau satvertu neregulāras formas objektu, tiks darīts sekojošais:
 
@@ -1792,7 +1801,9 @@ Lai apmācītu modeli, kas realizē metiena kustību ar jau satvertu neregulāra
 
 Šobrīd grūti paredzēt, kādi rezultāti tiks sasniegti eksperimentālajā darbībā, kuri pieņēmumi būs izrādījušies patiesi, kuri --- aplami. Tāpat vēl pāragri spriest par konkrē-tiem tehniskiem izpildījumiem, jo tie ir ļoti atkarīgi no izmantotās datu kopas atribūtiem.
 
-\subsubsection{Maģistra darba izstrādes plāns}
+\phantomsection
+\subsubsection*{Maģistra darba izstrādes plāns}
+\addcontentsline{toc}{subsubsection}{Maģistra darba izstrādes plāns}
 
 Vadoties pēc augstāk aprakstītās risinājuma formas, šobrīd jau iespējams plānot nepieciešamo noslēguma darba struktūru --- nodaļu mērķus un to saturu. Plānu dokumenta no zinātniska viedokļa saturiski nozīmīgajām daļām var izteikt sekojoši:
 
