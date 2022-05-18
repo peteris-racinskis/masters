@@ -932,6 +932,7 @@ Rezultāti liecina, ka šāds modelis ļoti veiksmīgi apgūst ekspertu stratē�
 
 \subsubsection{Programmēšanas valoda, bibliotēkas}
 
+
 \subsection{Izvēlētā pieeja}
 
 Tā kā darba mērķis ir pētīt atdarinošās mašīnmācīšanās metodes un to pielietošanas iespējas praktisku industriālajā robotikā sastopamu vadības problēmu risināšanā, jau no paša sākuma tiek krietni sašaurināts motivējošā uzdevuma potenciālo risinājumu klāsts. Kaut gan iespējams metienus ģenerēt parametriski, izmantojot t.s. \textit{``model-based''} pieejas -- kur tiktu speciāli izveidots fizikā un robota kinemātikā balstīts sistēmas modelis, un metieni ģenerēti balstoties uz mērķa koordinātēm -- šāda tradicionāla metode ir, pirmkārt,dārga, darbietilpīga un slikti visparināma, kā jau apspriests darba teorētiskajā daļā, un, otrkārt, nekādi nepalīdzētu papildināt institūta zināšanu bāzi ar ieskatu atdarinošās mašīnmācīšanās metodēs. Līdzīgi apsvērumi attiecināmi uz stimulēto mācī-šanos, kaut gan tādā gadījumā vēl jāņem vērā fakts, ka tehniska realizācija būtu pat sarežģītāka un darbietilpīgāka, nekā zemāk aprakstītie paņēmieni.
@@ -946,6 +947,12 @@ Kad nolemts darboties atdarinošās mācīšanās virzienā, pirmais lēmums, no
 \end{enumerate}
 
 Vistiešākā pārnese no novērojumiem uz robota kontroles sistēmu, kas darbojas locītavu konfigurāciju telpā, būtu metodēm, kurās jau pašas demonstrācijas sastāv no punktiem šajā telpā. Taču no visām metodēm šī ir visciešāk piesaistīta konkrētam fizikālam izpildījumam -- demonstrācijas ir atkarīgas no konkrētā robota kinemātikas, un nepieciešams izmantot vai nu pašu robotu, vai precīzu tā simulāciju jau treniņa datu kopas ieguvē. Tas prasa lielu sākotnējo laika un darba ieguldījumu šādas vides sagatavošanā, demonstrāciju iegūšanas process kļūst samērā sarežģīts un iegūstamie rezultāti droši vien būs slikti vispārināmi.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/mocap_equipment.jpg}
+    \caption{No kreisās puses: \textit{Optitrack} aprīkojuma būris; ar marķieriem aprīkotie rīki -- pirmais tīkls (izmantots kā lidojuma beigu atskaites punkts), efektora simulators, pudele; cietu ķermeņu definīcijas \textit{Motive} programmatūras vidē.}
+\end{figure}
 
 Ierakstot gala efektora konfigurācijas simulētā vidē nav jāuztraucas par datu krop-ļojumiem, kas neizbēgami jebkādos no fizikālām sistēmām iegūtos novērojumos. VR cilvēka-datora saskarni padara ļoti tiešu un vienkāršu, ļaujot realizēt gandrīz jebkādas darbības, ko instruktors spētu veikt realitātē. Taču, kaut gan ņemot vērā tikai gala efektoru, tiek ievērojami samazināta datu kopas sasaiste ar kādu konkrētu mehānisku izpildījumu, tik un tā nepieciešams sagatavot adekvātu virtuālu vidi katram uzdevumam.
 
