@@ -345,7 +345,6 @@ kur $y_t$ ir modeļa izpildes (nosacīti -- laika) solī iegūtais izvads, $x_t$
 
 Divas populāras arhitektūras, kas piedāvātas ar mērķi apkarot šo fenomenu, ir \textit{``Long Short-Term Memory''} (LSTM) \cite{hochreiter1997long} un \textit{``Gated Recurrent Unit''} (GRU) \cite{cho2014properties}, kas abas ievieš strukturētus un apmācāmus mehānismus, kas ļauj modelim ``izvēlēties'' -- ``atcerēties'' vai ``aizmirst'' slēptā stāvokļa vektorā kodētu informāciju. Daudzos pētījumos to sasniegtie rezultāti ir visnotaļ līdzīgi un pārspēj vienkāršāku arhitektūru modeļus \cite{chung2014empirical}, taču šķiet, ka pie nelielām datu kopām un garām apstrādājamām virknēm GRU sasniedz labākus rezultātus \cite{yang2020lstm}.
 
-
 \subsection{Markova lēmumu procesi}
 
 Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes mērķiem, lai ar tiem varētu veikt matemātiskas operācijas. Izplatīti atdarinošās un stimulētās mašīnmācīšanās literatūrā ir Markova lēmumu procesi (MDP --- \textit{Markov decision processes}). Šis formālisms ir piemērojams  situācijām, kurās, lai paredzētu procesa atribūtu vērtības pēc laika soļa $t$, netiek izmantota nekāda informācija par to vērtībām pagātnē --- laika soļos $t' < t$. Dažādi autori, kas darbojas dažādos izpētes virzienos, mēdz piedāvāt atšķirīgus tā formulējumus, taču parasti tie ir ekvivalenti sekojošam \cite{attia2018global}
@@ -922,6 +921,14 @@ Rezultāti liecina, ka šāds modelis ļoti veiksmīgi apgūst ekspertu stratē�
 \subsubsection{ROS}
 
 \subsubsection{Optitrack -- aprīkojums un programmatūra}
+
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/throw_demo.jpg}
+    \caption{Demonstrāciju ievākšana kustības uztveres sistēmā \textit{Optitrack}. Robota efektoru simulē atkritumu savākšanas instruments. Pudele arī aprīkota ar marķieriem, lai būtu iespējams demonstrācijas parametrizēt pēc tās ekstrapolētajām galamērķa koordinātēm. Tīkls izgatavots, lai netiktu bojāti marķieri. Brīvā kritiena posma beigu kritērijam izmantotais marķieris šajā attēlu sērijā nav redzams.}
+\end{figure}
+
 
 \subsubsection{Programmēšanas valoda, bibliotēkas}
 
