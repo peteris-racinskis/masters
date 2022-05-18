@@ -48,6 +48,39 @@
       \field{pages}{1}
       \range{pages}{1}
     \endentry
+    \entry{rnn}{online}{}
+      \name{author}{1}{}{%
+        {{hash=dc787e57b060aa09eb76c48469ecce4e}{%
+           family={Afshine\bibnamedelima Amidi},
+           familyi={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           given={Shervine\bibnamedelima Amidi},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Stanford}%
+      }
+      \strng{namehash}{dc787e57b060aa09eb76c48469ecce4e}
+      \strng{fullhash}{dc787e57b060aa09eb76c48469ecce4e}
+      \strng{bibnamehash}{dc787e57b060aa09eb76c48469ecce4e}
+      \strng{authorbibnamehash}{dc787e57b060aa09eb76c48469ecce4e}
+      \strng{authornamehash}{dc787e57b060aa09eb76c48469ecce4e}
+      \strng{authorfullhash}{dc787e57b060aa09eb76c48469ecce4e}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Recurrent Neural Networks cheatsheet}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks
+      \endverb
+      \verb{url}
+      \verb https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks
+      \endverb
+    \endentry
     \entry{notation}{online}{}
       \name{author}{1}{}{%
         {{hash=482952eb401d9a72aac275223c4e997d}{%
@@ -300,6 +333,80 @@
       \field{year}{2019}
       \field{pages}{783\bibrangedash 792}
       \range{pages}{10}
+    \endentry
+    \entry{cho2014properties}{article}{}
+      \name{author}{4}{}{%
+        {{hash=3da7501a79d9346572c7fd6e41b615df}{%
+           family={Cho},
+           familyi={C\bibinitperiod},
+           given={Kyunghyun},
+           giveni={K\bibinitperiod}}}%
+        {{hash=2835acd2493c54182c074a35cd04ad4d}{%
+           family={Van\bibnamedelima Merri{ë}nboer},
+           familyi={V\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Bart},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6d80adec79a13a33e73215c5f46f1605}{%
+           family={Bahdanau},
+           familyi={B\bibinitperiod},
+           given={Dzmitry},
+           giveni={D\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b1920db887fe0d658725c1e606b61f4}
+      \strng{fullhash}{b9a1a75ef50b4a5da44f61c983681210}
+      \strng{bibnamehash}{9b1920db887fe0d658725c1e606b61f4}
+      \strng{authorbibnamehash}{9b1920db887fe0d658725c1e606b61f4}
+      \strng{authornamehash}{9b1920db887fe0d658725c1e606b61f4}
+      \strng{authorfullhash}{b9a1a75ef50b4a5da44f61c983681210}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1409.1259}
+      \field{title}{On the properties of neural machine translation: Encoder-decoder approaches}
+      \field{year}{2014}
+    \endentry
+    \entry{chung2014empirical}{article}{}
+      \name{author}{4}{}{%
+        {{hash=7a79e6bb4ca772c9b3b38f4e9f45b83c}{%
+           family={Chung},
+           familyi={C\bibinitperiod},
+           given={Junyoung},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2adc0c92c308f233c731321d55efe58f}{%
+           family={Gulcehre},
+           familyi={G\bibinitperiod},
+           given={Caglar},
+           giveni={C\bibinitperiod}}}%
+        {{hash=f8dfca934ead3a7cab6b2382a1baaaa1}{%
+           family={Cho},
+           familyi={C\bibinitperiod},
+           given={KyungHyun},
+           giveni={K\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{fullhash}{7f2d21710b1589de5a0a24526a0e0f03}
+      \strng{bibnamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authorbibnamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authornamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authorfullhash}{7f2d21710b1589de5a0a24526a0e0f03}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1412.3555}
+      \field{title}{Empirical evaluation of gated recurrent neural networks on sequence modeling}
+      \field{year}{2014}
     \endentry
     \entry{popsci}{online}{}
       \name{author}{1}{}{%
@@ -869,6 +976,40 @@
       \field{year}{2016}
       \field{pages}{4565\bibrangedash 4573}
       \range{pages}{9}
+    \endentry
+    \entry{hochreiter1997long}{article}{}
+      \name{author}{2}{}{%
+        {{hash=41b31e29fb2bdbf9f5c9c1b0d5b3e815}{%
+           family={Hochreiter},
+           familyi={H\bibinitperiod},
+           given={Sepp},
+           giveni={S\bibinitperiod}}}%
+        {{hash=288bdbcfe1b91ad7484d7a24f74f99ed}{%
+           family={Schmidhuber},
+           familyi={S\bibinitperiod},
+           given={J{ü}rgen},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \strng{fullhash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \strng{bibnamehash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \strng{authorbibnamehash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \strng{authornamehash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \strng{authorfullhash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Neural computation}
+      \field{number}{8}
+      \field{title}{Long short-term memory}
+      \field{volume}{9}
+      \field{year}{1997}
+      \field{pages}{1735\bibrangedash 1780}
+      \range{pages}{46}
     \endentry
     \entry{huber_loss}{article}{}
       \name{author}{1}{}{%
@@ -2401,6 +2542,43 @@
       \verb{url}
       \verb https://mathworld.wolfram.com/Metric.html
       \endverb
+    \endentry
+    \entry{yang2020lstm}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=d6bf97a6a580ac11371c804f63807443}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Shudong},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9c91da65712adb41c94a626afdc67225}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Xueying},
+           giveni={X\bibinitperiod}}}%
+        {{hash=72af1a460a6fb4aa57b04db4a4e99244}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Ying},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{07da1b4bd3da7d89472364e0da12929e}
+      \strng{fullhash}{07da1b4bd3da7d89472364e0da12929e}
+      \strng{bibnamehash}{07da1b4bd3da7d89472364e0da12929e}
+      \strng{authorbibnamehash}{07da1b4bd3da7d89472364e0da12929e}
+      \strng{authornamehash}{07da1b4bd3da7d89472364e0da12929e}
+      \strng{authorfullhash}{07da1b4bd3da7d89472364e0da12929e}
+      \field{sortinit}{Y}
+      \field{sortinithash}{6ae2ff5458ff901249c2745238c951b7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2020 International workshop on electronic communication and artificial intelligence (IWECAI)}
+      \field{title}{Lstm and gru neural network performance comparison study: Taking yelp review dataset as an example}
+      \field{year}{2020}
+      \field{pages}{98\bibrangedash 101}
+      \range{pages}{4}
     \endentry
     \entry{time_series}{online}{}
       \name{author}{1}{}{%

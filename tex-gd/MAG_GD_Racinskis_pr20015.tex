@@ -320,7 +320,7 @@ turklāt šo procesu var atkārtot ar paša modeļa ģenerētiem rezultātiem
 kur $x_{t} =  \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)$, $x_{t+1} =  \pi_{\theta}(x_{t}, x_{t-1}, ..., x_1)$ u.t.t. Autoregresoru mode-ļus šādi var izmantot laikrindu ģenerēšanā, izmantojot zināmu sākuma stāvokli vai sākuma stāvokļu virkni. Principā ir iespējams jebkuru modeli ar pietiekami lielas dimensijas datu izvadu izmantot kā autoregresoru-ģeneratoru -- ja tas ir formā 
 
 \begin{equation} 
-    \pi_{\theta}: \mathbb{R}^n \rightarrow \mathbb{R}^m, m \geq n
+    \pi_{\theta}: \mathbb{R}^n \rightarrow \mathbb{R}^n
 \end{equation}
 
 tad šī darba ietvaros tiek sacīts, ka ``modelis lietots autoregresijā'', ja iegūta sekojošās formas datu virkne
@@ -329,8 +329,21 @@ tad šī darba ietvaros tiek sacīts, ka ``modelis lietots autoregresijā'', ja 
     (s_1, \pi_{\theta}(s_1), \pi_{\theta}(\pi_{\theta}(s_1)), ... )
 \end{equation}
 
+Laikrindu modelēšanas uzdevumos tradicionāli plaši izmantoti rekurentie neironu tīkli \cite{rnn}. Īsumā, tos varētu definēt kā 
 
+\begin{equation} 
+    y_t, h_t = \pi_{\theta}(x_t, h_{t-1})
+\end{equation}
 
+kur $y_t$ ir modeļa izpildes (nosacīti -- laika) solī iegūtais izvads, $x_t$ ir tajā pašā solī izmantotais ievaddatu vektors bet $h_t$ -- modeļa iekšējā stāvokļa vektors jeb tie elementi no modeļa izvaddatiem, kas nākamajā izpildes solī tiek izmantoti modeļa ievadā. Tātad pēc augstāk dotās autoregresijas modeļa definīcijas, rekurentais tīkls vienmēr vismaz daļēji strādā šādā režīmā -- izmantojot kādu funkciju no iepriekšējo laika soļu vērtībām pat tad, ja tas strādā t.s. \textit{``sequence-to-sequence''} režīmā -- kur jau pieejama katram solim atbilstoša ievaddatu vērtība. Protams, tāpat kā jebkura cita veida modeli, arī rekurento neironu tīklu var darbināt ``tīrā'' autoregresijā. Tad to aprakstošais vienādojums ir vienkārši
+
+\begin{equation} 
+    y_t, h_t = \pi_{\theta}(y_{t-1}, h_{t-1})
+\end{equation}
+
+Šādu modeli iespējams apmācīt ar novērojumu virknēm $(x_t,y_t)$, bet pēc tam izmantot, lai ģenerētu jaunas virknes, par ievadiem ņemot jau paša modeļa paredzējumus. Viena problēma, ar ko saskaras rekurentie neironu tīkli praksē, ir t.s. izgaistošo gradientu problēma. Piemērojot atpakaļizplatīšanas algoritmu rekurentam neironu tīklam, nepieciešams daudzas reizes virzīties caur visiem tā slāņiem. Līdz ar to nelineāro aktivācijas funkciju rezultātā mērķa funkcijas gradienti var sasniegt nulli vai neierobežoti pieaugt, algoritmam virzoties tālāk no laika soļa, kurā piemērota mērķa funkcija. Tāpēc vienkāršas rekurento tīklu arhitektūras cieš no ``īsas atmiņas''. 
+
+Divas populāras arhitektūras, kas piedāvātas ar mērķi apkarot šo fenomenu, ir \textit{``Long Short-Term Memory''} (LSTM) \cite{hochreiter1997long} un \textit{``Gated Recurrent Unit''} (GRU) \cite{cho2014properties}, kas abas ievieš strukturētus un apmācāmus mehānismus, kas ļauj modelim ``izvēlēties'' -- ``atcerēties'' vai ``aizmirst'' slēptā stāvokļa vektorā kodētu informāciju. Daudzos pētījumos to sasniegtie rezultāti ir visnotaļ līdzīgi un pārspēj vienkāršāku arhitektūru modeļus \cite{chung2014empirical}, taču šķiet, ka pie nelielām datu kopām un garām apstrādājamām virknēm GRU sasniedz labākus rezultātus \cite{yang2020lstm}.
 
 
 \subsection{Markova lēmumu procesi}
