@@ -2025,6 +2025,26 @@
       \field{pages}{484\bibrangedash 489}
       \range{pages}{6}
     \endentry
+    \entry{autoregressor}{online}{}
+      \list{organization}{1}{%
+        {Penn State}%
+      }
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labeltitlesource}{title}
+      \field{title}{STAT 501, 14.1 -- Autoregressive Models}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://online.stat.psu.edu/stat501/lesson/14/14.1
+      \endverb
+      \verb{url}
+      \verb https://online.stat.psu.edu/stat501/lesson/14/14.1
+      \endverb
+    \endentry
     \entry{trashbot}{online}{}
       \name{author}{1}{}{%
         {{hash=8a516408eada0fdafa3f11bb4115c9ff}{%
@@ -2380,6 +2400,37 @@
       \endverb
       \verb{url}
       \verb https://mathworld.wolfram.com/Metric.html
+      \endverb
+    \endentry
+    \entry{time_series}{online}{}
+      \name{author}{1}{}{%
+        {{hash=44369571618b900c43d1a95fbbf75a11}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Fangyi},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{44369571618b900c43d1a95fbbf75a11}
+      \strng{fullhash}{44369571618b900c43d1a95fbbf75a11}
+      \strng{bibnamehash}{44369571618b900c43d1a95fbbf75a11}
+      \strng{authorbibnamehash}{44369571618b900c43d1a95fbbf75a11}
+      \strng{authornamehash}{44369571618b900c43d1a95fbbf75a11}
+      \strng{authorfullhash}{44369571618b900c43d1a95fbbf75a11}
+      \field{sortinit}{Y}
+      \field{sortinithash}{6ae2ff5458ff901249c2745238c951b7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Thorough Guide to Time Series Analysis}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://towardsdatascience.com/a-thorough-guide-to-time-series-analysis-5439c63bc9c5
+      \endverb
+      \verb{url}
+      \verb https://towardsdatascience.com/a-thorough-guide-to-time-series-analysis-5439c63bc9c5
       \endverb
     \endentry
     \entry{zhang2018deep}{inproceedings}{}

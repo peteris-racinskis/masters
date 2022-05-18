@@ -297,7 +297,41 @@ Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc p
 
 Pastāv dažādas šo tīklu arhitektūras. Vienkāršākās sastāv no viena vai vairākiem slāņiem (neskaitot ievades slāni), taču ir plaši izplatīti arī, piemēram, konvolūciju neironu tīkli \cite{krizhevsky2012imagenet}, ko izmanto attēlu apstrādē, tai skaitā šajā atskaitē aplūkotajos pētījumos, kur nepieciešams gūt informāciju no video datiem. Galvenā atšķirība konvolūcijā tīklā ir kodolu (\textit{kernel}) izmantošana - konvolūciju slāņi vienā līmenī piemēro identiskas perceptrona funkcijas nelieliem iepriekšējā slāņa (matricas vai tenzora formā) reģioniem. Tas palīdz identificēt dažādas lokālas struktūras, piemēram, attēlā. 
 
-\subsubsection{Laikrindu modelēšana, rekurentie neironu tīkli}
+\subsubsection{Laikrindu modelēšana, autoregresori, rekurentie neironu tīkli}
+
+Ja modelējamā parādība vai datu kopa izsakāma formā
+
+\begin{equation} 
+    (x_1, x_2, ...)
+\end{equation}
+
+kur starp punktiem pastāv izteikta secības sakarība -- piemēram, tie ir novērojumi laikā vai simboli teksta korpusā -- šādam fenomenam var piemērot t.s. laikrindu datu kopu analīzes metodes \cite{time_series}. Šī darba ietvaros plaši tiek izmantots autoregresora jēdziens \cite{autoregressor}. Principā ar šo terminu var apzīmēt jebkuru laikrindu regresijas metodi, kas balstīta uz pieņēmumu, ka nākotnes vērtības var modelēt kā funkciju no pagātnes vērtībām vai kādas to apakškopas, t.i.
+
+\begin{equation} 
+    x_t = \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)
+\end{equation}
+
+turklāt šo procesu var atkārtot ar paša modeļa ģenerētiem rezultātiem
+
+\begin{equation} 
+    x_{t+m} = \pi_{\theta}(x_{t+m-1}, x_{t+m-2}, ..., x_1)
+\end{equation}
+
+kur $x_{t} =  \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)$, $x_{t+1} =  \pi_{\theta}(x_{t}, x_{t-1}, ..., x_1)$ u.t.t. Autoregresoru mode-ļus šādi var izmantot laikrindu ģenerēšanā, izmantojot zināmu sākuma stāvokli vai sākuma stāvokļu virkni. Principā ir iespējams jebkuru modeli ar pietiekami lielas dimensijas datu izvadu izmantot kā autoregresoru-ģeneratoru -- ja tas ir formā 
+
+\begin{equation} 
+    \pi_{\theta}: \mathbb{R}^n \rightarrow \mathbb{R}^m, m \geq n
+\end{equation}
+
+tad šī darba ietvaros tiek sacīts, ka ``modelis lietots autoregresijā'', ja iegūta sekojošās formas datu virkne
+
+\begin{equation} 
+    (s_1, \pi_{\theta}(s_1), \pi_{\theta}(\pi_{\theta}(s_1)), ... )
+\end{equation}
+
+
+
+
 
 \subsection{Markova lēmumu procesi}
 
