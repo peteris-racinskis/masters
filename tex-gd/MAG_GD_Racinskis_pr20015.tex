@@ -398,7 +398,7 @@ un piemērot pārvietojuma vektoram gala efektora koordinātu sistēmā ar matri
     \boldsymbol{x}_{world} = T_{n}(\boldsymbol{\alpha})\boldsymbol{x}_{ee}
 \end{equation}
 
-Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotācijas \newline komponente augšējā kreisajā stūrī. Cits populārs veids, kā apzīmēt rotācijas 3-dimensiju telpā, ir izmantojot kvaternionus \cite{quaternions_illinois}. Tos var uztvert kā komplekso skaitļu 4-dimen-sionālu ekvivalentu. Šī darba ietvaros padziļināti aprakstīt to algebriskās īpašības nav nepieciešams, pietiek tikai minēt, ka, lai izteiktu telpisku rotāciju, tiek izmantota t.s. versora forma
+Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotācijas \newline komponente augšējā kreisajā stūrī, ko iespējams izteikt Eilera leņķos vai citādi. Viens populārs veids, kā apzīmēt rotācijas 3-dimensiju telpā, ir izmantojot kvaternionus \cite{quaternions_illinois}. Tos var uztvert kā komplekso skaitļu 4-dimen-sionālu ekvivalentu. Šī darba ietvaros padziļināti aprakstīt to algebriskās īpašības nav nepieciešams, pietiek tikai minēt, ka, lai izteiktu telpisku rotāciju, tiek izmantota t.s. versora forma
 
 \begin{equation}
     q = w + x\boldsymbol{i} + y\boldsymbol{j} + x\boldsymbol{k}
@@ -407,7 +407,7 @@ Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotā
     \Vert q \Vert = \sqrt{w^2 + x^2 + y^2 + z^2} = 1
 \end{equation}
 
-kur $w$ ir rotācijas skalārā komponente bet $x,y,z$ veidotais 3-dimensiju vektors ir paralēls atbilstošai rotācijas asij. Kvaternioniem ir reizinājuma operācija, kam ir vienības vērtība un inversās vērtības
+kur $w$ ir rotācijas skalārā komponente bet $x,y,z$ veidotais 3-dimensiju vektors ir paralēls atbilstošai rotācijas asij. Svarīgi ievērot, ka kaut gan kvaternions vispārīgā gadījumā ir četrdimensionāls objekts, konstantās normas nosacījums visus versorus novieto uz 3-dimensionālas hipersfēras 4-dimensiju telpā, kas nozīmē, ka telpiskām rotācijām tik un tā ir tikai 3 brīvības pakāpes -- tāpat, kā izsakot tās ar lenķiem. Kvaternioniem ir reizinājuma operācija, kam ir vienības vērtība un inversās vērtības
 
 \begin{equation}
     qq^{-1} \equiv 1 +  0\boldsymbol{i} + 0\boldsymbol{j} + 0\boldsymbol{k}
@@ -428,21 +428,43 @@ un rotāciju vektoram 3-dimensiju telpā piemēro, to papildinot ar 0 un piemēr
 kas ļauj kinemātisko ķēdes konfigurācijai atbilstošo koordinātu sistēmas pārvei-dojumu aprakstīt kā rotētu nobīžu vektoru summu
 
 \begin{equation}
-    \boldsymbol{x}_{world} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_n...q_1}(\boldsymbol{x}_{ee})
+    \boldsymbol{x}_{ee} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_n...q_1}(\boldsymbol{L}_{ee})
 \end{equation}
 
 Robota vadības programmatūras kontekstā bieži var nākties strādāt ar t.s. robota efektora pozu, kas sastāv no divām komponentēm -- efektora koordinātu sistēmas sākumpunkta nobīdes un summārās rotācijas
 
 \begin{equation}
-    \boldsymbol{x}_{position} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_{n-1}...q_1}(\boldsymbol{L}_{n-1})
+    \boldsymbol{x}_{position} = \boldsymbol{x}_{world}
 \end{equation}
 \begin{equation}
     \boldsymbol{q}_{orientation} = \prod_{i=1}^n q_i
 \end{equation}
 
-Ja tiešās kinemātikas uzdevumā nepieciešams no zināmas robota locītavu konfi-gurācijas iegūt telpisko pozīciju, tad inversā kinemātika nodarbojas ar atbilstošu locītavu lenķu piemeklēšanu konkrētai telpiskai pozīcijai \cite{inverse_kinematics_illinois}.
+Ja tiešās kinemātikas uzdevumā nepieciešams no zināmas robota locītavu konfi-gurācijas iegūt telpisko pozīciju, tad inversā kinemātika nodarbojas ar atbilstošu locītavu lenķu piemeklēšanu konkrētai telpiskai pozīcijai \cite{inverse_kinematics_illinois}. Formāli, tipiskais inversās kine-mātikas uzdevums ir atrast $f^{-1}$ pie konkrētas orientācijas un pozīcijas (kopā -- pozas)
+
+\begin{equation}
+    f(\boldsymbol{\alpha}) \equiv \boldsymbol{x}_{desired} = 
+    \begin{bmatrix}
+        \boldsymbol{x}_{position} \\
+        \boldsymbol{x}_{orientation} 
+    \end{bmatrix}
+\end{equation}
+
+kur $\boldsymbol{x}_{position}, \boldsymbol{x}_{orientation}$ ir pozīcijas un orientācijas ierobežojumi, kas atbilst kon-krētam pārvietojumam un orientācijai, izteikti 3-dimensionāli. Protams, iespējams izmantot arī cita veida ierobežojumus, un to skaits var būt dažāds. Atkarībā no dotā lineāri neatkarīgu ierobežojumu skaita $m$ un robota brīvības pakāpju skaita $n$, iespējamas sekojošās situācijas:
+
+\begin{enumerate}
+    \item $n > m$ -- problēma ir nepietiekami ierobežota. Ja atrisinājums pastāv (nav ārpus robota sasniedzamās darba zonas) un nav singulārs, tad atrisinājumu ir bezgalīgi daudz;
+    \item $n = m$ -- problēma ir precīzi ierobežota  (tipiski 6-asu robotam 3-dimensiju telpā). Ja atrisinājums pastāv, tad to ir galīgā skaitā;
+    \item $n < m$ -- problēma ir pārlieku ierobežota. Risinājums pastāv tikai punktu apakš-kopai ar samazinātu dimensionalitāti.
+\end{enumerate}
+
+Vienkāršākais veids, kā varētu aprakstīt singulārus risinājumus jeb singularitātes robotikas kontekstā, varētu būt sekojošs: tie ir punkti pozu telpā $x_{singularity}$, kuriem pēc tiešās kinemātikas piekārtotās locītavu konfigurācijas telpa $\lbrace \alpha \mid f(\alpha) = x_{singularity} \rbrace$ ir ar mazāku dimensionalitāti, nekā citur. Piemāram, precīzi ierobežotā gadījumā tie varētu būtu punkti, kur iespējama tikai viena atbilstoša robota konfigurācija, ja citur to ir lielāks, galīgs skaits -- viena šādu pozīciju saime ir visas makismāli iztaisnota robota sasniegtās pozas.
+
+Singularitāšu pastāvēšana, vairāku vai bezgalīgi daudzu konfigurāciju pastāvēšana (gandrīz) katrai sasniedzamai pozai un nelineārās sakarības starp locītavu leņķi un efektora atrašanās vietu telpā nozīmē to, ka izmantot vienkāršus lineārus operatorus inversās kinemātikas uzdevuma risināšanai nav iespējams. Tā vietā iespējams vai nu sastādīt nelineāras vienādojumu sistēmas, kas atbilst robota ģeometrijai, vai rēķināt rezultātu ar skaitliskām metodēm. 
 
 \subsubsection{Trajektoriju plānošana}
+
+
 
 \subsubsection{Kinemātikas rekonstrukcija no novērojumiem}
 

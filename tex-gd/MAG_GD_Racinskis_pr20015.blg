@@ -1,19 +1,19 @@
 [0] Config.pm:304> INFO - This is Biber 2.14 (beta)
 [0] Config.pm:307> INFO - Logfile is 'MAG_GD_Racinskis_pr20015.blg'
-[52] biber:322> INFO - === Tue May 17, 2022, 18:23:00
-[62] Biber.pm:415> INFO - Reading 'MAG_GD_Racinskis_pr20015.bcf'
-[111] Biber.pm:943> INFO - Found 65 citekeys in bib section 0
-[120] Biber.pm:4256> INFO - Processing section 0
-[120] Utils.pm:75> INFO - Globbing data source 'refs.bib'
-[120] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
-[127] Biber.pm:4455> INFO - Looking for bibtex format file 'refs.bib' for section 0
-[129] bibtex.pm:1653> INFO - LaTeX decoding ...
-[167] bibtex.pm:1471> INFO - Found BibTeX data source 'refs.bib'
-[456] Utils.pm:293> WARN - BibTeX subsystem: /tmp/biber_tmp_4nCG/refs.bib_29051.utf8, line 54, warning: 67 characters of junk seen at toplevel
-[511] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[511] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[511] Biber.pm:4084> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[512] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
-[560] bbl.pm:652> INFO - Writing 'MAG_GD_Racinskis_pr20015.bbl' with encoding 'UTF-8'
-[590] bbl.pm:755> INFO - Output to MAG_GD_Racinskis_pr20015.bbl
-[591] Biber.pm:128> INFO - WARNINGS: 1
+[58] biber:322> INFO - === Wed May 18, 2022, 12:01:42
+[72] Biber.pm:415> INFO - Reading 'MAG_GD_Racinskis_pr20015.bcf'
+[126] Biber.pm:943> INFO - Found 65 citekeys in bib section 0
+[136] Biber.pm:4256> INFO - Processing section 0
+[136] Utils.pm:75> INFO - Globbing data source 'refs.bib'
+[136] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
+[145] Biber.pm:4455> INFO - Looking for bibtex format file 'refs.bib' for section 0
+[147] bibtex.pm:1653> INFO - LaTeX decoding ...
+[196] bibtex.pm:1471> INFO - Found BibTeX data source 'refs.bib'
+[481] Utils.pm:293> WARN - BibTeX subsystem: /tmp/biber_tmp_HWUl/refs.bib_7709.utf8, line 54, warning: 67 characters of junk seen at toplevel
+[533] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[533] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[533] Biber.pm:4084> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[533] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
+[577] bbl.pm:652> INFO - Writing 'MAG_GD_Racinskis_pr20015.bbl' with encoding 'UTF-8'
+[607] bbl.pm:755> INFO - Output to MAG_GD_Racinskis_pr20015.bbl
+[607] Biber.pm:128> INFO - WARNINGS: 1
