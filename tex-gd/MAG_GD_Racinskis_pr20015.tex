@@ -288,14 +288,14 @@ Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās ma�
 
 \subsubsection{Neironu tīkli -- vispārīgi}
 
-Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas formas funkciju aproksimēšanai -- tie var būt gan klasifikatori, gan regresori. Neironu tīklu kopīgais elements ir t.s. perceptorns, kas izteikts jau pašos pirmsākumos \cite{mcculloch1943logical}. Perceptrons funkcija, kas piemēro nelineāru aktviācijas funkciju $\sigma$ argumentu vektora $\vec{x}$ elementu savstarpējai lineārai kombinācijai, t.i,
+Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas formas funkciju aproksimēšanai -- tie var būt gan klasifikatori, gan regresori. Neironu tīklu kopīgais elements ir t.s. perceptorns, kas izteikts jau pašos pirmsākumos \cite{mcculloch1943logical}. Perceptrons funkcija, kas piemēro nelineāru aktviācijas funkciju $\sigma$ argumentu vektora $ \boldsymbol{x}$ elementu savstarpējai lineārai kombinācijai, t.i,
 
 
 \begin{equation} 
-    f_{perceptron}(\vec{x}) = \sigma(\vec{w} \cdot \vec{x}+b)
+    f_{perceptron}( \boldsymbol{x}) = \sigma( \boldsymbol{w} \cdot  \boldsymbol{x}+b)
 \end{equation}
 
-kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ --  nobīde. Perceptrona parametri tātad ir brīvie mainīgie $\vec{w}$ un $b$. Neironu tīkls parasti sastāv no slāņiem -- perceptronu $f_i$ kopām, kas visi apstrādā to pašu argumentu vektoru, bet katrs ar saviem parametriem $\vec{w}_i,b_i$. Tad slāni algebriski izsaka formā
+kur $ \boldsymbol{w}$ ir t.s. svaru vektors, bet $b$ --  nobīde. Perceptrona parametri tātad ir brīvie mainīgie $ \boldsymbol{w}$ un $b$. Neironu tīkls parasti sastāv no slāņiem -- perceptronu $f_i$ kopām, kas visi apstrādā to pašu argumentu vektoru, bet katrs ar saviem parametriem $w_i,b_i$. Tad slāni algebriski izsaka formā
 
 \begin{equation} 
     W = \begin{bmatrix}
@@ -304,7 +304,7 @@ kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ --  nobīde. Perceptrona parametri 
         ... \\
         w_k^T
     \end{bmatrix}; 
-    \vec{b} =  \begin{bmatrix}
+     \boldsymbol{b} =  \begin{bmatrix}
         b_1 \\
         b_2 \\
         ... \\
@@ -312,7 +312,7 @@ kur $\vec{w}$ ir t.s. svaru vektors, bet $b$ --  nobīde. Perceptrona parametri 
     \end{bmatrix}; 
 \end{equation}
 \begin{equation} 
-    f_{layer}(\vec{x}) = \sigma(W\vec{x}+\vec{b})
+    f_{layer}( \boldsymbol{x}) = \sigma(W \boldsymbol{x}+ \boldsymbol{b})
 \end{equation}
 
 Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc par izvades (\textit{output}) slāni. Ievades datu vektoru sauc par ievades (\textit{input}) slāni. Pārējos slāņus sauc par slēptajiem (\textit{hidden layers}). Saka, ka slāņi savā starpā pilnīgi savienoti (\textit{fully connected}), ja katram viena slāņa perceptronam argumentā parādās visi iepriekšējā slāņa izvades elementi. Svarīga neironu tīkla īpašība -- ja tā aktivācijas funkcijas ir diferencējamas, tad arī tīkls kopumā ir diferencējams pēc katra tā parametra, pat ar perceptroniem daudzos slāņos. Līdz ar to var izmantot atpakaļizplatīšanas algoritmu, kas atrod mērķa funkcijas parciālos atvasinājumus pēc modeļa parametriem un izmanto kādu gradientu optimizācijas metodi apmācībai.
@@ -1103,12 +1103,11 @@ Ar laika ass reparametrizāciju nepietiek, lai novērstu visas neregularitātes 
 
 Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līganus metienus video ierakstā un to raustītāš reprezentācijas trajektoriju datos), nospriests, ka tās nesastāda fiziskajā trajektorijā novē-rojamu parādību bet gan ieraksta procesā pievienotu datu kropļojumu. Tāpēc pirms modeļa apmācības tās nepieciešams likvidēt. To paveic skripts \textit{``smoothing.py''}, kurā piemērots t.s. ``slīdošās vidējās vērtības'' aprēķins pēc sekojošā vienādojuma:
 
-
 \begin{equation}
-    \vec{x}'_{t} = \frac{1}{2m+1} \sum_{i=t-m}^{t+m} \vec{x}_i
+     \boldsymbol{x}'_{t} = \frac{1}{2m+1} \sum_{i=t-m}^{t+m}  x_i
 \end{equation}
 
-kur $\vec{x}$ -- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
+kur $ \boldsymbol{x}$ -- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
 
 \subsubsection{Kritisko punktu noteikšana un papildu signāli}
 
@@ -1132,7 +1131,7 @@ Pārējo punktu meklēšanai nepieciešams iegūt pozīciju atvasinājuma aproks
 Ja atvasinājumu absolūtās vērtības konkrētās mērvienībās nav svarīgas, konstanti $f$ -- novērojumu frekvenci, šajā gadījumā $100$ Hz -- nav nepieciešams ņemt vērā. Empīriski novērots, ka pēc šādas metodes aproksimējot atvasinājumu, katrā solī pieaug svārstību amplitūda. Varētu aprēķinātajam ``atvasinājumam'' izmantot to pašu ``slīdošās vidējās vērtības metodi'', kas aprakstīta pie gludināšanas. Praksē izrādās, ka pietiekami labi strādā sekojošais, stipri vienkāršotais novērtējums, kas apvieno diferences un gludināšanas soļus:
 
 \begin{equation}
-    x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m} \vec{x}_i - \sum_{i=t-m}^{t} \vec{x}_i
+    x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m}  x_i - \sum_{i=t-m}^{t}  x_i
 \end{equation}
 
 Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasinājumam -- paātrinājumam -- proporcionālu vērtību. Lai noteiktu, vai pudele ir brīvajā kritienā, tiek piemērota tāda pati sliekšņa funkcija ar histerēzi -- t.i., visas vērtības pēc pirmās, kas ir 1, arī ir 1 -- pudeles un efektora simulatora savstarpējās distances atvasinājuma aproksimatoram:
@@ -1140,17 +1139,17 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
 
 \begin{equation}
     f_{freefall} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
+        0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{TrashPickup}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
 
-kur $\vec{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai satvērēj-mehānisms ir sācis atlaisties, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
+kur $ \boldsymbol{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai satvērēj-mehānisms ir sācis atlaisties, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
 
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t, \overline{ \left [ \lVert \vec{r}_{Bottle}(u) - \vec{r}_{TrashPickup}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
+        0 \text{ ja } \forall u < t, \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{TrashPickup}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -1159,7 +1158,7 @@ Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, sl
 
 \begin{equation}
     f_{moving} (t) = \begin{cases}
-        0 \text{ ja } \forall u < t,  \lVert \overline{\left [ \vec{r}_{TrashPickup}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
+        0 \text{ ja } \forall u < t,  \lVert \overline{\left [  \boldsymbol{r}_{TrashPickup}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
         1 \text{ citādi }
     \end{cases}
 \end{equation}
@@ -1223,19 +1222,19 @@ Apsvērti divi varianti, centrēšana pēc metiena sākuma un mērķa. Lai iegū
     t_{moving} = min(\lbrace t \mid f_{moving}(t) = 1 \rbrace)
 \end{equation}
 \begin{equation}
-    \vec{r}_{0} = \vec{r}_{t_{moving}}
+     \boldsymbol{r}_{0} =  \boldsymbol{r}_{t_{moving}}
 \end{equation}
 
 Bet metiena beigu punktu iegūst no mērķa koordinātēm:
 
 \begin{equation}
-    \vec{r}_{0} = ( x_{target}, y_{target}, z_{target} )
+     \boldsymbol{r}_{0} = ( x_{target}, y_{target}, z_{target} )
 \end{equation}
 
 Tad korekciju ievieš, vienkārši atņemot atskaites pozīciju no novērotajām:
 
 \begin{equation}
-    \vec{r}_{tnorm} = \vec{r}_t - \vec{r}_0
+     \boldsymbol{r}_{tnorm} =  \boldsymbol{r}_t -  \boldsymbol{r}_0
 \end{equation}
 
 \subsubsection{Apvienošana, stāvokļu pāreju veidošana, jaukšana}
@@ -1281,7 +1280,7 @@ Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījum�
 
 
 \begin{equation}
-    \mathcal{L}_{ss} (\vec{s},\vec{s'},\theta) = \sum_{i=1}^n (s'_i - \pi_{\theta}(s)_i)^2 
+    \mathcal{L}_{ss} ( \boldsymbol{s}, \boldsymbol{s'},\theta) = \sum_{i=1}^n (s'_i - \pi_{\theta}(s)_i)^2 
 \end{equation}
 
 Taču jau izsen zināms, ka šī metode nav sevišķi noturīga pret lielām nobīdēm atsevišķu dimensiju dispersijās -- izlēcējiem -- un piedāvātas alternatīvas mērķa funkcijas dažādu optimizācijas uzdevumu risināšanai, no kurām šeit izvēlēta izgudrotāja P. Dž. Hūbera vārdā nosauktā \textit{``huber loss''} funkcija \cite{huber_loss}:
