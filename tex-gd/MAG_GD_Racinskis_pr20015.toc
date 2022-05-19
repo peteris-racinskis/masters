@@ -140,13 +140,5 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{Secinājumi}{76}{subsection.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Svarīgākās atziņas}{76}{section*.7}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Vieta tālākai darbībai}{77}{section*.8}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Risinājums}{77}{section*.9}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Maģistra darba izstrādes plāns}{77}{section*.10}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{79}{Item.94}%
+\contentsline {section}{Atsauces}{77}{subsection.4.4}%
 \contentsfinish 

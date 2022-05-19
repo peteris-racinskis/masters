@@ -2289,23 +2289,6 @@
     <bcf:citekey order="100">quat_distance</bcf:citekey>
     <bcf:citekey order="101">md_repo</bcf:citekey>
     <bcf:citekey order="102">nakkiran2021deep</bcf:citekey>
-    <bcf:citekey order="103">pomerleau1989alvinn</bcf:citekey>
-    <bcf:citekey order="104">ijspeert2002movement</bcf:citekey>
-    <bcf:citekey order="104">schaal2003computational</bcf:citekey>
-    <bcf:citekey order="104">wang2020framework</bcf:citekey>
-    <bcf:citekey order="104">pastor2011online</bcf:citekey>
-    <bcf:citekey order="104">pastor2011skill</bcf:citekey>
-    <bcf:citekey order="105">jha2017imitation</bcf:citekey>
-    <bcf:citekey order="105">zhang2018deep</bcf:citekey>
-    <bcf:citekey order="106">dyrstad2018teaching</bcf:citekey>
-    <bcf:citekey order="107">torabi2018behavioral</bcf:citekey>
-    <bcf:citekey order="108">pastor2011online</bcf:citekey>
-    <bcf:citekey order="109">liu2018imitation</bcf:citekey>
-    <bcf:citekey order="110">duan2017one</bcf:citekey>
-    <bcf:citekey order="111">lynch2020learning</bcf:citekey>
-    <bcf:citekey order="111">lynch2021language</bcf:citekey>
-    <bcf:citekey order="111">gupta2019relay</bcf:citekey>
-    <bcf:citekey order="112">hester2018deep</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

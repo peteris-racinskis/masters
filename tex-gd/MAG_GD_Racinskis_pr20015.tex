@@ -1902,66 +1902,6 @@ Apakšējā rindā kā mainīgais hiperparametrs izmantots perceptronu skaits mo
 
 Literatūras analīzē sniegts īss par atdarinošo mašīnmācīšanos līdz šim veiktās pētnie-ciskās darbības pārskats. Jau izvēloties, par kurām tēmām vērts rakstīt plašāk, iespaidu uz darba saturu ir atstājusi motivējošās problēmas specifika. Tagad nepieciešams pie tās atgriezties un novērtēt, kas no visa nozarē pētītā un izgudrotā attiecas uz darba ievadā aprakstīto uzdevumu -- mešanas kustību iestrādāšanu atkritumu vai citu objektu pārvietošanā -- un izstrādāt rīcības plānu tālākai maģistra darba izstrādei.
 
-\phantomsection
-\subsection*{Svarīgākās atziņas}
-\addcontentsline{toc}{subsection}{Svarīgākās atziņas}
-
-Tūlīt kļūst skaidrs, ka pašas vienkāršākās metodes -- klasiskā uzvedības klonēšana \cite{pomerleau1989alvinn} vai kādas tās tiešās korekcijas -- uzdevumam piemērotas nav. Tās darbojas gadī-jumos, kad demonstrāciju kopa labi nosedz visas iespējamās trajektorijas sistēmas konfigurāciju telpā, nav robustas pret nobīdēm, un jaunu trajektoriju programmēšana prasa apmācības procesa atkārtošanu. Problēmu grūti nostādīt formā, kur robotam vienkārši jāapgūst maksimāli precīzi atdarināt detalizētu un pilnībā aprakstošu demonstrāciju kopu. Vēl jāatzīst, ka metodes, kas ir ļoti specifiskas tieši robotikas uzdevumiem un prasa no algoritma izstrādātājiem pieņēmumus par uzdevuma struktūru -- t.i, pamatā risinājumi, kas nodarbojas ar simbolisko dekompozīciju \cite{ijspeert2002movement,schaal2003computational, wang2020framework,pastor2011online,pastor2011skill} -- nešķiet sevišķi perspektīvas, jo tās ir grūtāk attīstīt un vispārināt. Protams, no inženiertehniskā viedokļa tās varētu zināmos uzdevumos pārspēt vispārīgākas pieejas, tomēr ilgtermiņa pieredze rāda, ka dažādas lokālas priekšrocības mēdz izgaist, pieaugot daudzparametru neironu tīklu veiktspējai.
-
-Runājot par novērojumiem, nozīmīgi šķiet tieši pētījumi, kas realizē demonstrāciju ievākšanu no cilvēka kustībām \cite{jha2017imitation,zhang2018deep} vai nu virtuālā, vai fiziskā telpā. Metienu izdarīšana ir intuitīvi labi trenēta taču analītiski sarežģīta procedūra. Ātra piemēru iegūšana varētu kalpot par pamatu rīkiem, ar ko praktisku sistēmu pielāgot tās apkārtējai videi darba zonā. Tāpat uzmanību vērts pievērst pētījumiem, kas izmanto telpiskus un video novērojumus kā arī datu kopas sintētisku pavairošanu \cite{dyrstad2018teaching}. Lai gan tiešā veidā kādu no tajos apraks-tītajiem algoritmiem droši vien neizdosies izmantot, ir vērts paturēt prātā pētījumus, kur trajektorijas padarītas noturīgākas pret novirzēm -- vai nu trenējot slēptu dinamikas modeli \cite{torabi2018behavioral}, vai arī izmantojot analītiskas kompensācijas \cite{pastor2011online}. Pastāv iespēja, ka būs nepieciešams izmantot novērojumus, kas iegūti no dažādām perspektīvām, tāpēc noderīgi varētu izrādīties arī perspektīvu pārneses paņēmieni \cite{liu2018imitation}.
-
-Visbeidzot, no adaptīvo un imitējošo metožu kombinācijas virziena ļoti svarīgi šķiet rezultāti, kas gūti izstrādājot stratēģijas, kuras spēj pielāgoties dažādu demonstrāciju atdarināšanai \cite{duan2017one} vai dažādu galamērķu sasniegšanai bez papildus apmācības \cite{lynch2020learning,lynch2021language,gupta2019relay}. Tā kā ir iespējams diezgan skaidri definēt atalgojuma funkciju objekta iekrišanai pareizajā tvertnē, bet nonākšana līdz tai ar parastu stimulētās mācīšanās procesu ir ļoti apgrūtināta, risinājuma izstrādes gaitā var nākties izmantot arī atdarināšanu kā sākumpunktu pašmācībai \cite{hester2018deep}. 
-
-
-
-\phantomsection
-\subsection*{Vieta tālākai darbībai}
-\addcontentsline{toc}{subsection}{Vieta tālākai darbībai}
-
-Apkopojot visu augstāk minēto, var ieskicēt iespējamu risinājumu uzdevumam, kas arī kalpos par pamatu tālākās rīcības plānam. 
-
-\phantomsection
-\subsubsection*{Risinājums}
-\addcontentsline{toc}{subsubsection}{Risinājums}
-
-Lai apmācītu modeli, kas realizē metiena kustību ar jau satvertu neregulāras formas objektu, tiks darīts sekojošais:
-
-\begin{enumerate}
-    \item demonstrāciju ievākšana -- tiks ierakstīti cilvēka veikti metieni fiziskā telpā vai VR, iegūtas manipulatoru trajektorijas vai metienus raksturojoši parametri;
-    \item datu kopas papildināšana -- iegūto demonstrāciju kopu varētu sintētiski pavairot, ja tiek veikta mesto objektu trajektoriju simulācija;
-    \item atdarinoša modeļa apmācība -- jāizmanto modelis, kas parametrizēts pēc sasnie-dzamā galamērķa, lai būtu iespējams ātri un lēti pielāgot robotu darbam ar dažādi izvietotām tvertnēm;
-    \item papildus optimizācija -- arī ar nelielas un neoptimālas demonstrāciju kopas palī-dzību apmācītu modeli var ievērojami uzlabot, papildus izmantojot stimu-lētās mācīšanās metodes. Atalgojuma funkciju šoreiz ir samērā viegli definēt (bet grūti sasniegt).
-\end{enumerate}
-
-Šobrīd grūti paredzēt, kādi rezultāti tiks sasniegti eksperimentālajā darbībā, kuri pieņēmumi būs izrādījušies patiesi, kuri -- aplami. Tāpat vēl pāragri spriest par konkrē-tiem tehniskiem izpildījumiem, jo tie ir ļoti atkarīgi no izmantotās datu kopas atribūtiem.
-
-\phantomsection
-\subsubsection*{Maģistra darba izstrādes plāns}
-\addcontentsline{toc}{subsubsection}{Maģistra darba izstrādes plāns}
-
-Vadoties pēc augstāk aprakstītās risinājuma formas, šobrīd jau iespējams plānot nepieciešamo noslēguma darba struktūru -- nodaļu mērķus un to saturu. Plānu dokumenta no zinātniska viedokļa saturiski nozīmīgajām daļām var izteikt sekojoši:
-
-\begin{enumerate}
-    \item nozares teorētiskais pārskats -- visu nepieciešamo priekšzināšanu izklāsts, visticamāk dalīts trijās nodaļās vai apakšnodaļās:
-    \begin{enumerate}
-        \item vispārīgas pamatzināšanas -- analoģiski šī kursa darba 1.3. apakšnodaļai;
-        \item literatūras analīze -- analoģiski šī kursa darba 2. nodaļai;
-        \item konkrētā izvēlētā risinājuma teorētiskais pamatojums -- izstrādāto risinājumu matemātisko aspektu detalizēts izklāsts, nepieciešamie pierādījumi;
-    \end{enumerate}
-    \item praktiskās darbības apraksts:
-    \begin{enumerate}
-        \item izmantotie rīki un metodes -- izvēlēto programmatūras pakotņu, fiziskā aprīko-juma apraksti, izvēles pamatojumi;
-        \item risinājuma apraksts -- veiktās darbības, izveidotie programmatūras artefakti, izmantotās un iegūtās datu kopas;
-    \end{enumerate}
-    \item rezultātu analīze -- veiktspējas novērtējumi, salīdzinājumi ar citiem pētījumiem, ieteicamie uzlabojumi un virzieni tālākai izpētei.
-\end{enumerate}
-
-Teorētisko pārskatu var uzskatīt par daļēji pabeigtu. Literatūras analīzes nodaļa, visticamāk, jau satur lielāko daļu no informācijas, kas būs nepieciešama noslēguma darbā, tāpat ar vispārīgo priekšzināšanu apakšnodaļu. Protams, korekcijas un papildinājumi gandrīz noteikti būs nepieciešami abiem, jo neizbēgami atklāsies faktori, par kuriem šobrīd vēl nav padomāts, un, iespējams, nāksies ņemt vērā arī jaunākas publikācijas nozarē. Detalizēta risinājuma izvēle un teorētiskais pamatojums šobrīd vēl nav iespējami, jo tie cieši saistīti ar praktiskās darbības norisi.
-
-Praktiskās darbības ietvaros var jau paredzēt aptuvenu nepieciešamo soļu secību. No demonstrāciju ievākšanas viedokļa būs nepieciešams izvērtēt EDI pieejamā telpisko kustību ierakstīšanas aprīkojuma spējas un trūkumus, apgūt VR sistēmu izmantošanu un izvēlēties labāko no šīm pieejām instruktāžas procesa realizācijai. Nāksies atrast noderīgāko metiena reprezentāciju -- metienu trajektorijas iespējams pilnībā raksturot ar ātruma un leņķiskā ātruma vektoriem to sākumā. Vai labāk tiešā veidā apmācīt robotu ar pēc galamērķa parametrizētām metienu veicošā rīka kustībām? Vai tomēr izmantot šos metiena raksturotājus kā starpmērķus -- uztverot pareizu metienu un trāpīšanu mērķī par diviem atsevišķiem uzdevumiem, kam jātrenē dažādas stratēģijas? Tāpat būs arī jānovērtē datu kopas pietiekamība apmācības uzdevumam -- izstrādājot metodi tās sintētiskai papildināšanai, ja nepieciešams.
-
-Kad izvēlēta metiena reprezentācija un precizēta uzdevuma matemātiskā forma, būs iespējams sākt darbu pie modeļa izstrādes. Visticamāk, nāksies pārbaudīt vairākas, potenciāli ļoti atšķirīgas metodes. Beigās vēlams iegūt modeli, kas ar minimālu papildus treniņa iterāciju skaitu spēj pielāgoties metienu izdarīšanai uz dažādiem punktiem telpā -- vai nu precizētiem koordinātu formā, vai arī izmantojot robotam pieejamo ievades informāciju (piemēram, datorredzi). Svarīgi arī izstrādāt testa un novērtējumu protokolu, kas ļauj objektīvi salīdzināt dažādu izmantoto modeļu atribūtus -- metienu precizitāti, modeļa izmērus vai sarežģītību, pirmreizējā treniņa resursietilpību, trajektoriju pielāgošanas vai ieprogrammēšanas sarežģītību u.c. Tikai tā iespējams no liela iteratīvas un ne visai strukturētas praktiskās darbības radītu produktu korpusa izdarīt zinātniski nozīmīgus secinājumus.
-
 \newpage
 \addcontentsline{toc}{section}{Atsauces}
 \printbibliography[title=Atsauces]
