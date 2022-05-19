@@ -143,7 +143,7 @@ Biežāk izmantoti matemātiskie apzīmējumi:
     \item $\mathbb{E}$ -- matemātiskā cerība
     \item $\boldsymbol{x}, x_i$ -- vektors, tā elements
     \item $\mathcal{L}(y, \pi_{\theta}(x))$ -- mērķa funkcija optimizācijā
-    \item $sigma(x)$ -- aktivācijas funkcija neironu tīklā
+    \item $\sigma(x)$ -- aktivācijas funkcija neironu tīklā
 \end{enumerate}
 
 
@@ -151,13 +151,13 @@ Biežāk izmantoti matemātiskie apzīmējumi:
 \subsection*{Motivējošais uzdevums} % * nepieliks numuru pie nosaukuma
 \addcontentsline{toc}{subsection}{Motivējošais uzdevums}
 
-Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā -- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme -- gan no EDI, gan autora puses -- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
+Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā -- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme -- gan no EDI, gan autora puses -- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. 
 
 Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi -- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. 
 
 Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, turklāt tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo ie-spējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā -- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. 
 
-Protams, iespējams manuāli programmēt katru metienu, vai veidot programmatūru, kas,balstoties uz fizikas likumiem, saplāno atbilstošu robota trajektoriju. Taču mēģinot manuāli programmēt katru metienu rodas virkne problēmu -- dažādi trajektoriju sākum-punkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Savukārt parametrizējamas programmatūras izstrāde ir dārgs un laikietilpīgs process, ko katram uzdevumam atkārtot varētu būt nepraktiski. Tā vietā pastāv cerība, ka var izstrādāt procesu, kura gaitā tiek apmācīts modelis no demonstrācijām. Šī darba ietvaros tad mērķis ir realizēt prototipu šādam procesu mešanas uzdevumā un gūt atziņas, kas varētu noderēt šī un cita uzdevumu praktiskā automatizācijā ar atdarinošām metodēm.
+Protams, iespējams manuāli programmēt katru metienu vai veidot programmatūru, kas,balstoties uz fizikas likumiem, saplāno atbilstošu robota trajektoriju. Taču mēģinot manuāli programmēt katru metienu rodas virkne problēmu -- dažādi trajektoriju sākum-punkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Savukārt parametrizējamas programmatūras izstrāde ir dārgs un laikietilpīgs process, ko katram uzdevumam atkārtot varētu būt nepraktiski. Tā vietā pastāv cerība, ka var izstrādāt procesu, kura gaitā tiek apmācīts modelis no demonstrācijām. Šī darba ietvaros tad mērķis ir realizēt prototipu šādam procesu mešanas uzdevumā un gūt atziņas, kas varētu noderēt šī un cita uzdevumu praktiskā automatizācijā ar atdarinošām metodēm.
 
 %
 %
@@ -195,7 +195,7 @@ Protams, iespējams manuāli programmēt katru metienu, vai veidot programmatūr
 \newpage
 \section{Vispārīgi teorētiskie pamati}
 
-Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk atskaitē iztirzājot šos rakstus, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā nodaļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu veikt literatūras analīzi un izdarīt secinājumus.
+Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk literatūras analīzē iztirzājot šos rakstus vai aprakstot pašu veiktu praktisku darbību, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā nodaļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu orientēties nozares zinātniskajā literatūrā un šajā darbā patstāvīgi izmantotajā terminoloģijā.
 
 \subsection{Parametriski modeļi, šabloni}
 
@@ -1727,7 +1727,6 @@ Primitīvs atlaišanas signāla kvalitātes novērtējums būtu kategorisks sal�
 
 Augstāk uzskaitītie vispārīgi pielietojamie rādītāji var būt noderīgi dažādu modeļu apmācības aspektu vērtēšanai, taču, tā kā sasniedzamais rezultāts ir metiena realizācija, iespējams sastādīt daudz specifiskākus modeļa novērtējumu. Pirmās kārtas aproksimācijai var pieņemt, ka metienu pilnībā definē tā palaišanas punkts un ātruma vektors. Lai salīdzinātu ātrumu vektorus, ar kosīnusu līdzību vien nepietiek -- svarīga ir arī vektoru norma. Vispirms, atceramies, ka katrs validācijas datu korpuss sastāv no demonstrāciju un ģenerētu trajektoriju pāriem
 
-
 \begin{equation}
     \mathcal{D}_{val} = \left (  (\tau_{d1}, \tau_{g1}), ...
      (\tau_{dk}, \tau_{gk}) \right )
@@ -1795,8 +1794,11 @@ Vidējo metiena kļūdu tad var novērtēt kā
     \caption{Datu korpusu vispārīgās tuvības rādītāji (kosinusu līdzība, Eiklīda distance) un vidējās telpiskās/rotācijas novirzes laika soļa ietvaros -- RNN un klasiskajam neironu tīklam.}
 \end{figure}
 
-\subsection{Sasniegtie rezultāti dažādām modeļu klasēm}
+\subsubsection{Atkāpe par grafiku ģenerēšanu un saturu}
 
+Visas šajā nodaļā izmantotās diagrammas ir ģenerētas programmatiski divos soļos. Vispirms no iepriekš aprēķinātā metriku datu korpusa tiek izdalītas katras sakarības attēlošanai nepieciešamo datu kopas, kas pēc tam tiek izmantotas grafikus saturošu attēlu ģenerēšanai. Par šiem uzdevumiem atbild darba repozitorija \cite{md_repo} \textit{models/} direktorijā atrodamie skripti \textit{comparison\_table\_generator.py} un \textit{draw\_plots.py}.
+
+Situācijās, kad tiek salīdzinātas dažādas modeļu klases vai veikti vispārīg0 modeļu veitkspējas novērtējumi pie dažādiem hiperparametriem, uzskatāmības labad tiek atrastas novērtējumu maksimālās (vai minimālās, atkarībā no novērtējuma būtības) vērtības pie katra, bez fiksēto hiperparametru kopas. Tas nesniedz tik detalizētu ieskatu apmācības procesa atkarībās no katra argumenta, bet ļauj globāli novērtēt, ar kuru modeli sasniegti labāki rezultāti, vai lielāki modeļi sasniedz labākus rezultātus, u.t.t. 
 
 \begin{figure}[t!]
     \centering
@@ -1804,13 +1806,14 @@ Vidējo metiena kļūdu tad var novērtēt kā
     \caption{Augšējā rindā -- labākās sasniegtās vidējā atlaišanas punkta novietojuma un ātruma vektora noviržu vērtības. Apakšā pa kreisi -- pietiek ar jau rudimentāru GAN arhitektūru, lai vispār notiktu modeļa konverģence. Tomēr no RNN un klasiskā neironu tīkla sasniegtajiem rezultātiem tā tomēr atpaliek.}
 \end{figure}
 
+Papildus veikta arī detalizēta novērtējumu attēlošana atkarībā no konkrētiem lielumiem, turot pārējos konstantus -- taču lielais apmācīto modeļu skaits nozīmē, ka grūti šādus datus attēlot uzskatāmi. Tāpēc ieviests kompromiss -- situācijās, kad apskatītas līknes ar daudzām fiksēto argumentu kopām, izvēlētas pa divām ``labākajām'' -- pie lielākās apmācības kopas (atceroties, ka tas ir novērtējums modeļa spējai aproksimēt tā apmācības datus) un mazākās validācijas kopas (kas sniedz ieskatu slēptā datus ģenerējošā sadalījuma apguvē, taču mazāko izmēru dēļ noved pie neskaidrākiem rezultātiem un sakarībām).
+
+\subsection{Sasniegtie rezultāti dažādām modeļu klasēm}
+
+
 Pirmais, ko var darīt, kad iegūti šādi sistemātiski aprēķināti kvalitātes mēri, ir salīdzināt ar dažādām modeļu arhitektūrām sasniegtos labākos rezultātus. 11. attēlā redzamas diagrammas, kurās salīdzināti labākie globālie $\tau_d, \tau_g$ tuvības mēri un novirzes katrā laika solī iegūtajās konfigurācijās. Kā redzams, kosīnusu līdzība ir ļoti augsta abiem modeļiem, liecinot, ka datu kopa tik tiešām tiek apgūta. Metrikas bieži vien labākas ir rekurentiem modeļiem, tas pats attiecas arī uz vidējām nobīdēm. 
 
 Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no treniņa kopā novērotajiem metieniem, taču šī atšķirība nav radikāla. Izsakot grafiku mērogu cilvēkam saprotamās mērvienībās, rekurentais tīkls uzlabo vidējo pozīcijas kļūdu no 2,5 uz 2cm, bet vidējo orientācijas vektora lenķisko nobīdi -- no 11,5 uz 9,8 grādiem.
-
-12. attēlā savukārt salīdzināti metiena novērtējumi. Redzams, ka ātruma vektora nobīdes vērtējumos rekurentais tīkls pārspēj klasisko. Pozīcijas kļūda abos gadījumos ir neliela, taču labāko rezultātu šajā gadījumā ir sasniedzis klasisks modelis. Taču pārstei-dzošā kārtā, arī labāko rezultātu simulētā metiena nobīdē sasniedz viens no parastajiem modeļiem, kaut gan atšķirība ir ļoti neliela un precizitāte abiem modeļiem ir ~0,1m diapazonā. Kā apspriests zemāk pie divu izmantoto demonstrāciju kopu salīdzinājuma, tas visticamāk skaidrojams ar nelielo validācijas kopu ``mazo metienu'' korpusā -- novedot pie lielākas dispersijas šajā kvalitātes mērā. Attēloti arī daži rezultāti, kas gūti, sākot GAN modeļa attīstību. Kā redzams, sasniegta modeļa konverģence -- vērtējamie kritēriji manāmi uzlabojas, pieaugot treniņa epohu skaitam. Taču vēl nav sasniegta konkurētspējīga veiktspēja, tāpēc šī darba ietvaros sīkāk rezultāti pētīti netiks. 
-
-\subsection{Parastie neironu tīkli}
 
 \begin{figure}[t!]
     \centering
@@ -1818,12 +1821,9 @@ Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no 
     \caption{Klasiskā neironu tīkla ģenerēto trajektoriju simulēto metienu nobīdes atkarībā no: apmācības epohu skaita; jaunās/vecās datu kopas; parametru skaita; laika signāla neesamības/esamības.}
 \end{figure}
 
-13. attēlā redzamas galvenās atziņas, kas gūtas strādājot ar parasto neironu tīklu -- labākie rezultāti pie katras attēlotā hiperparametra vērtības. Gan pret epohu skaitu, gan modeļa izmēriem novērotās sakarības liecina, ka problēmas dinamikas modelēšanai varētu būt samērā nedaudzas brīvības pakāpes. Līdz ar to neliels modelis un ne pārāk ilga apmācība ir pietiekami -- pēc tam veiktspēja atkal samazinās, visticamāk pārpielāgošanās rezultātā. Labākie rezultāti gūti pie 256 perceptroniem katrā slēptajā slānī un 50 treniņa epohām. 
+12. attēlā savukārt salīdzināti metiena novērtējumi. Redzams, ka ātruma vektora nobīdes vērtējumos rekurentais tīkls pārspēj klasisko. Pozīcijas kļūda abos gadījumos ir neliela, taču labāko rezultātu šajā gadījumā ir sasniedzis klasisks modelis. Taču pārstei-dzošā kārtā, arī labāko rezultātu simulētā metiena nobīdē sasniedz viens no parastajiem modeļiem, kaut gan atšķirība ir ļoti neliela un precizitāte abiem modeļiem ir ~0,1m diapazonā. Kā apspriests zemāk pie divu izmantoto demonstrāciju kopu salīdzinājuma, tas visticamāk skaidrojams ar nelielo validācijas kopu ``mazo metienu'' korpusā -- novedot pie lielākas dispersijas šajā kvalitātes mērā. Attēloti arī daži rezultāti, kas gūti, sākot GAN modeļa attīstību. Kā redzams, sasniegta modeļa konverģence -- vērtējamie kritēriji manāmi uzlabojas, pieaugot treniņa epohu skaitam. Taču vēl nav sasniegta konkurētspējīga veiktspēja, tāpēc šī darba ietvaros sīkāk rezultāti pētīti netiks. 
 
-14. attēlā redzamas izmaiņas novērtējumos atkarībā tikai no viena mainīgā lieluma, lai varētu novērtēt konkrētu izmaiņu ietekmi uz modeļu apmācības procesu. Katrā grafikā redzamas četras līknes -- pēc absolūti labākajām (augstākajām vai zemākajām) vērtībām sakārtotām vērtībām piekārtotas atbilstošās hiperparametru kombinācijas, un apskatītas divas labākās pie katra vērtēšanas režīma -- salīdzinājuma ar demonstrācijām apmācības vai validācijas kopā. Var secināt, ka klasiskā modeļa līdzība ar demonstrāciju sadalījumu sāk kristies, pieaugot epohu skaitam, un abi labajā pusē redzami grafiki parāda, ka iespējams novērot pārpielāgošanos uz validācijas kopas. Interesanti, ka kosīnusu līdzībai pie dažādiem parametru skaitiem var būt ievērojama dispersija, pat bez skaidri redzama kāpuma vai krituma.
-
-Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla -- balstoties uz pieņēmumu, ka orientācijas izmaiņa varētu būt pietiekama, lai dotu stratēģijai kontekstu par to, kurā metiena fāzē tā šobrīd atrodas. Savā ziņā pieņēmums apstiprinājās -- modelis konverģē, un arī kaut kas līdzīgs metienam tiek noģenerēts. Taču, kā redzams rezultātos, pievienojot atsevišķu laika signālu vektoram rezultāti tiek radikāli uzlaboti.
-
+\subsection{Parastie neironu tīkli}
 
 
 \begin{figure}[t!]
@@ -1832,8 +1832,11 @@ Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla --
     \caption{Atsevišķu klasisko modeļu novērtējumi, mainot tikai vienu hiperparametru. Augšējā rindā kosīnusu līdzība un metiena kļūda atkarībā no epohas, apakšējā -- no parametru skaita.}
 \end{figure}
 
+13. attēlā redzamas galvenās atziņas, kas gūtas strādājot ar parasto neironu tīklu -- labākie rezultāti pie katras attēlotā hiperparametra vērtības. Gan pret epohu skaitu, gan modeļa izmēriem novērotās sakarības liecina, ka problēmas dinamikas modelēšanai varētu būt samērā nedaudzas brīvības pakāpes. Līdz ar to neliels modelis un ne pārāk ilga apmācība ir pietiekami -- pēc tam veiktspēja atkal samazinās, visticamāk pārpielāgošanās rezultātā. Labākie rezultāti gūti pie 256 perceptroniem katrā slēptajā slānī un 50 treniņa epohām. 
 
-Visbeidzot, lielākā daļa demonstrāciju tikušas ierakstītas vairākās stadijās vēl mē-nešus pirms autoregresijas rezultātus mēģināts atkārtot ar fizisku robotu. Izrādās, ka tās neatbilst robota izmēriem -- veiktie vēzieni ir pārāk lieli, un mēģinājumi proporcionāli koriģēt tos noved pie nesakritības starp efektora pozīciju un orientāciju (tiek mēģināts lielas rotācijas apvienot ar nelieliem pārvietojumiem, kas noved pie bremzēšanas reālā robotā). Tāpēc neilgi pirms darba noslēguma iegūta jauna demonstrāciju kopa, kas gan ir mazāka par veco. Protams, arī validācijas kopa ir attiecīgi mazāka.  Tajā ir līdzīga mērķa koordinātu dispersija un, varbūt svarīgāk, tās ir tuvāk metiena sākumpunktam. Augstākās simulēto metienu precizitātes sasniegtas tieši uz šīs kopas. Mazākas absolūtās vērtības kombinētas ar relatīvi lielāku dispersiju liek domāt, ka varētu būt ievērojams nejaušības faktors labāko metienu mērā. Turpmākiem pētījumiem nepieciešams strādāt ar lielāku validācijas kopu. Tomēr jāpiebilst, ka vecajā datu kopā sasniegtās precizitātes patiešām varētu būt zemākas, jo tajā ir daudz lielāka \textit{sākuma orientāciju} dispersija -- rezultātā modelis paredz agresīvākas rotācijas, bet validācijas trajektorijas ievāktas ar neitrālu sākuma stāvokli.
+14. attēlā redzamas izmaiņas novērtējumos atkarībā tikai no viena mainīgā lieluma, lai varētu novērtēt konkrētu izmaiņu ietekmi uz modeļu apmācības procesu. Katrā grafikā redzamas četras līknes -- pēc absolūti labākajām (augstākajām vai zemākajām) vērtībām sakārtotām vērtībām piekārtotas atbilstošās hiperparametru kombinācijas, un apskatītas divas labākās pie katra vērtēšanas režīma -- salīdzinājuma ar demonstrācijām apmācības vai validācijas kopā. Var secināt, ka klasiskā modeļa līdzība ar demonstrāciju sadalījumu sāk kristies, pieaugot epohu skaitam, un abi labajā pusē redzami grafiki parāda, ka iespējams novērot pārpielāgošanos uz validācijas kopas. Interesanti, ka kosīnusu līdzībai pie dažādiem parametru skaitiem var būt ievērojama dispersija, pat bez skaidri redzama kāpuma vai krituma.
+
+Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla -- balstoties uz pieņēmumu, ka orientācijas izmaiņa varētu būt pietiekama, lai dotu stratēģijai kontekstu par to, kurā metiena fāzē tā šobrīd atrodas. Savā ziņā pieņēmums apstiprinājās -- modelis konverģē, un arī kaut kas līdzīgs metienam tiek noģenerēts. Taču, kā redzams rezultātos, pievienojot atsevišķu laika signālu vektoram rezultāti tiek radikāli uzlaboti.
 
 \begin{figure}[t!]
     \centering
@@ -1841,15 +1844,18 @@ Visbeidzot, lielākā daļa demonstrāciju tikušas ierakstītas vairākās stad
     \caption{Rekurentā neironu tīkla ģenerēto trajektoriju simulēto metienu nobīdes atkarībā no: datu kopas; parametru skaita; apmācības ātruma; epohu skaita.}
 \end{figure}
 
-\subsection{Rekurentie neironu tīkli}
-
-15. attēlā salīdzināta rekurentā tīkla simulēto metienu precizitāte pie dažādiem hiperparametriem. Pirmkārt, redzams, ka ne pēc epohām, ne modeļa izmēriem skaidras sakarības nav novērojamas -- vērtībām ir ļoti neliela dispersija. Tas rada zināmas cerības, ka vēl nav atrastas optimālas hiperparametru kombinācijas, un iespējami tālāki uzlabojumi. Svarīgi arī pamanīt, ka pie vecās datu kopas -- kas ir lielāka un ar daudz lielākām efektora orientācijas izmaiņām -- rekurentais modelis sasniedz ievērojami labākus rezul-tātus, nekā klasiskais. Tomēr pie nelielās jaunā datu korpusa validācijas kopas sasniegtā precizitāte ir mazliet zemāka.
+Visbeidzot, lielākā daļa demonstrāciju tikušas ierakstītas vairākās stadijās vēl mē-nešus pirms autoregresijas rezultātus mēģināts atkārtot ar fizisku robotu. Izrādās, ka tās neatbilst robota izmēriem -- veiktie vēzieni ir pārāk lieli, un mēģinājumi proporcionāli koriģēt tos noved pie nesakritības starp efektora pozīciju un orientāciju (tiek mēģināts lielas rotācijas apvienot ar nelieliem pārvietojumiem, kas noved pie bremzēšanas reālā robotā). Tāpēc neilgi pirms darba noslēguma iegūta jauna demonstrāciju kopa, kas gan ir mazāka par veco. Protams, arī validācijas kopa ir attiecīgi mazāka.  Tajā ir līdzīga mērķa koordinātu dispersija un, varbūt svarīgāk, tās ir tuvāk metiena sākumpunktam. Augstākās simulēto metienu precizitātes sasniegtas tieši uz šīs kopas. Mazākas absolūtās vērtības kombinētas ar relatīvi lielāku dispersiju liek domāt, ka varētu būt ievērojams nejaušības faktors labāko metienu mērā. Turpmākiem pētījumiem nepieciešams strādāt ar lielāku validācijas kopu. Tomēr jāpiebilst, ka vecajā datu kopā sasniegtās precizitātes patiešām varētu būt zemākas, jo tajā ir daudz lielāka \textit{sākuma orientāciju} dispersija -- rezultātā modelis paredz agresīvākas rotācijas, bet validācijas trajektorijas ievāktas ar neitrālu sākuma stāvokli.
 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=16cm,page=1]{../img/rnn-independent-params-epoch.png}
     \caption{Atsevišķu rekurento modeļu novērtējumi, mainot tikai vienu hiperparametru. Augšējā rindā kosīnusu un metiena kļūda atkarībā no epohas, apakšējā -- no parametru skaita.}
 \end{figure}
+
+\subsection{Rekurentie neironu tīkli}
+
+15. attēlā salīdzināta rekurentā tīkla simulēto metienu precizitāte pie dažādiem hiperparametriem. Pirmkārt, redzams, ka ne pēc epohām, ne modeļa izmēriem skaidras sakarības nav novērojamas -- vērtībām ir ļoti neliela dispersija. Tas rada zināmas cerības, ka vēl nav atrastas optimālas hiperparametru kombinācijas, un iespējami tālāki uzlabojumi. Svarīgi arī pamanīt, ka pie vecās datu kopas -- kas ir lielāka un ar daudz lielākām efektora orientācijas izmaiņām -- rekurentais modelis sasniedz ievērojami labākus rezul-tātus, nekā klasiskais. Tomēr pie nelielās jaunā datu korpusa validācijas kopas sasniegtā precizitāte ir mazliet zemāka.
+
 
 16. attēlā redzami rekurentā tīkla novērtējumu izmaiņas, noturot fiksētus pārējos hiperaparametrus. Redzams, ka epohu skaits lielākiem modeļiem (ar 256, 512 perceptroniem katrā slēptajā slānī) noved pie augstākiem kopējās līdzības novērtējumiem (šajā gadījumā, kosīnusu), taču sakarība nav tik viennozīmīga, apskatot metiena kļūdu. Tāpat kā iepriekš, katrā grafikā attēloti četri modeļi ar absolūti labākajām sasniegtajām vērtībām -- divi pret treniņa kopu un divi pret testa. Redzams, ka, salīdzinot ar nelielās validācijas kopas trajektorijām, abi modeļi visos gadījumos ir veiksmīgi padevuši atlaišanas signālu, taču pie lielākās apmācības kopas abiem modeļiem tas notiek tikai konkrētā epohu diapazonā. Turklāt izteikta kļūst apmācības ātruma ietekme uz rezultātiem. 256-neironu modelis ar apmācības ātrumu $\lambda = 10^{-5}$ ir lietojams pie 900 vai 1200 epohām, bet ar ātrumu $\lambda = 10^{-4}$ -- pie 300 vai 600. 
 
