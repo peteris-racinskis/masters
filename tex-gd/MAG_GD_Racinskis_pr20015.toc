@@ -58,7 +58,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.3.1}Neoptimālu demonstrāciju uzlabošana}{33}{subsubsection.2.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.2}Demonstrācija --- sākumpunkts apmācību procesam}{34}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2}Demonstrācija -- sākumpunkts apmācību procesam}{34}{subsubsection.2.3.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.3.3}Tūlītēja trajektoriju atdarināšana}{34}{subsubsection.2.3.3}%
 \defcounter {refsection}{0}\relax 
