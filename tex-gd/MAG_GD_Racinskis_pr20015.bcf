@@ -2289,6 +2289,7 @@
     <bcf:citekey order="100">quat_distance</bcf:citekey>
     <bcf:citekey order="101">md_repo</bcf:citekey>
     <bcf:citekey order="102">nakkiran2021deep</bcf:citekey>
+    <bcf:citekey order="103">abb_rapid</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

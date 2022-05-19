@@ -2325,6 +2325,25 @@
       \field{pages}{60\bibrangedash 77}
       \range{pages}{18}
     \endentry
+    \entry{abb_rapid}{online}{}
+      \list{organization}{1}{%
+        {ABB}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{Technical Reference Manual -- RAPID}
+      \field{urlday}{19}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://library.e.abb.com/public/688894b98123f87bc1257cc50044e809/Technical%20reference%20manual_RAPID_3HAC16581-1_revJ_en.pdf
+      \endverb
+      \verb{url}
+      \verb https://library.e.abb.com/public/688894b98123f87bc1257cc50044e809/Technical%20reference%20manual_RAPID_3HAC16581-1_revJ_en.pdf
+      \endverb
+    \endentry
     \entry{keras_crossentropy}{online}{}
       \list{organization}{1}{%
         {Google}%

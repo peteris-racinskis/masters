@@ -138,7 +138,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.4}Rekurentie neironu tīkli}{74}{subsection.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Secinājumi}{76}{subsection.4.4}%
+\contentsline {section}{Secinājumi}{76}{section*.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{77}{subsection.4.4}%
+\contentsline {section}{Atsauces}{77}{section*.8}%
 \contentsfinish 

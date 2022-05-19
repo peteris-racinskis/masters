@@ -1897,12 +1897,25 @@ Apakšējā rindā kā mainīgais hiperparametrs izmantots perceptronu skaits mo
 
 
 \newpage
+\phantomsection
 \section*{Secinājumi} % * nepieliks numuru pie nosaukuma
 \addcontentsline{toc}{section}{Secinājumi}
 
-Literatūras analīzē sniegts īss par atdarinošo mašīnmācīšanos līdz šim veiktās pētnie-ciskās darbības pārskats. Jau izvēloties, par kurām tēmām vērts rakstīt plašāk, iespaidu uz darba saturu ir atstājusi motivējošās problēmas specifika. Tagad nepieciešams pie tās atgriezties un novērtēt, kas no visa nozarē pētītā un izgudrotā attiecas uz darba ievadā aprakstīto uzdevumu -- mešanas kustību iestrādāšanu atkritumu vai citu objektu pārvietošanā -- un izstrādāt rīcības plānu tālākai maģistra darba izstrādei.
+Veicot literatūras analīzi, identificēti robotikas un mašīnuztveres laboratorijas mēr-ķiem un iespējām atbilstošākie potenciālie risinājumi motivējošajam uzdevumam -- MDP formā-lismam atbilstoša uzvedības klonēšana ar klasisku neironu tīklu kā stratēģiju un no laik-rindu prognozēšanas metodēm aizgūta rekurentā tīkla pielietojums. Attīstītā automatizētā datu ieguves un priekšapstrādes sistēma ir adekvāta, lai ātri un sistemātiski sagatavotu demonstrāciju trajektoriju kopas no ierakstiem ar minimālu cilvēka iesaisti. Ar iegūtajiem datiem apmācītie klasiskie un rekurentie modeļi kvalitatīvi labi aproksimē metienus, un pārbaudot rezultātu uz fiziska robota var pārliecināties, ka pat ar neprecīzu laika parametrizāciju jau iespējams izpildīt metiena kustību.
+
+Salīdzinot apmācītos modeļus, redzams, ka daudzos statistiskos novērtējumos sarež-ģītākais rekurentais tīkls pārspēj klasisko neironu tīklu, taču pagaidām grūti spriest, vai sniegtie uzlabojumi ir pietiekami, lai atsvērtu modeļa lielāko sarežģītību gan no izpildījuma, gan asimptotiskās laika sarežģītības puses. Katrā ziņā ļoti aptuvenajā metiena trāpīguma novērtējumā pagaidām labāko rezultātu sasniedz klasiskais neironu tīkls, taču atšķirība ir neliela un tās nozīmīgums ir strīdīgs, jo rezultāts iegūts uz ļoti nelielas validācijas kopas.
+
+Ņemot vērā augstāk minēto pieredzi un atziņas no teorētiskās literatūras, iezīmējas skaidri virzieni tālākai pētnieciskai un inženiertehniskai darbībai:
+
+\begin{enumerate}
+    \item nepieciešams izstrādāt programmnodrošinājumu precīzi laikā parametrizētu telpisku trajektoriju izpildei ar robotu ROS vidē. Šī darba zinātniskā prioritāte nav augsta, jo komerciāli pielietojamā industriālo robotu vidē šāda tipa funkcionalitāte tiek piedāvāta (piemēram, lineāras kustības instrukcijās ar telpiska ātruma argumentu) \cite{abb_rapid}, taču tā realizācija ir nepieciešama tālākai eksperimentālai darbībai, piemēram, salīdzinot dažādu modeļu faktiski sasniegto precizitāti;
+    \item nepieciešams ievākt lielākas datu kopas, kas atbilst robota kinemātikas ierobežo-jumiem, it sevišķi validācijas mērķiem;
+    \item pastāv iespēja, ka ar noteiktiem uzlabojumiem apmācības procesā pilnīgi pietiek tikai ar MDP formālismam atbilstošām stratēģijām. Viens no papildinājumiem varētu būt jau uzsāktā GAN modeļu izveide, kas teorētiskajā literatūrā sasniedz labākos rezultātus;
+    \item motivējošais uzdevums -- pudeles metiens -- ir tikai viens no daudziem potenciālim pielietojumiem sistēmai, kas kustību uztveres radītos datus pārvērš apmācītos robota vadības modeļos. Noderīgi būt atrast citus šādus uzdevumus un pārbaudīt, cik sarežģīti ir vispārināt šī darba ietvaros izveidotās iestrādes citām problēmām. It sevišķi jādomā par to, cik liels papildus darbs nepieciešams, lai pielāgotu priekš-apstrādes sistēmu darbam ar citādiem uzdevumiem, kam pastāv citi kritiskie punkti un aprēķināmie papildu parametri.
+\end{enumerate}
 
 \newpage
+\phantomsection
 \addcontentsline{toc}{section}{Atsauces}
 \printbibliography[title=Atsauces]
 
@@ -1914,7 +1927,7 @@ Literatūras analīzē sniegts īss par atdarinošo mašīnmācīšanos līdz š
 
 Maģistra darbs ``Atdarinošās mašīnmācīšanās pielietojums robotikā'' izstrādāts LU Datorikas fakultātē. \bigbreak
 
-Darba teksta galīga izgatavota 23.05.2022. \bigbreak
+Darba teksta galīgā versija izgatavota 23.05.2022. \bigbreak
 
 Ar savu parakstu apliecinu, ka pētījums veikts patstāvīgi, izmantoti tikai tajā norādī-tie informācijas avoti un iesniegtā darba elektroniskā kopija atbilst izdrukai. \bigbreak
 
