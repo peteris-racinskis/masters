@@ -89,11 +89,14 @@ Atdarinošā mašīnmācīšanās (\textit{imitation learning}) ir viens no paņ
 \subsection*{Darba mērķis un struktūra} % * nepieliks numuru pie nosaukuma
 \addcontentsline{toc}{subsection}{Darba mērķis un struktūra}
 
-Kopējā maģistra darba tēma izvēlēta ar Elektronikas un datorzinātņu centra eks-pertu palīdzību, meklējot šobrīd aktuālu pētniecības virzienu. Izvērtējot dažādus pieejamos variantus, izvēlēts pētniecības virziens -- atdarinošā mašīnmācīšanās -- un konkrēts motivējošais uzdevums -- atkritumu šķirošanas līnijas robots, kas spēj nogādāt pudeles vai citus objektus tiem atbilstošajās tvertnēs, izmantojot mešanas kustības. Faktiski līdz šim galvenokārt veikta nozares literatūras avotu izpēte un nepieciešamo pamatzināšanu apguve. Līdz ar to šī darba mērķis ir noskaidrot, vai atdarinošās mācīšanās metodes ir piemērotas motivējošās problēmas risināšanai, atrast piemērotākos paņēmienus un aktuā-lākos rezultātus jau eksistējošajā zinātniskās literatūras korpusā un ieskicēt risinājuma plānu, kura praktiska izpilde un novērtēšana tad arī veidotu noslēguma darba pētniecisko jaunpienesumu. Attiecīgi, kursadarbs sastāv no trijām daļām:
+Maģistra darba tēma izvēlēta ar Elektronikas un datorzinātņu institūta personāla palīdzību, meklējot šobrīd aktuālu pētniecības virzienu. Izvērtējot dažādus pieejamos variantus, izvēlēts pētniecības virziens -- atdarinošā mašīnmācīšanās -- un konkrēts motivējošais uzdevums -- atkritumu šķirošanas līnijas robots, kas izmanto mešanas kustības. Darba izstrāde attiecīgi notikusi institūta robotikas un mašīnuztveres laboratorijā. Tur paralēli noris cita, radniecīga pētnieciska darbība -- gan atkritumu šķirošanas procesu automatizācijā, gan stimulētās mācīšanās metodēs. 
+
+Šī darba mērķis ir noskaidrot, vai atdarinošās mašīnmācīšanās metodes ir piemērotas motivējošās problēmas risināšanai, izvērtēt dažādu paņēmienu un aktuālāko rezultātu izmantošanas iespējas un izstrādāt prototipu procesam, kura gaitā tiek iegūtas demonstrācijas un apmācīti modeļi, kas izpilda doto uzdevumu. Attiecīgi, maģistra darba pamatdaļa sastāv no četrām nodaļām:
 \begin{enumerate}
-    \item ievada, kurā īsi izklāstīti vispārīgi jēdzieni, kas nepieciešami, lai izprastu zinātnisko literatūru nozarē, kā arī aprakstīts motivējošais uzdevums;
-    \item literatūras analīzes, kur izdalīti daži galvenie pētnieciskās darbības virzieni nozarē, aplūkoti konkrēti algoritmi un pētījumi kā piemēri;
-    \item secinājumiem, kur literatūras analīzē gūtās atziņas īsi apkopotas un izmantotas, lai piedāvātu provizorisku formu motivējošā uzdevuma risinājumam.
+    \item vispārīga nepieciešamo teorētisko pamatu izklāsta, kur īsi apskatīti parametrisku modeļu, lēmuma procesu, robotikas matemātiskie formālismi;
+    \item atdarinošās mašīnmācīšanās pārskata, kur apkopota nozares zinātniskā literatūra, izdalīti galvenie pētniecības virzieni un aprakstīti to sasniegumi;
+    \item praktiskās realizācijas atskaites, kur aprakstīti darba gaitā izstrādātie rīki;
+    \item rezultātu analīzes, kur salīdzināti dažādi apmācītie modeļi.
 \end{enumerate}
 
 
@@ -118,6 +121,7 @@ Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
 \begin{enumerate}
     \item RL -- stimulētā mašīnmācīšanās (\textit{Reinforcement Learning})
     \item IRL -- inversā stimulētā mašīnmācīšanās (\textit{Inverse Reinforcement Learning})
+    \item RNN -- rekurentais neironu tīkls (\textit{Recurrent Neural Network})
     \item GAN -- ģeneratīvais pretinieku tīkls (\textit{Generative Adversarial Network})
     \item VR -- virtuālā realitāte
     \item MDP -- Markova lēmumu process (\textit{Markov Decision Process})
@@ -137,6 +141,9 @@ Biežāk izmantoti matemātiskie apzīmējumi:
     \item $R(s), R(s,a)$ -- atalgojuma funkcija
     \item $\theta, \phi, \psi$ -- modeļu parametru vektori
     \item $\mathbb{E}$ -- matemātiskā cerība
+    \item $\boldsymbol{x}, x_i$ -- vektors, tā elements
+    \item $\mathcal{L}(y, \pi_{\theta}(x))$ -- mērķa funkcija optimizācijā
+    \item $sigma(x)$ -- aktivācijas funkcija neironu tīklā
 \end{enumerate}
 
 
@@ -146,18 +153,11 @@ Biežāk izmantoti matemātiskie apzīmējumi:
 
 Nevarētu apgalvot, ka atdarinošā mašīnmācīšanās kā tēma šim kursa darbam un maģistra darbam kopumā tikusi izvēlēta tīri inženiertehniskā procesa rezultātā -- sākot ar problēmas definīciju un nonākot pie tai piemērotākā risinājuma, pārbaudot un atsijājot visas iespējamās pieejas, priekšlaicīgi neieguldot pārāk daudz pūļu un resursu kādas konkrētas metodes pielietošanā. Daļēji orientē vēlme -- gan no EDI, gan autora puses -- izzināt jaunas kompetences un likt pamatu tālākiem pētījumiem. Tomēr vienu šobrīd aktuālu praktisku problēmu, kas šķiet piemērota tieši atdarinošās mašīnmācīšanās metodēm, var izteikt kā motivējošu uzdevumu. Bruņojoties ar šādu konkrētu mērķi, nozares literatūras pārskatu un teorētisko zināšanu apguvi iespējams strukturēt un prioritarizēt.
 
-Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi -- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, un tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo iespējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā -- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. Protams, mēģinot manuāli programmēt katru metienu rodas virkne problēmu -- dažādi trajektoriju sākumpunkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Tāpēc analītisku risinājumu atrast varētu būt ļoti nepraktiski, un tiek apsvērts mašīnmācīšanās metožu lietojums.
+Situāciju var aprakstīt sekojoši. Atkritumu šķirošanas līnijas ir cilvēkam nedrau-dzīga un nepatīkama darba vide. Šobrīd tiek aktīvi meklēti veidi, kā palielināt to automatizācijas pakāpi -- gan izmaksu samazināšanas, gan darba drošības nolūkos \cite{trashbot}. Konkrēti aplūkojot plastmasas iepakojumu šķirošanu, jau izstrādātas metodes to klasifikācijai un satveršanai \cite{trashbot}. 
 
-Attiecīgi var uzskaitīt šādus nosacījumus uzdevumam:
-\begin{enumerate}
-    \item var pieņemt, ka sākuma stāvoklī robots jau ir satvēris objektu, ja nepieciešams;
-    \item trajektorijas sākumpunkti ir mainīgi -- jāspēj izdarīt metiens no dažādām pozīcijām;
-    \item ir zināma objekta klasifikācija un līdz ar to -- tā vēlamais galamērķis;
-    \item vēlamie galamērķi var būt dažādi un mainīgi;
-    \item rezultējošo modeli jāspēj pielāgot apstākļiem darba vidē bez pārlieku darbietilpīgas un dārgas treniņa procedūras.
-\end{enumerate}
+Viens no virzieniem, kurā varētu pilnveidot šo un citādu robustu, neregulāras formas objektu \textit{pick-and-place} uzdevumu risinājumus, ir metienu iestrādāšana trajektorijās. Ja pārvietojamais objekts ir noturīgs pret trieciena slodzēm vai tā stāvoklis nav svarīgs, turklāt tā masa salīdzinot ar robota pašmasu ir neliela, potenciāli iespējams ievērojami paātrināt satveršanas un pārvietošanas ciklu laikus, jo nav nepieciešams visu robotu pārvietot līdz galamērķim. Turklāt paveras iespējas tieši šķirošanas uzdevumos, jo ie-spējams telpā brīvāk izvietot tvertnes, uz kurām objekti jānogādā -- metiens var nogādāt objektu tālāk, nekā maksimāli izstiepies robots. 
 
-Nav grūti redzēt, ka šādam uzdevumam par atalgojuma kritēriju pieņemot trāpīšanu pareizajā tvertnē, funkcijas vērtības būs ļoti retinātas, kas apgrūtina klasisko stimulētās metožu pielietojumu. Nākamās nodaļas ietvaros tiek veikts vispārīgs atdarinošās mašīn-mācīšanās metožu pētniecības pārskats, paturot prātā izvēlētā uzdevuma specifiku -- pievēršot uzmanību tiem rezultātiem un secinājumiem, kas varētu būt nozīmīgi problēmas risināšanā. Noslēgumā tiek izdarīti secinājumi par to, kuras citur gūtās atziņas ir svarī-gākās, un piedāvāts rīcības plāns motivējošā uzdevuma izpildei.
+Protams, iespējams manuāli programmēt katru metienu, vai veidot programmatūru, kas,balstoties uz fizikas likumiem, saplāno atbilstošu robota trajektoriju. Taču mēģinot manuāli programmēt katru metienu rodas virkne problēmu -- dažādi trajektoriju sākum-punkti, dažādi galamērķi un to iespējamā mainība, objektu neregularitāte, u.c. Savukārt parametrizējamas programmatūras izstrāde ir dārgs un laikietilpīgs process, ko katram uzdevumam atkārtot varētu būt nepraktiski. Tā vietā pastāv cerība, ka var izstrādāt procesu, kura gaitā tiek apmācīts modelis no demonstrācijām. Šī darba ietvaros tad mērķis ir realizēt prototipu šādam procesu mešanas uzdevumā un gūt atziņas, kas varētu noderēt šī un cita uzdevumu praktiskā automatizācijā ar atdarinošām metodēm.
 
 %
 %

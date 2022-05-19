@@ -8,7 +8,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}{8}{section*.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Motivējošais uzdevums}{9}{section*.6}%
+\contentsline {subsection}{Motivējošais uzdevums}{10}{section*.6}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Vispārīgi teorētiskie pamati}{11}{section.1}%
 \defcounter {refsection}{0}\relax 
