@@ -37,6 +37,8 @@
 }
 
 
+
+
 \titleformat{\section}
     {\centering\normalfont\large\bfseries}{\thesection . }{0.2em}{\MakeUppercase}
 \titleformat{\subsection}
@@ -48,11 +50,31 @@
 \begin{document}
 \input{titlepage.tex}
 \newpage
+
+\section*{Anotācija}
+\thispagestyle{empty}
+
+\newpage
+\phantomsection
+\section*{Abstract}
+\thispagestyle{empty}
+
+
+\newpage
+\phantomsection
+\section*{Autoreferāts}
+\thispagestyle{empty}
+\newpage
+
+\newpage
+
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \tableofcontents
 \thispagestyle{empty}
 \newpage
-\setcounter{page}{3}
+\setcounter{page}{7}
 
+\phantomsection
 \section*{Ievads} % * nepieliks numuru pie nosaukuma
 \addcontentsline{toc}{section}{Ievads}
 
@@ -951,8 +973,13 @@ Saskarni ar kustību uztveres aprīkojumu nodrošina ražotāja izplatītā \tex
 
 Demonstrāciju ievākšanas mērķiem izstrādāti vairāki fiziski darbarīki. Pirmkārt nepieciešams reģistrēt pozīciju kādam ķermenim, kas kalpo kā robota efektora simulators. Lai ķermeni būtu iespējams izsekot, tam jābūt nemainīgas formas, un tā unikālais marķieru izvietojums jāreģistrē \textit{Motive} lietojumprogrammā. Turklāt attālumiemm starp marķieriem būtu jābūt pietiekami lieliem, lai tie varētu kalpot objekta atpazīšanai. Tāpēc marķieru stiprināšana pie cilvēka rokas netika ilgi apsvērta kā potenciāls rīcības plāns. 
 
-Tā vietā tika atrasts instruments, kas tuvu aproksimē robota satvērējmehānisma darbību un aprīkots ar marķieriem. Tas pats darīts ar plastmasas pudeli. Lai varētu izdarīt metienus, nesalaužot marķierus, nepieciešams noķert pudeli. Sākumā izmantots neliels makšķerēšanas tīkls, taču zemās mešanas precizitātes dēļ ar to iespējamo metienu attālums ir visai neliels. Turklāt iespējamo trajektoriju dispersija ir neliela. Tā vietā izgatavots vēl viens, daudz lielāks tīkls pudeles ķeršanai. Mazais tīkls bijis aprīkots ar marķieriem, lai būtu iespējams noteikt pudeles pozīciju relatīvi tam datu priekšapstrādes procesos. Tāpēc to turpināts izmantot šiem mērķiem arī ar lielo tīklu, vienkārši novietojot to vēlamajā attālumā uz grīdas. 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=16cm,page=1]{../img/mocap_equipment.jpg}
+    \caption{No kreisās puses: \textit{Optitrack} aprīkojuma būris; ar marķieriem aprīkotie rīki -- pirmais tīkls (izmantots kā lidojuma beigu atskaites punkts), efektora simulators, pudele; cietu ķermeņu definīcijas \textit{Motive} programmatūras vidē.}
+\end{figure}
 
+Tā vietā tika atrasts instruments, kas tuvu aproksimē robota satvērējmehānisma darbību un aprīkots ar marķieriem. Tas pats darīts ar plastmasas pudeli. Lai varētu izdarīt metienus, nesalaužot marķierus, nepieciešams noķert pudeli. Sākumā izmantots neliels makšķerēšanas tīkls, taču zemās mešanas precizitātes dēļ ar to iespējamo metienu attālums ir visai neliels. Turklāt iespējamo trajektoriju dispersija ir neliela. Tā vietā izgatavots vēl viens, daudz lielāks tīkls pudeles ķeršanai. Mazais tīkls bijis aprīkots ar marķieriem, lai būtu iespējams noteikt pudeles pozīciju relatīvi tam datu priekšapstrādes procesos. Tāpēc to turpināts izmantot šiem mērķiem arī ar lielo tīklu, vienkārši novietojot to vēlamajā attālumā uz grīdas. 
 
 \subsubsection{Programmēšanas valoda, bibliotēkas}
 
@@ -962,20 +989,11 @@ Datu korpusi projekta ietvaros saglabāti \textit{.csv} -- \textit{``comma-separ
 
 Vispārīgām matemātiskām operācijām papildus izmantota \textit{numpy} bibliotēka, kas paredzēta ļoti ātrai skaitlisku un algebrisku operāciju veikšanai ar daudzdimensio-nāliem datu masīviem situācijās, kad tas nav bijis iespējams tikai ar \textit{pandas} pieejamo rīku klāstu. Neironu tīklu modeļi izstrādāti ar \textit{tensorflow 2} bibliotēkas palīdzību. Izstrādāta īpaši mašīnmācīšanās lietojumiem, tā piedāvā kompilējamu skaitļošanas grafu un datu tenzoru infrastruktūru. Lielākā daļa tieši ar neironu tīklu realizāciju saistīto darbību ir veiksmīgi noslēptas zem augsta līmeņa abstrakcijām, taču vietām nācies rakstīt kodu ar šajos grafos izmantojamiem tenzoru objektiem, lai nodrošinātu ātrdarbīgu koda izpildi.
 
-
 \subsection{Izvēlētā pieeja}
 
 Tā kā darba mērķis ir pētīt atdarinošās mašīnmācīšanās metodes un to pielietošanas iespējas praktisku industriālajā robotikā sastopamu vadības problēmu risināšanā, jau no paša sākuma tiek krietni sašaurināts motivējošā uzdevuma potenciālo risinājumu klāsts. Kaut gan iespējams metienus ģenerēt parametriski, izmantojot t.s. \textit{``model-based''} pieejas -- kur tiktu speciāli izveidots fizikā un robota kinemātikā balstīts sistēmas modelis, un metieni ģenerēti balstoties uz mērķa koordinātēm -- šāda tradicionāla metode ir, pirmkārt,dārga, darbietilpīga un slikti visparināma, kā jau apspriests darba teorētiskajā daļā, un, otrkārt, nekādi nepalīdzētu papildināt institūta zināšanu bāzi ar ieskatu atdarinošās mašīnmācīšanās metodēs. Līdzīgi apsvērumi attiecināmi uz stimulēto mācī-šanos, kaut gan tādā gadījumā vēl jāņem vērā fakts, ka tehniska realizācija būtu pat sarežģītāka un darbietilpīgāka, nekā zemāk aprakstītie paņēmieni.
 
 Kad nolemts darboties atdarinošās mācīšanās virzienā, pirmais lēmums, no kā atka-rīgs viss tālākais process, ir demonstrāciju iegūšanas metodes izvēle. Atsaucoties uz teo-rētiskajā daļā pārskatīto literatūru, var izvirzīt vairākus priekšlikumus:
-
-
-
-\begin{figure}[t!]
-    \centering
-    \includegraphics[width=16cm,page=1]{../img/mocap_equipment.jpg}
-    \caption{No kreisās puses: \textit{Optitrack} aprīkojuma būris; ar marķieriem aprīkotie rīki -- pirmais tīkls (izmantots kā lidojuma beigu atskaites punkts), efektora simulators, pudele; cietu ķermeņu definīcijas \textit{Motive} programmatūras vidē.}
-\end{figure}
 
 \begin{enumerate}
     \item fiziska vai simulēta robota iekšējo stāvokļu ierakstīšana -- demonstrācijas tiek iegū-tas, ar programmu-ekspertu vai (iespējams, simulētu) ārēju fizisku iedarbību vadot robotu pa trajektorijām un saglabājot locītavu pozīciju, ātrumu, paātrinājumu, slodžu datus;
@@ -1942,5 +1960,40 @@ Kad izvēlēta metiena reprezentācija un precizēta uzdevuma matemātiskā form
 \newpage
 \addcontentsline{toc}{section}{Atsauces}
 \printbibliography[title=Atsauces]
+
+
+\newpage
+\phantomsection
+\section*{Dokumentārā lapa}
+\thispagestyle{empty}
+
+Maģistra darbs ``Atdarinošās mašīnmācīšanās pielietojums robotikā'' izstrādāts LU Datorikas fakultātē. \bigbreak
+
+Darba teksta galīga izgatavota 23.05.2022. \bigbreak
+
+Ar savu parakstu apliecinu, ka pētījums veikts patstāvīgi, izmantoti tikai tajā norādī-tie informācijas avoti un iesniegtā darba elektroniskā kopija atbilst izdrukai. \bigbreak
+
+Autors: \underline{\hspace{7cm}} (Autora paraksts un datums) \bigbreak
+
+Ar savu parakstu apliecinu, ka esmu lasījis augstāk minēto maģistra darbu un atzīstu
+to par p i e m ē r o t u / n e p i e m ē r o t u (nevajadzīgo svītrot) aizstāvēšanai Latvijas Universitātes datorzinātņu maģistrantūrā. \bigbreak
+
+Darba vadītājs: \underline{\hspace{5cm}} (Autora paraksts un datums) \bigbreak
+
+Darbs iesniegts maģistrantūas sekretariātā  \underline{\hspace{3cm}} (Iesniegšanas datums) \bigbreak
+
+Ar šo es apliecinu, ka darba elektroniskā versija ir augšupielādēta LU informatīvajā sistēmā.
+
+Studiju metodiķe: \underline{\hspace{5cm}} (Metodiķes paraksts) \bigbreak
+
+Recenzents: prof. Dr. dat. Guntis Bārzdiņš \bigbreak
+
+Darbs aizstāvēts maģistra gala pārbaudījuma komisijas sēdē \bigbreak
+
+\underline{\hspace{5cm}} prot. Nr. \underline{\hspace{3cm}} \bigbreak
+
+Komisijas sekretārs: \underline{\hspace{5cm}} (Sekretāra paraksts)
+
+
 
 \end{document}
