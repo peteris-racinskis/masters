@@ -1252,9 +1252,9 @@ Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām 
 
 Viss modeļu apmācības kods ir atrodams maģistra darba repozitorijā, direktorijā \textit{``models/''}. Tas ir organizēts atsevišķos skriptos. Viena no īpatnībām, ar ko nākas saskarties, strādājot eksperimentālā zinātnes nozarē, ir visu darbību mainīgā un iteratīvā daba. Uzrakstītais kods nav sevišķi apjomīgs, bet provizoriskas izpētes un strukturētu eksperimentu gaitā mainot paņēmienus modeļu uzbūvē, apmācībā, datu priekšapstrādē un izvades failu formātos, nepārtraukti tiek veiktas izmaiņas. Bieži vien pat lielas programmas daļas tiek pilnībā pārrakstītas vai atmestas. Tāpēc grūti šādu kodu organizēt pēc programminženierijas labās prakses. Tā vietā, katra tipa modeļa apmācībai ir savs skripts, kas satur konfigurācijas mainīgos un visas funkcijas, kas netiek precīzi dublētas visur -- pat tad, ja pastāv ievērojamas līdzības starp tām dažādu modeļu izpildījumos. 
 
-\subsubsection{Parastais neironu tīkls}
+\subsubsection{Klasiskais neironu tīkls}
 
-Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir klasiskais \textit{``feedforward''} jeb viena virziena dziļais neironu tīkls ar pilnībā savienotiem slēptiem slāņiem. Šī projekta ietvaros šāda pieeja visu pirmkoda un datu failu nosaukumos apzīmēta ar \textit{``naiveBC''} -- \textit{``naive behavioural cloning''}, ``naivā uzvedības klonēšana''. Tas pilda klasisku MDP stratēģijas (vai lakrindu ekstrapolācijas ar vienu stāvokli garu vēsturi) uzdevumu formā
+Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir klasiskais \textit{``feedforward''} jeb viena virziena dziļais neironu tīkls ar pilnībā savienotiem slēptiem slāņiem. Šī projekta ietvaros šāda pieeja visu pirmkoda un datu failu nosaukumos ap-zīmēta ar \textit{``naiveBC''} -- \textit{``naive behavioural cloning''}, ``naivā uzvedības klonēšana''. Tas pilda klasisku MDP stratēģijas (vai lakrindu ekstrapolācijas ar vienu stāvokli garu vēsturi) uzdevumu formā
 
 \begin{equation}
     a_t = s'_t = \pi_{\theta}(s_t)
@@ -1622,7 +1622,7 @@ Taču mēģinot veikt paraugdemonstrāciju ar fizisko robotu konstatēts, ka ele
 %
 
 \newpage
-\section{Rezultātu analīze}
+\section{Rezultāti}
 
 Paraugdemonstrācijas uz robota atstāj iespaidu uz skatītājiem no malas un pa-līdz popularizēt gūtos rezultātus, taču tās nav darba pašmērķis, un pilnīgi noteikti nav pietiekamas, lai izdarītu objektīvus spriedumus par dažādus datu ieguves un modeļu apmācības procesa aspektu priekšrocībām un trūkumiem. Nepieciešams atrast piemērotus skaitliskus novērtējumus, kas ļauj pēc iespējas vienlīdzīgāk salīdzināt dažādus risinājumus.
 
@@ -1778,13 +1778,14 @@ Vidējo metiena kļūdu tad var novērtēt kā
     \Vert r^d_{intersect} - r^g_{intersect} \Vert 
 \end{equation}
 
+
+\subsubsection{Grafiku ģenerēšana un saturs}
+
 \begin{figure}[t!]
     \centering
     \includegraphics[width=16cm,page=1]{../img/rnn-naive-global-stepwise.png}
     \caption{Datu korpusu vispārīgās tuvības rādītāji (kosinusu līdzība, Eiklīda distance) un vidējās telpiskās/rotācijas novirzes laika soļa ietvaros -- RNN un klasiskajam neironu tīklam.}
 \end{figure}
-
-\subsubsection{Atkāpe par grafiku ģenerēšanu un saturu}
 
 Visas šajā nodaļā izmantotās diagrammas ir ģenerētas programmatiski divos soļos. Vispirms no iepriekš aprēķinātā metriku datu korpusa tiek izdalītas katras sakarības attēlošanai nepieciešamo datu kopas, kas pēc tam tiek izmantotas grafikus saturošu attēlu ģenerēšanai. Par šiem uzdevumiem atbild darba repozitorija \cite{md_repo} \textit{models/} direktorijā atrodamie skripti \textit{comparison\_table\_generator.py} un \textit{draw\_plots.py}.
 
@@ -1813,20 +1814,19 @@ Var ar pārliecību apgalvot, ka rekurentais neironu tīkls mazāk diverģē no 
 
 12. attēlā savukārt salīdzināti metiena novērtējumi. Redzams, ka ātruma vektora nobīdes vērtējumos rekurentais tīkls pārspēj klasisko. Pozīcijas kļūda abos gadījumos ir neliela, taču labāko rezultātu šajā gadījumā ir sasniedzis klasisks modelis. Taču pārstei-dzošā kārtā, arī labāko rezultātu simulētā metiena nobīdē sasniedz viens no parastajiem modeļiem, kaut gan atšķirība ir ļoti neliela un precizitāte abiem modeļiem ir ~0,1m diapazonā. Kā apspriests zemāk pie divu izmantoto demonstrāciju kopu salīdzinājuma, tas visticamāk skaidrojams ar nelielo validācijas kopu ``mazo metienu'' korpusā -- novedot pie lielākas dispersijas šajā kvalitātes mērā. Attēloti arī daži rezultāti, kas gūti, sākot GAN modeļa attīstību. Kā redzams, sasniegta modeļa konverģence -- vērtējamie kritēriji manāmi uzlabojas, pieaugot treniņa epohu skaitam. Taču vēl nav sasniegta konkurētspējīga veiktspēja, tāpēc šī darba ietvaros sīkāk rezultāti pētīti netiks. 
 
-\subsection{Parastie neironu tīkli}
-
-
 \begin{figure}[t!]
     \centering
     \includegraphics[width=16cm,page=1]{../img/naivebc-independent-params-epoch.png}
     \caption{Atsevišķu klasisko modeļu novērtējumi, mainot tikai vienu hiperparametru. Augšējā rindā kosinusu līdzība un metiena kļūda atkarībā no epohas, apakšējā -- no parametru skaita.}
 \end{figure}
 
+\subsection{Klasiskie neironu tīkli}
+
+
 13. attēlā redzamas galvenās atziņas, kas gūtas strādājot ar parasto neironu tīklu -- labākie rezultāti pie katras attēlotā hiperparametra vērtības. Gan pret epohu skaitu, gan modeļa izmēriem novērotās sakarības liecina, ka problēmas dinamikas modelēšanai varētu būt samērā nedaudzas brīvības pakāpes. Līdz ar to neliels modelis un ne pārāk ilga apmācība ir pietiekami -- pēc tam veiktspēja atkal samazinās, visticamāk pārpielāgošanās rezultātā. Labākie rezultāti gūti pie 256 perceptroniem katrā slēptajā slānī un 50 treniņa epohām. 
 
-14. attēlā redzamas izmaiņas novērtējumos atkarībā tikai no viena mainīgā lieluma. Var secināt, ka klasiskā modeļa līdzība ar demonstrāciju sadalījumu sāk kristies, pieaugot epohu skaitam, un abi labajā pusē redzami grafiki parāda, ka iespējams novērot pārpielāgošanos uz validācijas kopas. Interesanti, ka kosinusu līdzībai pie dažādiem para-metru skaitiem var būt ievērojama dispersija pat bez skaidri redzama kāpuma vai krituma.
 
-Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla -- balstoties uz pieņēmumu, ka orientācijas izmaiņa varētu būt pietiekama, lai dotu stratēģijai kontekstu par to, kurā metiena fāzē tā šobrīd atrodas. Savā ziņā pieņēmums apstiprinājās -- modelis konverģē, un arī kaut kas līdzīgs metienam tiek noģenerēts. Taču, kā redzams rezultātos, pievienojot atsevišķu laika signālu vektoram rezultāti tiek radikāli uzlaboti.
+14. attēlā redzamas izmaiņas novērtējumos atkarībā tikai no viena mainīgā lieluma. Var secināt, ka klasiskā modeļa līdzība ar demonstrāciju sadalījumu sāk kristies, pieaugot epohu skaitam, un abi labajā pusē redzami grafiki parāda, ka iespējams novērot pārpielāgošanos uz validācijas kopas. Interesanti, ka kosinusu līdzībai pie dažādiem para-metru skaitiem var būt ievērojama dispersija pat bez skaidri redzama kāpuma vai krituma.
 
 \begin{figure}[t!]
     \centering
@@ -1834,15 +1834,19 @@ Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla --
     \caption{Rekurentā neironu tīkla ģenerēto trajektoriju simulēto metienu nobīdes atkarībā no: datu kopas; parametru skaita; apmācības ātruma; epohu skaita.}
 \end{figure}
 
+Pirmās datu korpusa versijas tika sagatavotas bez atsevišķa laika signāla -- balstoties uz pieņēmumu, ka orientācijas izmaiņa varētu būt pietiekama, lai dotu stratēģijai kontekstu par to, kurā metiena fāzē tā šobrīd atrodas. Savā ziņā pieņēmums apstiprinājās -- modelis konverģē, un arī kaut kas līdzīgs metienam tiek noģenerēts. Taču, kā redzams rezultātos, pievienojot atsevišķu laika signālu vektoram rezultāti tiek radikāli uzlaboti.
+
+
+
 Visbeidzot, lielākā daļa demonstrāciju tikušas ierakstītas vairākās stadijās vēl mē-nešus pirms autoregresijas rezultātus mēģināts atkārtot ar fizisku robotu. Izrādās, ka tās neatbilst robota izmēriem -- veiktie vēzieni ir pārāk lieli, un mēģinājumi proporcionāli koriģēt tos noved pie nesakritības starp efektora pozīciju un orientāciju (tiek mēģināts lielas rotācijas apvienot ar nelieliem pārvietojumiem, kas noved pie bremzēšanas reālā robotā). Tāpēc neilgi pirms darba noslēguma iegūta jauna demonstrāciju kopa, kas gan ir mazāka par veco. Protams, arī validācijas kopa ir attiecīgi mazāka.  Tajā ir līdzīga mērķa koordinātu dispersija un, varbūt svarīgāk, tās ir tuvāk metiena sākumpunktam. Augstākās simulēto metienu precizitātes sasniegtas tieši uz šīs kopas. Mazākas absolūtās vērtības kombinētas ar relatīvi lielāku dispersiju liek domāt, ka varētu būt ievērojams nejaušības faktors labāko metienu mērā. Turpmākiem pētījumiem nepieciešams strādāt ar lielāku validācijas kopu. Tomēr jāpiebilst, ka vecajā datu kopā sasniegtās precizitātes patiešām varētu būt zemākas, jo tajā ir daudz lielāka \textit{sākuma orientāciju} dispersija -- rezultātā modelis paredz agresīvākas rotācijas, bet validācijas trajektorijas ievāktas ar neitrālu sākuma stāvokli.
+
+\subsection{Rekurentie neironu tīkli}
 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=16cm,page=1]{../img/rnn-independent-params-epoch.png}
     \caption{Atsevišķu rekurento modeļu novērtējumi, mainot tikai vienu hiperparametru. Augšējā rindā kosinusu un metiena kļūda atkarībā no epohas, apakšējā -- no parametru skaita.}
 \end{figure}
-
-\subsection{Rekurentie neironu tīkli}
 
 15. attēlā salīdzināta rekurentā tīkla simulēto metienu precizitāte pie dažādiem hiperparametriem. Pirmkārt, redzams, ka ne pēc epohām, ne modeļa izmēriem skaidras sakarības nav novērojamas -- vērtībām ir ļoti neliela dispersija. Tas rada zināmas cerības, ka vēl nav atrastas optimālas hiperparametru kombinācijas, un iespējami tālāki uzlabojumi. Svarīgi arī pamanīt, ka pie vecās datu kopas -- kas ir lielāka un ar daudz lielākām efektora orientācijas izmaiņām -- rekurentais modelis sasniedz ievērojami labākus rezul-tātus, nekā klasiskais. Tomēr pie nelielās jaunā datu korpusa validācijas kopas sasniegtā precizitāte ir mazliet zemāka.
 
