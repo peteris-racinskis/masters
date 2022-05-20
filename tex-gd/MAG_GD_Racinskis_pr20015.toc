@@ -6,9 +6,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Darba mērķis un struktūra}{8}{section*.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Terminoloģijas tulkojumi, apzīmējumi, saīsinājumi}{8}{section*.5}%
+\contentsline {subsection}{Terminoloģijas tulkojumi}{8}{section*.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Motivējošais uzdevums}{10}{section*.6}%
+\contentsline {subsection}{Apzīmējumi un saīsinājumi}{9}{section*.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Motivējošais uzdevums}{10}{section*.7}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Vispārīgi teorētiskie pamati}{11}{section.1}%
 \defcounter {refsection}{0}\relax 
@@ -138,7 +140,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.4}Rekurentie neironu tīkli}{73}{subsection.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Secinājumi}{75}{section*.7}%
+\contentsline {section}{Secinājumi}{75}{section*.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{76}{section*.8}%
+\contentsline {section}{Atsauces}{76}{section*.9}%
 \contentsfinish 
