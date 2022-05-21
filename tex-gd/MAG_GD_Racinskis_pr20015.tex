@@ -198,7 +198,7 @@ Protams, iespējams manuāli programmēt katru metienu vai veidot programmatūru
 \newpage
 \section{Vispārīgi teorētiskie pamati}
 
-Pētot un veidojot spriedumus par zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk literatūras analīzē iztirzājot šos rakstus vai aprakstot pašu veiktu praktisku darbību, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā nodaļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu orientēties nozares zinātniskajā literatūrā un šajā darbā patstāvīgi izmantotajā terminoloģijā.
+Pētot zinātnisko literatūru viens no lielākajiem šķēršļiem lasītājam ``no malas'' ir katrā nozarē pieņemtais tehnisko priekšzināšanu kopums, ko autori sagaida no auditorijas. Tas, protams, ir loģiski, jo publikācija, kas apraksta jaunākos atklājumus kādā dziļi specifiskā lauciņā, nevar veltīt visu sev atvēlēto drukas apjomu elementāras un vispārzināmas terminoloģijas skaidrojumiem. Tāpat, tālāk literatūras analīzē iztirzājot šos rakstus vai aprakstot pašu veiktu praktisku darbību, noderīgi ir ieviest tiem kopīgus apzīmējumus un definēt visus vienuviet. Tāpēc šajā nodaļā tiek īsi aprakstīti jēdzieni, kas jāizprot, lai varētu orientēties šajā darbā patstāvīgi izmantotajā terminoloģijā.
 
 \subsection{Parametriski modeļi, šabloni}
 
@@ -288,8 +288,7 @@ bet apmācības process parasti kādā veidā tiecas minimizēt šīs vērtības
 
 Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās mašīnmācīšanās literatūrā to ļoti bieži izsaka kā $\pi_{\theta}(x)$. Mazliet mulsinošs ir tieši ar imitējošām metodēm saistītos rakstos lietotais apzīmējums $\pi^*$, ar ko apzīmē t.s. ``ekspertu stratēģijas'' -- kas pašas ir nezināmās funkcijas, ko cenšamies aproksimēt pēc to ģenerēto punktu kopām. 
 
-
-\subsubsection{Neironu tīkli -- vispārīgi}
+\subsubsection{Neironu tīkli}
 
 Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas formas funkciju aproksimēšanai -- tie var būt gan klasifikatori, gan regresori. Neironu tīklu kopīgais elements ir t.s. perceptrons, kas izteikts jau pašos pirmsākumos \cite{mcculloch1943logical}. Perceptrons funkcija, kas piemēro nelineāru aktivācijas funkciju $\sigma$ argumentu vektora $ \boldsymbol{x}$ elementu savstarpējai lineārai kombinācijai, t.i,
 
@@ -427,12 +426,11 @@ Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama i
 Lai uzdevumu varētu risināt, nepieciešams spēt izteikt kādu analītisku funkciju, kas apraksta pašreizējā stāvokļa lietderību -- izšķir labus rezultātus no sliktiem, vai starp-stāvokļiem. Robotikā var būt sarežģīti šādu funkciju izdomāt, turklāt tā var būt ļoti retināta stāvokļu-darbību telpā, t.i., tikai ļoti nelielam skaitam (vai ar ļoti nelielu varbū-tību) sasniegto stāvokļu atalgojuma funkcija $R(s_t)$ pieņem nenulles vērtību. Tieši šādu trūkumu mēģina risināt metodes, kas kombinē ekspertu demonstrāciju aproksi-mēšanu ar adaptīvu pielāgošanos \cite{nair2018overcoming}
 
 
-\subsection{Robotikas teorētiskie pamati}
+\subsection{Ieskats industriālo rbotu darbībā}
 
 Pirms iespējams padziļināti analizēt ar robotu kontroli saistītu zinātnisko literatūru vai patstāvīgi izstrādāt programmatūru to vadībai, nepieciešams iepazīties ar matemā-tiskajiem formālismiem, kas izmantoti šajā nozarē. Kā jebkurā citā briedumu sasniegušā inženierzinātņu laukā, pastāv virkne vairāk vai mazāk standartizētu paņēmienu, kā izpaust un risināt dažādas problēmas. Svarīgi izprast ģeometriskās un algebriskās konvencijas robotu stāvokļa aprakstam un kā tās tiek izmantotas praktisku uzdevumu izpildē.
 
-\subsubsection{Robota matemātiskais modelis -- kinemātika, kvaternioni}
-
+\subsubsection{Kinemātika}
 
 \begin{figure}[t!]
     \centering
