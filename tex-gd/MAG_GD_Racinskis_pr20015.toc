@@ -90,33 +90,33 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.3.4}Trajektoriju gludināšana}{46}{subsubsection.3.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.5}Kritisko punktu noteikšana un papildu signāli}{47}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.5}Kritisko punktu noteikšana}{47}{subsubsection.3.3.5}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.3.6}Brīvā kritiena ekstrapolācija, mērķa koordinātu noteikšana}{48}{subsubsection.3.3.6}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.3.7}Sākuma koordinātu kompensācija}{49}{subsubsection.3.3.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.8}Apvienošana, stāvokļu pāreju veidošana, jaukšana}{50}{subsubsection.3.3.8}%
+\contentsline {subsubsection}{\numberline {3.3.8}Apvienošana, stāvokļu pāreju veidošana, secības jaukšana}{50}{subsubsection.3.3.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4}Modeļu realizācija}{51}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Modeļu realizācija}{50}{subsection.3.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.1}Klasiskais neironu tīkls}{51}{subsubsection.3.4.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.2}Rekurentais neironu tīkls}{53}{subsubsection.3.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.3}Tālāka darbība -- GAN}{54}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.3}GAN (tālāka darbība)}{54}{subsubsection.3.4.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.5}Validācijas datu ģenerēšana, simulācija, vizualizācija}{56}{subsection.3.5}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.5.1}Modeļu pārbaude ar gadījuma sākuma stāvokļiem}{56}{subsubsection.3.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.2}Validācija -- demonstrāciju un autoregresoru salīdzinājumi}{57}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.2}Validācija -- demonstrāciju un autoregresoru salīdzinājumi}{58}{subsubsection.3.5.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.3}Trajektoriju telpiska vizualizācija}{59}{subsubsection.3.5.3}%
+\contentsline {subsubsection}{\numberline {3.5.3}Trajektoriju telpiska vizualizācija}{58}{subsubsection.3.5.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.6}Trajektoriju izpilde uz robota}{60}{subsection.3.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.6.1}Kā savietot modeli ar kontrolleri?}{60}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {3.6.1}Modeļa savietošana ar kontrolleri}{60}{subsubsection.3.6.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.6.2}Robota trajektorijas plānošana un izpilde}{62}{subsubsection.3.6.2}%
 \defcounter {refsection}{0}\relax 

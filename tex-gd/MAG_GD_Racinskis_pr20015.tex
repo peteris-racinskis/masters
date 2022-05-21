@@ -1009,35 +1009,35 @@ Trajektoriju izpilde uz fiziskā robota nav tikusi prioritarizēta no pētniecis
 
 \subsection{Datu priekšapstrāde}
 
-Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \textit{``Optitrack''} rīka iegūtie novērojumi pieejami \textit{``ROS''} vidē, izmantojot \textit{``topic''} -- tematu -- saskarni. Taču, lai no tiem iegūtu demonstrācijas un veiktu modeļu apmācību, nepieciešams veikt virkni priekšapstrādes operāciju. Darba izstrādes gaitā izveidota daļēji automatizēta datu kopu sagatavošanu sistēma, kas balstīta ar \textit{``make''} sistēmas palīdzību secīgi izsauktos \textit{``Python''} skriptos. Tie visi pieejami maģistra darba \textit{``github''} repozitorijā, \textit{``trajectory\_extract''} direktorijā \cite{md_repo}. Datu korpusi saglabāti atsevišķā repozitorijā \cite{md_data_repo}.
+Pareizas tīkla un ierakstīšanas programmatūras iestatīšanas gadījumā \textit{``Optitrack''} rīka iegūtie novērojumi pieejami \textit{``ROS''} vidē, izmantojot tematu (\textit{``topic''}) saskarni. Taču, lai no tiem iegūtu demonstrācijas un veiktu modeļu apmācību, nepieciešams veikt virkni priekšapstrādes operāciju. Darba izstrādes gaitā izveidota daļēji automatizēta datu kopu sagatavošanu sistēma, kas balstīta ar \textit{``make''} sistēmas palīdzību secīgi izsauktos \textit{``Python''} skriptos. Tie visi pieejami maģistra darba \textit{``github''} repozitorijā, \textit{``trajectory\_extract''} direktorijā \cite{md_repo}. Datu korpusi saglabāti atsevišķā repozitorijā \cite{md_data_repo}.
 
 \subsubsection{Ierakstu veikšana, sākuma datu kopas ieguve}
 
-Lai saglabātu kādā \textit{``ROS''} tematā publicētos ziņojumus noteiktā laika periodā, var izmantot \textit{``rosbag''} lietojumprogrammu ar \textit{``record''} komandu. Argumentos iespējams norādīt, tieši kurus tematu saturu nepieciešams ierakstīt -- ietaupot vietu uzglabāšanas atmiņā. Šajā gadījumā nepieciešamā informācija pieejama augstāk aprakstīto instrumentu -- efektora simulatora (\textit{``TrashPickup''}), ar marķieriem aprīkotās pudeles (\textit{``Bottle''}) un brīvā kritiena trajektorijas beigu indikatora (\textit{``CatchNet''}) -- odometrijās.  Lietojumprogrammas izvadā tiek iegūts strukturēts fails \textit{``.bag''} formātā, ko tiešā viedā izmantot nav vienkārši.
+Lai saglabātu \textit{``ROS''} tematā publicētos ziņojumus noteiktā laika periodā, var izmantot \textit{``rosbag''} lietotni ar \textit{``record''} komandu. Argumentos iespējams norādīt, tieši kurus tematu saturu nepieciešams ierakstīt -- ietaupot vietu uzglabāšanas atmiņā. Šajā gadījumā nepieciešamā informācija pieejama augstāk aprakstīto instrumentu -- efektora simulatora (\textit{``TrashPickup''}), ar marķieriem aprīkotās pudeles (\textit{``Bottle''}) un brīvā kritiena trajektorijas beigu indikatora (\textit{``CatchNet''}) -- odometrijas datos.  Lietotnes izvadā tiek iegūts strukturēts fails \textit{``.bag''} formātā, kā nolasīšanai nepieciešams izmantot bibliotēku \textit{C++} vai \textit{Python} vidē.
 
-Tāpēc pirmais priekšapstrādes procesa solis ir šī specifiskā formāta datu pārvei-došana vispārīgi izmantojamā \textit{.csv} -- \textit{``comma separated values''} -- datu korpusā. To paveic skripts \textit{``extract.py''}, kas ir visnotaļ vienkāršs, taču aizņem visilgāko laiku visā priekšapstrādes procesā, jo izmantotā \textit{``bagpy''} bibliotēka, šķiet, nav sevišķi labi optimizēta. Taču šo soli pietiekami veikt vienu reizi pēc katra fizisko metienu ierakstīšanas etapa, kas tiek darīts reti, tāpēc veiktspējai nav īpaši lielas nozīmes. Datu korpusa iegūšanas procesā no visa ieraksta tiek atlasītas tikai tālākām operācijām svarīgas kolonnas.
+Tāpēc pirmais priekšapstrādes procesa solis ir šī specifiskā formāta datu pārvei-došana vispārīgi izmantojamā \textit{.csv} -- \textit{``comma separated values''} -- datu korpusā. To paveic skripts \textit{``extract.py''}, kas aizņem visilgāko laiku visā priekšapstrādes procesā, jo izmantotā \textit{``bagpy''} bibliotēka nav sevišķi labi optimizēta ātrdarbības ziņā. Taču šo soli jāveic tikai vienu reizi pēc katra fizisko metienu ierakstīšanas etapa, kas tiek darīts reti, tāpēc veiktspējai nav īpaši lielas nozīmes. Datu korpusa iegūšanas procesā no visa ieraksta tiek atlasītas tikai tālākām operācijām svarīgas kolonnas.
 
 \subsubsection{Laika ass reparametrizācija}
 
-Pirmā problēma, ar ko nākas saskarties, strādājot ar kustību uztveres procesā iegū-tiem kinemātikas datiem, ir neregulārā laika parametrizācija. Jau iepriekš minēts, ka modeli paredzēts izstrādāt kā autoregresoru ar diskrētu laika soli -- kam, ja nepieciešams, lai iegūtā trajektorija spētu atspoguļot ne tikai pozīciju un orientāciju, bet arī to atvasinājums laikā, jāatbilst konstantam laika intervālam. Taču no \textit{``Optitrack''} iegūtajos datos pastāv divas nevēlamas parādības:
+Pirmā problēma, ar ko nākas saskarties, strādājot ar kustību uztveres procesā iegū-tiem kinemātikas datiem, ir neregulārā laika parametrizācija. Jau iepriekš minēts, ka modeli paredzēts izstrādāt kā autoregresoru ar diskrētu laika soli. Ja nepieciešams, lai iegūtā trajektorija spētu atspoguļot ne tikai pozīciju un orientāciju, bet arī to atvasinājums laikā, tam jāatbilst konstantam laika intervālam. Taču no \textit{``Optitrack''} iegūtajos datos pastāv divas nevēlamas parādības:
 
 \begin{enumerate}
-    \item katrā novērojuma ietverta tikai vienā odometrijas tematā pieejamā informācija -- t.i., katrā laika momentā zināma tikai viena no triju izsekoto ķermeņu konfigurācijām;
-    \item intervāli starp novērojumiem ir nejauši, un faktiski sastāv no īsām (dažu mili-sekunžu) garām virknēm, kurās saņemti novērojumi par vienu no ķermeņiem;
+    \item katrā novērojuma ietverta tikai vienā odometrijas tematā pieejamā informācija -- t.i., katrā laika momentā zināma tikai viena no triju izsekoto ķermeņu konfigurācijām, pārējās nav zināmas;
+    \item intervāli starp novērojumiem ir nejauši, un faktiski sastāv no īsām (dažu mili-sekunžu) garām virknēm, kurās saņemti novērojumi par vienu no ķermeņiem -- veidojot neregulāra garuma apakšvirknes ar informāciju tikai par vienu no ķermeņiem;
 \end{enumerate}
 
-Abu rezultātā saņemot datu virknes ilustratīvi pieņem sekojošo formu
+Abu rezultātā, saņemot datu virknes ilustratīvi pieņem sekojošo formu
 
 
 \begin{equation}
-    s^a_{t1}, s^a_{t2}, ..., s^b_{tm-1}, s^b_{tm},
+    s^a_{t1}, s^a_{t2}, ..., s^b_{tm-1}, s^b_{tm}
 \end{equation}
 , kur $s^a, s^b$ -- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$ -- nejauši laika momenti, kur $k < j \Rightarrow t_k < t_j$. Lai datus varētu izmantot tālāk, nepieciešams laikrindu pārveidot formā
 
 \begin{equation}
     (s^a_{t'1}, s^b_{t'1}, s^c_{t'1}), ..., (s^a_{t'p}, s^a_{t'p}, s^c_{t'p}), ...
 \end{equation}
-, kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$ -- diskrētā laika soļu frekvence. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki
+, kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$ -- diskrētā laika soļu frekvence, un katrā laika solī pieejama informācija par visiem ķermeņiem. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki
 
 \begin{equation}
     t'_1 = min(\lbrace t'_k \mid t'_k > t_1 \rbrace)
@@ -1049,31 +1049,31 @@ Abu rezultātā saņemot datu virknes ilustratīvi pieņem sekojošo formu
 
 \subsubsection{Atsevišķu demonstrāciju atdalīšana}
 
-Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzdevumu, nevis vienkārši atdarināt visas kustības, kas ierakstītas metienu veikšanas procesā (tai skaitā atgriešanos sākuma pozīcijā, nejaušu pārvietošanos, u.t.t), nepieciešams visu ierakstu sadalīt konkrētās demonstrācijās, kas katra satur vienu metienu. Vispārīgā gadījumā šis ir netriviāls -- lai neteiktu neiespējams -- uzdevums, tāpēc demonstrāciju ievākšana apzināti veikta tā, lai būtu iespējams atrast katra metiena sākumu. Kustību uztveres telpā uz grīdas izvietots marķējums sākuma pozīcijai. Katrs metiens sākts, vispirms novietojot efektora simulatoru virs marķējuma un noturot vismaz sekundi. Visā pārējā laikā pievērsta īpaša uzmanība, lai efektora simulators netiktu novietots šajās koordinātēs. Tādējādi iespējams ar vienkāršu slīdošā loga operāciju atrast vismaz vienu punktu neilgi pirms katra metiena
+Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzdevumu, nevis vienkārši atdarināt visas kustības, kas ierakstītas metienu veikšanas procesā (tai skaitā atgriešanos sākuma pozīcijā, nejaušu pārvietošanos, u.t.t), nepieciešams visu ierakstu sadalīt konkrētās demonstrācijās, kas katra satur vienu metienu. Vispārīgā gadījumā šis ir netriviāls uzdevums, tāpēc demonstrāciju ievākšana apzināti veikta tā, lai būtu iespējams atrast katra metiena sākumu. Kustību uztveres telpā uz grīdas izvietots marķējums sākuma pozīcijai. Katrs metiens sākts, vispirms novietojot efektora simulatoru virs marķējuma un noturot vismaz sekundi. Visā pārējā laikā pievērsta īpaša uzmanība, lai efektora simulators netiktu novietots šajās koordinātēs. Tādējādi iespējams ar vienkāršu slīdošā loga operāciju atrast vismaz vienu punktu neilgi pirms katra metiena
 
 \begin{multline}
     t_{start} \in [t'_{k}]^p_1: t < t_{start} \land \vert t - t_{start} \vert < \Delta t_{max} \Rightarrow \\ \Rightarrow x_t \in (x_{0} - \delta x, x_{0} + \delta x ), y_t \in  (y_{0} - \delta y, y_{0} + \delta y )
 \end{multline}
-, kur sākuma koordinātes $x_0, y_0$ un pieļaujamie nobīdes intervālu rādiusi $\delta x, \delta y$ tiek atrasti, cilvēkam pārbaudot ierakstīto datu kopu, atrodot marķētā sākuma punkta koordinātes ieraksta koordinātu sistēmā un nosakot, cik lielas nobīdes ļaus precīzi identificēt visu (vai vismaz daudzu) trajektoriju sākuma punktus. Ievērojot pietiekami ilgu intervālu starp metieniem -- garāku par $\frac{steps}{f}$ ar empīriski izvēlētu soļu skaitu $steps$ --  katra demonstrācija tad ir vienkārši 
+, kur sākuma koordinātes $x_0, y_0$ un pieļaujamie nobīdes intervālu rādiusi $\delta x, \delta y$ tiek atrasti, cilvēkam pārbaudot ierakstīto datu kopu, atrodot marķētā sākuma punkta koordinātes ieraksta koordinātu sistēmā un nosakot, cik lielas nobīdes ļaus precīzi identificēt visu (vai vismaz daudzu) trajektoriju sākuma punktus. Ievērojot pietiekami ilgu intervālu starp metieniem -- garāku par $\frac{steps}{f}$ ar empīriski izvēlētu soļu skaitu $steps$ --  katra demonstrācija tad ir 
 
 \begin{equation}
     t_{j} \in [t'_{k}]^{start+steps}_{start}
 \end{equation}
 
-Sekmīgai demonstrāciju iegūšanai tātad ir nepieciešams katru reizi mainot sākuma marķiera novietojumu telpā vai demonstrāciju iegūšanas stilu (īsākus, garākus laika intervālus pirms/pēc metiena) nomainīt arī sākuma koordinātes $x_0, y_0$, sākuma pozīciju intervālu rādiusus $\delta x, \delta y$ un soļu skaitu $steps$. Katra demonstrācija tiek saglabāta atsevišķā \textit{.csv} failā.
+Sekmīgai demonstrāciju iegūšanai ir nepieciešams, katru reizi mainot sākuma mar-ķiera novietojumu telpā vai demonstrāciju iegūšanas stilu (īsākus, garākus laika intervālus pirms/pēc metiena), nomainīt arī sākuma koordinātes $x_0, y_0$, sākuma pozīciju intervālu rādiusus $\delta x, \delta y$ un soļu skaitu $steps$. Katra demonstrācija tiek saglabāta atsevišķā \textit{.csv} failā.
 
 \subsubsection{Trajektoriju gludināšana}
 
-Ar laika ass reparametrizāciju nepietiek, lai novērstu visas neregularitātes iegūtajos datos. Odometrijas dati saņemti sadrumstalotā formā, turklāt, šķiet, ka laika izkliede starp \textit{``ROS''} vidē saņemtajiem punktiem ir lielāka, nekā reālajiem novērojumiem -- novē-rojama pakāpieniem vai zāģa asmenim līdzīgu kontūru esamība ierakstos. T.i., fiktīvas augstas frekvences nesinusoidālu svārstību komponentes. 
+Ar laika ass reparametrizāciju nepietiek, lai novērstu visas neregularitātes iegūtajos datos. Odometrijas dati saņemti sadrumstaloti, turklā laika izkliede starp \textit{``ROS''} vidē saņemtajiem punktiem ir lielāka, nekā reālajiem novērojumiem -- novērojama pakāpieniem vai zāģim līdzīgu kontūru esamība ierakstos. T.i., fiktīvas augstas frekvences nesinusoidālu svārstību komponentes. 
 
-Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līganus metienus video ierakstā un to raustītās reprezentācijas trajektoriju datos), nospriests, ka tās nesastāda fiziskajā trajektorijā novē-rojamu parādību bet gan ieraksta procesā pievienotu datu kropļojumu. Tāpēc pirms modeļa apmācības tās nepieciešams likvidēt. To paveic skripts \textit{``smoothing.py''}, kurā piemērots t.s. ``slīdošās vidējās vērtības'' aprēķins pēc sekojošā vienādojuma
+Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līganus metienus video ierakstā un to raustītās reprezentācijas trajektoriju datos), nospriests, ka tās nesastāda fiziskajā trajektorijā novērojamu parādību bet gan ieraksta procesā pievienotu datu kropļojumu. Tāpēc pirms modeļa apmācības tās nepieciešams novērst. To paveic skripts \textit{``smoothing.py''}, kurā piemērotsslīdošās vidējās vērtības aprēķins pēc sekojošā vienādojuma
 
 \begin{equation}
      \boldsymbol{x}'_{t} = \frac{1}{2m+1} \sum_{i=t-m}^{t+m}  x_i
 \end{equation}
 , kur $ \boldsymbol{x}$ -- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
 
-\subsubsection{Kritisko punktu noteikšana un papildu signāli}
+\subsubsection{Kritisko punktu noteikšana}
 
 Šādi ir iegūtas gludinātas, nošķirtas kinemātiku trajektorijas. Taču katrā no tām metiens var sākties pēc dažāda garuma stacionāra perioda, trajektorija satur arī nejaušas kustības pēc metiena beigām, kas traucētu apmācīt modeli, un nav nekādas informācijas par satvērējmehānisma stāvokli (ierakstītas tikai efektora, pudeles un gala stāvokļa marķiera odometrijas; sk. sadaļu par kustības uztveres aprīkojumu). Turklāt, lai būtu iespējams parametrizēt metienus pēc mērķa koordinātēm, nepieciešams katru demonstrāciju papildināt ar paredzamo pudeles maršruta krustpunktu ar grīdu. 
 
@@ -1092,7 +1092,7 @@ Pārējo punktu meklēšanai nepieciešams iegūt pozīciju atvasinājuma aproks
     x'(t) \approx \frac{x(t'_{k+1}) - x(t'_{k})}{\Delta t'} = f \cdot \left (x(t'_{k+1}) - x(t'_{k}) \right )
 \end{equation}
 
-Ja atvasinājumu absolūtās vērtības konkrētās mērvienībās nav svarīgas, konstanti $f$ -- novērojumu frekvenci, šajā gadījumā $100$ Hz -- nav nepieciešams ņemt vērā. Empīriski novērots, ka pēc šādas metodes aproksimējot atvasinājumu, katrā solī pieaug svārstību amplitūda. Varētu aprēķinātajam ``atvasinājumam'' izmantot to pašu ``slīdošās vidējās vērtības metodi'', kas aprakstīta pie gludināšanas. Praksē izrādās, ka pietiekami labi strādā sekojošais, stipri vienkāršotais novērtējums, kas apvieno diferences un gludināšanas soļus:
+Ja atvasinājumu absolūtās vērtības konkrētās mērvienībās nav svarīgas, konstanti $f$ -- novērojumu frekvenci, šajā gadījumā $100$ Hz -- nav nepieciešams ņemt vērā. Empīriski novērots, ka pēc šādas metodes aproksimējot atvasinājumu, katrā solī pieaug svārstību amplitūda. Var aprēķinātajam ``atvasinājumam'' izmantot to pašu ``slīdošās vidējās vērtības metodi'', kas aprakstīta pie gludināšanas. Taču praksē izrādās, ka pietiekami labi strādā sekojošais, stipri vienkāršotais novērtējums, kas apvieno diferences un gludināšanas soļus:
 
 \begin{equation}
     x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m}  x_i - \sum_{i=t-m}^{t}  x_i
@@ -1107,8 +1107,7 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
         1 \text{ citādi }
     \end{cases}
 \end{equation}
-, kur $ \boldsymbol{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai satvērēj-mehānisms ir sācis atlaisties, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
-
+, kur $ \boldsymbol{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai ir sākta satvērēj-mehānisma atlaišana, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
@@ -1117,7 +1116,7 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
     \end{cases}
 \end{equation}
 
-Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, slieksnis tiek piemērots efektora simulatora pozīcijas atvasinājuma novērtējumam (ievērojot, ka iepriekš ``atvasināta'' tiek distances vektora norma, bet šoreiz tiek meklēta norma vektora ``atvasinājumam''):
+Visbeidzot, lai atrastu paša metiena sākuma momentu (ko šajā gadījumā pieņem par ātras kustības sākumu), slieksnis tiek piemērots efektora simulatora pozīcijas atvasinājuma novērtējumam (ievērojot, ka iepriekš ``atvasināta'' tiek distances vektora nor-ma, bet šoreiz tiek meklēta norma vektora ``atvasinājumam''):
 
 \begin{equation}
     f_{moving} (t) = \begin{cases}
@@ -1126,11 +1125,11 @@ Visbeidzot, lai atrastu paša metiena -- ātras kustības -- sākuma momentu, sl
     \end{cases}
 \end{equation}
 
-Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām. Tālākā darbībā varētu būt vērts ievākt detalizētu informāciju par šo konstanšu izvēles ietekmi uz metienu precizitāti, taču jau pēc vizuālas laikrindu grafiku novērtēšanas izvēlēti skaitļi izrādījušies pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Protams, it sevišķi satvērējmehānisma gadījumā, pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
+Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām. Detalizētas informācijas ie-vākšana par šo konstanšu izvēles ietekmi uz metienu precizitāti ir viens no potenciāliem virzieniem tālākai pētnieciskai darbībai, taču jau pēc vizuālas laikrindu grafiku novēr-tēšanas izvēlēti skaitļi novērtēti kā pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Satvērējmehānisma gadījumā pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
 
 \subsubsection{Brīvā kritiena ekstrapolācija, mērķa koordinātu noteikšana}
 
-Demonstrāciju ievākšanas procesā, ja vien netiek ļoti cieši kontrolēti metiena para-metri (piemēram, visu laiku metot nelielā mērķī) tīri dabiski rodas ievērojama dispersija pudeles telpiskajās trajektorijās. To varētu pilnībā ignorēt un apmācīt modeli bez papildu brīvības pakāpēm vienkārši atdarināt kādu paraugu no kopas, taču no pētnieciskā viedokļa interesantāk ir jau uzreiz paredzēt iespēju parametrizēt metienus pēc mērķa koordinātēm. Protams, tā kā process neparedz demonstrāciju ierakstīšanu ar zināmu galamērķi, šīs koordinātes nav zināmas -- tās ir nepieciešams noteikt.
+Demonstrāciju ievākšanas procesā, ja vien netiek ļoti cieši kontrolēti metiena para-metri (piemēram, visu laiku metot nelielā mērķī) tīri dabiski rodas ievērojama dispersija pudeles telpiskajās trajektorijās. To varētu pilnībā ignorēt un apmācīt modeli bez papildu brīvības pakāpēm vienkārši atdarināt kādu paraugu no kopas, taču no pētnieciskā viedokļa interesantāk ir jau uzreiz paredzēt iespēju parametrizēt metienus pēc mērķa koordinātēm. Tā kā realizētais kustības uztveres process neparedz demonstrāciju ierakstīšanu ar zināmu galamērķi, šīs koordinātes nav zināmas -- tās ir nepieciešams noteikt.
 
 Lai to darītu, izveidots skripts \textit{``regression.py''}, kas veic ekstrapolāciju pudeles trajektorijas brīvā kritiena fāzei un nosaka aptuveno punktu telpā, kur tā šķērsotu grīdas plakni. Par atskaites punktu pieņemta beigu pozīcijas marķiera z-koordināte $z_{ref}$. Vis-pirms tiek atrasta demonstrācijas brīvā kritiena fāze pēc nosacījuma
 
@@ -1140,7 +1139,7 @@ Lai to darītu, izveidots skripts \textit{``regression.py''}, kas veic ekstrapol
 \end{equation}
 , kur $\mathcal{D}_i$ -- demonstrācijas novērojumu kopa, $\mathcal{D}_{fi}$ -- tās apakškopa, kuras novērojumos pudeles konfigurācijas sastāda ballistisku trajektoriju. Jāņem vērā, ka šādi iegūtā trajektorija tikai aptuveni atbilst īstajai, jo faktiskais pudeles smaguma centrs var atšķirties no kustību uztveres procesā izmantotās cietā ķermeņa definīcijas centroīdas. Taču līdz šim ievāktajās trajektorijās nav manītas lielas nobīdes -- tālāk aprakstītās idealizētās regresijas līknes ļoti tuvu atbilst faktiskajām laikrindām. Tātad, pat ja centru nobīdes inducēta svārstību komponente šajā signālā pastāv, tā ir pārāk neliela, lai to varētu pamanīt -- un, visticamāk, pie šobrīd sagaidāmās procesa precizitātes lielu iespaidu uz rezultātu neatstāj.
 
-Lai atrastu mērķa koordinātes, var izmantot vienkāršāko ballistiskās trajektorijas modeli. Pieņem, ka xy plakne ir precīzi normāla gravitācijas paātrinājuma vektoram, tāpēc šīm koordinātēm piemēro lineāro regresiju:
+Lai atrastu mērķa koordinātes, var izmantot vienkāršāko ballistiskās trajektorijas modeli. Pieņem, ka gravitācijas paātrinājuma vektors ir precīzi normāls xy plaknei, tāpēc šīm koordinātēm piemēro lineāro regresiju:
 
 
 \begin{equation}
@@ -1156,13 +1155,13 @@ Savukārt z-koordinātes vērtības ekstrapolē, veicot kvadrātisko regresiju -
     z_{pred} = \theta_{z2}(t^2) + \theta_{z1}(t) + \theta_{z0}
 \end{equation}
 
-Laika momentu, kad kritiens krusto grīdas plakni, var noteikt,  atrodot sekojošā vienādojuma lielāko sakni:
+Laika momentu, kad kritiens krusto grīdas plakni, var noteikt,  atrodot sekojošā vienādojuma pozitīvo sakni:
 
 \begin{equation}
     \theta_{z2}(t_{-1}^2) + \theta_{z1}(t_{-1}) + \theta_{z0} - z_{ref} = 0
 \end{equation}
 
-Taču, tā kā praksē demonstrācijas ir garākas nekā lidojumi, var arī aprēķināt šo vērtību visiem punktiem datu korpusā un atrast pēdējo pozitīvo izteiksmes vērtību. Tas, protams, ir asimptotiski lēnāk, taču praktiski \textit{``pandas''} bibliotēkā šādas operācijas ir ļoti ātras. Tad mērķa koordinātes atrod, ievietojot šo laika vērtību regresijas vienādojumos:
+Paksē demonstrācijas ir garākas nekā lidojumi, tāpēc var arī aprēķināt šo vērtību visiem punktiem datu korpusā un atrast pēdējo pozitīvo izteiksmes vērtību. Tas ir asimptotiski lēnāk, taču praktiski \textit{``pandas''} bibliotēkā šādas operācijas ir ļoti ātras. Tad mērķa koordinātes atrod, ievietojot šo laika vērtību regresijas vienādojumos:
 
 \begin{equation}
     x_{target} = \theta_{x1}(t_{-1}) + \theta_{x0}
@@ -1176,9 +1175,9 @@ Taču, tā kā praksē demonstrācijas ir garākas nekā lidojumi, var arī apr�
 
 \subsubsection{Sākuma koordinātu kompensācija}
 
-Visas demonstrācijas nav iegūtas no tā paša punkta kustību uztveres rīka koordinātu sistēmā, un tas var nesakrist ar robota efektora sākuma koordinātēm. Tāpēc, lai varētu apmācīt modeli ar vairākās epizodēs iegūtiem novērojumiem, un izmantot šo modeli, vadot robotu, kas nav novietots tādā pašā telpiskā pozīcijā, nepieciešams veikt koordinātu sistēmas centrēšanu.
+Demonstrācijas sāktas no dažādiem punktiem kustību uztveres rīka koordinātu sis-tēmā, un tie nesakrīt ar robota efektora sākuma koordinātēm, kas arī ir mainīgas. Tāpēc, lai varētu apmācīt modeli ar vairākās epizodēs iegūtiem novērojumiem, un izmantot šo modeli, vadot robotu, kas nav novietots tādā pašā telpiskā pozīcijā, nepieciešams veikt koordinātu sistēmas centrēšanu.
 
-Apsvērti divi varianti, centrēšana pēc metiena sākuma un mērķa. Lai iegūtu metiena sākuma punktu, izmantota iepriekš aprakstītā sliekšņa funkcija:
+Pastāv divi varianti, centrēšana pēc metiena sākuma un mērķa. Lai iegūtu metiena sākuma punktu, izmantota iepriekš aprakstītā sliekšņa funkcija:
 
 \begin{equation}
     t_{moving} = min(\lbrace t \mid f_{moving}(t) = 1 \rbrace)
@@ -1199,9 +1198,9 @@ Tad korekciju ievieš, vienkārši atņemot atskaites pozīciju no novērotajām
      \boldsymbol{r}_{tnorm} =  \boldsymbol{r}_t -  \boldsymbol{r}_0
 \end{equation}
 
-\subsubsection{Apvienošana, stāvokļu pāreju veidošana, jaukšana}
+\subsubsection{Apvienošana, stāvokļu pāreju veidošana, secības jaukšana}
 
-Visu iepriekšējo soļu rezultātā iegūts liels skaits atsevišķu demonstrāciju, kas katra ietverta savā failā. Lai tās varētu izmantot modeļa apmācībā, šīs datu korpusa vērtības jāielasa atmiņā tenzora formā. Tā kā kopējais datu apjoms nav ārkārtīgi liels, iespējams izveidot datu kopu, kas ietver visas demonstrācijas uzreiz. Tādu uzdevumu veic pēdējais skripts -- \textit{``preprocess\_dataset.py''}, kas atrodams repozitorija \textit{``models/''} direktorijā. Šeit arī notiek laikrindas pārveidošana stāvokļu pāreju formātā
+Visu iepriekšējo soļu rezultātā iegūts liels skaits atsevišķu demonstrāciju, kas katra ietverta savā failā. Lai tās varētu izmantot modeļa apmācībā, šīs datu korpusa vērtības jāielasa atmiņā tenzora formā. Tā kā kopējais datu apjoms nav ārkārtīgi liels, iespējams izveidot datu kopu, kas ietver visas demonstrācijas uzreiz. Tādu uzdevumu veic automatizētajā procesā pēdējais skripts -- \textit{``preprocess\_dataset.py''}, kas atrodams repozitorija \textit{``models/''} direktorijā. Šeit arī notiek laikrindas pārveidošana stāvokļu pāreju formātā
 
 \begin{equation}
     s_t, s_{t+1}, s_{t+2}, ... \rightarrow (s,s')_t, (s,s')_{t+1}, ...
@@ -1214,14 +1213,14 @@ ar iespēju veidot arī datu kopas, kurās katram rezultējošam stāvoklim zin�
 
 Šajā posmā katrs novērojums tiek reducēts uz tikai modelim nepieciešamo kolonnu apakškopu. Pastāv iespēja pievienot laika signālu, bez kuras sākotnēji veikti modeļu apmācības mēģinājumi. Daļa demonstrāciju tiek ietvertas treniņa datu kopā, daļa -- testa un validācijas kopā. Attiecība starp to izmēriem ir iestatāma. Rezultāts tiek sa-glabāts parametriski nosauktos datu kopas \textit{.csv} failos, kuru unikālie identifikatori iegūti, piemērojot jaucējfunkciju korpusa ģenerēšanā izmantoto demonstrāciju failu nosaukumu kopai.
 
-Tā kā to, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmācības vai validācijas uzdevuma specifika, šis solis tiek atstāts jau nākamo soļu pārziņā. Failā \textit{``helpers.py''} definētas dažādas funkcijas, kas izmantotas vairākās vietās. Viena no tām ir \textit{``data\_and\_label''}, kas nolasa sagatavoto treniņa datu kopu, sadala to modeļa ievadu (\textit{``input data''}) un vēlamo rezultātu (\textit{``label''}) tenzoros. Ja nepieciešams, šīs kopas elementu secība tiek sajaukta.
+To, vai nepieciešams datu kopu jaukt, nosaka konkrētā modeļu apmācības vai vali-dācijas uzdevuma specifika, tāpēc šis uzdevums tiek atstāts jau nākamajiem soļiem pare-dzēto programmu pārziņā. Failā \textit{``helpers.py''} definētas dažādas funkcijas, kas izmantotas vairākās vietās. Viena no tām ir \textit{``data\_and\_label''}, kas nolasa sagatavoto treniņa datu kopu, sadala to modeļa ievadu (\textit{``input data''}) un vēlamo rezultātu (\textit{``label''}) tenzoros. Ja nepieciešams, šīs kopas elementu secība tiek sajaukta.
 
 
 \subsection{Modeļu realizācija}
 
-Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām iespējām, neironu tīkļu modeļu izstrāde programmatūras kodā ir samērā vienkārša. Par spīti šo modeļu lielajiem parametru skaitiem un sarežģītajiem aprēķiniem -- piemēram, mērķa funkcijas gradientu meklēšanai vai optimizācijas metodēm, kas sastāv no vairākiem, dinamiskiem etapiem -- mūsdienās iespējams konfigurēt un apmācīt neironu tīklu ar dažām augsta abstrakcijas līmeņa komandām. Līdz ar to viena pētnieciska darba ietvaros ir bijis iespējams izstrādāt divu dažādu un radikāli atšķirīgu veidu regresorus -- klasisku dziļo neironu tīklu un rekurento autoregresoru -- un uzsākts darbs arī pie pirmā soļa tālākiem pētījumiem -- MDP formālismam atbilstoša GAN modeļa. 
+Pateicoties darba ietvaros izmantoto skaitļošanas bibliotēku piedāvātajām iespējām, neironu tīkļu modeļu izstrāde programmatūras kodā ir samērā vienkārša. Par spīti šo modeļu lielajiem parametru skaitiem un sarežģītajiem aprēķiniem -- piemēram, mērķa funkcijas gradientu meklēšanai vai optimizācijas metodēm, kas sastāv no vairākiem, dinamiskiem etapiem -- mūsdienās iespējams konfigurēt un apmācīt neironu tīklu ar dažām augsta abstrakcijas līmeņa komandām. Līdz ar to viena pētnieciska darba ietvaros ir bijis iespējams izstrādāt divu dažādu un radikāli atšķirīgu veidu regresorus -- klasisku dziļo neironu tīklu un rekurento autoregresoru -- un uzsākts darbs arī pie viena no tālākiem pētījumiem -- MDP formālismam atbilstoša GAN modeļa. 
 
-Viss modeļu apmācības kods ir atrodams maģistra darba repozitorijā, direktorijā \textit{``models/''}. Tas ir organizēts atsevišķos skriptos. Viena no īpatnībām, ar ko nākas saskarties, strādājot eksperimentālā zinātnes nozarē, ir visu darbību mainīgā un iteratīvā daba. Uzrakstītais kods nav sevišķi apjomīgs, bet provizoriskas izpētes un strukturētu eksperimentu gaitā mainot paņēmienus modeļu uzbūvē, apmācībā, datu priekšapstrādē un izvades failu formātos, nepārtraukti tiek veiktas izmaiņas. Bieži vien pat lielas programmas daļas tiek pilnībā pārrakstītas vai atmestas. Tāpēc grūti šādu kodu organizēt pēc programminženierijas labās prakses. Tā vietā, katra tipa modeļa apmācībai ir savs skripts, kas satur konfigurācijas mainīgos un visas funkcijas, kas netiek precīzi dublētas visur -- pat tad, ja pastāv ievērojamas līdzības starp tām dažādu modeļu izpildījumos. 
+Viss modeļu apmācības kods ir atrodams maģistra darba repozitorijā, direktorijā \textit{``models/''}. Tas ir organizēts atsevišķos skriptos. Viena no īpatnībām, ar ko nākas saskarties, strādājot eksperimentālā zinātnes nozarē, ir visu darbību mainīgā un iteratīvā daba. Uzrakstītais kods nav sevišķi apjomīgs, bet provizoriskas izpētes un strukturētu eksperimentu gaitā mainot paņēmienus modeļu uzbūvē, apmācībā, datu priekšapstrādē un izvades failu formātos, nepārtraukti tiek veiktas izmaiņas. Bieži vien pat lielas programmas daļas tiek pilnībā pārrakstītas vai atmestas. Tāpēc katra tipa modeļa apmācībai ir savs skripts, kas satur konfigurācijas mainīgos un visas funkcijas, kas netiek precīzi dublētas visur -- pat tad, ja pastāv ievērojamas līdzības starp tām dažādu modeļu izpildījumos. 
 
 \subsubsection{Klasiskais neironu tīkls}
 
@@ -1236,15 +1235,14 @@ Līdz ar to treniņa uzdevuma mērķa funkciju iespējams definēt formā
 \begin{equation}
     \mathcal{L}_{policy} = f \left (s,s',\pi_{\theta}(s) \right ), (s,s') \in \mathcal{D}
 \end{equation}
-
-Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījumā modeļa izvads ir nepārtrauktu vērtību vektors, atkrīt dažādas kategoriskās kļūdas un varbūtību sadalījumu distances metrikas, kādas izmantotas daudzos no teorētiskajā daļā apskatītajiem pētī-jumiem. Tas pats sakāms arī par diskrētu darbību kopu stratēģijām paredzētām regularizācijas metodēm. Tā vietā nākas izvēlēties kādu no regresijas mērķiem paredzētajiem novērtējumiem. Pirmā iespēja būtu izmantot klasisko kvadrātu summas metodi, kas ir pamatā jau priekšapstrādes sadaļā apskatītajā lineārās regresijas modeļu ieguvei (atceroties, ka $s, s'$ apzīmē $n$-dimensionālus vektorus):
+, kur $\mathcal{D}$ apzīmē konkrētu demonstrāciju. Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījumā modeļa izvads ir nepārtrauktu vērtību vektors, nevar izmantot dažādas kategoriskās kļūdas un varbūtību sadalījumu distances metrikas, kādas izmantotas daudzos no teorētiskajā daļā apskatītajiem pētī-jumiem. Tas pats sakāms arī par diskrētu darbību kopu stratēģijām paredzētām regularizācijas metodēm. Tā vietā nākas izvēlēties kādu no regresijas mērķiem paredzētajiem novērtējumiem. Pirmā iespēja būtu izmantot klasisko kvadrātu summas metodi, kas ir pamatā jau priekšapstrādes sadaļā apskatītajā lineārās regresijas modeļu ieguvei (atceroties, ka $s, s'$ apzīmē $n$-dimensionālus vektorus):
 
 
 \begin{equation}
     \mathcal{L}_{ss} ( \boldsymbol{s}, \boldsymbol{s'},\theta) = \sum_{i=1}^n (s'_i - \pi_{\theta}(s)_i)^2 
 \end{equation}
 
-Taču jau sen zināms, ka šī metode nav sevišķi noturīga pret lielām nobīdēm atsevišķu dimensiju dispersijās -- izlēcējiem -- un piedāvātas alternatīvas mērķa funkcijas dažādu optimizācijas uzdevumu risināšanai, no kurām šeit izvēlēta tās izgudrotāja P. Dž. Hūbera vārdā nosauktā \textit{``huber loss''} funkcija \cite{huber_loss}:
+Taču jau sen pierādīts, ka šī metode nav sevišķi noturīga pret lielām nobīdēm atsevišķu dimensiju dispersijās -- izlēcējiem -- un piedāvātas alternatīvas mērķa funkcijas dažādu optimizācijas uzdevumu risināšanai, no kurām šeit izvēlēta tās izgudrotāja P. Dž. Hūbera vārdā nosauktā \textit{``huber loss''} funkcija \cite{huber_loss}:
 
 
 \begin{equation}
@@ -1256,7 +1254,7 @@ Taču jau sen zināms, ka šī metode nav sevišķi noturīga pret lielām nobī
 \end{equation}
 
 
-Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}. Papildus veikti eksperimenti arī īpaši šim uzdevumam konstruētām mērķa funkcijām. Viens no izmēģinātajiem papildinājumiem bijis jau teorijas daļā aplūkotajā \textit{QuaterNet} izmantota kvaternionu normas regularizācija \cite{pavllo2018quaternet}
+Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}. Papildus veikti eksperimenti arī īpaši šim uzdevumam konstruētām mērķa funkcijām. Viens no izmēģinātajiem papildinājumiem ir kvaternionu normas regularizācija, kas izmantota, piemēram, cilvēka kustību aprakstošu locītavu orientāciju laikrindu prognozes modeļos, kuru izvadā visi dati veido normētus kvaternionus \cite{pavllo2018quaternet}
 
 \begin{equation}
     \mathcal{L}_{q}(\theta) = \lambda_{q} * (\Vert q^{\theta} \Vert - 1)^2
@@ -1274,7 +1272,7 @@ Vēl viena speciāli šim uzdevumam paredzēta mērķa funkciju saime, kas izmē
 
 Taču vēlāki eksperimenti atklājuši, ka abas augstāk minētās problēmas var novērst, vienkārši izmantojot citus hiperparametrus modeļa apmācības procesā (perceptronu skai-tu, apmācības ātrumu, treniņa epohu skaitu). Tāpēc visiem rezultātu analīzes sadaļā apskatītajiem \textit{``naiveBC''} modeļiem izmantota neizmainīta Hūbera funkcija.
 
-Lai instancētu pašu modeli, izmantota \textit{tensorflow.keras.Sequential} klases piedāvātā augsta līmeņa saskarne. Šīs klases konstruktora metodei argumentā iespējams nodot sarakstu ar \textit{tensorflow.keras.layers.Layer} apakšklašu instancēm, kas katra apzīmē vienu modeļa slāni. Atgrieztajā vērtībā tad tiek saņemta \textit{tensorflow.keras.Model} klases instance, kuras aprēķinu grafā ietverti visi šie slāņu objekti.
+Lai izveidotu paša modeļa instanci, izmantota \textit{tensorflow.keras.Sequential} klases piedāvātā augsta līmeņa saskarne. Šīs klases konstruktora metodei argumentā iespējams nodot sarakstu ar \textit{tensorflow.keras.layers.Layer} apakšklašu instancēm, kas katra apzīmē vienu modeļa slāni. Atgrieztajā vērtībā tad tiek saņemta \textit{tensorflow.keras.Model} klases instance, kuras aprēķinu grafā ietverti visi šie slāņu objekti.
 
 Pēc sākotnējiem izmēģinājumiem konstatēts, ka uzdevumam piemērots ir modelis ar diviem vienāda platuma slēptiem slāņiem, kam katram piemērota \textit{``Rectified Linear Unit''} nelineārā aktivācijas funkcija \cite{tf_relu}:
 
@@ -1288,11 +1286,11 @@ Pēc sākotnējiem izmēģinājumiem konstatēts, ka uzdevumam piemērots ir mod
 
 Pilnīgi savienotu slāni \textit{keras} vidē apzīmē klase \textit{keras.layers.Dense}. Aktivācijas funkcijas šajā kontekstā tiek modelētas kā atsevišķi slāņi, un tos pievieno ar \textit{keras.la-yers.ReLU} instancēm. Ievaddatu formātu definē \textit{keras.layers.Input}, kuras konstruktorā iespējams norādīt ievaddatu formu, bet pēdējā norādītā slāņa perceptronu vektors sastāda modeļa izvadu. Lai izmantotu \textit{keras} iebūvēto treniņa metodi \textit{Model.fit()}, nepieciešams definēt optimizatoru un mērķa funkciju, izsaucot \textit{Model.compile()} metodi. Šajā solī arī tiek noteikti modeļa parametru izmēri un sagatavoti tenzori to vērtībām, ja nav iepriekš atsevišķi norādīta modeļa ievada tenzora forma. Iespējams reģistrēt agrīnas apstāšanās nosacījuma funkciju (\textit{tf.keras.callbacks.EarlyStopping} instanci), lai pārtrauktu treniņa procesu, balstoties uz pārbaudes datu kopā iegūtu modeļa novērtējumu un no-vērstu pārpielāgošanos. Šī funkcija jānodod kopā ar citiem argumentiem -- treniņa datu kopu, validācijas datu kopu, epohu skaitu, u.t.t -- izsaucot \textit{Model.fit()} funkciju, kas pilnībā automatizē visu modeļa apmācības procesu.
 
-Pēc apmācības modelis tiek saglabāts ar aprakstošu nosaukumu. Skriptā paredzēta iespēja pārbaudīt, vai pastāv ar atbilstošajiem parametriem jau iepriekš apmācīts modelis pastāv modeļu direktorijā un izlaist treniņa soli. Pēc tam tiek veikti divi validācijas procesa soļi -- trajektoriju ģenerēšana uz gadījuma mērķa koordinātēm un salīdzinājumi gan ar treniņa, gan testa datu kopām. Šis process detalizēti aprakstīts zemāk.
+Apmācītais modelis tiek saglabāts ar aprakstošu nosaukumu. Skriptā paredzēta iespēja pārbaudīt, vai pastāv ar atbilstošajiem parametriem jau iepriekš apmācīts modelis pastāv modeļu direktorijā un izlaist treniņa soli. Pēc tam tiek veikti divi validācijas procesa soļi -- trajektoriju ģenerēšana uz gadījuma mērķa koordinātēm un salīdzinājumi gan ar treniņa, gan testa datu kopām. Šis process detalizēti aprakstīts zemāk.
 
 \subsubsection{Rekurentais neironu tīkls}
 
-Pētot klasiskā neironu tīkla sasniegtos rezultātus, konstatēts, ka dažus trajektorijas parametrus -- piemēram, precīzu satvērējmehānisma atlaišanas brīdi -- šādam modelim ir grūtības atdarināt. Vēlāk atkārtojot eksperimentus ar citiem hiperparametriem rezultātus izdevies uzlabot, taču pirms tam jau nolemts papildināt darba ietvaros izstrādāto risi-nājumu klāstu ar sarežģītākas arhitektūras modeli. Atkāpjoties no stingrā MDP formā-lisma un salīdzinot darba uzdevumu ar citiem, kļuvis skaidrs, ka šādai atdarināšanai pastāv lielas līdzības ar laikrindu ekstrapolāciju. Tāpēc izvēlētā alternatīvā pieeja ir rekurenta autoregresora izstrāde.
+Pētot klasiskā neironu tīkla sasniegtos rezultātus, konstatēts, ka dažus trajektorijas parametrus -- piemēram, precīzu satvērējmehānisma atlaišanas brīdi -- šādam modelim ir grūtības atdarināt. Vēlāk atkārtojot eksperimentus ar citiem hiperparametriem rezultātus izdevies uzlabot, taču pirms tam jau nolemts papildināt darba ietvaros izstrādāto risi-nājumu klāstu ar sarežģītākas arhitektūras modeli. Atkāpjoties no stingrā MDP formā-lisma kļuvis skaidrs, ka šādai atdarināšanai pastāv lielas līdzības ar laikrindu ekstrapolā-ciju. Tāpēc izvēlētā alternatīvā pieeja ir rekurenta autoregresora izstrāde.
 
 Kā jau minēts darba teorētiskajā daļā, pastāv vairākas labi zināmas un visnotaļ spējīgas rekurento tīklu arhitektūras. Divas no tām -- LSTM un GRU -- iebūvētas \textit{keras} vidē kā \textit{Layer} apakšklases. Papildus iespējams arī realizēt vienkāršu pilnīgi savienotu rekurento tīklu. Šīs klases ietver realizāciju iterācijai, inicializācijai un slēptā stāvokļa izvada vektora padošanai atpakaļ rekurentā modeļa ievadā. Līdz ar to programmētājam nav jādomā par šo sarežģīto sistēmas aspektu -- vienīgais, ko nepieciešams precizēt, ir izvadā atgriezto datu formāts. Ar argumenta \textit{return\_sequences} palīdzību tiek norādīts, vai modeļa izvads ir viens vektors, vai vektoru virkne, kuras garums ir vienāds ar ievadā saņemto laika soļu skaitu.
 
@@ -1309,9 +1307,9 @@ Attiecīgi, izņemot pašu modeļa deklarāciju un pēcāko trajektoriju ģener�
 
 Funkcija \textit{create\_sequential\_dataset} veic visus trīs uzdevumus un atgriež divus tenzorus -- treniņa ievades datus un vēlamās vērtības. Demonstrciju secību jaukt nav nepieciešams, jo visa datu kopa sadalīta sērijās (\textit{``batches''}), kas katra satur vairākas demonstrācijas. Pie katras no tām tiek vienreiz aprēķināti mērķa funkcijas gradienti un piemēroti modeļa parametriem. Sērijas tiek automātiski jauktas savā starpā. Jaukšanas procedūrai ir lielāka nozīme pie klasiskā neironu tīkla, jo citādi katra sērija, iespējams, saturēs tikai vienas demonstrācijas datus -- kas varētu novest pie optimizācijas procesa ``lēkāšanas''.
 
-\subsubsection{Tālāka darbība -- GAN}
+\subsubsection{GAN (tālāka darbība)}
 
-Kaut gan šī darba pētniecisko daļu galvenokārt sastādījusi datu ieguves, priekš-apstrādes, klasiskā un rekurentā modeļa apmācības un validācijas procesu izstrāde, balstoties uz teorētiskajā literatūrā gūtām atziņām par vienu no galvenajiem virzieniem tālākiem pētījumiem iezīmēta ģeneratīvā pretinieku tīkla realizācija kā paņēmiens, kas varētu apvienot vienkāršu un konstantā laikā izpildāmu stratēģijas modeli ar daudz spē-jīgāku apmācības metodi. Attiecīgi uzsākta arī GAN modeļa realizācijas izstrāde.
+Kaut gan šī darba pētniecisko daļu galvenokārt sastādījusi datu ieguves, priekš-apstrādes, klasiskā un rekurentā modeļa apmācības un validācijas procesu izstrāde, balstoties uz teorētiskajā literatūrā gūtām atziņām par vienu no galvenajiem virzieniem tālākiem pētījumiem iezīmēta ģeneratīvā pretinieku tīkla realizācija kā paņēmiens, kas varētu apvienot vienkāršu un konstantā laikā izpildāmu stratēģijas modeli ar daudz spē-jīgāku apmācības metodi. Tāpēc uzsākta arī GAN modeļa realizācijas izstrāde.
 
 Atšķirībā no abiem augstāk minētajiem variantiem, kur iespējams izmantot \textit{keras.Se-quential} šablonu klasi, GAN apmācības procesā nepieciešams izmantot divus atsevišķus modeļus un sarežģītāku mērķa funkcijas sakarību ar to parametriem. Līdz ar to nepieciešams citādi strukturēt apmācības programmu. 
 
@@ -1370,7 +1368,7 @@ It sevišķi problēma saasinās situācijās ka šī darba agrīnajās stadijā
 
 \subsubsection{Modeļu pārbaude ar gadījuma sākuma stāvokļiem}
 
-Pirmā metode, kas izstrādāta lai aptuveni novērtētu, vai izvēlētie apmācības para-metri noved pat pie ļoti aptuvenas vēlamo rezultātu aproksimācijas, ir modeļu autoregresijas rezultātu ierakstīšana pie gadījuma mērķa koordinātēm. Tā balstīta uz pieņēmuma, ka treniņa kopā sastaptās mērķa koordinātes $x_{target}, y_{target}, z_{target}$ veido gadījuma izlasi no nezināma normālā sadalījuma:
+Pirmā metode, kas darba gaitā izstrādāta, lai aptuveni novērtētu, vai izvēlētie apmācības parametri noved pat pie ļoti aptuvenas vēlamo rezultātu aproksimācijas, ir modeļu autoregresijas rezultātu ierakstīšana pie gadījuma mērķa koordinātēm. Tā balstīta uz pieņēmuma, ka treniņa kopā sastaptās mērķa koordinātes $x_{target}, y_{target}, z_{target}$ veido gadījuma izlasi no nezināma normālā sadalījuma:
 
 \begin{equation}
     \mathbf{r}_{target} \sim \mathcal{N}(\hat{\boldsymbol{\mu}}(\mathbf{r}_{target}), \hat{\boldsymbol{\sigma}}(\mathbf{r}_{target}))
@@ -1389,14 +1387,14 @@ Pirms zemāk aprakstīto telpisko vizualizācijas rīku izstrādes, galvenais l�
 \begin{figure}[t!]
     \centering
     \includegraphics[height=5cm,page=1]{../img/qualitative_plots.png}
-    \caption{Pa kreisi, trajektorija ierakstīta ar agrīnu modeli, kam nepareizi definēta mērķa funkcija -- novedot pie autoregresora rezultātu diverģences. Pa labi, trajektorija, kuras kvalitatīvie aspekti liecina, ka parametru izvēle ir uz pareizā ceļa. Abos gadījumos -- atlaišanas signāls, paredzētās x un z koordinātes, mērķa x koordinātes attiecībā pret laika soli.}
+    \caption{Pa kreisi, trajektorija ierakstīta ar modeli, kam nepareizi definēta mērķa funkcija -- novedot pie autoregresora rezultātu diverģences. Pa labi, trajektorija, kuras kvalitatīvie aspekti liecina, ka parametru izvēle ir aptuveni pareiza. Abos gadījumos -- atlaišanas signāls, paredzētās x un z koordinātes, mērķa x koordinātes attiecībā pret laika soli.}
 \end{figure}
 
 \subsubsection{Validācija -- demonstrāciju un autoregresoru salīdzinājumi}
 
 Taču kā jau minēts, ar subjektīviem vizuāliem spriedumiem vien nepietiek, lai būtu iespējams salīdzināt dažādu modeļu arhitektūru un hiperparametru kopu ietekmi uz rezultātiem. Kad pabeigta procesa sākotnējā atkļūdošana un iegūti modeļi, kas konverģē uz šķietami derīgiem rezultātiem, nākamais solis ir kvantitatīvu salīdzinājuma rādītāju ieguve. Problēma ar no gadījuma izlases ģenerētām trajektorijām ir objektīvu kvalitātes kritēriju trūkums. 
 
-Atceroties atdarinošās mašīnmācīšanās (un laikrindu ekstrapolācijas) problēmu pamatnostādnes, modeļa mērķis ir radīt tādas laikrindas konfigurāciju telpā, kas nav atšķi-ramas no tāda slēptā sadalījuma, kura izlase veido demonstrāciju kopu. Nekas nav zināms par pašu šo sadalījumu, un kaut kāda veida mākslīga tā izlases papildināšana ir ekvivalenta šīs pašas problēmas atrisinājumam. Taču pastāv divi teorētiski krasi atšķirīgi, bet praktiskā izpildījuma ziņā tuvi radniecīgi paņēmieni, ko var izmantot, lai izdarītu spriedumus par apmācības procesa spēju izpildīt pamatnostādni:
+Ņemot vērā atdarinošās mašīnmācīšanās (un laikrindu ekstrapolācijas) problēmu pamatnostādnes, modeļa mērķis ir radīt tādas laikrindas konfigurāciju telpā, kas nav atšķi-ramas no tāda slēptā sadalījuma, kura izlase veido demonstrāciju kopu. Nekas nav zināms par pašu šo sadalījumu, un kaut kāda veida mākslīga tā izlases papildināšana ir ekvivalenta šīs pašas problēmas atrisinājumam. Taču pastāv divi teorētiski krasi atšķirīgi, bet praktiskā izpildījuma ziņā tuvi radniecīgi paņēmieni, ko var izmantot, lai izdarītu spriedumus par apmācības procesa spēju izpildīt pamatnostādni:
 
 \begin{enumerate}
     \item novērtēt modeļa spēju aproksimēt pašu treniņu datu kopu. No teorētiskā viedokļa, jebkurš pietiekami liels un ``elastīgs'' modelis var pilnībā apgūt jebkuru tā apmācībā izmantoto datu kopu, taču praksē tas ne vienmēr izdodas. Var salīdzināt autoregresijas rezultātus ar treniņa kopas demonstrācijām pie tādiem pašiem sākuma parametriem;
@@ -1413,7 +1411,7 @@ Apvienotās trajektorijas atkal tiek savietotas vienā datu korpusā, un tas ar 
 
 \subsubsection{Trajektoriju telpiska vizualizācija}
 
-Protams, ne divdimensionālas līknes, kas katra attēlo vienu konfigurācijas koor-dināti, ne dažādi abstrakti statistiski skaitliskie rezultāti nesniedz stabilu priekšstatu par to, vai iegūtais rezultāts telpā atgādina metienu, vai tas ietilpst robota kinemātisko ierobežojumu definētajā darba zonā, un vai tas radikāli nepārkāpj robota dinamiskās iespējas. Pirmkārt, šīs iekārtas ir jaudīgas un vērtīgas -- nepieciešams ar lielu piesardzību novērtēt jebkuru vadības sistēmu, pirms tiek pieļauta to radīto komandu izpilde uz fiziskas aparatūras. Otrkārt, pat, ja pieejama simulācijas vide, dažādu koordinātu sistēmu nesakritības, pārtraukuma punktu klātbūtne un citi faktori var nozīmēt, ka trajektoriju vai nu nav iespējams izpildīt -- plānošanas fāzē tiek pārkāpti kādi drošības nosacījumi -- vai arī grūti saprast, kas notiek, jo tiek veikti lieli lēcieni konfigurāciju telpā.
+Ne divdimensionālas līknes, kas katra attēlo vienu konfigurācijas koor-dināti, ne dažādi abstrakti statistiski skaitliskie rezultāti nesniedz stabilu priekšstatu par to, vai iegūtais rezultāts telpā atgādina metienu, vai tas ietilpst robota kinemātisko ierobežojumu definētajā darba zonā, un vai tas radikāli nepārkāpj robota dinamiskās iespējas. Pirmkārt, šīs iekārtas ir jaudīgas un vērtīgas -- nepieciešams ar lielu piesardzību novērtēt jebkuru vadības sistēmu, pirms tiek pieļauta to radīto komandu izpilde uz fiziskas aparatūras. Otrkārt, pat, ja pieejama simulācijas vide, dažādu koordinātu sistēmu nesakritības, pār-traukuma punktu klātbūtne un citi faktori var nozīmēt, ka trajektoriju vai nu nav iespē-jams izpildīt -- plānošanas fāzē tiek pārkāpti kādi drošības nosacījumi -- vai arī grūti saprast, kas notiek, jo tiek veikti lieli lēcieni konfigurāciju telpā.
 
 Tāpēc izstrādāta programma, kas spēj attēlot vienu vai daudzas pozīcijas un orientācijas vektoru laikrindas 3-dimensiju telpā. Kā svarīgākās prasības šim rīkam noteiktas sekojošās:
 
@@ -1452,7 +1450,7 @@ Papildus tiek nolasīts arī satvērējmehānisma konfigurācijas parametrs. To,
 
 No pētnieciskā viedokļa galvenā praktiskā darba daļa veltīta datu ieguves un modeļu apmācības uzdevumiem. Tā arī veido galveno zinātnisko pienesumu. Taču pēdējais un, iespējams, sarežģītākais uzdevums, kas veikts šī darba ietvaros, ir iegūto rezultātu izpilde uz fiziskas aparatūras. Tādi identificēti daudzi potenciālie šķēršļi iepriekš pētīto datizraces metožu pielietojumam ekspluatācijā un atrasts vismaz viens svarīgs virziens tālākai darbībai. Taču par spīti sastaptajiem sarežģījumiem izdevies realizēt paraug-demonstrāciju -- modeļa ģenerētu, uz reālas iekārtas izpildītu metiena kustību, kas veik-smīgi aizmet satvertu pudeli.
 
-\subsubsection{Kā savietot modeli ar kontrolleri?}
+\subsubsection{Modeļa savietošana ar kontrolleri}
 
 Kā jau sīkāk apspriests darba nodaļā par robotiem un to vadības problemātiku, ar pozīciju Dekarta koordinātu sistēmā vēl ne tuvu nepietiek, lai būtu iespējams izpildīt kādas robota darbības. Nepieciešams pārveidot telpisku pozīcijas informāciju robota asu dziņu vadības sistēmām saprotamos signālos, kas saistīti ar ātrumiem un paātrinājumiem locītavu konfigurācijas telpā. 
 
@@ -1469,7 +1467,7 @@ Veikta šāda kontrollera prototipa izstrāde, izmantojot \textit{MoveIt\_servo}
 
 Savukārt pilna trajektoriju plāna aprēķināšana ir metode, kuras izstrādes process saistīts ar mazākiem riskiem. Pastāv plašs atbalsts šādiem risinājumiem, un ROS kontekstā faktiski visas saskarnes ar robotu kontrolleriem balstītas uz pieņēmuma, ka uzdevums tiek realizēts kā diskrētu, iepriekš plānotu kustību virkne. Lai sagatavotu kustības plānu no punktu virknes Dekarta telpā, pietiek vien izsaukt augsti abstrahētu plānošanas komandu \textit{MoveIt} bibliotēkā. 
 
-Galvenā problēma ar plānošanu ROS platformā ir fakts, ka, kaut gan ļoti vienkārši precizēt konkrētiem laika punktiem piekārtotu locītavu konfigurāciju punktu iekļaušanu plānā un izpildi, nepastāv gatavi rīki, kas to pašu darītu ar telpiskiem punktiem. Tāpēc precīzi laikā parametrizēta telpiska plāna izpilde šobrīd nav iespējama -- nepieciešams izstrādāt rīku, kas spēj pārrēķināt plāna punktu laika vērtības, lai tās maksimāli tuvu atbilstu laikā parametrizētai telpisku punktu virknei. Tomēr, atšķirībā no kontrollera pieejas, kur nepieciešams pilnīgi strādājošs risinājums, lai kustības ģeometrija atbilstu vēlamajai, ar plānotāju iegūtās trajektorijas tai ir garantēti tuvas. Iespējams piemērot dažus vienkāršus uzlabojumus, lai plānu padarītu mazāk saraustītu un tā kopējo izpildes ilgumu pielīdzinātu prasītajam. Tad var novērtēt, vai modeļa ģenerētā trajektorija ie-kļaujas robota kinemātiskajos ierobežojumos, un pat izdarīt metienus ar samazinātu precizitāti.
+Galvenā problēma ar plānošanu ROS platformā ir tas, ka, kaut gan ļoti vienkārši precizēt konkrētiem laika punktiem piekārtotu locītavu konfigurāciju punktu iekļaušanu plānā un izpildi, nepastāv gatavi rīki, kas to pašu darītu ar telpiskiem punktiem. Tāpēc precīzi laikā parametrizēta telpiska plāna izpilde šobrīd nav iespējama -- nepieciešams izstrādāt rīku, kas spēj pārrēķināt plāna punktu laika vērtības, lai tās maksimāli tuvu atbilstu laikā parametrizētai telpisku punktu virknei. Tomēr, atšķirībā no kontrollera pieejas, kur nepieciešams pilnīgi strādājošs risinājums, lai kustības ģeometrija atbilstu vēlamajai, ar plānotāju iegūtās trajektorijas tai ir garantēti tuvas. Iespējams piemērot dažus vienkāršus uzlabojumus, lai plānu padarītu mazāk saraustītu un tā kopējo izpildes ilgumu pielīdzinātu prasītajam. Tad var novērtēt, vai modeļa ģenerētā trajektorija ie-kļaujas robota kinemātiskajos ierobežojumos, un pat izdarīt metienus ar samazinātu precizitāti.
 
 \subsubsection{Robota trajektorijas plānošana un izpilde}
 
@@ -1542,11 +1540,11 @@ Tāpēc nolemts tiešā veidā izmantot robota locītavu kontrollera piedāvāto
 \begin{figure}[t!]
     \centering
     \includegraphics[height=7.4cm,page=1]{../img/action_sequence.png}
-    \caption{Paraugdemonstrācija -- klasiska neironu tīkla ģenerēta trajektorija.}
+    \caption{Paraugdemonstrācija -- klasiskā neironu tīkla ģenerēta trajektorija.}
 \end{figure}
 
 
-Tā kā citu pētījumu ietvaros izvē-lētais robots parasti ir aprīkots ar \textit{``Robotiq 2f''} efektoru, kas piedziņai izmanto elektromotorus, saziņu realizē pār \textit{EtherCAT} protokolu un arī kontrolējams ar darbības servera palīdzību, tam izveidota klienta klase \textit{GripperActionWrapper}. Simulācijas vidē šis ir pietiekams risinājums, un ar to izdodas veikt trajektoriju izpildi.
+Tā kā citu pētījumu ietvaros izvēlētais robots parasti ir aprīkots ar \textit{``Robotiq 2f''} efektoru, kas piedziņai izmanto elektromotorus, saziņu realizē pār \textit{EtherCAT} protokolu un arī kontrolējams ar darbības servera palīdzību, tam izveidota klienta klase \textit{GripperActionWrapper}. Simulācijas vidē šis ir pietiekams risinājums, un ar to izdodas veikt trajektoriju izpildi.
 
 Taču mēģinot veikt paraugdemonstrāciju ar fizisko robotu konstatēts, ka elektromotoru piedziņa nav pietiekami ātrdarbīga, lai paredzami un īstajā trajektorijas punktā veiktu elastīga metamā objekta atlaišanu -- pat iestatot maksimālu darbības ātrumu. Var, protams, ieviest manuālas korekcijas programmas kodā -- mākslīgi pārbīdīt atlaišanas punktu, to pielāgojot katras trajektorijas formai, vai ieregulējot satveršanas ciešumu tā, lai tas ļoti precīzi atbilstu konkrētajai pudelei un tās pašreizējam tvērienam. Taču tādā gadījumā vairs netiek objektīvi vērtēta modeļa spēja pareizā laika un telpas punktā padot atlaišanas signālu. Lai risinātu šo problēmu, robots aprīkots ar daudz ātrāku pneimatisko satvērējmehānismu. Tā darbībai pietiek ar robota kontrollera digitālā izvada pieslēgšanu 5/2 solenoīdvārstam. \textit{Ur5e} robota kontrolleris nepiedāvā darbības serveri digitālo izvadu vadībai, tāpēc jāizmanto trešā no ROS pieejamajām saziņas metodēm -- pakalpojuma serveris. Komunikāciju ar \textit{set\_io} pakalpojumu realizē klase \textit{GripperServiceWrapper}.
 
