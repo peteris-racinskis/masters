@@ -1,17 +1,17 @@
 [0] Config.pm:304> INFO - This is Biber 2.14 (beta)
 [0] Config.pm:307> INFO - Logfile is 'MAG_GD_Racinskis_pr20015.blg'
-[58] biber:322> INFO - === Sat May 21, 2022, 15:28:42
-[70] Biber.pm:415> INFO - Reading 'MAG_GD_Racinskis_pr20015.bcf'
-[117] Biber.pm:943> INFO - Found 78 citekeys in bib section 0
-[125] Biber.pm:4256> INFO - Processing section 0
-[126] Utils.pm:75> INFO - Globbing data source 'refs.bib'
-[126] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
-[133] Biber.pm:4455> INFO - Looking for bibtex format file 'refs.bib' for section 0
-[135] bibtex.pm:1653> INFO - LaTeX decoding ...
-[179] bibtex.pm:1471> INFO - Found BibTeX data source 'refs.bib'
-[554] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[554] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[554] Biber.pm:4084> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[554] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
-[604] bbl.pm:652> INFO - Writing 'MAG_GD_Racinskis_pr20015.bbl' with encoding 'UTF-8'
-[637] bbl.pm:755> INFO - Output to MAG_GD_Racinskis_pr20015.bbl
+[48] biber:322> INFO - === Sat May 21, 2022, 16:11:33
+[58] Biber.pm:415> INFO - Reading 'MAG_GD_Racinskis_pr20015.bcf'
+[103] Biber.pm:943> INFO - Found 81 citekeys in bib section 0
+[112] Biber.pm:4256> INFO - Processing section 0
+[112] Utils.pm:75> INFO - Globbing data source 'refs.bib'
+[112] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
+[119] Biber.pm:4455> INFO - Looking for bibtex format file 'refs.bib' for section 0
+[121] bibtex.pm:1653> INFO - LaTeX decoding ...
+[170] bibtex.pm:1471> INFO - Found BibTeX data source 'refs.bib'
+[573] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[573] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[573] Biber.pm:4084> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[573] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
+[626] bbl.pm:652> INFO - Writing 'MAG_GD_Racinskis_pr20015.bbl' with encoding 'UTF-8'
+[662] bbl.pm:755> INFO - Output to MAG_GD_Racinskis_pr20015.bbl

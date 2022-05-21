@@ -1529,6 +1529,25 @@
       \field{pages}{124003}
       \range{pages}{1}
     \endentry
+    \entry{numpy_docs}{online}{}
+      \list{organization}{1}{%
+        {NumPy Developers}%
+      }
+      \field{sortinit}{n}
+      \field{sortinithash}{98cf339a479c0454fe09153a08675a15}
+      \field{labeltitlesource}{title}
+      \field{title}{numpy documentation}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://numpy.org/doc/stable
+      \endverb
+      \verb{url}
+      \verb https://numpy.org/doc/stable
+      \endverb
+    \endentry
     \entry{odometry}{online}{}
       \list{organization}{2}{%
         {MIT CS}%
@@ -1578,6 +1597,25 @@
       \endverb
       \verb{url}
       \verb https://blog.robotiq.com/what-are-the-different-programming-methods-for-robots
+      \endverb
+    \endentry
+    \entry{pandas_docs}{online}{}
+      \list{organization}{1}{%
+        {Pandas Development Team}%
+      }
+      \field{sortinit}{p}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labeltitlesource}{title}
+      \field{title}{pandas documentation}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://pandas.pydata.org/docs
+      \endverb
+      \verb{url}
+      \verb https://pandas.pydata.org/docs
       \endverb
     \endentry
     \entry{pastor2011online}{inproceedings}{}
@@ -2422,6 +2460,25 @@
       \endverb
       \verb{url}
       \verb https://www.tensorflow.org/api_docs/python/tf/nn/relu
+      \endverb
+    \endentry
+    \entry{tf_docs}{online}{}
+      \list{organization}{1}{%
+        {Google}%
+      }
+      \field{sortinit}{T}
+      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \field{labeltitlesource}{title}
+      \field{title}{TensorFlow documentation}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.tensorflow.org/api_docs/python/tf
+      \endverb
+      \verb{url}
+      \verb https://www.tensorflow.org/api_docs/python/tf
       \endverb
     \endentry
     \entry{tf_img_tutorial}{online}{}
