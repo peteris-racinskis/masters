@@ -18,6 +18,7 @@ namespace defaults {
 	const int STOP = 51;
 	const float OFFSET = 0.6;
 	const float CUBE_SIZE = 0.03;
+	const int TIMESIGNAL = 0;
 }
 
 int main(int argc, char **argv)
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
 	string fname;
 	int repeats;
 	int stop, start;
+	int timesignal;
 
 	if (argc > 1) {
 		args.assign(argv + 1, argv + argc);
@@ -35,11 +37,12 @@ int main(int argc, char **argv)
 	repeats = (args.size() > 1) ? stoi(args[1]) : defaults::REPEATS;
 	stop = (args.size() > 2) ? stoi(args[2]) : defaults::STOP;
 	start = (args.size() > 3) ? stoi(args[3]) : defaults::START;
+	timesignal = (args.size() > 4) ? stoi(args[4]) : defaults::TIMESIGNAL;
 
 	ros::init(argc, argv,"trajectory_visualizer");
 	ros::NodeHandle node_obj;
 	moveit_visual_tools::MoveItVisualToolsPtr moveit_visual_tools_;
-	moveit_visual_tools_.reset(new moveit_visual_tools::MoveItVisualTools("panda_link0","/moveit_visual_markers"));
+	moveit_visual_tools_.reset(new moveit_visual_tools::MoveItVisualTools("base_link","/moveit_visual_markers"));
 	moveit_visual_tools_->deleteAllMarkers();
  
 	vector<vector<string>> content;
@@ -106,19 +109,19 @@ int main(int argc, char **argv)
 
 		for(int i=start;i<new_stop;i++)
 		{
-			pose.position.x = stof(content[i][1]);
-			pose.position.y = stof(content[i][2]) - j * defaults::OFFSET;
-			pose.position.z = stof(content[i][3]);
+			pose.position.x = stof(content[i][1-timesignal]);
+			pose.position.y = stof(content[i][2-timesignal]) - j * defaults::OFFSET;
+			pose.position.z = stof(content[i][3-timesignal]);
 
-			length = pow(stof(content[i][4]),2) + pow(stof(content[i][5]),2) + pow(stof(content[i][6]),2) + pow(stof(content[i][7]),2);
+			length = pow(stof(content[i][4-timesignal]),2) + pow(stof(content[i][5-timesignal]),2) + pow(stof(content[i][6-timesignal]),2) + pow(stof(content[i][7-timesignal]),2);
 			length  = sqrt(length);
 
-			pose.orientation.x = stof(content[i][4])/length;
-			pose.orientation.y = stof(content[i][5])/length;
-			pose.orientation.z = stof(content[i][6])/length;
-			pose.orientation.w = stof(content[i][7])/length;
+			pose.orientation.x = stof(content[i][4-timesignal])/length;
+			pose.orientation.y = stof(content[i][5-timesignal])/length;
+			pose.orientation.z = stof(content[i][6-timesignal])/length;
+			pose.orientation.w = stof(content[i][7-timesignal])/length;
 
-			rviz_visual_tools::scales scale = (stof(content[i][8]) > 0.95) ? rviz_visual_tools::scales::XXXSMALL : rviz_visual_tools::scales::XSMALL;
+			rviz_visual_tools::scales scale = (stof(content[i][8-timesignal]) > 0.5) ? rviz_visual_tools::scales::XXXSMALL : rviz_visual_tools::scales::XSMALL;
 
 			moveit_visual_tools_->publishAxis(pose,scale);
 			moveit_visual_tools_->trigger();
