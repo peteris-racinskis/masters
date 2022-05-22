@@ -124,7 +124,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.7}Apmācītie modeļi un sasniegtie rezultāti}{65}{subsection.3.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Rezultātu analīze}{66}{section.4}%
+\contentsline {section}{\numberline {4}Rezultāti}{66}{section.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.1}Novērtējumi, to aprēķins}{66}{subsection.4.1}%
 \defcounter {refsection}{0}\relax 
