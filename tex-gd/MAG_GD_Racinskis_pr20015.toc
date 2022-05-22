@@ -144,5 +144,5 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{Secinājumi}{76}{section*.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Atsauces}{77}{section*.9}%
+\contentsline {section}{Atsauces}{78}{section*.9}%
 \contentsfinish 
