@@ -54,7 +54,7 @@
 \section*{Anotācija}
 \thispagestyle{empty}
 
-Atdarinošā mašīnmācīšanās (šī darba izstrādes gaitā ieviests terminoloģijas tulkojums) ir perspektīvs virziens robotikas uzdevumu risināšanas automatizācijā. Maģistra darbā veikts nozares pētniecības virzienu pārskats un saskaņā ar tajā gūtajām atziņām izstrādāts risinājums motivējošam uzdevumam -- metienu veikšanai ar industriālo robotu.
+Atdarinošā mašīnmācīšanās ir perspektīvs virziens robotikas uzdevumu risināšanas automatizācijā. Maģistra darbā veikts nozares pētniecības virzienu pārskats un saskaņā ar tajā gūtajām atziņām izstrādāts risinājums motivējošam uzdevumam -- metienu veikšanai ar industriālo robotu.
 
 Praktiskā isinājuma ietvaros ar kustības uztveres sistēmu ierakstītas demonstrācijas, izveidota automātiska priekšapstrādes sistēma, kas sagatavo šos datus neironu tīklu mo-deļu apmācībai, apmācīti neironu tīklu modeļi robota trajektoriju ģenerēšanai -- klasiskie un rekurentie. Papildus arī izveidota sistēma, kas šīs ģenerētās trajektorijas spēj izpildīt uz fiziska robota. Izveidoti rīki trajektoriju telpiskai vizualizācijai, lai novērtētu to kvalitatīvos aspektus, kā arī metodes dažādu modeļu veiktspējas objektīvai novērtēšanai -- modeļu ģenerētās trajektorijas salīdzinātas ar apmācības un validācijas datu kopām, starp tām aprēķināti statistiski tuvības mēri un veikts aptuvens ģeometrisks metiena precizitātes novērtējums. Sistemātiski sagatavota pie dažādiem hiperparametriem apmācītu modeļu kopa un tie salīdzināti, izmantojot šos rīkus.
 
@@ -68,7 +68,11 @@ Atslēgas vārdi: atdarinošā mašīnmācīšanās, neironu tīkli, rekurentie 
 \section*{Abstract}
 \thispagestyle{empty}
 
-Imitation learning (a term for which a Latvian translation was devised as part of this thesis) is a promising direction for automating the solving of various tasks in robotics. This master's thesis contains a theoretical overview of the key research directions in the field and insights gained therein are applied in solving a motivating problem -- producing throwing motions with an industrial robot.
+\begin{center}
+    APPLICATION OF IMITATION LEARNING IN ROBOTICS
+\end{center}
+
+Imitation learning is a promising direction for automating the solving of various tasks in robotics. This master's thesis contains a theoretical overview of the key research directions in the field and insights gained therein are applied in solving a motivating problem -- producing throwing motions with an industrial robot.
 
 As part of the practical solution demonstration trajectories were recorded using motion capture equipment, an automated data preprocessing pipeline was developed to make these suitable for training artificial neural network models and numerous such models were trained for generating robot trajectories in two main architectures -- feedforward and recurrent. In addition, a system for executing these trajectories on a real robot was also developed. For validation and comparison purposes, tools for spatial visualization of trajectories and generation of numeric evaluation metrics were produced. The latter compare model-generated trajectories with training and validation data sets, computing various statistical distance measures and approximate geometric evaluations of model throw accuracy. A number of models with varying hyperparameters were trained and evaluated using this toolset.
 
@@ -80,7 +84,22 @@ Keywords: imitation learning, neural networks, recurrent neural networks, motion
 \phantomsection
 \section*{Autoreferāts}
 \thispagestyle{empty}
-\newpage
+
+Darbā izstrādāta jauna pieeja metiena uzdevuma automatizācijai -- izmantojot kus-tību uztveres aprīkojumu un plaši izmantotas neironu tīklu arhitektūras kā modeļu šab-lonus. Citviet izmantotas vai nu stimulētās mācīšanās pieejas kombinētas ar fizikāli parametrizētām metienu izpildes programmām, vai arī konkrēti robotikas mērķiem veidoti parametrisku modeļu šabloni -- turklāt demonstrācijas iegūstot citādi.
+
+Darbā izmantots 81 literatūras avots, tai skaitā 27 raksti zinātniskajos žurnālos vai kopoto rakstu sējumos, 17 zinātniskajās konferencēs un semināros publicēti pētījumi, 2 grāmatas, 1 tehniskā atskaite un 34 tiešsaistē pieejami citu veidu informācijas avoti. Liela daļa zinātniskās literatūras tiek detalizēti aplūkota literatūras analīzes nodaļā par atdarinošo mašīnmācīšanos.
+
+Problēmas praktiskais risinājums ir aprakstīts detalizēti -- 28 lappuses veltītas iz-strādāto rīku un metožu aprakstam. Tā ietvaros paskaidroti: izdarītie lēmumi par izmantojamajām tehnoloģijām; modeļu arhitektūra, formāts, tehniskā realizācija; datu priekšapstrādes un pēcapstrādes procesi, to izpildījums. Dotas atsauces uz publiski pieejamiem pirmkoda un datu repozitorijiem, paskaidrota un matemātiski pamatota koda darbība. Kur nepieciešams, teksts papildināts ar attēliem, lai viestu skaidrību par stāstī-jumā aprakstīto.
+
+Visa pamatā ir autora paveiktais praktiskais darbs. Lielākā daļa teorētiskās literatūras izpētes veikta jau pagājušajā semestrī, kursa darba izstrādes gaitā, kad autors pats iepazinies ar nozares teorētiskajiem aspektiem. Pēc tā aizstāvēšanas sākts darbs pie praktiskās realizācijas -- tai skaitā divi pēdējie mēneši, kad faktiski katru dienu (arī brīvdienās) visa diena pavadīta EDI Robotikas un mašīnuztveres laboratorijā, risinot dažādas ar uzdevumu saistītas tehniskas problēmas. Izstrādāto programmas kodu galējās versijas kopā sastāda virs 2000 koda rindu arī pēc daudzu starpproduktu izdzēšanas. Apmācīti vairāki simti modeļu, no kuriem ap 150 izmantoti skaitlisko novērtējumu ieguvē.
+
+Iegūtie rezultāti sakrīt ar teorētiski sagaidāmajiem. Motivējošā uzdevuma salīdzi-noši vienkāršā dinamika nozīmē, ka to spēj apgūt arī vienkāršas uzbūves modelis. Reku-rentais neironu tīkls sniedz uzlabojumus vairākos sadalījumu tuvības mēros, taču tam ir augstāka asimptotiskā sarežģītība. Veikta modeļu ģenerēto trajektoriju izpilde uz robota, taču šobrīd izstrādātās vadības metodes uzskatāmas tikai par prototipu un praksē izmantojamas vēl nav.
+
+Darbu pārlasījis gan autors, gan darba vadītājs. Vairākas reizes izmantota pareiz-rakstības pārbaudes programmatūra, lai atrastu un izlabotu kļūdas tekstā. Daudzi grūti lasāmi teikumi pārveidoti un padarīti vienkāršāki.
+
+Burtiski aizguvumi, citāti un tieši tulkojumi tekstā izmantoti nav. Pie visiem attēliem, kas aizgūti no citiem autoriem, norādītas atsauces uz avotu, kurā tie publicēti.
+
+
 
 \newpage
 
