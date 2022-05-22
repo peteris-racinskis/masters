@@ -54,11 +54,27 @@
 \section*{Anotācija}
 \thispagestyle{empty}
 
+Atdarinošā mašīnmācīšanās (šī darba izstrādes gaitā ieviests terminoloģijas tulkojums) ir perspektīvs virziens robotikas uzdevumu risināšanas automatizācijā. Maģistra darbā veikts nozares pētniecības virzienu pārskats un saskaņā ar tajā gūtajām atziņām izstrādāts risinājums motivējošam uzdevumam -- metienu veikšanai ar industriālo robotu.
+
+Praktiskā isinājuma ietvaros ar kustības uztveres sistēmu ierakstītas demonstrācijas, izveidota automātiska priekšapstrādes sistēma, kas sagatavo šos datus neironu tīklu mo-deļu apmācībai, apmācīti neironu tīklu modeļi robota trajektoriju ģenerēšanai -- klasiskie un rekurentie. Papildus arī izveidota sistēma, kas šīs ģenerētās trajektorijas spēj izpildīt uz fiziska robota. Izveidoti rīki trajektoriju telpiskai vizualizācijai, lai novērtētu to kvalitatīvos aspektus, kā arī metodes dažādu modeļu veiktspējas objektīvai novērtēšanai -- modeļu ģenerētās trajektorijas salīdzinātas ar apmācības un validācijas datu kopām, starp tām aprēķināti statistiski tuvības mēri un veikts aptuvens ģeometrisks metiena precizitātes novērtējums. 
+
+
+Rezultātu analīzes gaitā secināts, ka ar izmantotajām metodēm apmācītie modeļi ģenerē reālas metienu kustības, kas dažādos novērtējumos aproksimē treniņa un validācijas datu kopas. Izdevies veikt arī šādi ģenerētu metienu paraugdemonstrācijas uz fiziska robota. \bigbreak
+
+Atslēgas vārdi: atdarinošā mašīnmācīšanās, neironu tīkli, rekurentie neironu tīkli, kustību uztvere, robotika
+
 \newpage
 \phantomsection
 \section*{Abstract}
 \thispagestyle{empty}
 
+Imitation learning (a term for which a Latvian translation was devised as part of this thesis) is a promising direction for automating the solving of various tasks in robotics. This master's thesis contains a theoretical overview of the key research directions in the field and insights gained therein are applied in solving a motivating problem -- producing throwing motions with an industrial robot.
+
+As part of the practical solution demonstration trajectories were recorded using motion capture equipment, an automated data preprocessing pipeline was developed to make these suitable for training artificial neural network models and numerous such models were trained for generating robot trajectories in two main architectures -- feedforward and recurrent. In addition, a system for executing these trajectories on a real robot was also developed. For validation and comparison purposes, tools for spatial visualization of trajectories and generation of numeric evaluation metrics were produced. The latter compare model-generated trajectories with training and validation data sets, computing various statistical distance measures and approximate geometric evaluations of model throw accuracy. 
+
+Results show that models trained using the approaches presented in this thesis approximate the training and validation datasets well with respect to a number of metrics. Throws using model-generated trajectories were also successfully performed on a physical robot. \bigbreak
+
+Keywords: imitation learning, neural networks, recurrent neural networks, motion capture, robotics
 
 \newpage
 \phantomsection
