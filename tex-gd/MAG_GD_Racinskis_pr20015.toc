@@ -110,7 +110,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.5.1}Modeļu pārbaude ar gadījuma sākuma stāvokļiem}{56}{subsubsection.3.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.2}Validācija -- demonstrāciju un autoregresoru salīdzinājumi}{57}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.2}Validācija -- demonstrāciju un autoregresoru salīdzinājumi}{58}{subsubsection.3.5.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.5.3}Trajektoriju telpiska vizualizācija}{58}{subsubsection.3.5.3}%
 \defcounter {refsection}{0}\relax 
@@ -118,11 +118,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.6.1}Modeļa savietošana ar kontrolleri}{60}{subsubsection.3.6.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.6.2}Robota trajektorijas plānošana un izpilde}{61}{subsubsection.3.6.2}%
+\contentsline {subsubsection}{\numberline {3.6.2}Robota trajektorijas plānošana un izpilde}{62}{subsubsection.3.6.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.6.3}Asinhrona satvērējmehānisma vadība, ātrdarbība}{63}{subsubsection.3.6.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7}Apmācītie modeļi}{64}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.7}Apmācītie modeļi}{65}{subsection.3.7}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}Rezultāti}{66}{section.4}%
 \defcounter {refsection}{0}\relax 
