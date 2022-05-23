@@ -110,6 +110,51 @@ Burtiski aizguvumi, citāti un tieši tulkojumi tekstā izmantoti nav. Pie visie
 \setcounter{page}{7}
 
 \phantomsection
+\section*{Apzīmējumi un saīsinājumi}
+\addcontentsline{toc}{section}{Apzīmējumi un saīsinājumi}
+
+Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
+
+\begin{enumerate}
+    \item EDI~-- Elektronikas un datorzinātņu institūts
+    \item GAN~-- ģeneratīvais pretinieku tīkls (\textit{Generative Adversarial Network})
+    \item IRL~-- inversā stimulētā mašīnmācīšanās (\textit{Inverse Reinforcement Learning})
+    \item LIDAR~-- attāluma lāzermērīšana
+    \item MDP~-- Markova lēmumu process (\textit{Markov Decision Process})
+    \item RL~-- stimulētā mašīnmācīšanās (\textit{Reinforcement Learning})
+    \item RNN~-- rekurentais neironu tīkls (\textit{Recurrent Neural Network})
+    \item VR~-- virtuālā realitāte
+\end{enumerate}
+
+Biežāk izmantoti matemātiskie apzīmējumi:
+
+\begin{enumerate}
+    \item $\pi, \pi_{\theta}, \pi^*$~-- stratēģija, stratēģija ar parametriem $\theta$, instruktora stratēģija
+    \item $s$~-- sistēmas stāvoklis vai tiešais novērojums
+    \item $s_t, s'$~-- $s$ laika solī $t$, nākamais $s$
+    \item $a, a_t$~-- darbība, darbība laika solī $t$
+    \item $o_t$~-- netiešais novērojums
+    \item trajektorija~-- laikrinda ar elementiem $s_t$, $o_t$, $(s_t, a_t)$ vai $(o_t, a_t)$, ja nav norādīts
+    \item $R(s), R(s,a)$~-- atalgojuma funkcija
+    \item $\theta, \phi, \psi$~-- modeļu parametru vektori
+    \item $\sigma(x)$~-- aktivācijas funkcija neironu tīklā
+    \item $\lambda$ -- svars mērķa funkcijas saskaitāmajam vai apmācības ātrums optimizācijā
+    \item $\mathcal{L}(y, \pi_{\theta}(x))$~-- mērķa funkcija optimizācijā
+    \item $\mathcal{N}(\mu, \sigma)$ ~-- normālais sadalījums ar vidējo vērtību un standartnovirzi
+    \item $\mathbb{E}$~-- matemātiskā cerība
+    \item $\boldsymbol{x}, x_i$~-- vektors, tā elements
+    \item $\mathbb{R}^n, [0,1]^n$~-- n-dimensionālu vektoru kopas
+    \item $\boldsymbol{r}$~-- pārvietojuma vektors
+    \item $g_t$~-- satvērējmehānisma atlaišanas signāls
+    \item $q, L_q$~-- kvaternions, rotācijas operators ar kvaternionu
+    \item $\mathcal{D}, \tau \in \mathcal{D}$~-- demonstrāciju kopa, trajektorija
+    \item $Q(s,a), v(s')$~-- modeļa paredzētais atalgojums, nākamā stāvokļa atalgojums
+    \item $\gamma$~-- dilšanas koeficients
+\end{enumerate}
+
+
+\newpage
+\phantomsection
 \section*{Ievads} % * nepieliks numuru pie nosaukuma
 \addcontentsline{toc}{section}{Ievads}
 
@@ -150,40 +195,6 @@ Patvaļīgi izvēloties tulkojumu, pastāv risks mulsināt lasītāju un sadrums
     \item \textit{reward function}~-- \textbf{atalgojuma funkcija}. Oficiālā terminu datubāzē tulkojuma šim terminam nav. Tuvākie tulkojumi lietojumam, ar kādu šis termins parasti sastopams tekstos angļu valodā, būtu ``lietderība'' vai ``atdeve'', taču ``atalgojums'' labi ietver sevī faktu, ka šo funkciju paredzēts maksimizēt.
     \item \textit{generative adversarial network}~-- \textbf{ģeneratīvie pretinieku tīkli}. Šim terminam arī pastāv vairāki konkurējoši tulkojumi, un terminu datubāzē skaidru atbildi nevar rast. Taču ir atrodams jau 2019. gadā sagatavotais kolēģes Lianas Blumbergas kursa darba plakāts, kur šis tulkojums ir lietots \cite{GAN}, tāpēc tas pats tiks lietots arī šeit.
 \end{enumerate}
-
-\phantomsection
-\subsection*{Apzīmējumi un saīsinājumi}
-\addcontentsline{toc}{subsection}{Apzīmējumi un saīsinājumi}
-
-Tekstā var bez paskaidrojuma tikt izmantoti šādi saīsinājumi:
-
-\begin{enumerate}
-    \item EDI~-- Elektronikas un datorzinātņu institūts
-    \item GAN~-- ģeneratīvais pretinieku tīkls (\textit{Generative Adversarial Network})
-    \item IRL~-- inversā stimulētā mašīnmācīšanās (\textit{Inverse Reinforcement Learning})
-    \item LIDAR~-- attāluma lāzermērīšana
-    \item MDP~-- Markova lēmumu process (\textit{Markov Decision Process})
-    \item RL~-- stimulētā mašīnmācīšanās (\textit{Reinforcement Learning})
-    \item RNN~-- rekurentais neironu tīkls (\textit{Recurrent Neural Network})
-    \item VR~-- virtuālā realitāte
-\end{enumerate}
-
-Biežāk izmantoti matemātiskie apzīmējumi:
-
-\begin{enumerate}
-    \item $\pi, \pi_{\theta}, \pi^*$~-- stratēģija, stratēģija ar parametriem $\theta$, instruktora stratēģija
-    \item $s$~-- sistēmas stāvoklis vai tiešais novērojums
-    \item $s_t, s'$~-- $s$ laika solī $t$, nākamais $s$
-    \item $a, a_t$~-- darbība, darbība laika solī $t$
-    \item $o_t$~-- netiešais novērojums
-    \item trajektorija~-- laikrinda ar elementiem $s_t$, $o_t$, $(s_t, a_t)$ vai $(o_t, a_t)$, ja nav norādīts
-    \item $R(s), R(s,a)$~-- atalgojuma funkcija
-    \item $\theta, \phi, \psi$~-- modeļu parametru vektori
-    \item $\mathbb{E}$~-- matemātiskā cerība
-    \item $\boldsymbol{x}, x_i, \mathbb{R}^n, [0,1]^n$~-- vektors, tā elements, n-dimensionālu vektoru kopas
-    \item $\mathcal{L}(y, \pi_{\theta}(x))$~-- mērķa funkcija optimizācijā
-\end{enumerate}
-
 
 \phantomsection
 \subsection*{Motivējošais uzdevums} % * nepieliks numuru pie nosaukuma
