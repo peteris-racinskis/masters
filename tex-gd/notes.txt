@@ -1,0 +1,7 @@
+1. domuzīmes nav rindas sākumā
+2. komati un punkti pēc vienādojuma
+3. "pakāpes" iekavās ja nav pakāpes
+4. pārskatīt apzīmējumus, kur vajag
+5. relatīvi novērtējumi tikai pret atskaites punktu
+6. pamatoti lēmumi (empīrisks process pie trajektoriju ģenerēšana)
+7. 
