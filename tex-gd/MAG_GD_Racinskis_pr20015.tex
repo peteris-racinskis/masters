@@ -720,9 +720,9 @@ Algoritma darbību var vienkāršoti aprakstīt sekojoši: pieņem, ka ir pieeja
 
 \begin{enumerate}
     \item ar kādu varbūtību $\alpha$ izvēlas, vai i-tā trajektorija tiks ģenerēta ar $\pi^*$ vai $\pi_{\theta}$;
-    \item iegūtās laikrindas stāvokļa elementiem $s_t$ atrod atbilstošo $a^*_t=\pi^*(s_t)$ 
-    \item kopējai datu kopai $D$ pievieno $D_i=\lbrace (s_1, a^*_1),... \rbrace$
-    \item apmāca modeli $\pi_{\theta}$ uz papildinātās datu kopas
+    \item iegūtās laikrindas stāvokļa elementiem $s_t$ atrod atbilstošo $a^*_t=\pi^*(s_t)$;
+    \item kopējai datu kopai $D$ pievieno $D_i=\lbrace (s_1, a^*_1),... \rbrace$;
+    \item apmāca modeli $\pi_{\theta}$ uz papildinātās datu kopas.
 \end{enumerate}
 
 Kā jau minēts, liela daļa raksta satura veltīta tieši algoritma teorētisko īpašību pierādīšanai, taču beigās arī veikti daži eksperimenti~-- divi ar personāžu vadību dator-spēļu vidē, viens ar rokraksta zīmju atpazīšanu teksta virknēs. Lai gan visos gadījumos DAgger pārspēj uzvedības klonēšanas (vienkāršas $\pi^*$ aproksimēšanas no treniņa datu kopas) rezultātus, tā lietderību stipri ierobežo instruktora interaktivitātes prasības~-- praksē reti kad ir iespējams kaut kas analoģisks datorspēļu aģentu treniņam izmantotajam simulatoram, kas ar dziļu pārlasi atrod labas stratēģijas jebkuram stāvoklim.
@@ -742,7 +742,7 @@ kur $w^*$~-- svaru vektors, bet $\phi: S \rightarrow [0,1]^k$~-- zināmu atribū
 \text{ .}
 \end{equation}
 
-Tad tiek iteratīvi atkārtota procedūra, kur atrod kādu svaru vektoru $w^{(i)}$ un attiecīgi empīrisku atalgojuma funkciju $R^{i}(s) = {w^{(i)}}^T\phi(s)$, ko izmanto, lai apmācītu jaunu stratēģiju $\pi^(i)$. Tad šai stratēģijai atrod vidējo vērtību $\mu^i$ analoģiski (2.3), un visas iepriekšējās $\mu^{(j \leq i)}$ tiek izmantotas, lai atrastu nākamo svaru vektoru $w^{(i+1)}$. Process turpinās, līdz ir konverģējis līdz noteiktam kļūdas hiperparametram. Tādējādi beigās iegūta stratēģija, kas maksimizē līdzīgu atribūtu $\phi(s)$ kombināciju nezināmajai instruktora stratēģijai, un robusti seko demonstrācijām.
+Tad tiek iteratīvi atkārtota procedūra, kur atrod kādu svaru vektoru $w^{(i)}$ un attiecīgi empīrisku atalgojuma funkciju $R^{i}(s) = {w^{(i)}}^T\phi(s)$, ko izmanto, lai apmācītu jaunu stratēģiju $\pi^{(i)}$. Tad šai stratēģijai atrod vidējo vērtību $\mu^{(i)}$ analoģiski (2.3), un visas iepriekšējās $\mu^{(j \leq i)}$ tiek izmantotas, lai atrastu nākamo svaru vektoru $w^{(i+1)}$. Process turpinās, līdz ir konverģējis līdz noteiktam kļūdas hiperparametram. Tādējādi beigās iegūta stratēģija, kas maksimizē līdzīgu atribūtu $\phi(s)$ kombināciju nezināmajai instruktora stratēģijai, un robusti seko demonstrācijām.
 
 Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiskas $\pi^*$ aproksi-mācijas metodes (uzvedības klonēšanu). Kopā risināti divi dažādi uzdevumi. Viens ir ``\textit{gridworld}''~-- spēle, kurā aģents pārvietojas pa režģa formas vidi un dažos lauciņos ir pieejams atalgojums. Taču pārejas process ir stohastisks, tāpēc metodes, kas atdarina tikai telpiskos pārvietojumus un nemēģina atjaunot slēpto atalgojuma funkciju darbojas sliktāk. Otrs ir divdimensionāla spēle, kurā aģents vada automobili. Šeit tika pārbaudīts, vai var iemācīt aģentam atšķirīgus ``braukšanas stilus'' tikai ar demonstrācijām, kas arī izdevies.
 
