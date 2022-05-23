@@ -180,7 +180,7 @@ Biežāk izmantoti matemātiskie apzīmējumi:
     \item $R(s), R(s,a)$~-- atalgojuma funkcija
     \item $\theta, \phi, \psi$~-- modeļu parametru vektori
     \item $\mathbb{E}$~-- matemātiskā cerība
-    \item $\boldsymbol{x}, x_i$~-- vektors, tā elements
+    \item $\boldsymbol{x}, x_i, \mathbb{R}^n, [0,1]^n$~-- vektors, tā elements, n-dimensionālu vektoru kopas
     \item $\mathcal{L}(y, \pi_{\theta}(x))$~-- mērķa funkcija optimizācijā
 \end{enumerate}
 
@@ -241,18 +241,21 @@ Viens no visplašāk izmantotajiem formālismiem datizraces un mašīnmācīšan
 
 \begin{equation} 
     M(x) \approx f(x)
+\text{ .}
 \end{equation}
 
 Protams, šādu modeļu varētu būt bezgalīgi daudz, un tie visi var atšķirties pēc tā, cik labi spēj paredzēt nezināmās funkcijas vērtības. Tāpēc modeļu meklēšanai parasti izmanto šablonus - funkcijas, kuru argumentā papildus ievades datiem ir brīvi maināmi un kopīgi (tātad "apmācāmi") parametri $\theta$:
 
 \begin{equation} 
     \text{Meklē } \theta:M(x \vert \theta) = M_{\theta}(x)  \approx f(x)
+\text{ .}
 \end{equation}
 
 Iegūtā šablona funkcijas un apmācīto parametru kombinācija $\lbrace M, \theta \rbrace$ tad veido kon-krētu modeli. Labs šablons ir tāds, kas spēj pielāgoties ļoti daudzām dažādām funkcijām:
 
 \begin{equation} 
     \forall f \forall x \exists \theta:M_{\theta}(x)\approx f(x)
+\text{ .}
 \end{equation}
 
 Atkarībā no uzdevuma specifikas, izplatīti modeļi mēdz būt regresori, kas aproksimē funkcijas ar $k$-dimensionālām reālām (vai citādi skaitliskām) vērtībām,
@@ -271,6 +274,7 @@ un klasifikatori, kas paredz ievades datu punkta piederību kādai diskrētai kl
 \end{equation}
 \begin{equation} 
      M: x \times \theta \rightarrow C
+\text{ .}
 \end{equation}
 
 Bieži vien noderīgi ir ne tikai spēt attēlot datu punktu kā diskrētu klasi, bet iegūt varbūtību sadalījumu, kas apraksta tā iespējamību piederēt jebkurai no klasēm:
@@ -283,12 +287,14 @@ Bieži vien noderīgi ir ne tikai spēt attēlot datu punktu kā diskrētu klasi
 \end{equation}
 \begin{equation} 
     \sum_{i=1}^m P_i = 1
+\text{ .}
 \end{equation}
 
 Lai varētu novērtēt, cik labi modelis aproksimē nezināmo funkciju, un vadīt parame-tru apmācības procesu, tiek izmantotas mērķa funkcijas (\textit{loss functions}) \cite{notation}:
 
 \begin{equation} 
     \ell: M_{\theta}(x) \times f(x) \rightarrow \mathbb{R}
+\text{ .}
 \end{equation}
 
 Strādājot ar reāliem datiem, datu punkti veido datu kopu, kas parasti tiek uzskatīta par gadījuma izlasi no punktus ģenerējošā varbūtību sadalījuma. Praktiskiem apmācības uzdevumiem datu kopa parasti jāiegūst formā, kas satur gan sagaidāmos ievades datus, gan pareizu rezultātu:
@@ -304,6 +310,7 @@ Strādājot ar reāliem datiem, datu punkti veido datu kopu, kas parasti tiek uz
 \end{equation}
 \begin{equation} 
     S = \lbrace s_1, s_2, ..., s_n \vert s_i \sim \mathcal{D}\rbrace
+\text{ .}
 \end{equation}
 
 Datu kopai var aprēķināt empīrisku mērķa funkcijas novērtējumu,
@@ -319,6 +326,7 @@ bet apmācības process parasti kādā veidā tiecas minimizēt šīs vērtības
 \end{equation}
 \begin{equation} 
     \text{Apmāca } M_{\theta} \text{ uz } \mathcal{D} \rightarrow \text{Minimizē } L_{\mathcal{D}}(\theta)
+\text{ .}
 \end{equation}
 
 Ja modelis ir stratēģija (\textit{policy}), stimulētās vai atdarinošās mašīnmācīšanās literatūrā to ļoti bieži izsaka kā $\pi_{\theta}(x)$. Mazliet mulsinošs ir tieši ar imitējošām metodēm saistītos rakstos lietotais apzīmējums $\pi^*$, ar ko apzīmē t.s. ``ekspertu stratēģijas''~-- kas pašas ir nezināmās funkcijas, ko cenšamies aproksimēt pēc to ģenerēto punktu kopām. 
@@ -330,8 +338,9 @@ Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas f
 
 \begin{equation} 
     f_{perceptron}( \boldsymbol{x}) = \sigma( \boldsymbol{w} \cdot  \boldsymbol{x}+b)
+\text{ ,}
 \end{equation}
-, kur $ \boldsymbol{w}$ ir t.s. svaru vektors, bet $b$~--  nobīde. Perceptrona parametri tātad ir brīvie mainīgie $ \boldsymbol{w}$ un $b$. Neironu tīkls parasti sastāv no slāņiem~-- perceptronu $f_i$ kopām, kas visi apstrādā to pašu argumentu vektoru, bet katrs ar saviem parametriem $w_i,b_i$. Tad slāni algebriski izsaka formā
+kur $ \boldsymbol{w}$ ir t.s. svaru vektors, bet $b$~--  nobīde. Perceptrona parametri tātad ir brīvie mainīgie $ \boldsymbol{w}$ un $b$. Neironu tīkls parasti sastāv no slāņiem~-- perceptronu $f_i$ kopām, kas visi apstrādā to pašu argumentu vektoru, bet katrs ar saviem parametriem $w_i,b_i$. Tad slāni algebriski izsaka formā
 
 \begin{equation} 
     W = \begin{bmatrix}
@@ -349,6 +358,7 @@ Neironu tīkli ir izplatīta modeļu šablonu saime, ko var izmantot dažādas f
 \end{equation}
 \begin{equation} 
     f_{layer}( \boldsymbol{x}) = \sigma(W \boldsymbol{x}+ \boldsymbol{b})
+\text{ .}
 \end{equation}
 
 Ja slānis tīklā ir pēdējais un tā vērtības ir modeļa izvadē, to sauc par izvades (\textit{output}) slāni. Ievades datu vektoru sauc par ievades (\textit{input}) slāni. Pārējos slāņus sauc par slēptajiem (\textit{hidden layers}). Saka, ka slāņi savā starpā pilnīgi savienoti (\textit{fully connected}), ja katram viena slāņa perceptronam argumentā parādās visi iepriekšējā slāņa izvades elementi. Svarīga neironu tīkla īpašība~-- ja tā aktivācijas funkcijas ir diferencējamas, tad arī tīkls kopumā ir diferencējams pēc katra tā parametra, pat ar perceptroniem daudzos slāņos. Līdz ar to var izmantot atpakaļizplatīšanas algoritmu, kas atrod mērķa funkcijas parciālos atvasinājumus pēc modeļa parametriem un izmanto kādu gradientu optimizācijas metodi apmācībai.
@@ -361,8 +371,9 @@ Ja modelējamā parādība vai datu kopa izsakāma formā
 
 \begin{equation} 
     (x_1, x_2, ...)
+\text{ ,}
 \end{equation}
-, kur starp punktiem pastāv izteikta secības sakarība~-- piemēram, tie ir novērojumi laikā vai simboli teksta korpusā~-- šādam fenomenam var piemērot t.s. laikrindu datu kopu analīzes metodes \cite{time_series}. Šī darba ietvaros plaši tiek izmantots autoregresora jēdziens \cite{autoregressor}. Principā ar šo terminu var apzīmēt jebkuru laikrindu regresijas metodi, kas balstīta uz pieņēmumu, ka nākotnes vērtības var modelēt kā funkciju no pagātnes vērtībām vai kādas to apakškopas, t.i.
+kur starp punktiem pastāv izteikta secības sakarība~-- piemēram, tie ir novērojumi laikā vai simboli teksta korpusā~-- šādam fenomenam var piemērot t.s. laikrindu datu kopu analīzes metodes \cite{time_series}. Šī darba ietvaros plaši tiek izmantots autoregresora jēdziens \cite{autoregressor}. Principā ar šo terminu var apzīmēt jebkuru laikrindu regresijas metodi, kas balstīta uz pieņēmumu, ka nākotnes vērtības var modelēt kā funkciju no pagātnes vērtībām vai kādas to apakškopas, t.i.
 
 \begin{equation} 
     x_t = \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)
@@ -372,27 +383,32 @@ turklāt šo procesu var atkārtot ar paša modeļa ģenerētiem rezultātiem
 
 \begin{equation} 
     x_{t+m} = \pi_{\theta}(x_{t+m-1}, x_{t+m-2}, ..., x_1)
+\text{ ,}
 \end{equation}
-, kur $x_{t} =  \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)$, $x_{t+1} =  \pi_{\theta}(x_{t}, x_{t-1}, ..., x_1)$ u.t.t. Autoregresoru mode-ļus šādi var izmantot laikrindu ģenerēšanā, izmantojot zināmu sākuma stāvokli vai sākuma stāvokļu virkni. Principā ir iespējams jebkuru modeli ar pietiekami lielas dimensijas datu izvadu izmantot kā autoregresoru-ģeneratoru~-- ja tas ir formā 
+kur $x_{t} =  \pi_{\theta}(x_{t-1}, x_{t-2}, ..., x_1)$, $x_{t+1} =  \pi_{\theta}(x_{t}, x_{t-1}, ..., x_1)$ u.t.t. Autoregresoru mode-ļus šādi var izmantot laikrindu ģenerēšanā, izmantojot zināmu sākuma stāvokli vai sākuma stāvokļu virkni. Principā ir iespējams jebkuru modeli ar pietiekami lielas dimensijas datu izvadu izmantot kā autoregresoru-ģeneratoru~-- ja tas ir formā 
 
 \begin{equation} 
     \pi_{\theta}: \mathbb{R}^n \rightarrow \mathbb{R}^n
+\text{ ,}
 \end{equation}
-, tad šī darba ietvaros tiek sacīts, ka ``modelis lietots autoregresijā'', ja iegūta sekojošās formas datu virkne
+tad šī darba ietvaros tiek sacīts, ka ``modelis lietots autoregresijā'', ja iegūta sekojošās formas datu virkne
 
 \begin{equation} 
     (s_1, \pi_{\theta}(s_1), \pi_{\theta}(\pi_{\theta}(s_1)), ... )
+\text{ .}
 \end{equation}
 
 Laikrindu modelēšanas uzdevumos tradicionāli plaši izmantoti rekurentie neironu tīkli \cite{rnn}. Īsumā, tos varētu definēt kā 
 
 \begin{equation} 
     y_t, h_t = \pi_{\theta}(x_t, h_{t-1})
+\text{ ,}
 \end{equation}
-, kur $y_t$ ir modeļa izpildes (nosacīti~-- laika) solī iegūtais izvads, $x_t$ ir tajā pašā solī izmantotais ievaddatu vektors bet $h_t$~-- modeļa iekšējā stāvokļa vektors jeb tie elementi no modeļa izvaddatiem, kas nākamajā izpildes solī tiek izmantoti modeļa ievadā. Tātad pēc augstāk dotās autoregresijas modeļa definīcijas, rekurentais tīkls vienmēr vismaz daļēji strādā šādā režīmā~-- izmantojot kādu funkciju no iepriekšējo laika soļu vērtībām pat tad, ja tas strādā t.s. \textit{``sequence-to-sequence''} režīmā~-- kur jau pieejama katram solim atbilstoša ievaddatu vērtība. Protams, tāpat kā jebkura cita veida modeli, arī rekurento neironu tīklu var darbināt ``tīrā'' autoregresijā. Tad to aprakstošais vienādojums ir vienkārši
+kur $y_t$ ir modeļa izpildes (nosacīti~-- laika) solī iegūtais izvads, $x_t$ ir tajā pašā solī izmantotais ievaddatu vektors bet $h_t$~-- modeļa iekšējā stāvokļa vektors jeb tie elementi no modeļa izvaddatiem, kas nākamajā izpildes solī tiek izmantoti modeļa ievadā. Tātad pēc augstāk dotās autoregresijas modeļa definīcijas, rekurentais tīkls vienmēr vismaz daļēji strādā šādā režīmā~-- izmantojot kādu funkciju no iepriekšējo laika soļu vērtībām pat tad, ja tas strādā t.s. \textit{``sequence-to-sequence''} režīmā~-- kur jau pieejama katram solim atbilstoša ievaddatu vērtība. Protams, tāpat kā jebkura cita veida modeli, arī rekurento neironu tīklu var darbināt ``tīrā'' autoregresijā. Tad to aprakstošais vienādojums ir vienkārši
 
 \begin{equation} 
     y_t, h_t = \pi_{\theta}(y_{t-1}, h_{t-1})
+    \text{ .}
 \end{equation}
 
 Šādu modeli iespējams apmācīt ar novērojumu virknēm $(x_t,y_t)$, bet pēc tam izmantot, lai ģenerētu jaunas virknes, par ievadiem ņemot jau paša modeļa paredzējumus. Viena problēma, ar ko saskaras rekurentie neironu tīkli praksē, ir t.s. izgaistošo gradientu problēma. Piemērojot atpakaļizplatīšanas algoritmu rekurentam neironu tīklam, nepieciešams daudzas reizes virzīties caur visiem tā slāņiem. Līdz ar to nelineāro aktivācijas funkciju rezultātā mērķa funkcijas gradienti var sasniegt nulli vai neierobežoti pieaugt, algoritmam virzoties tālāk no laika soļa, kurā piemērota mērķa funkcija. Tāpēc vienkāršas rekurento tīklu arhitektūras cieš no ``īsas atmiņas''. 
@@ -405,8 +421,9 @@ Pastāv dažādi formālismi procesu definēšanai vadības sistēmu izstrādes 
 
 \begin{equation} 
     MDP = (S,A,R,T, \gamma)
+\text{ ,}
 \end{equation}
-, kur $S$~-- sistēmas iespējamo stāvokļu $s$ kopa; $A$~-- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa; $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atalgojuma (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to lietderības; $T: S \times A \rightarrow S$ vai $P(s' \in S)$~-- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$; $\gamma$~-- koeficients nākotnes atalgojumu vērtību samazināšanai. MDP ir \textit{galīgs} ja $S,A$ ir galīgas kopas. Ja $s' = T(s,a)$ ir determinēts, MDP ir \textit{determinēts}. Ja $s'$ ir gadījuma lielums, kas pieder sadalījumam $P(s')=T(s,a)$, MDP ir \textit{stohastisks}.
+kur $S$~-- sistēmas iespējamo stāvokļu $s$ kopa; $A$~-- kontrolētajam procesam (``aģen-tam'') pieejamo darbību $a$ kopa; $R: S \times A \rightarrow \mathbb{R}$ vai $R: S \rightarrow \mathbb{R}$--- atalgojuma (\textit{reward}) funkcija, kas ļauj kārtot sasniegtos stāvokļus pēc to lietderības; $T: S \times A \rightarrow S$ vai $P(s' \in S)$~-- pārejas (\textit{transition}) funkcija, kas nosaka nākamo stāvokli $s'$ vai tam atbilstošu varbūtību sadalījumu, ja pie iepriekšējā stāvokļa $s$ izvēlēta darbība $a$; $\gamma$~-- koeficients nākotnes atalgojumu vērtību samazināšanai. MDP ir \textit{galīgs} ja $S,A$ ir galīgas kopas. Ja $s' = T(s,a)$ ir determinēts, MDP ir \textit{determinēts}. Ja $s'$ ir gadījuma lielums, kas pieder sadalījumam $P(s')=T(s,a)$, MDP ir \textit{stohastisks}.
 
 Atdarinošās mašīnmācīšanās metodēm ne vienmēr ir nepieciešams definēt atalgojuma funkciju un attiecīgi arī $\gamma$, taču tie ir nepieciešami metodēm, kas lieto stimulēto mašīn-mācīšanos. Tā kā parasti spriests tiek par stratēģijām $\pi_{\theta}$, kas izvēlas nākamo darbību $a$ atkarībā no sistēmas stāvokļa $s$, tad bieži vien faktiskā pārejas funkcija ir formā $P(s') = T(s, \pi_{\theta}(s), s')$, t.i., pārejas funkcija apraksta ``vides'' (\textit{environment}) reakciju uz aģenta (modeļa, stratēģijas) darbību. Pie sākotnējo stāvokļu kopas $S_0$ un stratēģijas $\pi$ var spriest par stratēģijas inducēto stāvokļu sadalījumu $s_t \sim P(S \vert S_0, \pi)$~-- tas nosaka, kādas trajektorijas vispār ir iespējamas pie šādiem nosacījumiem. 
 
@@ -422,18 +439,21 @@ Stimulētās mašīnmācīšanās teorētiskie pamati ir galīgi MDP un Belmana 
 
 \begin{equation}
     p(s', r \vert s_t, a_t) = P[s_{t+1}=s', r=R(s')]
+\text{ .}
 \end{equation}
 
 Nākotnē sagaidāmās atalgojuma vērtības, ņemot vērā dilšanas koeficientu $\gamma$,  var izteikt kā
 
 \begin{equation}
     G_t = \sum_{k=0}^{T-t} \gamma^k R(s_{t+k+1})
+\text{ .}
 \end{equation}
 
 Jebkura stratēģija katram stāvoklim nosaka darbību vai darbību sadalījumu $p(a \vert s) = \pi(a,s)$. Var izmantot rekursīvu sakarību, lai katram stāvoklim piekārtotu sagaidāmo atalgojumu jeb vērtību $v_{\pi}(s)$, kas atkarīga no izmantotās stratēģijas~-- Belmana vienādojumu.
 
 \begin{equation}
     v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \vert s_t = s] = \sum_{a}\pi(a,s)\sum_{s', r}p(s', r \vert s_t, a_t)[r + \gamma v_{\pi}(s')]
+\text{ .}
 \end{equation}
 
 Atrisināt mācīšanās uzdevumu tādā gadījumā nozīmē atrast stratēģiju, kas maksimizē atalgojumu. Pastāv dažādas metodes, kā to darīt. Kā ilustratīvu piemēru var minēt Q-mācīšanās algoritmu. Tā strādā samērā vienkārši~-- tiek izveidots tenzors $Q$ ar elementu, kas atbilst katrai iespējamai $(s,a)$ vērtībai, tam tiek piešķirta kāda sākotnējā vērtība (piemēram, 0). 
@@ -447,6 +467,7 @@ un sasniedzot trajektorijas beigas~-- vai nu pēc noteikta soļu skaita $T$, vai
 
 \begin{equation}
     Q^{i+1}(s_t,a_t)=f(Q^{i}(s_t, a_t), G_t)
+\text{ .}
 \end{equation}
 
 Kaut gan šai metodei ir teorētiskas konverģences garantijas pēc pietiekama iterāciju skaita, ļoti strauji pieaug tās modeļa~-- tenzora $Q$~-- parametru skaits, pieaugot iespējamo stāvokļu un darbību skaitam~-- nepieciešams atsevišķi optimizēt katru iespējamo kombināciju, iespējams, ļoti daudzās iterācijās. Tāpēc praksē parasti tiek lietoti modeļi, kas aproksimē $v_{\pi}(s)$, piemēram, aģenta-kritiķa (\textit{actor-critic}) neironu tīkli, kas reizē iemācās paredzēt gan sagaidāmo vērtību, gan labāko darbību katram stāvoklim ar potenciāli daudz kompaktāku modeli.
@@ -476,8 +497,9 @@ Atkarībā no mehānisma uzbūves kinemātiskās ķēdes var būt atvērtas (ar 
 \end{equation}
 \begin{equation}
     \boldsymbol{\alpha} = (\alpha_1, ..., \alpha_n)
+\text{ ,}
 \end{equation}
-, kur $n$~-- locītavu skaits, $\mathcal{C}$~-- robota locītavu konfigurāciju telpa. Tā kā darba ietvaros strādāts ar 6-asu industriālajiem manipulatoriem, ilustratīvam piemēram ir vērts izmantot tieši šādu robotu. Kinemātikas kontekstā pamatā tiek strādāts ar diviem uzdevumiem~-- tiešo un inverso. Robota izpildmehānisms ir piestiprināts pie kinemātiskās ķēdes pēdējā elementa, un parasti nepieciešams pārveidot pozīcijas no šīs pārvietojamās koordinātu sistēmas uz robota pamatnes~-- apkārtējās vides~-- fiksēto. Tiešās kinemātikas uzdevums ir iegūt summāro pārvietojumu un rotāciju, ko piemērojot kādam vektoram efektora koordinātu sistēmā, var iegūt atbilstošu pārvietojuma vektoru un orientācijas reprezentāciju (sk. zemāk) globālajā koordinātu sistēmā. 
+kur $n$~-- locītavu skaits, $\mathcal{C}$~-- robota locītavu konfigurāciju telpa. Tā kā darba ietvaros strādāts ar 6-asu industriālajiem manipulatoriem, ilustratīvam piemēram ir vērts izmantot tieši šādu robotu. Kinemātikas kontekstā pamatā tiek strādāts ar diviem uzdevumiem~-- tiešo un inverso. Robota izpildmehānisms ir piestiprināts pie kinemātiskās ķēdes pēdējā elementa, un parasti nepieciešams pārveidot pozīcijas no šīs pārvietojamās koordinātu sistēmas uz robota pamatnes~-- apkārtējās vides~-- fiksēto. Tiešās kinemātikas uzdevums ir iegūt summāro pārvietojumu un rotāciju, ko piemērojot kādam vektoram efektora koordinātu sistēmā, var iegūt atbilstošu pārvietojuma vektoru un orientācijas reprezentāciju (sk. zemāk) globālajā koordinātu sistēmā. 
 
 Viens no veidiem, kā definēt pārveidojumu katrā locītavā un savienojumā, ir ar pārveidojuma matricām formā
 
@@ -489,8 +511,9 @@ Viens no veidiem, kā definēt pārveidojumu katrā locītavā un savienojumā, 
         \multicolumn{3}{c}{} & \multirow{3}{*}{} \\
         0 & 0 & 0 & 1
     \end{bmatrix}
+\text{ ,}
 \end{equation}
-, kur $\alpha_i$~-- locītavas leņķis (mainīgais parametrs), $\boldsymbol{a_i}$~-- rotācijas ass vienības vektors savienojuma koordinātu sistēmā (ap to tiek piemērota rotācija), $L_i$~-- pārvietojums uz nākamo atskaites punktu (3-dimensionāls vektors). $R(\boldsymbol{a_i},\alpha_i)$ ir $3 \times 3$ telpiskā rotācijas matrica, kas atbilst rotācijai ap doto asi pa doto leņķi. Tā kā šie ir lineāri pārveidojumi, tos var kombinēt
+kur $\alpha_i$~-- locītavas leņķis (mainīgais parametrs), $\boldsymbol{a_i}$~-- rotācijas ass vienības vektors savienojuma koordinātu sistēmā (ap to tiek piemērota rotācija), $L_i$~-- pārvietojums uz nākamo atskaites punktu (3-dimensionāls vektors). $R(\boldsymbol{a_i},\alpha_i)$ ir $3 \times 3$ telpiskā rotācijas matrica, kas atbilst rotācijai ap doto asi pa doto leņķi. Tā kā šie ir lineāri pārveidojumi, tos var kombinēt
 
 \begin{equation}
     T_{n}(\boldsymbol{\alpha}) = T_{l_n}(\alpha_n)T_{l_{n-1}}(\alpha_{n-1})...T_{l_{1}}(\alpha_{1})
@@ -499,6 +522,7 @@ un piemērot pārvietojuma vektoram gala efektora koordinātu sistēmā ar matri
 
 \begin{equation}
     \boldsymbol{x}_{world} = T_{n}(\boldsymbol{\alpha})\boldsymbol{x}_{ee}
+\text{ .}
 \end{equation}
 
 Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotācijas \newline komponente augšējā kreisajā stūrī, ko iespējams izteikt Eilera leņķos vai citādi. Viens populārs veids, kā apzīmēt rotācijas 3-dimensiju telpā, ir izmantojot kvaternionus \cite{quaternions_illinois}. Tos var uztvert kā komplekso skaitļu 4-dimen-sionālu ekvivalentu. Šī darba ietvaros padziļināti aprakstīt to algebriskās īpašības nav nepieciešams, pietiek tikai minēt, ka, lai izteiktu telpisku rotāciju, tiek izmantota t.s. versora forma
@@ -508,28 +532,33 @@ Summāro rotāciju attiecīgi apzīmē kombinētās pārveidojuma matricas rotā
 \end{equation}
 \begin{equation}
     \Vert q \Vert = \sqrt{w^2 + x^2 + y^2 + z^2} = 1
+\text{ ,}
 \end{equation}
-, kur $w$ ir rotācijas skalārā komponente bet $x,y,z$ veidotais 3-dimensiju vektors ir paralēls atbilstošai rotācijas asij. Svarīgi ievērot, ka kaut gan kvaternions vispārīgā gadījumā ir četrdimensionāls objekts, konstantās normas nosacījums visus versorus novieto uz 3-dimensionālas hipersfēras 4-dimensiju telpā, kas nozīmē, ka telpiskām rotācijām tik un tā ir tikai 3 brīvības pakāpes~-- tāpat, kā izsakot tās ar leņķiem. Kvaternioniem ir reizinājuma operācija, kam ir vienības vērtība un inversās vērtības
+kur $w$ ir rotācijas skalārā komponente bet $x,y,z$ veidotais 3-dimensiju vektors ir paralēls atbilstošai rotācijas asij. Svarīgi ievērot, ka kaut gan kvaternions vispārīgā gadījumā ir četrdimensionāls objekts, konstantās normas nosacījums visus versorus novieto uz 3-dimensionālas hipersfēras 4-dimensiju telpā, kas nozīmē, ka telpiskām rotācijām tik un tā ir tikai 3 brīvības pakāpes~-- tāpat, kā izsakot tās ar leņķiem. Kvaternioniem ir reizinājuma operācija, kam ir vienības vērtība un inversās vērtības
 
 \begin{equation}
     qq^{-1} \equiv 1 +  0\boldsymbol{i} + 0\boldsymbol{j} + 0\boldsymbol{k}
+\text{ .}
 \end{equation}
 
-Rotāciju vektoram 3-dimensiju telpā piemēro, to papildinot ar 0 un piemērojot rotācijas operatoru.
+Rotāciju vektoram 3-dimensiju telpā piemēro, to papildinot ar 0 un piemērojot rotācijas operatoru
 
 \begin{equation}
     L_q(\boldsymbol{v} \in \mathbb{R}^3) \equiv q(0,\boldsymbol{v})q^{-1}
+    \text{ .}
 \end{equation}
 
 Šādām rotācijas operācijām iespējama kompozīcija
 
 \begin{equation}
     L_q \circ L_p (\boldsymbol{v}) = L_{qp}(\boldsymbol{v}) = (qp)(0,\boldsymbol{v})(qp)^{-1}
+\text{ ,}
 \end{equation}
-, kas ļauj kinemātisko ķēdes konfigurācijai atbilstošo koordinātu sistēmas pārvei-dojumu aprakstīt kā rotētu nobīžu vektoru summu
+kas ļauj kinemātisko ķēdes konfigurācijai atbilstošo koordinātu sistēmas pārvei-dojumu aprakstīt kā rotētu nobīžu vektoru summu
 
 \begin{equation}
     \boldsymbol{x}_{ee} = L_{q_1}(\boldsymbol{L}_1) + L_{q_2q_1}(\boldsymbol{L}_2) + ... + L_{q_n...q_1}(\boldsymbol{L}_{ee})
+\text{ .}
 \end{equation}
 
 Robota vadības programmatūras kontekstā bieži var nākties strādāt ar t.s. robota efektora pozu, kas sastāv no divām komponentēm~-- efektora koordinātu sistēmas sākumpunkta nobīdes un summārās rotācijas
@@ -539,6 +568,7 @@ Robota vadības programmatūras kontekstā bieži var nākties strādāt ar t.s.
 \end{equation}
 \begin{equation}
     \boldsymbol{q}_{orientation} = \prod_{i=1}^n q_i
+\text{ .}
 \end{equation}
 
 Ja tiešās kinemātikas uzdevumā nepieciešams no zināmas robota locītavu konfi-gurācijas iegūt telpisko pozīciju, tad inversā kinemātika nodarbojas ar atbilstošu locītavu leņķu piemeklēšanu konkrētai telpiskai pozīcijai \cite{inverse_kinematics_illinois}. Formāli, tipiskais inversās kine-mātikas uzdevums ir atrast $f^{-1}$ pie konkrētas orientācijas un pozīcijas (kopā~-- pozas)
@@ -549,8 +579,9 @@ Ja tiešās kinemātikas uzdevumā nepieciešams no zināmas robota locītavu ko
         \boldsymbol{x}_{position} \\
         \boldsymbol{x}_{orientation} 
     \end{bmatrix}
+\text{ ,}
 \end{equation}
-, kur $\boldsymbol{x}_{position}, \boldsymbol{x}_{orientation}$ ir pozīcijas un orientācijas ierobežojumi, kas atbilst kon-krētam pārvietojumam un orientācijai, izteikti 3-dimensionāli. Protams, iespējams izmantot arī cita veida ierobežojumus, un to skaits var būt dažāds. Atkarībā no dotā lineāri neatkarīgu ierobežojumu skaita $m$ un robota brīvības pakāpju skaita $n$, iespējamas sekojošās situācijas:
+kur $\boldsymbol{x}_{position}, \boldsymbol{x}_{orientation}$ ir pozīcijas un orientācijas ierobežojumi, kas atbilst kon-krētam pārvietojumam un orientācijai, izteikti 3-dimensionāli. Protams, iespējams izmantot arī cita veida ierobežojumus, un to skaits var būt dažāds. Atkarībā no dotā lineāri neatkarīgu ierobežojumu skaita $m$ un robota brīvības pakāpju skaita $n$, iespējamas sekojošās situācijas:
 
 \begin{enumerate}
     \item $n > m$~-- problēma ir nepietiekami ierobežota. Ja atrisinājums pastāv (nav ārpus robota sasniedzamās darba zonas) un nav singulārs, tad atrisinājumu ir bezgalīgi daudz;
@@ -568,13 +599,15 @@ Ar tiešo un inverso kinemātiku vien nepietiek, lai būtu iespējams realizēt 
 
 \begin{equation}
     y(s): [0,1] \rightarrow \mathcal{C}
+\text{ ,}
 \end{equation}
-, kas piekārto katru vērtību nepārtrauktajā intervālā $[0,1]$ atbilstošai robota konfigurācijai, ar nosacījumu, ka $y(s)$ nav pārtraukuma punktu. $y(0), y(1)$ apzīmē robota sākuma un beigu stāvokļus, pārējās $s$ vērtības~-- jebkuru trajektorijas punktu starp tiem.
+kas piekārto katru vērtību nepārtrauktajā intervālā $[0,1]$ atbilstošai robota konfigurācijai, ar nosacījumu, ka $y(s)$ nav pārtraukuma punktu. $y(0), y(1)$ apzīmē robota sākuma un beigu stāvokļus, pārējās $s$ vērtības~-- jebkuru trajektorijas punktu starp tiem.
 
 Telpiskās pozīcijas un locītavu konfigurāciju~-- kinemātiskie~-- ierobežojumi nosaka atļauto apgabalu $\mathcal{F} \subseteq \mathcal{C}$, un attiecīgi
 
 \begin{equation}
     \forall s,y(s) \in \mathcal{F}
+\text{ .}
 \end{equation}
 
 Savukārt ierobežojumus, kas attiecināmi uz $y(s)$ atvasinājumiem, sauc par dina-miskajiem. Svarīgi piebilst, ka ne vienmēr iespējams izpildīt nepārtrauktu kustību pozu telpā~-- var gadīties, ka, lai nonāktu no viena punkta nākamajā, nepieciešams tāds kustības segments konfigurāciju telpā, kura $f(y(s))$ nepieder telpiskajai trajektorijai. Šādu parā-dību sauc par ``lēcienu'', un no tās ir svarīgi izvairīties, ja uzdevuma ietvaros ir svarīga pareiza kustības telpiskā ģeometrija, kā tas ir ar metieniem.
@@ -648,6 +681,7 @@ Kad jāspēj atdarināt kas vairāk nekā viena, nemainīga trajektorija, nepiec
 
 \begin{equation}
     \pi_{\theta}(s) \approx \pi^*(s)
+\text{ .}
 \end{equation}
 
 Parasti, protams, ir pieejama datu kopa ar eksperta izietajām stāvokļu-darbību laikrindām, turklāt jāstrādā ir ar novērojumiem, nevis stāvokļiem. Lai veidotu vispārīgu izpratni par atdarinošo mašīnmācīšanos, noderīgi ir detalizētāk aplūkot kādu vienkāršu tās piemēru. Uzvedības klonēšana sistēmā, kur netiek veikta intensīva treniņa datu pārstrāde vai vadības algoritma argumentu pārveidošana, ļoti labi kalpo šādiem mērķiem, tāpēc var aplūkot 1989. gadā Kārnegija-Melona Universitātē veikto pētījumu ``\textit{Autonomous Land Vehicle in a Neural Network}'' (ALVINN) \cite{pomerleau1989alvinn}. Tā mērķis bija izstrādāt pašbraucošu automašīnu, kas spēj sekot ceļa kontūram.
@@ -688,14 +722,16 @@ Cits veids, kā atdarināt instruktora dotas trajektorijas, ir pieņemt, ka tā 
 
 \begin{equation}
     R^*(s) = w^* \cdot \phi(s)
+\text{ ,}
 \end{equation}
-, kur $w^*$~-- svaru vektors, bet $\phi: S \rightarrow [0,1]^k$~-- zināmu atribūtu izpausme noteiktos stāvokļos. $\phi$ nozīme ir tāda, ka ir iespējams noteikt, kādu sakarību lineāra kombinācija varētu būt īstā atalgojuma funkcija. Kā piemērs tiek piedāvāts autovadītāja uzdevums~-- viens no atribūtiem varētu būt 1, ja mašīna atrodas uz ceļa, bet 0 citādi, u.t.t. $m$ treniņa kopas trajektorijām aprēķina vidējo faktoru vērtību summu, izteiktu kā
+kur $w^*$~-- svaru vektors, bet $\phi: S \rightarrow [0,1]^k$~-- zināmu atribūtu izpausme noteiktos stāvokļos. $\phi$ nozīme ir tāda, ka ir iespējams noteikt, kādu sakarību lineāra kombinācija varētu būt īstā atalgojuma funkcija. Kā piemērs tiek piedāvāts autovadītāja uzdevums~-- viens no atribūtiem varētu būt 1, ja mašīna atrodas uz ceļa, bet 0 citādi, u.t.t. $m$ treniņa kopas trajektorijām aprēķina vidējo faktoru vērtību summu, izteiktu kā
 
 \begin{equation}
-    \mu^* = \frac{1}{m}\sum_{i=1}^m\sum_{t=1}^T \gamma^t \phi(s^i_t)
+    \mu^* = \frac{1}{m}\sum_{i=1}^m\sum_{t=1}^T \gamma^t \phi(s^{(i)}_t)
+\text{ .}
 \end{equation}
 
-Tad tiek iteratīvi atkārtota procedūra, kur atrod kādu svaru vektoru $w^{i}$ un attiecīgi empīrisku atalgojuma funkciju $R^{i}(s) = {w^{i}}^T\phi(s)$, ko izmanto, lai apmācītu jaunu stratēģiju $\pi^i$. Tad šai stratēģijai atrod vidējo vērtību $\mu^i$ analoģiski (2.3), un visas iepriekšējās $\mu^{j \leq i}$ tiek izmantotas, lai atrastu nākamo svaru vektoru $w^{i+1}$. Process turpinās, līdz ir konverģējis līdz noteiktam kļūdas hiperparametram. Tādējādi beigās iegūta stratēģija, kas maksimizē līdzīgu atribūtu $\phi(s)$ kombināciju nezināmajai instruktora stratēģijai, un robusti seko demonstrācijām.
+Tad tiek iteratīvi atkārtota procedūra, kur atrod kādu svaru vektoru $w^{(i)}$ un attiecīgi empīrisku atalgojuma funkciju $R^{i}(s) = {w^{(i)}}^T\phi(s)$, ko izmanto, lai apmācītu jaunu stratēģiju $\pi^(i)$. Tad šai stratēģijai atrod vidējo vērtību $\mu^i$ analoģiski (2.3), un visas iepriekšējās $\mu^{(j \leq i)}$ tiek izmantotas, lai atrastu nākamo svaru vektoru $w^{(i+1)}$. Process turpinās, līdz ir konverģējis līdz noteiktam kļūdas hiperparametram. Tādējādi beigās iegūta stratēģija, kas maksimizē līdzīgu atribūtu $\phi(s)$ kombināciju nezināmajai instruktora stratēģijai, un robusti seko demonstrācijām.
 
 Rezultāti parāda, ka šī metode pārspēj dažādas vienkāršas, statistiskas $\pi^*$ aproksi-mācijas metodes (uzvedības klonēšanu). Kopā risināti divi dažādi uzdevumi. Viens ir ``\textit{gridworld}''~-- spēle, kurā aģents pārvietojas pa režģa formas vidi un dažos lauciņos ir pieejams atalgojums. Taču pārejas process ir stohastisks, tāpēc metodes, kas atdarina tikai telpiskos pārvietojumus un nemēģina atjaunot slēpto atalgojuma funkciju darbojas sliktāk. Otrs ir divdimensionāla spēle, kurā aģents vada automobili. Šeit tika pārbaudīts, vai var iemācīt aģentam atšķirīgus ``braukšanas stilus'' tikai ar demonstrācijām, kas arī izdevies.
 
@@ -811,12 +847,14 @@ Jau pati atdarinošās mācīšanās pamatnostādne~-- apgūt stratēģiju probl
 
 \begin{equation}
     \tau_i \prec \tau_j \Rightarrow \sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)
+\text{ .}
 \end{equation}
 
 Protams, kārtojums var arī nebūt ideāls~-- trajektoriju vērtējums var būt subjektīvs vai trokšņains, ja nav zināma īstā atalgojuma funkcija, tāpēc jārēķinās ar kļūdainu pāru attiecību pastāvēšanas iespējamību ar kļūdas varbūtību $\epsilon$
 
 \begin{equation}
     \exists \epsilon \geq 0 : \tau_i \prec \tau_j \Rightarrow P\left(\sum_{s_t \in \tau_i}R(s) \leq \sum_{s_t \in \tau_j}R(s)\right) = 1 - \epsilon
+\text{ .}
 \end{equation}
 
 Ja kārtojums ir pieejams, radoši nosauktais \textit{Trajectory-ranked Reward EXtrapolation} jeb T-REX algoritms darbojas divos soļos:
@@ -837,9 +875,11 @@ Atšķirībā no IRL un augstāk aprakstītā T-REX, ir iespējams uz atdarinoš
 Q-mācīšanās gadījumā stratēģiju var uzdot formā $\pi_{\epsilon Q_{\theta}}$ ar $\epsilon, Q_{\theta}$ tā, ka
 
 \begin{equation}
-    T(s,a) = P(s'\mid s,a) \rightarrow Q_{\theta}(s,a) \approx \mathbb{E}[v(s')] 
+    T(s,a) = P(s'\mid s,a) \rightarrow Q_{\theta}(s,a) \approx \mathbb{E}[v(s')]
+    \text{ .}
 \end{equation}
--- t.i, modelis $Q_{\theta}$ aproksimē matemātisko cerību atalgojumam attiecībā iespējamām darbībām (jeb nākamo stāvokļu vērtības) $v(s')$~-- un attiecīgi izvēlas vienu darbību pēc ``$\epsilon$-alkatīgas'' stratēģijas
+
+T.i, modelis $Q_{\theta}$ aproksimē matemātisko cerību atalgojumam attiecībā iespējamām darbībām (jeb nākamo stāvokļu vērtības) $v(s')$~-- un attiecīgi izvēlas vienu darbību pēc ``$\epsilon$-alkatīgas'' stratēģijas
 
 \begin{equation}
     a = 
@@ -847,6 +887,7 @@ Q-mācīšanās gadījumā stratēģiju var uzdot formā $\pi_{\epsilon Q_{\thet
         \operatorname*{argmax}_a Q(s,a) \text{ ar varbūtību } 1-\epsilon; \\
         \text{ nejauši izvēlēta no iespējām ar varbūtību } \epsilon
     \end{cases} 
+\text{ .}
 \end{equation}
 
 Demonstrācijas tad tiek izmantotas, lai apmācītu $Q_{\theta}$ vēl pirms notiek jebkāda modeļa mijiedarbība ar vidi, un attiecīgi tas jau uzreiz darbojas daudz kvalitatīvāk nekā nejauši inicializēts modelis. Rezultāti liecina, ka jau sākotnējās iterācijās šāds algoritms var darboties visai labi, kas paver iespējas to izmantot situācijās, kad nav iespējams veikt apmācību simulācijas vidē, bet ir pieejami demonstrāciju dati. Robotikas kontekstā tas nozīmē, ka, ja jāveic apmācība uz fiziska robota, modeļa sagatavošana ar atdarināšanu varētu būt visai noderīgs paņēmiens.
@@ -1066,24 +1107,25 @@ Pirmā problēma, ar ko nākas saskarties, strādājot ar kustību uztveres proc
 
 Abu rezultātā, saņemot datu virknes ilustratīvi pieņem sekojošo formu
 
-
 \begin{equation}
     s^a_{t1}, s^a_{t2}, ..., s^b_{tm-1}, s^b_{tm}
+\text{ ,}
 \end{equation}
-, kur $s^a, s^b$~-- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$~-- nejauši laika momenti, kur $k < j \Rightarrow t_k < t_j$. Lai datus varētu izmantot tālāk, nepieciešams laikrindu pārveidot formā
+kur $s^a, s^b$~-- dažādus ķermeņu aprakstošie konfigurāciju vektori, $t_k$~-- nejauši laika momenti, kur $k < j \Rightarrow t_k < t_j$. Lai datus varētu izmantot tālāk, nepieciešams laikrindu pārveidot formā
 
 \begin{equation}
     (s^a_{t'1}, s^b_{t'1}, s^c_{t'1}), ..., (s^a_{t'p}, s^a_{t'p}, s^c_{t'p}), ...
+\text{ ,}
 \end{equation}
-, kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$~-- diskrētā laika soļu frekvence, un katrā laika solī pieejama informācija par visiem ķermeņiem. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki
+kur $t'_k = \frac{n}{f}: n \in \mathbb{N}$ un $f$~-- diskrētā laika soļu frekvence, un katrā laika solī pieejama informācija par visiem ķermeņiem. Attiecīgo pārveidojumu veic skripts \textit{``regularize.py''}. Vispirms datu kopa tiek ielasīta atmiņā no \textit{.csv} faila, izmantojot \textit{``pandas''} datu korpusu apstrādes bibliotēku. Tiek atrasti tuvākie sākuma un beigu laiki
 
 \begin{equation}
     t'_1 = min(\lbrace t'_k \mid t'_k > t_1 \rbrace)
 \end{equation}
 \begin{equation}
     t'_p = min(\lbrace t'_k \mid t'_p > t_m \rbrace)
-\end{equation}
-, kas pieder diskrēto laika soļu rindai un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto laika soļu virkne $t'_1, t'_2, ..., t'_p$. Datu korpuss tiek papildināts ar tukšām rindām šajos laika intervālos (kolīzijas novērstas netiek; dublikāti pēc laika tiek atmesti~-- kolīzijas varbūtība ir ārkārtīgi zema, strādājot ar peldošā komata skaitļiem). Pēc tam visas tukšās vērtības datu korpusā tiek aizpildītas ar pēdējo zināmo~-- pēc t.s. \textit{``forward fill''} interpolācijas metodes. Šādi, protams, dati tiek nedaudz kropļoti, taču pie pietiekami augstām novērojumu frekvencēm rezultējošās nobīdes ir nelielas un grūti manāmas. Visbeidzot, tikai tās korpusa rindas, kuru laika solis pieder pie $t'_k$ virknes, tiek saglabātas. Iegūtais datu korpuss tātad atbilst diskrētam laika solim un tajā nav tukšu vērtību.
+\text{ ,}
+\end{equation}kas pieder diskrēto laika soļu rindai un, izmantojot \textit{``numpy.arange()''} funkciju, tiek ģenerēta diskrēto laika soļu virkne $t'_1, t'_2, ..., t'_p$. Datu korpuss tiek papildināts ar tukšām rindām šajos laika intervālos (kolīzijas novērstas netiek; dublikāti pēc laika tiek atmesti~-- kolīzijas varbūtība ir ārkārtīgi zema, strādājot ar peldošā komata skaitļiem). Pēc tam visas tukšās vērtības datu korpusā tiek aizpildītas ar pēdējo zināmo~-- pēc t.s. \textit{``forward fill''} interpolācijas metodes. Šādi, protams, dati tiek nedaudz kropļoti, taču pie pietiekami augstām novērojumu frekvencēm rezultējošās nobīdes ir nelielas un grūti manāmas. Visbeidzot, tikai tās korpusa rindas, kuru laika solis pieder pie $t'_k$ virknes, tiek saglabātas. Iegūtais datu korpuss tātad atbilst diskrētam laika solim un tajā nav tukšu vērtību.
 
 \subsubsection{Atsevišķu demonstrāciju atdalīšana}
 
@@ -1091,11 +1133,13 @@ Tā kā procesa mērķis ir apmācīt modeli, kas spēj izpildīt konkrētu uzde
 
 \begin{multline}
     t_{start} \in [t'_{k}]^p_1: t < t_{start} \land \vert t - t_{start} \vert < \Delta t_{max} \Rightarrow \\ \Rightarrow x_t \in (x_{0} - \delta x, x_{0} + \delta x ), y_t \in  (y_{0} - \delta y, y_{0} + \delta y )
+    \text{ ,}
 \end{multline}
-, kur sākuma koordinātes $x_0, y_0$ un pieļaujamie nobīdes intervālu rādiusi $\delta x, \delta y$ tiek atrasti, cilvēkam pārbaudot ierakstīto datu kopu, atrodot marķētā sākuma punkta koordinātes ieraksta koordinātu sistēmā un nosakot, cik lielas nobīdes ļaus precīzi identificēt visu (vai vismaz daudzu) trajektoriju sākuma punktus. Ievērojot pietiekami ilgu intervālu starp metieniem~-- garāku par $\frac{steps}{f}$ ar empīriski izvēlētu soļu skaitu $steps$~--  katra demonstrācija tad ir 
+kur sākuma koordinātes $x_0, y_0$ un pieļaujamie nobīdes intervālu rādiusi $\delta x, \delta y$ tiek atrasti, cilvēkam pārbaudot ierakstīto datu kopu, atrodot marķētā sākuma punkta koordinātes ieraksta koordinātu sistēmā un nosakot, cik lielas nobīdes ļaus precīzi identificēt visu (vai vismaz daudzu) trajektoriju sākuma punktus. Ievērojot pietiekami ilgu intervālu starp metieniem~-- garāku par $\frac{steps}{f}$ ar empīriski izvēlētu soļu skaitu $steps$~--  katra demonstrācija tad ir 
 
 \begin{equation}
     t_{j} \in [t'_{k}]^{start+steps}_{start}
+\text{ .}
 \end{equation}
 
 Sekmīgai demonstrāciju iegūšanai ir nepieciešams, katru reizi mainot sākuma mar-ķiera novietojumu telpā vai demonstrāciju iegūšanas stilu (īsākus, garākus laika intervālus pirms/pēc metiena), nomainīt arī sākuma koordinātes $x_0, y_0$, sākuma pozīciju intervālu rādiusus $\delta x, \delta y$ un soļu skaitu $steps$. Katra demonstrācija tiek saglabāta atsevišķā \textit{.csv} failā.
@@ -1108,8 +1152,9 @@ Izvērtējot ierakstīto trajektoriju kvalitatīvos aspektus (salīdzinot līgan
 
 \begin{equation}
      \boldsymbol{x}'_{t} = \frac{1}{2m+1} \sum_{i=t-m}^{t+m}  x_i
+\text{ ,}
 \end{equation}
-, kur $ \boldsymbol{x}$~-- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
+kur $ \boldsymbol{x}$~-- novērojuma vektors ar tām vērtībām, kam tiek piemērota gludināšana.
 
 \subsubsection{Kritisko punktu noteikšana}
 
@@ -1122,18 +1167,21 @@ Kritisko punktu meklēšanu veic skripts \textit{``threshold.py''}. Pirmais un v
         0 \text{ ja } \forall u < t, x_{Bottle}(u) \geq x_{CatchNet}(u) \\
         1 \text{ citādi }
     \end{cases}
+\text{ .}
 \end{equation}
 
 Pārējo punktu meklēšanai nepieciešams iegūt pozīciju atvasinājuma aproksimāciju. Diskrētai virknei, protams, atvasinājumi nepastāv. Taču nepārtrauktajai telpiskajai trajektorijai, no kuras iegūti diskrētie novērojumi, atvasinājumi pastāv. Vienkāršākais veids, kā tos atrast, būtu izmantot novērojumu starpības:
 
 \begin{equation}
     x'(t) \approx \frac{x(t'_{k+1}) - x(t'_{k})}{\Delta t'} = f \cdot \left (x(t'_{k+1}) - x(t'_{k}) \right )
+\text{ .}
 \end{equation}
 
 Ja atvasinājumu absolūtās vērtības konkrētās mērvienībās nav svarīgas, konstanti $f$~-- novērojumu frekvenci, šajā gadījumā $100$ Hz~-- nav nepieciešams ņemt vērā. Empīriski novērots, ka pēc šādas metodes aproksimējot atvasinājumu, katrā solī pieaug svārstību amplitūda. Var aprēķinātajam ``atvasinājumam'' izmantot to pašu ``slīdošās vidējās vērtības metodi'', kas aprakstīta pie gludināšanas. Taču praksē izrādās, ka pietiekami labi strādā sekojošais, stipri vienkāršotais novērtējums, kas apvieno diferences un gludināšanas soļus:
 
 \begin{equation}
     x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m}  x_i - \sum_{i=t-m}^{t}  x_i
+\text{ .}
 \end{equation}
 
 Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasinājumam~-- paātrinājumam~-- proporcionālu vērtību. Lai noteiktu, vai pudele ir brīvajā kritienā, tiek piemērota tāda pati sliekšņa funkcija ar histerēzi~-- t.i., visas vērtības pēc pirmās, kas ir 1, arī ir 1~-- pudeles un efektora simulatora savstarpējās distances atvasinājuma aproksimatoram
@@ -1144,14 +1192,16 @@ Piemērojot šo soli divreiz, iespējams atrast arī pozīcijas otrā atvasināj
         0 \text{ ja } \forall u < t,  \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{TrashPickup}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
         1 \text{ citādi }
     \end{cases}
+\text{ ,}
 \end{equation}
-, kur $ \boldsymbol{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai ir sākta satvērēj-mehānisma atlaišana, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
+kur $ \boldsymbol{r}_{Bottle}$ apzīmē pudeles novietojuma vektoru, u.t.t. Lai noteiktu, vai ir sākta satvērēj-mehānisma atlaišana, tas pats tiek darīts ar šī attāluma otrā atvasinājuma aproksimatoru:
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
         0 \text{ ja } \forall u < t, \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{TrashPickup}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
         1 \text{ citādi }
     \end{cases}
+\text{ .}
 \end{equation}
 
 Visbeidzot, lai atrastu paša metiena sākuma momentu (ko šajā gadījumā pieņem par ātras kustības sākumu), slieksnis tiek piemērots efektora simulatora pozīcijas atvasinājuma novērtējumam (ievērojot, ka iepriekš ``atvasināta'' tiek distances vektora nor-ma, bet šoreiz tiek meklēta norma vektora ``atvasinājumam''):
@@ -1161,6 +1211,7 @@ Visbeidzot, lai atrastu paša metiena sākuma momentu (ko šajā gadījumā pie�
         0 \text{ ja } \forall u < t,  \lVert \overline{\left [  \boldsymbol{r}_{TrashPickup}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
         1 \text{ citādi }
     \end{cases}
+\text{ .}
 \end{equation}
 
 Sliekšņa konstantes $\overline{v}_{freefall}, \overline{a}_{release}, \overline{v}_{moving}$ tiek piemeklētas empīriski. Pieredze liecina, ka process ir diezgan robusts pret šīm vērtībām. Detalizētas informācijas ie-vākšana par šo konstanšu izvēles ietekmi uz metienu precizitāti ir viens no potenciāliem virzieniem tālākai pētnieciskai darbībai, taču jau pēc vizuālas laikrindu grafiku novēr-tēšanas izvēlēti skaitļi novērtēti kā pietiekami precīzi, lai būtu iespējams realizēt pudeles metiena paraugdemonstrāciju ar fizisku robotu. Satvērējmehānisma gadījumā pastāv iespēja iegūt precīzākus datus, papildinot demonstrāciju ierakstīšanas aprīkojumu ar kādu sensoru, kas var nomērīt šīs vērtības tiešā veidā.
@@ -1174,8 +1225,9 @@ Lai to darītu, izveidots skripts \textit{``regression.py''}, kas veic ekstrapol
 
 \begin{equation}
     \mathcal{D}_{fi} = \lbrace s \in \mathcal{D}_i \mid f_{freefall}(t(s)) \land \lnot f_{passed}(t(s)) \rbrace
+\text{ ,}
 \end{equation}
-, kur $\mathcal{D}_i$~-- demonstrācijas novērojumu kopa, $\mathcal{D}_{fi}$~-- tās apakškopa, kuras novērojumos pudeles konfigurācijas sastāda ballistisku trajektoriju. Jāņem vērā, ka šādi iegūtā trajektorija tikai aptuveni atbilst īstajai, jo faktiskais pudeles smaguma centrs var atšķirties no kustību uztveres procesā izmantotās cietā ķermeņa definīcijas centroīdas. Taču līdz šim ievāktajās trajektorijās nav manītas lielas nobīdes~-- tālāk aprakstītās idealizētās regresijas līknes ļoti tuvu atbilst faktiskajām laikrindām. Tātad, pat ja centru nobīdes inducēta svārstību komponente šajā signālā pastāv, tā ir pārāk neliela, lai to varētu pamanīt~-- un, visticamāk, pie šobrīd sagaidāmās procesa precizitātes lielu iespaidu uz rezultātu neatstāj.
+kur $\mathcal{D}_i$~-- demonstrācijas novērojumu kopa, $\mathcal{D}_{fi}$~-- tās apakškopa, kuras novērojumos pudeles konfigurācijas sastāda ballistisku trajektoriju. Jāņem vērā, ka šādi iegūtā trajektorija tikai aptuveni atbilst īstajai, jo faktiskais pudeles smaguma centrs var atšķirties no kustību uztveres procesā izmantotās cietā ķermeņa definīcijas centroīdas. Taču līdz šim ievāktajās trajektorijās nav manītas lielas nobīdes~-- tālāk aprakstītās idealizētās regresijas līknes ļoti tuvu atbilst faktiskajām laikrindām. Tātad, pat ja centru nobīdes inducēta svārstību komponente šajā signālā pastāv, tā ir pārāk neliela, lai to varētu pamanīt~-- un, visticamāk, pie šobrīd sagaidāmās procesa precizitātes lielu iespaidu uz rezultātu neatstāj.
 
 Lai atrastu mērķa koordinātes, var izmantot vienkāršāko ballistiskās trajektorijas modeli. Pieņem, ka gravitācijas paātrinājuma vektors ir precīzi normāls xy plaknei, tāpēc šīm koordinātēm piemēro lineāro regresiju:
 
@@ -1185,18 +1237,21 @@ Lai atrastu mērķa koordinātes, var izmantot vienkāršāko ballistiskās traj
 \end{equation}
 \begin{equation}
     y_{pred} = \theta_{y1}(t) + \theta_{y0}
+\text{ .}
 \end{equation}
 
 Savukārt z-koordinātes vērtības ekstrapolē, veicot kvadrātisko regresiju~-- jeb lineāro regresiju ar divām mainīgā parametra $t$ (laika) pakāpēm:
 
 \begin{equation}
     z_{pred} = \theta_{z2}(t^2) + \theta_{z1}(t) + \theta_{z0}
+\text{ .}
 \end{equation}
 
 Laika momentu, kad kritiens krusto grīdas plakni, var noteikt,  atrodot sekojošā vienādojuma pozitīvo sakni:
 
 \begin{equation}
     \theta_{z2}(t_{-1}^2) + \theta_{z1}(t_{-1}) + \theta_{z0} - z_{ref} = 0
+\text{ .}
 \end{equation}
 
 Paksē demonstrācijas ir garākas nekā lidojumi, tāpēc var arī aprēķināt šo vērtību visiem punktiem datu korpusā un atrast pēdējo pozitīvo izteiksmes vērtību. Tas ir asimptotiski lēnāk, taču praktiski \textit{``pandas''} bibliotēkā šādas operācijas ir ļoti ātras. Tad mērķa koordinātes atrod, ievietojot šo laika vērtību regresijas vienādojumos:
@@ -1222,12 +1277,14 @@ Pastāv divi varianti, centrēšana pēc metiena sākuma un mērķa. Lai iegūtu
 \end{equation}
 \begin{equation}
      \boldsymbol{r}_{0} =  \boldsymbol{r}_{t_{moving}}
+\text{ .}
 \end{equation}
 
 Bet metiena beigu punktu iegūst no mērķa koordinātēm:
 
 \begin{equation}
      \boldsymbol{r}_{0} = ( x_{target}, y_{target}, z_{target} )
+\text{ .}
 \end{equation}
 
 Tad korekciju ievieš, vienkārši atņemot atskaites pozīciju no novērotajām:
@@ -1266,18 +1323,21 @@ Pirmais no izstrādātajiem variantiem un tas, ar kuru strādāts visvairāk, ir
 
 \begin{equation}
     a_t = s'_t = \pi_{\theta}(s_t)
+\text{ .}
 \end{equation}
 
 Līdz ar to treniņa uzdevuma mērķa funkciju iespējams definēt formā
 
 \begin{equation}
     \mathcal{L}_{policy} = f \left (s,s',\pi_{\theta}(s) \right ), (s,s') \in \mathcal{D}
+\text{ ,}
 \end{equation}
-, kur $\mathcal{D}$ apzīmē konkrētu demonstrāciju. Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījumā modeļa izvads ir nepārtrauktu vērtību vektors, nevar izmantot dažādas kategoriskās kļūdas un varbūtību sadalījumu distances metrikas, kādas izmantotas daudzos no teorētiskajā daļā apskatītajiem pētī-jumiem. Tas pats sakāms arī par diskrētu darbību kopu stratēģijām paredzētām regularizācijas metodēm. Tā vietā nākas izvēlēties kādu no regresijas mērķiem paredzētajiem novērtējumiem. Pirmā iespēja būtu izmantot klasisko kvadrātu summas metodi, kas ir pamatā jau priekšapstrādes sadaļā apskatītajā lineārās regresijas modeļu ieguvei (atceroties, ka $s, s'$ apzīmē $n$-dimensionālus vektorus):
+kur $\mathcal{D}$ apzīmē konkrētu demonstrāciju. Pastāv dažādas iespējas mērķa funkcijas izvēlē. Tā kā šajā gadījumā modeļa izvads ir nepārtrauktu vērtību vektors, nevar izmantot dažādas kategoriskās kļūdas un varbūtību sadalījumu distances metrikas, kādas izmantotas daudzos no teorētiskajā daļā apskatītajiem pētī-jumiem. Tas pats sakāms arī par diskrētu darbību kopu stratēģijām paredzētām regularizācijas metodēm. Tā vietā nākas izvēlēties kādu no regresijas mērķiem paredzētajiem novērtējumiem. Pirmā iespēja būtu izmantot klasisko kvadrātu summas metodi, kas ir pamatā jau priekšapstrādes sadaļā apskatītajā lineārās regresijas modeļu ieguvei (atceroties, ka $s, s'$ apzīmē $n$-dimensionālus vektorus):
 
 
 \begin{equation}
     \mathcal{L}_{ss} ( \boldsymbol{s}, \boldsymbol{s'},\theta) = \sum_{i=1}^n (s'_i - \pi_{\theta}(s)_i)^2 
+\text{ .}
 \end{equation}
 
 Taču jau sen pierādīts, ka šī metode nav sevišķi noturīga pret lielām nobīdēm atsevišķu dimensiju dispersijās~-- izlēcējiem~-- un piedāvātas alternatīvas mērķa funkcijas dažādu optimizācijas uzdevumu risināšanai, no kurām šeit izvēlēta tās izgudrotāja P. Dž. Hūbera vārdā nosauktā \textit{``huber loss''} funkcija \cite{huber_loss}:
@@ -1289,15 +1349,16 @@ Taču jau sen pierādīts, ka šī metode nav sevišķi noturīga pret lielām n
     \frac{1}{2} (s'_i - \pi_{\theta}(s)_i)^2, \text{ ja } \vert (s'_i - \pi_{\theta}(s)_i) \vert < \delta \\
     \delta \cdot \left (  \vert (s'_i - \pi_{\theta}(s)_i) - \frac{\delta}{2} \vert  \right ) \text{ citādi}
     \end{cases}
+    \text{ .}
 \end{equation}
-
 
 Izmantotajā \textit{tensorflow.keras} bibliotēkā šī funkcija ir iebūvēta un pēc noklusējuma iestatīta ar parametru $\delta = 1$ \cite{keras_huber}. Papildus veikti eksperimenti arī īpaši šim uzdevumam konstruētām mērķa funkcijām. Viens no izmēģinātajiem papildinājumiem ir kvaternionu normas regularizācija, kas izmantota, piemēram, cilvēka kustību aprakstošu locītavu orientāciju laikrindu prognozes modeļos, kuru izvadā visi dati veido normētus kvaternionus \cite{pavllo2018quaternet}
 
 \begin{equation}
     \mathcal{L}_{q}(\theta) = \lambda_{q} * (\Vert q^{\theta} \Vert - 1)^2
+\text{ ,}
 \end{equation}
-, kur $q^{\theta}$ apzīmē modeļa ģenerētā izvada $\pi_{\theta}(s)$ tos elementus, kas kopā veido kvaternionu, bet $\lambda_q$~-- svara koeficientu. Šī regularizācija izmantota, jo pirmajos mēģinājumos apmācīt modeli izmantot kvadrātu summas un Hūbera funkcijas, iegūtās kvaternionu vērtības bijušas ļoti atšķirīgas no 1-normētiem versoriem, kas apzīmē telpisko orientāciju robotu vadības kontekstā. 
+kur $q^{\theta}$ apzīmē modeļa ģenerētā izvada $\pi_{\theta}(s)$ tos elementus, kas kopā veido kvaternionu, bet $\lambda_q$~-- svara koeficientu. Šī regularizācija izmantota, jo pirmajos mēģinājumos apmācīt modeli izmantot kvadrātu summas un Hūbera funkcijas, iegūtās kvaternionu vērtības bijušas ļoti atšķirīgas no 1-normētiem versoriem, kas apzīmē telpisko orientāciju robotu vadības kontekstā. 
 
 Vēl viena speciāli šim uzdevumam paredzēta mērķa funkciju saime, kas izmēģināta agrīnās projekta fāzēs, ir tradicionālās regresijas funkcijas papildināšana vai aizstāšana ar dažādu metriku piemērošanu dažādiem izvades vektora elementiem, piemēram
 
@@ -1305,8 +1366,9 @@ Vēl viena speciāli šim uzdevumam paredzēta mērķa funkciju saime, kas izmē
     \mathcal{L}_{combined}(s,s',\theta) = \lambda_p \Vert r^{\theta} - r^{s'}\Vert^2 + 
     \lambda_q \Vert q^{\theta} - q^{s'}\Vert^2 - 
     \lambda_g  g^{s'} \log(g^{\theta})
+\text{ ,}
 \end{equation}
-, kur $r^{\theta}, r^{s'}$ apzīmē $\pi_{\theta}(s)$ un $s'$ pārvietojuma vektora komponentes, $g^{\theta}, g^{s'}$ ~-- to satvē-rējmehānisma (\textit{``gripper''}) konfigurāciju (atvērts/aizvērts), bet $-x\log(\hat{x})$ ir savstarpējās entropijas mērķa funkcija $\mathcal{L}_H$, kas parasti tiek izmantota diskrētas klasifikācijas tipa uzdevumos \cite{keras_crossentropy}. Tas darīts ar mērķi atvieglot modeļa apmācību, jau uzreiz nokodējot dažādo izvades vektora elementu savstarpējās sakarības~-- pirmajos eksperimentos modeļa izvadā iegūtie rezultāti nav pat aptuveni sakrituši ar demonstrāciju kopas datiem.
+kur $r^{\theta}, r^{s'}$ apzīmē $\pi_{\theta}(s)$ un $s'$ pārvietojuma vektora komponentes, $g^{\theta}, g^{s'}$ ~-- to satvē-rējmehānisma (\textit{``gripper''}) konfigurāciju (atvērts/aizvērts), bet $-x\log(\hat{x})$ ir savstarpējās entropijas mērķa funkcija $\mathcal{L}_H$, kas parasti tiek izmantota diskrētas klasifikācijas tipa uzdevumos \cite{keras_crossentropy}. Tas darīts ar mērķi atvieglot modeļa apmācību, jau uzreiz nokodējot dažādo izvades vektora elementu savstarpējās sakarības~-- pirmajos eksperimentos modeļa izvadā iegūtie rezultāti nav pat aptuveni sakrituši ar demonstrāciju kopas datiem.
 
 Taču vēlāki eksperimenti atklājuši, ka abas augstāk minētās problēmas var novērst, vienkārši izmantojot citus hiperparametrus modeļa apmācības procesā (perceptronu skai-tu, apmācības ātrumu, treniņa epohu skaitu). Tāpēc visiem rezultātu analīzes sadaļā apskatītajiem \textit{``naiveBC''} modeļiem izmantota neizmainīta Hūbera funkcija.
 
@@ -1320,6 +1382,7 @@ Pēc sākotnējiem izmēģinājumiem konstatēts, ka uzdevumam piemērots ir mod
         x, \text{ ja } x > 0 \\
         0
     \end{cases}
+\text{ .}
 \end{equation}
 
 Pilnīgi savienotu slāni \textit{keras} vidē apzīmē klase \textit{keras.layers.Dense}. Aktivācijas funkcijas šajā kontekstā tiek modelētas kā atsevišķi slāņi, un tos pievieno ar \textit{keras.la-yers.ReLU} instancēm. Ievaddatu formātu definē \textit{keras.layers.Input}, kuras konstruktorā iespējams norādīt ievaddatu formu, bet pēdējā norādītā slāņa perceptronu vektors sastāda modeļa izvadu. Lai izmantotu \textit{keras} iebūvēto treniņa metodi \textit{Model.fit()}, nepieciešams definēt optimizatoru un mērķa funkciju, izsaucot \textit{Model.compile()} metodi. Šajā solī arī tiek noteikti modeļa parametru izmēri un sagatavoti tenzori to vērtībām, ja nav iepriekš atsevišķi norādīta modeļa ievada tenzora forma. Iespējams reģistrēt agrīnas apstāšanās nosacījuma funkciju (\textit{tf.keras.callbacks.EarlyStopping} instanci), lai pārtrauktu treniņa procesu, balstoties uz pārbaudes datu kopā iegūtu modeļa novērtējumu un no-vērstu pārpielāgošanos. Šī funkcija jānodod kopā ar citiem argumentiem~-- treniņa datu kopu, validācijas datu kopu, epohu skaitu, u.t.t~-- izsaucot \textit{Model.fit()} funkciju, kas pilnībā automatizē visu modeļa apmācības procesu.
@@ -1341,6 +1404,7 @@ Attiecīgi, izņemot pašu modeļa deklarāciju un pēcāko trajektoriju ģener�
 
 \begin{equation}
     (s_1, s_2, ..., s_{n-1} ) \rightarrow (s_2, s_3, ..., s_n )
+\text{ .}
 \end{equation}
 
 Funkcija \textit{create\_sequential\_dataset} veic visus trīs uzdevumus un atgriež divus tenzorus~-- treniņa ievades datus un vēlamās vērtības. Demonstrciju secību jaukt nav nepieciešams, jo visa datu kopa sadalīta sērijās (\textit{``batches''}), kas katra satur vairākas demonstrācijas. Pie katras no tām tiek vienreiz aprēķināti mērķa funkcijas gradienti un piemēroti modeļa parametriem. Sērijas tiek automātiski jauktas savā starpā. Jaukšanas procedūrai ir lielāka nozīme pie klasiskā neironu tīkla, jo citādi katra sērija, iespējams, saturēs tikai vienas demonstrācijas datus~-- kas varētu novest pie optimizācijas procesa ``lēkāšanas''.
@@ -1359,6 +1423,7 @@ Vispirms tiek instancēti divi modeļi izmantojot \textit{keras functional API},
         x, \text{ ja } x > 0 \\
         -k, 0 < k \ll 1
     \end{cases}
+\text{ .}
 \end{equation}
 
 Lai veiktu apmācību, nepieciešams lokāli definēt procedūru. Vienu treniņa soli ietver procedūra \textit{train\_step}, kas, pateicoties \textit{tensorflow.function} dekoratoram, tiek kompilēta uz daudzkārt ātrāku reprezentāciju pirms izpildes. Visas diferencējamās darbības tiek ietvertas \textit{Python} konteksta blokā, kura ietvaros divi \textit{GradientTape} objekti~-- viens katram modelim~-- ieraksta mērķa funkciju parciālos atvasinājumus pret to parametriem. Iegūtie gradienti tiek izmantoti, lai izmainītu modeļu parametru vērtības.
@@ -1367,8 +1432,9 @@ Pats diferencējamais etaps sastāv no diviem soļiem. Vispirms tiek izsaukta ģ
 
 \begin{equation}
     s_1 \rightarrow \left ( (s_1, s^{\theta}_2 , ..., s^{\theta}_m), ...,  (s^{\theta}_{n-m}, ..., s^{\theta}_{n}) \right ) = \tau_{gen}
+\text{ ,}
 \end{equation}
-, kur
+kur
 
 \begin{equation}
     s^{\theta}_n = 
@@ -1376,24 +1442,27 @@ Pats diferencējamais etaps sastāv no diviem soļiem. Vispirms tiek izsaukta ģ
         \pi_{\theta}(s_1), \text{ ja } n = 2 \\
         \pi_{\theta}(s_{n-1}) \text{ citādi}
     \end{cases}
+    \text{ .}
 \end{equation}
-
 
 No treniņa datu kopas tiek sagatavots tādas pašas formas tenzors ar ierakstītām stāvokļu pārejām $\tau_{dem}$. Diskriminators tiek izsaukts uz abiem tenzoriem ar klasikācijas uzdevumu
 
 \begin{equation}
     d_{\phi}: (s_1, s^{\theta}_2 , ..., s^{\theta}_m) \rightarrow \mathbb{R}
+    \text{ ,}
 \end{equation}
 un tam tiek aprēķināta mērķa funkcijas vērtība 
 
 \begin{equation}
     \mathcal{L}_{d} = \sum_{pred \in \tau_{gen}} \mathcal{L}_H(pred,0) + 
     \sum_{obs \in \tau_{dem}} \mathcal{L}_H(obs,1) 
+\text{ ,}
 \end{equation}
-, kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funkcija. Tā kā ģeneratora uzdevums ir pretējs, bet tā parametri ietekmē tikai ģenerēto trajektoriju klasifikāciju, mērķa funkcija ir pretēja:
+kur $\mathcal{L}_H$ ir jau iepriekš aprakstītā savstarpējās entropijas funkcija. Tā kā ģeneratora uzdevums ir pretējs, bet tā parametri ietekmē tikai ģenerēto trajektoriju klasifikāciju, mērķa funkcija ir pretēja:
 
 \begin{equation}
     \mathcal{L}_{\pi} = \sum_{pred \in \tau_{gen}} \mathcal{L}_H(pred,1) 
+\text{ .}
 \end{equation}
 
 Tāpat kā klasiskā neironu tīkla variantā, izmēģinātas dažu veidu regularizācijas~-- kvaternionu normas, attāluma starp ģenerētās trajektorijas soļiem~-- taču nopietna to iedarbības izpēte atstāta turpmākai pētnieciskai darbībai.
@@ -1410,6 +1479,7 @@ Pirmā metode, kas darba gaitā izstrādāta, lai aptuveni novērtētu, vai izv�
 
 \begin{equation}
     \mathbf{r}_{target} \sim \mathcal{N}(\hat{\boldsymbol{\mu}}(\mathbf{r}_{target}), \hat{\boldsymbol{\sigma}}(\mathbf{r}_{target}))
+\text{ .}
 \end{equation}
 
 Tādā gadījumā iespējams ģenerēt pēc vajadzības lielu pārbaudes trajektoriju kopu, veicot gadījuma izlasi no šī sadalījuma ar empīriski nosakāmiem parametriem. Tā kā demonstrāciju dati ir normalizēti pēc sākuma koordinātēm, sākuma pārvietojums vienmēr ir vienāds ar 0. Savukārt sākuma orientācijai pietiek piemeklēt tādu kvaternionu, kas atbilst aptuveni centrētam efektora simulatora stāvoklim.
@@ -1444,6 +1514,7 @@ Reālā izpildījuma ziņā abas metodes ir pilnīgi identiskas, atšķiras tika
 
 \begin{equation}
     (s_1, s_2, ..., s_n) \rightarrow \left ( (s_1, s_1), (s_2, s^{\theta}_2), ...,      (s_n, s^{\theta}_n) \right )
+\text{ .}
 \end{equation}
 
 Apvienotās trajektorijas atkal tiek savietotas vienā datu korpusā, un tas ar modeļa parametriem atbilstošu nosaukumu tiek saglabāts \textit{models/validation/} direktorijā. Visos apmācības skriptos tiek piemērota šī operācija gan ar apmācības, gan pārbaudes datu kopu. Kad pieejamas statistiski salīdzināmas laikrindas, iespējams aprēķināt dažādus skaitliskus novērtējumus to līdzībai~-- par ko sīkāk diskutēts nākamajā nodaļā.
@@ -1541,8 +1612,9 @@ $q^{\pi}_0$ apzīmē sākuma rotāciju~-- kvaternionu, kura apzīmētā efektora
         1, \text{ ja atvērts} \\
         0
     \end{cases}
+\text{ ,}
 \end{equation}
-, kur $r^r, r^{\pi}$ apzīmē robota, modeļa pozīciju, $q^{\pi}, q^r$ apzīmē to orientācijas, bet $g_0$~-- sākotnējo satvērējmehānisma stāvokli. Iegūto laikrindu pēc tam pārveido atpakaļ uz robota koordinātu sistēmu 
+kur $r^r, r^{\pi}$ apzīmē robota, modeļa pozīciju, $q^{\pi}, q^r$ apzīmē to orientācijas, bet $g_0$~-- sākotnējo satvērējmehānisma stāvokli. Iegūto laikrindu pēc tam pārveido atpakaļ uz robota koordinātu sistēmu 
 
 \begin{equation}
     s^{r}_t = (r^r_t, q^r_t , g_t)
@@ -1552,6 +1624,7 @@ $q^{\pi}_0$ apzīmē sākuma rotāciju~-- kvaternionu, kura apzīmētā efektora
 \end{equation}
 \begin{equation}
     q^r_t = q^{\pi}_tq_{restore}
+\text{ .}
 \end{equation}
 
 Satvērējmehānisma vadības signālam tiek piemērota sliekšņa funkcija ar histerēzi
@@ -1562,6 +1635,7 @@ Satvērējmehānisma vadības signālam tiek piemērota sliekšņa funkcija ar h
         0, \text{ ja } \forall u < t, g^{\pi}_u < \delta \\
         1
     \end{cases}
+\text{ .}
 \end{equation}
 
 Faktiski vienīgais pārveidojums, kas jāveic tiešajā virzienā (no robota uz modeļa sistēmu) ir sākuma orientācija, ja tā atšķiras no neitrālas efektora orientācijas. Strā-dājot ar ierakstītu trajektoriju, notiek tikai inversie pārveidojumi (no modeļa uz robota sistēmu).
@@ -1666,9 +1740,10 @@ Pirmā skaitlisko novērtējumu kategorija, ko var aprēķināt, lai salīdzinā
     \end{bmatrix}
     \rightarrow
     (x_{11}, ..., x_{n1}, x_{12}, ..., x_{nm})
+\text{ .}
 \end{equation}
 
-Tad tām var aprēķināt vektoru līdzības novērtējumus. Pirmais ir statistikā ļoti plaši izmantotais Pīrsona korelācijas koeficients $r_{xy}$, kam var atrast vienkāršu vektoriālu izteiksmi, kura izmanto centrētus vektorus $x^c, y^c$ \cite{pearson_vector}. 
+Tad tām var aprēķināt vektoru līdzības novērtējumus. Pirmais ir statistikā ļoti plaši izmantotais Pīrsona korelācijas koeficients $r_{xy}$, kam var atrast vienkāršu vektoriālu izteiksmi, kura izmanto centrētus vektorus $x^c, y^c$ \cite{pearson_vector} 
 
 \begin{equation}
     \overline{x} = \frac{1}{nm} \sum_{i=1}^{nm} x_i
@@ -1678,21 +1753,24 @@ Tad tām var aprēķināt vektoru līdzības novērtējumus. Pirmais ir statisti
 \end{equation}
 \begin{equation}
     r_{xy} = \frac{x^c \cdot y^c}{\Vert x^c \Vert \Vert y^c \Vert}
+    \text{ .}
 \end{equation}
 
-Ļoti līdzīga izteiksme ir kosinusu līdzībai, kas ir vienāda ar $1$ paralēliem vektoriem, $0$~-- ortogonāliem, bet pretējiem ir $-1$ \cite{cosine_sim}. Aplūkojot formulu uzreiz arī kļūst skaidrs, ka Pīrsona korelācijas koeficienta ģeometriskā interpretācija ir šī pati kosinusu līdzība, tikai centrētiem vektoriem.
+Ļoti līdzīga izteiksme ir kosinusu līdzībai, kas ir vienāda ar $1$ paralēliem vektoriem, $0$~-- ortogonāliem, bet pretējiem ir $-1$ \cite{cosine_sim}. Aplūkojot formulu uzreiz arī kļūst skaidrs, ka Pīrsona korelācijas koeficienta ģeometriskā interpretācija ir šī pati kosinusu līdzība, tikai centrētiem vektoriem
 
 \begin{equation}
     d_{cos}(x,y) = \frac{x \cdot y}{\Vert x \Vert \Vert y \Vert}
+\text{ .}
 \end{equation}
 
-Eiklīda un Manhetenas distance pieder pie distances metrikām~-- funkcijām kas ir simetriskas un kam izpildās trīsstūra nevienādība \cite{metrics}.
+Eiklīda un Manhetenas distance pieder pie distances metrikām~-- funkcijām kas ir simetriskas un kam izpildās trīsstūra nevienādība \cite{metrics}
 
 \begin{equation}
     d_{euclidean}(x,y) = \Vert x - y \Vert
 \end{equation}
 \begin{equation}
     d_{manhattan}(x,y) = \Vert x - y \Vert_1 = \sum_{i=1}^{nm} \vert x_i - y_i \vert
+\text{ .}
 \end{equation}
 
 Kā redzams, pirmā atbilst telpiskajam attāluma jēdzienam, savukārt otrā vienkārši pilnīgi neatkarīgi novērtē atšķirību katrā vektora dimensijā, tad saskaita visas.
@@ -1706,18 +1784,21 @@ Iespējams mērīt ne tikai tuvību starp datu kopām kopumā, bet novērtēt to
 \end{equation}
 \begin{equation}
     \overline{d_{manhattan}}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \Vert x_t - y_t \Vert_1
+\text{ .}
 \end{equation}
 
-Eiklīda distanci var aprēķināt arī konkrēti pozīcijas kļūdai.
+Eiklīda distanci var aprēķināt arī konkrēti pozīcijas kļūdai
 
 \begin{equation}
     \overline{\Delta r}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \Vert r^x_t - r^y_t \Vert
+\text{ .}
 \end{equation}
 
-Savukārt orientācijas kļūdai var aprēķināt leņķisko nobīdi starp kvaternioniem \cite{quat_distance}.
+Savukārt orientācijas kļūdai var aprēķināt leņķisko nobīdi starp kvaternioniem \cite{quat_distance}
 
 \begin{equation}
     \overline{\alpha}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \arccos \left (2(q^x_t \cdot q^y_t)^2 - 1 \right )
+\text{ .}
 \end{equation}
 
 Primitīvs atlaišanas signāla kvalitātes novērtējums būtu kategorisks salīdzinājums (vienāds ar 0, ja signāli laika solī sakrīt, bet 1, ja nesakrīt):
@@ -1731,6 +1812,7 @@ Primitīvs atlaišanas signāla kvalitātes novērtējums būtu kategorisks sal�
 \end{equation}
 \begin{equation}
     \overline{\Delta g}(x,y) = \frac{1}{n} \sum_{t=1}^{n} \vert g^x_t - g^y_t \vert
+    \text{ .}
 \end{equation}
 
 \subsubsection{Metiena parametru aplēšana}
@@ -1740,6 +1822,7 @@ Augstāk uzskaitītie vispārīgi pielietojamie rādītāji var būt noderīgi d
 \begin{equation}
     \mathcal{D}_{val} = \left (  (\tau_{d1}, \tau_{g1}), ...
      (\tau_{dk}, \tau_{gk}) \right )
+\text{ .}
 \end{equation}
 
 Tāpēc sastādīts sekojošais vienādojums
@@ -1750,20 +1833,23 @@ Tāpēc sastādīts sekojošais vienādojums
 \begin{equation}
     \overline{\epsilon_v}(\mathcal{D}_{val}) = \frac{1}{k} \sum_{\mathcal{D}_{val}}
     \vert \Vert v^d_{trd} \Vert - v^d_{trd} \cdot v^g_{trg} \vert 
+\text{ ,}
 \end{equation}
-, kur $t_{rd}, t_{rg}$ ir attiecīgi $\tau_{d}, \tau_{g}$ atlaišanas signāla paceļošās frontes laika soļi, bet $v_t$ apzīmē aptuvenos ātrumus (pār-vietojumu diferences). Lai šādam novērtējumam būtu jebkāda nozīme, gadījumos, kad kādā no ģenerētajām trajektorijām $\tau_{g}$ atlaišanas signāls nav padots, tas pieņem nedefinētu vērtību.
+kur $t_{rd}, t_{rg}$ ir attiecīgi $\tau_{d}, \tau_{g}$ atlaišanas signāla paceļošās frontes laika soļi, bet $v_t$ apzīmē aptuvenos ātrumus (pār-vietojumu diferences). Lai šādam novērtējumam būtu jebkāda nozīme, gadījumos, kad kādā no ģenerētajām trajektorijām $\tau_{g}$ atlaišanas signāls nav padots, tas pieņem nedefinētu vērtību
 
 \begin{equation}
     \nexists s_t \in \tau_{g}, g(s_t) = 1 
     \Rightarrow
     \overline{\epsilon_v}(\tau_{d},\tau_{g}) \equiv +\infty 
+\text{ .}
 \end{equation}
 
-Līdzīgi var novērtēt arī kļūdu palaišanas momenta pārvietojumos.
+Līdzīgi var novērtēt arī kļūdu palaišanas momenta pārvietojumos
 
 \begin{equation}
     \overline{\epsilon_r}(\mathcal{D}_{val}) = \frac{1}{k} \sum_{\mathcal{D}_{val}}
     \Vert r^d_{trd} - r^g_{trg} \Vert 
+\text{ .}
 \end{equation}
 
 Pacilājot jautājumu par to, kā abas šīs vērtības varētu apvienot vienā novērtējumā, secināts, ka tik tālu izdarīto var novest līdz galam un aplēst novirzi starp abu palaišanas ātruma un pozīcijas vektoru pāru definēto brīvā kritiena parabolu krustpunktiem ar mērķa koordinātu horizontālo plakni. Īsāk, ģeometriski ``simulēt'' metienu un novērtēt, cik tālu no demonstrācijas modelis ir trāpījis. No pamatskolas matemātikas zināms, ka brīvo kritienu var aprakstīt ar vienādojumiem
@@ -1776,8 +1862,9 @@ Pacilājot jautājumu par to, kā abas šīs vērtības varētu apvienot vienā 
 \end{equation}
 \begin{equation}
     z(t) = z_0 + v_{z0}t - \frac{g}{2}t^2 
+\text{ ,}
 \end{equation}
-, kur $q \approx 9,81 \frac{m}{s^2}$ ir tipiska gravitācijas paātrinājuma vērtība uz zemes virsmas. Tad lai atrastu $x,y$ koordinātes parabolas krustpunktam ar plakni, vispirms tiek atrasta pozitīvā sakne $t_{intersect}$ sekojošam vienādojumam
+kur $q \approx 9,81 \frac{m}{s^2}$ ir tipiska gravitācijas paātrinājuma vērtība uz zemes virsmas. Tad lai atrastu $x,y$ koordinātes parabolas krustpunktam ar plakni, vispirms tiek atrasta pozitīvā sakne $t_{intersect}$ sekojošam vienādojumam
 
 \begin{equation}
     z_0 - z_{target} + v_{z0}t_{intersect} - \frac{g}{2}t_{intersect}^2 = 0
@@ -1787,6 +1874,7 @@ un ievietota horizontālo koordinātu vienādojumos
 
 \begin{equation}
     r_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z_{target} \right )
+\text{ .}
 \end{equation}
 
 Vidējo metiena kļūdu tad var novērtēt kā

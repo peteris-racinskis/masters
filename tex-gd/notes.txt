@@ -5,3 +5,21 @@
 5. relatīvi novērtējumi tikai pret atskaites punktu
 6. pamatoti lēmumi (empīrisks process pie trajektoriju ģenerēšana)
 7. 
+
+for finding sentence end equations
+(\\end\{equation\}\n\n)(?=[A-Z]) # enable case sensitive
+replace with (copy everything between quotes)
+'''\\text{ .}
+\end{equation}
+
+
+'''
+
+for finding comma equations
+(\\end\{equation\}\n)(?=,[a-z]) # enable case sensitive
+replace with (copy everything between quotes)
+'''\\text{ ,}
+\end{equation}
+
+
+'''
