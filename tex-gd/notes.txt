@@ -6,6 +6,32 @@
 6. pamatoti lēmumi (empīrisks process pie trajektoriju ģenerēšana)	V
 7. 
 
+
+Prezentācijā:
+1. Vajag pamatot, kāpēc metiens ir vajadzīgs trajektorijā (attālums, ātrums)
+2. Vairāk aprakstīt par precizitāti, datu kopas izmēriem
+3. Aprakstīt robota kontroleri, problēmas
+4. Mazāk par teoriju (?)
+5. Precīzāk pamatot, kādas pieejas bija iespējams un kāpēc izvēlēta kustību uztvere
+6. Vairāk laika veltīt rezultātiem. Pie 15 min būs laiks. Salikt minūtes katram slaidam.
+7. Slaidus vajag numurēt
+8. EDI logo kaut kur sākumā
+9. Novitāte
+10. Mērķis - izstrādāt pieeju
+11. Teorijas sekcija -- vienā slaidā
+12. Patrenēties uz izvēlētās pieejas slaidu
+13. Koordinātes priekšapstrādē
+14. Brīvā kritiena ekstrapolācijā paskaidrot bildi ar bultiņām
+15. Pārdomāt validācijas metodi -- ģenerēšanu
+16. Kvalitatīvie novērtējumi -- virtuālā un reālā vidē (kā pareizi pateikt?)
+17. Cipari pie "mazi", "lieli" -- konkrēta informācija
+18. Grafiku izmēri, leģenda
+
++slaids sagatavotās datu kopas
+vairāk par novērtējumiem
+
+
+
 for finding sentence end equations
 (\\end\{equation\}\n\n)(?=[A-Z]) # enable case sensitive
 replace with (copy everything between quotes)
