@@ -26,6 +26,7 @@ Prezentācijā:
 16. Kvalitatīvie novērtējumi -- virtuālā un reālā vidē (kā pareizi pateikt?)
 17. Cipari pie "mazi", "lieli" -- konkrēta informācija
 18. Grafiku izmēri, leģenda
+19. Footeris ar darba nosaukumu, lpp numurus
 
 +slaids sagatavotās datu kopas
 vairāk par novērtējumiem
