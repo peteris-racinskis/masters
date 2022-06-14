@@ -52,3 +52,30 @@ replace with (copy everything between quotes)
 
 
 '''
+
+
+NOTES FOR PUBLICATION:
+1. Focus broader than just throwing
+2. Problem statement (in intro): why not just program it?
+Why is a data collection approach like this needed? Why imitation learning?
+Solution: human-performed demonstrations, need to be expressed in robot configuration space
+Why use neural nets?
+3. Related work - imitation learning, motion capture
+4. Proposed approach
+- why: motion capture for 6d motion + additional control signal extraction
+- why: models, what kind, why pick the ones I did
+- why: data format, preprocessing
+- why: metrics for evaluation
+5. Practical implementation (experimental setup)
+- data collection
+- preprocessing
+- models
+6. Results
+- ?
+- difference between feedforward, recurrent - repeatability (step-wise metrics), throw metrics
+- additional: work how much training required?
+- guidelines for picking parameters in the example task
+7. Conclusions
+
+Target size - journal article
+Target date - 21.06 (unspecified time)
