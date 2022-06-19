@@ -63,16 +63,19 @@ pdfkeywords={Imitation Learning, Motion capture, Robotics, Artificial neural net
 
 \section{Introduction}
 
-Manipulator arms and other types of robots have become ubiquitous in modern industry and their use has been proliferating for decades, yet even now the primary method for programming these devices remains procedural code, hand-crafted by specially trained technicians and engineers. This significantly increases the cost and complexity of commissioning process nodes that utilize industrial robots. Therefore, it is not surprising that attempts to reduce the skill requirements and complexity of robot programming stretch back decades -- with Imitation Learning, or, as it has been otherwise referred to, Programming by Demonstration, having been proposed and reexamined many times in various technical implementations \citep{muench1994robot,attia2018global}
+Manipulator arms and other types of robots have become ubiquitous in modern industry and their use has been proliferating for decades, yet even now the primary method for programming these devices remains procedural code, hand-crafted by specially trained technicians and engineers. This significantly increases the cost and complexity of commissioning process nodes that utilize industrial robots. Therefore, it is not surprising that attempts to reduce the skill requirements and complexity of robot programming stretch back decades -- with Imitation Learning (IL), or, as it has been otherwise referred to, programming by demonstration, having been proposed and reexamined many times in various technical implementations \citep{muench1994robot,attia2018global}.
 
-In statistical terms, the primary advantage of Imitation Learning based methods over related approaches such as Reinforcement Learning 
+As a means of collecting demonstration data, motion capture also has a long history of being studied
 
-\subsection{Motivating use case}
+Traditionally, theoretical literature in IL has operated on state-action pairs in the context of a Markov Decision Process (MDP)
+
+
+\paragraph{Motivating use case}
 asgasgasgags
 asgasgasgags
 
 
-\subsection{Related Work}
+\section{Related Work}
 \label{sec:related}
 asgasgasgags
 asgasgasgags
@@ -81,15 +84,20 @@ asgasgasgags
 asgasgasgagsagaga
 asg
 
+
+\section{Preliminaries}
+
+asfasf
+
 \section{Materials and Methods}
 \label{sec:materials}
 
-See Section \ref{sec:materials}.
+The overall approach proposed in this paper can be broken down into three main sections -- the collection of observations in the physical environment (\ref{sec:collection}), a pipeline for turning raw observation data into structured demonstrations (\ref{sec:preprocess}) and neural network model implementations (\ref{sec:models}). Two general approaches to system evaluation and design feedback were employed. First, qualitative observations of the generated trajectories were made using spatial visualization in a virtual environment, followed by execution on simulated and real robots (\ref{sec:exec}). Additionally, a series of quantitative metrics have been computed comparing system outputs with training and validation datasets (\ref{sec:eval}).
 
 \subsection{Data collection}
 \label{sec:collection}
 
-bla bla bla
+
 
 \subsection{Pre-processing, extraction of implicit control signals}
 \label{sec:preprocess}
@@ -108,6 +116,7 @@ bla bla bla
 bla bla bla
 
 \subsection{Evaluation metrics}
+\label{sec:eval}
 
 bla bla bla
 
