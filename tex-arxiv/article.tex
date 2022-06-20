@@ -69,20 +69,21 @@ Imitation learning is a broad field of study in its own right that promises to o
 
 Given the inherent trade-off between task specificity and required model complexity when it comes to observation data modality and model output, motion capture has been selected as a convenient middle ground. It does not require a simulated environment as approaches that involve virtual reality do \citep{zhang2018deep,dyrstad2018teaching}, obviates any issues that may come with having to learn motions in robot configuration space by operating in Cartesian coordinates, and does not necessitate the use of complex image processing layers as found in models with visual input modalities \citep{liu2018imitation, zhang2018deep}. The main drawbacks of this approach are that it requires motion capture equipment, which is more expensive than conventional video cameras, and Cartesian motion plans need an additional conversion step into joint space trajectories before it is possible to execute them on a real robot. Given the intended application of this system -- programming robots to perform tasks in an industrial environment -- the advantages of compact models, rapid training times and results that are possible to evaluate ahead of time were deemed to outweigh the drawbacks.
 
-\paragraph{Motivating use case} 
+To help guide the development process and serve as a means of evaluation, a sample use case was selected -- object throwing. While on the surface the task is almost entirely defined by elementary ballistics that can be programmed explicitly, it serves as a convenient benchmark for robot programming by way of demonstrations. The task was deemed sufficiently non-trivial when considered from the perspective of a Markov Decision Process or time-series model only given limited information about system state at any given time step, while also being suitable for intuitive evaluation by human observers due to its intuitively straightforward nature. Furthermore, the relationship between release position, velocity and target coordinates provides an obvious way to quantitatively evaluate model performance against training and validation data -- extrapolated throw accuracy.
+
+
+\section{Preliminaries}
+\label{sec:prelim}
+
 
 
 \section{Related Work}
 \label{sec:related}
 
-In its simplest and most straightforward form -- sometimes referred to as \emph{behavioral cloning} -- it can be reduced to a classification or regression task. 
-Given a set of states and actions or state transitions produced by an unknown expert function, a model (\emph{policy}) is trained to approximate this function. Even with very small parameter counts by modern standards, when combined with artificial neural networks this method has demonstrated some success as far back as the 1980s, provided a task with simple dynamics \citep{pomerleau1989alvinn}.
+In its simplest and most straightforward form -- sometimes referred to as \emph{behavioral cloning} -- imitation learning can be reduced to a classification or regression task. Given a set of states and actions or state transitions produced by an unknown expert function, a model (\emph{policy}) is trained to approximate this function. Even with very small parameter counts by modern standards, when combined with artificial neural networks this method has demonstrated some success as far back as the 1980s, provided a task with simple dynamics \citep{pomerleau1989alvinn}.
 
 However, it has since become apparent that pure behavioral cloning suffers from distribution shift -- a phenomenon whereby the distribution of states visited by the policy diverges from that of the original training data set by way of incremental error, eventually leading to poor predictions by the model and irrecoverable deviation from the intended task. To improve the ability of policies to recover from this failure mode, various more complex approaches to the task have been proposed. One major direction of research has been the use of inherently robust, composable functions known as \emph{dynamic motion primitives}, employing systems of differential equations and parametric models such as Gaussian basis functions to obviate the problem of distribution shift entirely -- ensuring convergence towards the goal through the explicit dynamics of the system \citep{pastor2009learning}. Though showing promising results, it must be noted that the model templates used are quite domain-specific. Others have attempted to use interactive sampling with more general-purpose 
 
-
-asgasgasgagsagaga
-asg
 
 
 \section{Proposed approach}
