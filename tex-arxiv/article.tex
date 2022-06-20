@@ -87,18 +87,18 @@ One important characteristic of the MDP is that it is history-agnostic -- the fu
 \begin{equation}
 	t, k, n \in \mathbb{N}, \pi_{\theta}:\lbrace {(s_n)_{t-k}^t} \rbrace \rightarrow A
 \end{equation}
-which, by allowing for input sequences of variable length, may become a function defined on the entire known state history.
+which, by allowing for input sequences of variable length, may become a function defined on the entire known state history:
 
 \begin{equation}
 	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow A
 \end{equation}
 
-This allows for the employment of sequence-to-sequence predictor architectures also studied in other areas of machine learning such as recurrent neural networks and transformers. Finally, if continuous action spaces are permitted it is no great stretch to also consider cases where the action corresponds to a predicted future state that may be used for static motion planning or in a dynamic error-based controller
+These adjustments allow for the employment of sequence-to-sequence predictor architectures also studied in other areas of machine learning such as recurrent neural networks \citep{rumelhart1985learning} and transformers \citep{vaswani2017attention}. Finally, if continuous action spaces are permitted it is no great stretch to also consider cases where the action corresponds to a predicted future state that may be used for static motion planning or in a dynamic error-based controller
 
 \begin{equation}
 	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow S
 \end{equation}
-which is equivalent to a sequence building task found in domains such as text generation. 
+which, when running the model on its own output, is equivalent to sequence building tasks encountered in domains such as text generation. 
 
 
 \section{Related Work}
