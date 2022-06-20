@@ -16,7 +16,7 @@
 \usepackage{natbib}
 \usepackage{doi}
 
-\title{A Motion Capture and Imitation Learning-Based Approach to Robot Control}
+\title{A Motion Capture and Imitation Learning-based Approach to Robot Control}
 
 % Here you can change the date presented in the paper title
 %\date{September 9, 1985}
@@ -37,7 +37,7 @@
 % Uncomment to override  the `A preprint' in the header
 %\renewcommand{\headeright}{Technical Report}
 %\renewcommand{\undertitle}{Technical Report}
-\renewcommand{\shorttitle}{\textit{arXiv} Template}
+\renewcommand{\shorttitle}{Motion Capture and Imitation Learning-based Robot Control}
 
 %%% Add PDF metadata to help others organize their library
 %%% Once the PDF is generated, you can check the metadata with
@@ -69,13 +69,20 @@ Imitation learning is a broad field of study in its own right that promises to o
 
 Given the inherent trade-off between task specificity and required model complexity when it comes to observation data modality and model output, motion capture has been selected as a convenient middle ground. It does not require a simulated environment as approaches that involve virtual reality do \citep{zhang2018deep,dyrstad2018teaching}, obviates any issues that may come with having to learn motions in robot configuration space by operating in Cartesian coordinates, and does not necessitate the use of complex image processing layers as found in models with visual input modalities \citep{liu2018imitation, zhang2018deep}. The main drawbacks of this approach are that it requires motion capture equipment, which is more expensive than conventional video cameras, and Cartesian motion plans need an additional conversion step into joint space trajectories before it is possible to execute them on a real robot. Given the intended application of this system -- programming robots to perform tasks in an industrial environment -- the advantages of compact models, rapid training times and results that are possible to evaluate ahead of time were deemed to outweigh the drawbacks.
 
-To help guide the development process and serve as a means of evaluation, a sample use case was selected -- object throwing. While on the surface the task is almost entirely defined by elementary ballistics that can be programmed explicitly, it serves as a convenient benchmark for robot programming by way of demonstrations. The task was deemed sufficiently non-trivial when considered from the perspective of a Markov Decision Process or time-series model only given limited information about system state at any given time step, while also being suitable for intuitive evaluation by human observers due to its intuitively straightforward nature. Furthermore, the relationship between release position, velocity and target coordinates provides an obvious way to quantitatively evaluate model performance against training and validation data -- extrapolated throw accuracy.
+To help guide the development process and serve as a means of evaluation, a sample use case was selected -- object throwing. While on the surface the task is almost entirely defined by elementary ballistics that can be programmed explicitly, it serves as a convenient benchmark for robot programming by way of demonstrations. The task was deemed sufficiently non-trivial when considered from the perspective of a Markov decision process or time-series model only given limited information about system state at any given time step, while also being suitable for intuitive evaluation by human observers due to its intuitively straightforward nature. Furthermore, the relationship between release position, velocity and target coordinates provides an obvious way to quantitatively evaluate model performance against training and validation data -- extrapolated throw accuracy.
 
 
 \section{Preliminaries}
 \label{sec:prelim}
 
+In this article, an \emph{agent} can be taken to mean the part of the system that acts based on state or observation information $s$ in an \emph{environment}, according to a \emph{policy} $\pi$ which is specified by a parametric \emph{model} -- a function $\pi_{\theta}(s)$ with parameters $\theta$ tuned in optimization and produces an output \emph{action} $a$. In practice this means that references to the agent, model and policy are almost interchangeable in most contexts. A formalism common in both reinforcement and imitation learning contexts is the \emph{Markov decision process} (MDP), formally given by \citep{attia2018global}
 
+\begin{equation}
+	MDP = (S,A,T,R,I)
+\end{equation}
+where $S$ is the set of states $s$, $A$ is the (formally discrete) set of actions $a$, $T:S \times A \rightarrow S$ is a state transition function that encapsulates the environment, $R:S \rightarrow \mathbb{R}$ is a reward function associated with each state and $I = p\left(s_0 \in S\right)$ represents the initial state distribution. In many imitation learning related cases a reward function need not specified or considered, and, if one is willing to break with the strict formal definition and give up the use of mathematical tools defined only on finite probability distributions, continuous action spaces can also be considered.
+
+One important characteristic of the MDP is that 
 
 \section{Related Work}
 \label{sec:related}
