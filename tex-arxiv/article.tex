@@ -63,36 +63,35 @@ pdfkeywords={Imitation Learning, Motion capture, Robotics, Artificial neural net
 
 \section{Introduction}
 
-Manipulator arms and other types of robots have become ubiquitous in modern industry and their use has been proliferating for decades, yet even now the primary method for programming these devices remains procedural code, hand-crafted by specially trained technicians and engineers. This significantly increases the cost and complexity of commissioning process nodes that utilize industrial robots. Therefore, it is not surprising that attempts to reduce the skill requirements and complexity of robot programming stretch back decades -- with Imitation Learning (IL), or, as it has been otherwise referred to, programming by demonstration, having been proposed and reexamined many times in various technical implementations \citep{muench1994robot,attia2018global}.
+Manipulator arms and other types of robots have become ubiquitous in modern industry and their use has been proliferating for decades, yet even now the primary method for programming these devices remains procedural code, hand-crafted by specially trained technicians and engineers. This significantly increases the cost and complexity of commissioning process nodes that utilize industrial robots. To this end, various alternative approaches grounded in machine learning have been proposed. Perhaps the most commonly studied are methods that fall under the umbrella of reinforcement learning, which optimize an agent acting on its environment through the use of an explicitly specified reward function \citep{sutton2018reinforcement}. While offering strong theoretical guarantees of convergence, they require interaction with the environment for learning to occur. Furthermore, in practical settings the reward function for many tasks is very sparse, leading to large search spaces and inefficient exploration \citep{hester2018deep}. Finally, the reward function for a task may be unknown or difficult to specify analytically \citep{abbeel2004apprenticeship}.
 
-As a means of collecting demonstration data, motion capture also has a long history of being studied
+Imitation learning is a broad field of study in its own right that promises to overcome some or all of the aforementioned challenges, provided that it is possible to obtain a corpus of demonstrations showing how the task is to be accomplished. When dealing with industrial robotics, this is often the case as the tasks we wish to execute are ones that human operators already routinely perform. Therefore, we have developed an approach for recording actions taken by humans in the physical environment, programmatically producing a training data set structured in the form of explicit demonstrations augmented with additional, extrapolated state inputs and control signals, and training artificial neural network models to reproduce the trajectories therein as motion plans.
 
-Traditionally, theoretical literature in IL has operated on state-action pairs in the context of a Markov Decision Process (MDP)
+Given the inherent trade-off between task specificity and required model complexity when it comes to observation data modality and model output, motion capture has been selected as a convenient middle ground. It does not require a simulated environment as approaches that involve virtual reality do \citep{zhang2018deep,dyrstad2018teaching}, obviates any issues that may come with having to learn motions in robot configuration space by operating in Cartesian coordinates, and does not necessitate the use of complex image processing layers as found in models with visual input modalities \citep{liu2018imitation, zhang2018deep}. The main drawbacks of this approach are that it requires motion capture equipment, which is more expensive than conventional video cameras, and Cartesian motion plans need an additional conversion step into joint space trajectories before it is possible to execute them on a real robot. Given the intended application of this system -- programming robots to perform tasks in an industrial environment -- the advantages of compact models, rapid training times and results that are possible to evaluate ahead of time were deemed to outweigh the drawbacks.
 
-
-\paragraph{Motivating use case}
-asgasgasgags
-asgasgasgags
+\paragraph{Motivating use case} 
 
 
 \section{Related Work}
 \label{sec:related}
-asgasgasgags
-asgasgasgags
+
+In its simplest and most straightforward form -- sometimes referred to as \emph{behavioral cloning} -- it can be reduced to a classification or regression task. 
+Given a set of states and actions or state transitions produced by an unknown expert function, a model (\emph{policy}) is trained to approximate this function. Even with very small parameter counts by modern standards, when combined with artificial neural networks this method has demonstrated some success as far back as the 1980s, provided a task with simple dynamics \citep{pomerleau1989alvinn}.
+
+However, it has since become apparent that pure behavioral cloning suffers from distribution shift -- a phenomenon whereby the distribution of states visited by the policy diverges from that of the original training data set by way of incremental error, eventually leading to poor predictions by the model and irrecoverable deviation from the intended task. To improve the ability of policies to recover from this failure mode, various more complex approaches to the task have been proposed. One major direction of research has been the use of inherently robust, composable functions known as \emph{dynamic motion primitives}, employing systems of differential equations and parametric models such as Gaussian basis functions to obviate the problem of distribution shift entirely -- ensuring convergence towards the goal through the explicit dynamics of the system \citep{pastor2009learning}. Though showing promising results, it must be noted that the model templates used are quite domain-specific. Others have attempted to use interactive sampling with more general-purpose 
 
 
 asgasgasgagsagaga
 asg
 
 
-\section{Preliminaries}
-
-asfasf
-
-\section{Materials and Methods}
-\label{sec:materials}
+\section{Proposed approach}
 
 The overall approach proposed in this paper can be broken down into three main sections -- the collection of observations in the physical environment (\ref{sec:collection}), a pipeline for turning raw observation data into structured demonstrations (\ref{sec:preprocess}) and neural network model implementations (\ref{sec:models}). Two general approaches to system evaluation and design feedback were employed. First, qualitative observations of the generated trajectories were made using spatial visualization in a virtual environment, followed by execution on simulated and real robots (\ref{sec:exec}). Additionally, a series of quantitative metrics have been computed comparing system outputs with training and validation datasets (\ref{sec:eval}).
+
+\section{Implementation}
+\label{sec:materials}
+
 
 \subsection{Data collection}
 \label{sec:collection}
@@ -131,17 +130,6 @@ bla bla bla
 bla bla bla
 
 
-
-\section{Examples of citations, figures, tables, references}
-\label{sec:others}
-
-\subsection{Citations}
-Citations use \verb+natbib+. The documentation may be found at
-\begin{center}
-	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-\end{center}
-
-Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
 
 
 \bibliographystyle{unsrtnat}

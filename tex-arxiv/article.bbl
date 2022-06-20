@@ -1,44 +1,66 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Muench et~al.(1994)Muench, Kreuziger, Kaiser, and
-  Dillman]{muench1994robot}
-S~Muench, J~Kreuziger, M~Kaiser, and R~Dillman.
-\newblock Robot programming by demonstration (rpd)-using machine learning and
-  user interaction methods for the development of easy and comfortable robot
-  programming systems.
-\newblock In \emph{Proceedings of the International Symposium on Industrial
-  Robots}, volume~25, pages 685--685. INTERNATIONAL FEDERATION OF ROBOTICS, \&
-  ROBOTIC INDUSTRIES, 1994.
+\bibitem[Sutton and Barto(2018)]{sutton2018reinforcement}
+Richard~S Sutton and Andrew~G Barto.
+\newblock \emph{Reinforcement learning: An introduction}, pages 60--77.
+\newblock MIT press, 2018.
 
-\bibitem[Attia and Dayan(2018)]{attia2018global}
-Alexandre Attia and Sharone Dayan.
-\newblock Global overview of imitation learning.
-\newblock \emph{arXiv preprint arXiv:1801.06503}, 2018.
+\bibitem[Hester et~al.(2018)Hester, Vecerik, Pietquin, Lanctot, Schaul, Piot,
+  Horgan, Quan, Sendonaris, Osband, et~al.]{hester2018deep}
+Todd Hester, Matej Vecerik, Olivier Pietquin, Marc Lanctot, Tom Schaul, Bilal
+  Piot, Dan Horgan, John Quan, Andrew Sendonaris, Ian Osband, et~al.
+\newblock Deep q-learning from demonstrations.
+\newblock In \emph{Thirty-second AAAI conference on artificial intelligence},
+  2018.
 
-\bibitem[Kour and Saabne(2014{\natexlab{a}})]{kour2014real}
-George Kour and Raid Saabne.
-\newblock Real-time segmentation of on-line handwritten arabic script.
-\newblock In \emph{Frontiers in Handwriting Recognition (ICFHR), 2014 14th
-  International Conference on}, pages 417--422. IEEE, 2014{\natexlab{a}}.
+\bibitem[Abbeel and Ng(2004)]{abbeel2004apprenticeship}
+Pieter Abbeel and Andrew~Y Ng.
+\newblock Apprenticeship learning via inverse reinforcement learning.
+\newblock In \emph{Proceedings of the twenty-first international conference on
+  Machine learning}, page~1, 2004.
 
-\bibitem[Hadash et~al.(2018)Hadash, Kermany, Carmeli, Lavi, Kour, and
-  Jacovi]{hadash2018estimate}
-Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
-  Jacovi.
-\newblock Estimate and replace: A novel approach to integrating deep neural
-  networks with existing applications.
-\newblock \emph{arXiv preprint arXiv:1804.09028}, 2018.
+\bibitem[Zhang et~al.(2018)Zhang, McCarthy, Jow, Lee, Chen, Goldberg, and
+  Abbeel]{zhang2018deep}
+Tianhao Zhang, Zoe McCarthy, Owen Jow, Dennis Lee, Xi~Chen, Ken Goldberg, and
+  Pieter Abbeel.
+\newblock Deep imitation learning for complex manipulation tasks from virtual
+  reality teleoperation.
+\newblock In \emph{2018 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pages 5628--5635. IEEE, 2018.
 
-\bibitem[Kour and Saabne(2014{\natexlab{b}})]{kour2014fast}
-George Kour and Raid Saabne.
-\newblock Fast classification of handwritten on-line arabic characters.
-\newblock In \emph{Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
-  International Conference of}, pages 312--318. IEEE, 2014{\natexlab{b}}.
-\newblock \doi{10.1109/SOCPAR.2014.7008025}.
+\bibitem[Dyrstad et~al.(2018)Dyrstad, {\O}ye, Stahl, and
+  Mathiassen]{dyrstad2018teaching}
+Jonatan~S Dyrstad, Elling~Ruud {\O}ye, Annette Stahl, and John~Reidar
+  Mathiassen.
+\newblock Teaching a robot to grasp real fish by imitation learning from a
+  human supervisor in virtual reality.
+\newblock In \emph{2018 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pages 7185--7192. IEEE, 2018.
+
+\bibitem[Liu et~al.(2018)Liu, Gupta, Abbeel, and Levine]{liu2018imitation}
+YuXuan Liu, Abhishek Gupta, Pieter Abbeel, and Sergey Levine.
+\newblock Imitation from observation: Learning to imitate behaviors from raw
+  video via context translation.
+\newblock In \emph{2018 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pages 1118--1125. IEEE, 2018.
+
+\bibitem[Pomerleau(1989)]{pomerleau1989alvinn}
+Dean~A Pomerleau.
+\newblock Alvinn: An autonomous land vehicle in a neural network.
+\newblock Technical report, CARNEGIE-MELLON UNIV PITTSBURGH PA ARTIFICIAL
+  INTELLIGENCE AND PSYCHOLOGY~…, 1989.
+
+\bibitem[Pastor et~al.(2009)Pastor, Hoffmann, Asfour, and
+  Schaal]{pastor2009learning}
+Peter Pastor, Heiko Hoffmann, Tamim Asfour, and Stefan Schaal.
+\newblock Learning and generalization of motor skills by learning from
+  demonstration.
+\newblock In \emph{2009 IEEE International Conference on Robotics and
+  Automation}, pages 763--768. IEEE, 2009.
 
 \end{thebibliography}
