@@ -3,44 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: article.aux
 The style file: unsrtnat.bst
 Database file #1: references.bib
-You've used 11 entries,
+Warning--empty publisher in jha2017imitation
+You've used 18 entries,
             2481 wiz_defined-function locations,
-            606 strings with 6791 characters,
-and the built_in function-call counts, 5389 in all, are:
-= -- 445
-> -- 319
-< -- 11
-+ -- 118
-- -- 96
-* -- 386
-:= -- 828
-add.period$ -- 37
-call.type$ -- 11
-change.case$ -- 23
-chr.to.int$ -- 11
-cite$ -- 11
-duplicate$ -- 283
-empty$ -- 459
-format.name$ -- 113
-if$ -- 1194
+            647 strings with 8337 characters,
+and the built_in function-call counts, 8869 in all, are:
+= -- 719
+> -- 556
+< -- 15
++ -- 204
+- -- 168
+* -- 662
+:= -- 1375
+add.period$ -- 62
+call.type$ -- 18
+change.case$ -- 37
+chr.to.int$ -- 18
+cite$ -- 19
+duplicate$ -- 458
+empty$ -- 755
+format.name$ -- 194
+if$ -- 1951
 int.to.chr$ -- 1
-int.to.str$ -- 12
-missing$ -- 10
-newline$ -- 63
-num.names$ -- 33
-pop$ -- 121
+int.to.str$ -- 19
+missing$ -- 17
+newline$ -- 98
+num.names$ -- 54
+pop$ -- 200
 preamble$ -- 1
-purify$ -- 11
+purify$ -- 18
 quote$ -- 0
-skip$ -- 193
+skip$ -- 295
 stack$ -- 0
-substring$ -- 236
-swap$ -- 90
-text.length$ -- 7
+substring$ -- 377
+swap$ -- 136
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 74
-warning$ -- 0
-while$ -- 40
+type$ -- 123
+warning$ -- 1
+while$ -- 65
 width$ -- 0
-write$ -- 152
+write$ -- 243
+(There was 1 warning)
