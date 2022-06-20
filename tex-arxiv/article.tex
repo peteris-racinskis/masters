@@ -80,9 +80,26 @@ In this article, an \emph{agent} can be taken to mean the part of the system tha
 \begin{equation}
 	MDP = (S,A,T,R,I)
 \end{equation}
-where $S$ is the set of states $s$, $A$ is the (formally discrete) set of actions $a$, $T:S \times A \rightarrow S$ is a state transition function that encapsulates the environment, $R:S \rightarrow \mathbb{R}$ is a reward function associated with each state and $I = p\left(s_0 \in S\right)$ represents the initial state distribution. In many imitation learning related cases a reward function need not specified or considered, and, if one is willing to break with the strict formal definition and give up the use of mathematical tools defined only on finite probability distributions, continuous action spaces can also be considered.
+where $S$ is the set of states $s$, $A$ is the (formally discrete) set of actions $a$, $T:S \times A \rightarrow S$ is a state transition function that encapsulates the environment, $R:S \rightarrow \mathbb{R}$ is a reward function associated with each state and $I = p\left(s_0 \in S\right)$ represents the initial state distribution. In many imitation learning-related cases a reward function need not specified or considered. Moreover, if one is willing to break with the strict formal definition and give up the use of mathematical tools defined only on finite probability distributions, continuous action spaces can also be considered.
 
-One important characteristic of the MDP is that 
+One important characteristic of the MDP is that it is history-agnostic -- the future state distribution of the system is uniquely defined by its current state. While technically true for physical environments, it is often the case that instead of a complete state representation vector $\mathbf{s}$ we are instead operating on a more limited \emph{observation} $\mathbf{o}$ (often interchangeably referred to as $\mathbf{s}$ for brevity), where each element $o_i$ is given by some function $f_i(\mathbf{s})$. It is therefore possible that historical observations contain information about hidden system state variables even assuming the MDP formalism holds for the underlying environment. An example of this can be the case when individual observations contain only the current position of an object but not its derivatives \citep{zhang2018deep}. In such cases it may prove beneficial to break with the formalism further, by redefining the policy to operate on sequences of $k+1$ previous states/observations
+
+\begin{equation}
+	t, k, n \in \mathbb{N}, \pi_{\theta}:\lbrace {(s_n)_{t-k}^t} \rbrace \rightarrow A
+\end{equation}
+which, by allowing for input sequences of variable length, may become a function defined on the entire known state history.
+
+\begin{equation}
+	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow A
+\end{equation}
+
+This allows for the employment of sequence-to-sequence predictor architectures also studied in other areas of machine learning such as recurrent neural networks and transformers. Finally, if continuous action spaces are permitted it is no great stretch to also consider cases where the action corresponds to a predicted future state that may be used for static motion planning or in a dynamic error-based controller
+
+\begin{equation}
+	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow S
+\end{equation}
+which is equivalent to a sequence building task found in domains such as text generation. 
+
 
 \section{Related Work}
 \label{sec:related}
