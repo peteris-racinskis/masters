@@ -79,3 +79,15 @@ Why use neural nets?
 
 Target size - journal article
 Target date - 21.06 (unspecified time)
+
+ABSTRACT about the article contents, not as an introduction
+- what did I do, look at
+- what  was concluded
+
+IMPLEMENTATION might be better as experimental setup
+
+RESULTS AND DISCUSSION or RESULTS then DISCUSSION
+
+separate CONCLUSIONS from DISCUSSION about RESULTS
+
+RESULT comparison with related work

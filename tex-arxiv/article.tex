@@ -122,8 +122,8 @@ Meanwhile, optimal execution of object throwing tasks has been previously studie
 Three crucial decisions need to be made when devising an imitation learning-based approach to robot control:
 \begin{itemize}
 	\item Data collection -- what will serve as the expert policy? How will data be obtained?
-	\item Model architecture -- what type of model template will be used to learn the policy?
-	\item Control method -- how will model outputs be used to interface with the robot controller software and hardware?
+	\item Model architecture -- what type of model template will be used to learn the policy? What are its inputs and outputs, what pre- and post-processing steps will these formats call for?
+	\item Control method -- how will model outputs be used in robot motion planning or feedback control?
 \end{itemize}
 
 Considering that the goal of this paper is not to examine any of these sub-problems in detail but rather to come up with a holistic approach to combine all of them, trade-offs that affect more than one step at a time need to be considered. Recording of human performances as the expert data set is also a constraint imposed by the objective we set out to accomplish. Therefore, when selecting the demonstration data modality, three possibilities were examined:
@@ -135,7 +135,11 @@ Considering that the goal of this paper is not to examine any of these sub-probl
 
 Raw video is the most attractive approach from a material standpoint -- it does not involve motion capture or VR equipment, does not require simulated environments, and in principle presents the possibility of a sensor-to-actuator learned pipeline, if the video data were used directly in the model's input to predict joint velocities. In practice, however, not only does using image data call for the employment of more complex model architectures such as convolutional neural networks, images are inherently 2-dimensional representations of 3-dimensional space, leading to ambiguities in the data -- and one quickly runs into difficult issues such as context translation that confound the issue further \citep{liu2018imitation}. 
 
-In contrast, unambiguous pose information is readily obtained with motion capture or simulation. Simulating a robot and collecting data in joint space allows for a simple final controller stage. But it very tightly couples the trained model to a specific physical implementation, and reasoning about or debugging model outputs obtained this way is not straightforward. Thus, the main comparison is to be drawn between object pose data as obtained in a simulation and with motion capture.
+In contrast, unambiguous pose information is readily obtained with motion capture or simulation. Simulating a robot and collecting data in joint space allows for a simple final controller stage. But it very tightly couples the trained model to a specific physical implementation, and reasoning about or debugging model outputs obtained this way is not straightforward. Thus, the main comparison is to be drawn between object pose data as obtained in a simulation and with motion capture. Assuming motion capture equipment is available, setting the scene up for collecting demonstrations is a matter of outfitting the objects of interest with markers and defining them as rigid bodies to be tracked. However, there is a degree of imprecision in the observations, and information about different rigid bodies is available at different instants in time. 
+
+Simulation allows recording exact pose information directly at regular time intervals, but setting up the scene necessitates creating a virtual environment where the task can be performed. In addition, for realistic interactions a physics simulation and immersive interface such as VR is required, but even this does not present the human demonstrator with the haptic feedback of actually performing the task in the real world. As such we decided that the benefits of simple setup and inherently natural interaction with the physical scene outweigh the precision and cost advantages of simulated environments, and selected motion capture as the source of demonstration data.
+
+The outputs of the \emph{Optitrack} motion capture system are timestamped messages containing pose data for each pre-defined rigid body in a Cartesian coordinate system. 
 
 \section{Implementation}
 \label{sec:materials}
