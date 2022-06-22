@@ -173,7 +173,7 @@ All demonstrations were recorded using \emph{OptiTrack} equipment that consists 
 
 Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in freefall by observing its acceleration, for the purposes of trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
 
-In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set.
+In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set. Over the course of this project, two data sets with roughly 150 and 50 demonstrations each were collected. The first was used in the development process but proved to contain throws beyond the capabilities of the robot hardware used. Therefore, a second data set of throws with less pronounced swings was produced to fit within the working volume of the robot arm.
 
 \subsection{Pre-processing, extraction of implicit control signals}
 \label{sec:preprocess}
@@ -208,7 +208,7 @@ After resampling, individual demonstrations are separated using the aforemention
 
 Which is to say that every observation no more than $\Delta t$ steps before $t_{start}$ has to lie within $\pm \delta x, \pm \delta y$ of the datum $(x_0, y_0)$. Each demonstration then consists of observations $(s_{t_{start}}, ... , s_{t_{start}+steps}), steps \in \mathbb{N}$. The constants $\Delta t, \delta x, \delta y, steps$ are determined experimentally to produce consistent observations for the particular task and may require tuning if the manner in which demonstrations are recorded changes. The newly split demonstrations are saved in separate files, thus allowing demonstrations generated in different sessions to be processed at once.
 
-As further thresholding steps rely on estimates of pose derivatives, a smoothing step is first employed to remove noise and the slight sawtooth oscillation induced by the resampling step. This is accomplished by applying a rolling average kernel to the trajectory. Nevertheless, it was found that any estimate of derivatives would exacerbate what noise there was in the dataset, leading to inconsistent results. So a simplified estimator $\overline{x'_t}$ combining a correlate of the derivative $x'_t$ with a rolling average filter was used with satisfactory results:
+As further thresholding steps rely on estimates of pose derivatives, a smoothing step is first employed to remove noise and the slight sawtooth oscillation induced by the resampling step. This is accomplished by applying a rolling average kernel to the trajectory. Nevertheless, it was found that any estimate of derivatives would exacerbate what noise there was in the dataset, leading to inconsistent results. So a simplified estimator $\overline{x'_t}$, combining a correlate of the derivative $x'_t$ with a rolling average filter, was used with satisfactory results:
 \begin{equation}
     x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m}  x_i - \sum_{i=t-m}^{t}  x_i
 \end{equation}
@@ -252,12 +252,36 @@ where $\boldsymbol{r}$ corresponds to the position component of the observation 
     \end{cases}
 \end{equation}
 
-The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
+The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. As with the split step, constants for thresholding were determined by way of inspection and would certainly be unique to each type of task. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. A time signal is also added to each observation as this was found to improve the performance of feedforward models. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
 
 \subsection{Models}
 \label{sec:models}
 
-bla bla bla
+We studied two classes of parametric models as part of this project -- simple feedforward neural networks and RNNs, operating autoregressively. The choice was motivated by two factors:
+\begin{itemize}
+	\item the dynamics of the problem were deemed to be simple enough that even small models would be able to model them adequately -- making it possible to quickly train models on development machines with low parameter counts, using pre-existing code libraries;
+	\item given the recent advances in employing sequence-to-sequence or sequence generator models for imitation learning tasks, it was decided that models with broadly similar footprints and characteristics should be used to enable further research in this direction.
+\end{itemize}
+
+After an initial hyperparameter discovery process, the values in table \ref{tab:table1} were arrived at for both model types respectively. A range of model sizes and training epoch counts was compared for both models. In the case of the recurrent neural network, performance with different learning rates was also evaluated. As the feedforward models were developed first, performance with and without a time signal in the input data was also compared. For the RNN architecture, GRU was selected as prior research suggests that it outperforms LSTM when dealing with small data sets of long sequences \citep{yang2020lstm}.
+
+\begin{table}
+	\caption{Model hyperparameters}
+	\centering
+	\begin{tabular}{lll}
+		\toprule
+		Parameter & Feedforward & RNN \\
+		\midrule
+		Architecture & 2 fully-connected hidden layers, ReLU  & GRU    \\
+		Parameter counts     & 128-1024 perceptrons per layer & 128-512 perceptrons \\
+		Training epochs     & 20-100       & 300-1200  \\
+		Batch size    & 64       & 32  \\
+		Optimizer    & \multicolumn{2}{c}{Adam}  \\
+		Learning rate    & $10^{-4}$       & $10^{-3}, 10^{-4}$   \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:table1}
+\end{table}
 
 \subsection{Visualization and execution}
 \label{sec:exec}
