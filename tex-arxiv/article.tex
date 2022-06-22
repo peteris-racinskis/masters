@@ -171,7 +171,7 @@ The system devised in this paper can be broken down into three main sections -- 
 
 All demonstrations were recorded using \emph{OptiTrack} equipment that consists of a set of cameras, highly reflective markers to be attached to trackable objects and the \emph{Motive} software package which handles pose estimation and streaming. As shown in fig. \ref{fig:fig1}, a cage with 8 cameras installed serves to hide external sources of specular reflections from the cameras and confine moving objects such as drones from leaving the scene. To simulate an industrial robot end effector, a gripping hand tool was equipped with markers. Since the motivating application calls for throwing plastic bottles, one such was also marked to serve as basis for extrapolating target coordinates and identify the release point in a demonstration. A start point is laid down on the floor to serve as a datum for automatically separating the recorded demonstrations during pre-processing. Holding the effector stand-in here for at least a second before each demonstration provides a consistent signal that can be identified programmatically.
 
-Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in free fall by observing its acceleration, for the purposes of trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
+Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in freefall by observing its acceleration, for the purposes of trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
 
 In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set.
 
@@ -208,7 +208,51 @@ After resampling, individual demonstrations are separated using the aforemention
 
 Which is to say that every observation no more than $\Delta t$ steps before $t_{start}$ has to lie within $\pm \delta x, \pm \delta y$ of the datum $(x_0, y_0)$. Each demonstration then consists of observations $(s_{t_{start}}, ... , s_{t_{start}+steps}), steps \in \mathbb{N}$. The constants $\Delta t, \delta x, \delta y, steps$ are determined experimentally to produce consistent observations for the particular task and may require tuning if the manner in which demonstrations are recorded changes. The newly split demonstrations are saved in separate files, thus allowing demonstrations generated in different sessions to be processed at once.
 
-As further thresholding steps rely on estimates of pose derivatives, a smoothing step is first employed to remove noise and the slight sawtooth oscillation induced by the resampling step. This is accomplished by applying a rolling average kernel to the trajectory.
+As further thresholding steps rely on estimates of pose derivatives, a smoothing step is first employed to remove noise and the slight sawtooth oscillation induced by the resampling step. This is accomplished by applying a rolling average kernel to the trajectory. Nevertheless, it was found that any estimate of derivatives would exacerbate what noise there was in the dataset, leading to inconsistent results. So a simplified estimator $\overline{x'_t}$ combining a correlate of the derivative $x'_t$ with a rolling average filter was used with satisfactory results:
+\begin{equation}
+    x'_t \propto \overline{x'_t} = \sum_{i=t}^{t+m}  x_i - \sum_{i=t-m}^{t}  x_i
+\end{equation}
+
+
+\begin{figure}
+	\centering
+	\fbox{\includegraphics[width=11.6cm]{../img/target_regression.jpg}}
+	\caption{Estimation of the throw target coordinates.}
+	\label{fig:fig3}
+\end{figure}
+
+
+This was then used to compute threshold functions corresponding with the start of motion, actuator release and unfettered freefall of the bottle:
+
+\begin{equation}
+    f_{moving} (t) = \begin{cases}
+        0 \text{ if } \forall u < t,  \lVert \overline{\left [  \boldsymbol{r}_{Effector}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
+        1 \text{ otherwise }
+    \end{cases}
+\end{equation}
+
+\begin{equation}
+    f_{release} (t) = \begin{cases}
+        0 \text{ if } \forall u < t, \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{Effector}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
+        1 \text{ otherwise }
+    \end{cases}
+\end{equation}
+
+\begin{equation}
+    f_{freefall} (t) = \begin{cases}
+        0 \text{ if } \forall u < t,  \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{Effector}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
+        1 \text{ otherwise }
+    \end{cases}
+\end{equation}
+where $\boldsymbol{r}$ corresponds to the position component of the observation vector. Note that in the first case, the norm of a vector derivative is used, whereas in the subsequent two it is the scalar derivative of a vector norm. As discussed in \ref{sec:collection}, the other terminating condition for the freefall segment of the bottle's trajectory is determined using the position of the net:
+\begin{equation}
+    f_{passed} (t) = \begin{cases}
+        0 \text{ if } \forall u < t, x_{Bottle}(u) \geq x_{Net}(u) \\
+        1 \text{ otherwise }
+    \end{cases}
+\end{equation}
+
+The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
 
 \subsection{Models}
 \label{sec:models}
