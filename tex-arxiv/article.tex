@@ -172,12 +172,20 @@ All demonstrations were recorded using \emph{OptiTrack} equipment that consists 
 
 Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in free fall by observing its acceleration, for the purposes of trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
 
-To create the data, rigid body definitions in the operator software were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package and recorded into a bag file to be converted into a .csv data set.
+In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set.
 
 \subsection{Pre-processing, extraction of implicit control signals}
 \label{sec:preprocess}
 
-bla bla bla
+
+\begin{figure}
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/preprocess_pipeline.png}}
+	\caption{Pre-processing pipeline overview.}
+	\label{fig:fig2}
+\end{figure}
+
+Figure 
 
 \subsection{Models}
 \label{sec:models}
