@@ -302,12 +302,23 @@ For training both types of networks, state transitions $\left(\left(t,s_t,r^{tar
 \subsection{Visualization and execution}
 \label{sec:exec}
 
-As discussed in the introduction, an important part of the reason for selecting throwing as our motivating application was the fact that it is easy for humans to judge the qualitative performance aspects of this task.
+As discussed in the introduction, an important part of the reason for selecting throwing as our motivating application was the fact that it is easy for humans to judge the qualitative performance aspects of this task. To accomplish this, a means of visualizing the model outputs was required. When operating in open-loop mode (without interfacing with the physical or simulated environment -- running the model on its own previous outputs) it is possible to precompute trajectories and simply save them as sequences of robot states. To aid in estimating whether these trajectories were feasible, a tool for visualizing these sequences in the robot coordinate system was developed (fig. \ref{fig:vis_exec}, left).
+
+Given a policy that synchronously predicts the state of the system at the next time step, there are multiple possible ways to use it in robot control. The simplest approach is static trajectory planning -- precompute a sequence of states and plan the motion between them. This is somewhat hindered by the lack of existing tools for precise time-parametrized Cartesian path planning in the ROS ecosystem. An alternative is a real-time pose following servo controller. The advantage of the latter approach is that closed-loop control is possible -- with state observations taken from the environment, potentially allowing the model to compensate for offsets in real time. However, this presents the challenge of tuning controller gains. The method that was ultimately employed was open-loop planning of Cartesian paths -- with timing approximated through a combination of time optimal trajectory generation \citep{kunz2012time}, followed by scaling the trajectory to the correct total duration. To control the gripper, a threshold value was set, the point in the trajectory at which this value was crossed was found, the corresponding joint state was computed, and a callback function was set up to trigger when this joint state was reached within some tolerance.
+
+\begin{figure}
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/vis_exec.png}}
+	\caption{Visualization of pre-computed trajectories; execution of a throw on a real Ur5e robot.}
+	\label{fig:vis_exec}
+\end{figure}
+
+While this is adequate for evaluating the positioning of the generated trajectories, and approximates the velocity profile closely enough for successful throws to be executed (fig.~\ref{fig:vis_exec}, right), a fully-featured time-parametrized Cartesian path planner or correctly tuned pose-following controller would be required to judge the throwing accuracy on real hardware and generalize our approach to other tasks. However, the development of such general purpose tools was deemed to be outside the scope of this project, the focus of which is on collection of demonstration data and imitation learning methods.
 
 \subsection{Evaluation metrics}
 \label{sec:eval}
 
-bla bla bla
+To draw comparisons between models of different architectures, trained with differing hyperparameter sets, quantitative evaluation metrics need to be computed. As this is not a standard task with agreed-upon metrics and benchmarks, some 
 
 
 \section{Results}

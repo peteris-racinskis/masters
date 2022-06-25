@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -147,5 +147,11 @@ Shudong Yang, Xueying Yu, and Ying Zhou.
   review dataset as an example.
 \newblock In \emph{2020 International workshop on electronic communication and
   artificial intelligence (IWECAI)}, pages 98--101. IEEE, 2020.
+
+\bibitem[Kunz and Stilman(2012)]{kunz2012time}
+Tobias Kunz and Mike Stilman.
+\newblock Time-optimal trajectory generation for path following with bounded
+  acceleration and velocity.
+\newblock \emph{Robotics: Science and Systems VIII}, pages 1--8, 2012.
 
 \end{thebibliography}
