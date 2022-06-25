@@ -359,7 +359,7 @@ and the trajectory-wise throw error metric computed by:
 \begin{equation}
 	f_{throw}(\mathcal{D}_{eval}) = \frac{1}{k}\sum_{\mathcal{D}_{eval}} \Vert r^g_{intersect} - r^g_{intersect}\Vert
 \end{equation}
-with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for trajectory, this error term was set to be infinite in cases when no throw was defined.
+with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
 
 \section{Results}
 \label{sec:results}
