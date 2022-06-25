@@ -257,7 +257,7 @@ where $\boldsymbol{r}$ corresponds to the position component of the observation 
     \end{cases}
 \end{equation}
 
-The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. As with the split step, constants for thresholding were determined by way of inspection and would certainly be unique to each type of task. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. A time signal is also added to each observation as this was found to improve the performance of feedforward models. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
+The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. As with the split step, constants for thresholding were determined by way of inspection and would certainly be unique to each type of task. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates -- a geometric illustration of this process can be found in fig. \ref{fig:fig3}. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. A time signal is also added to each observation as this was found to improve the performance of feedforward models. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
 
 \subsection{Models}
 \label{sec:models}
@@ -328,7 +328,7 @@ Hence, it was decided to compare model outputs with the demonstration data set. 
 \end{equation}
 where $\mathcal{D}_{eval}$ refers to the evaluation data set of a single model with respect to either the validation or test demonstration set, but $\tau^d_i, \tau^g_i$ are the demonstration and generated trajectories (sequences of state observations $s_j$) sharing the same initial state respectively.
 
-Three broad classes of evaluation metrics were computed: data set-wise, step-wise and throw parameters. The first consist of vector similarity measures such as Pearson's correlation coefficient, cosine similarity and distance metrics applied to the entire data set and the trajectories generated against it as concatenated vectors:
+Three broad classes of evaluation metrics were computed: data set-wise (global), step-wise and throw parameters. The first consist of vector similarity measures such as Pearson's correlation coefficient, cosine similarity and distance metrics applied to the entire data set and the trajectories generated against it as concatenated vectors:
 
 \begin{equation}
 	f_{global}(\mathcal{D}_{eval}) = f:(\tau^d_{1},...,\tau^d_{k}) \times (\tau^g_{1},...,\tau^g_{k}) \rightarrow \mathbb{R}
@@ -361,9 +361,35 @@ and the trajectory-wise throw error metric computed by:
 \end{equation}
 with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
 
+
 \section{Results}
 \label{sec:results}
 
+As illustrated in fig. \ref{fig:vis_exec}, in terms of the qualitative aspects of executing a throw a successful result was attained with several models. Trajectories that visually resemble throwing motions were produced, and, when used to produce motion plans for a \emph{Universal Robotics Ur5e} robot equipped with a pneumatic gripper, they were adequate for throwing a plastic bottle into a target container located outside the robot's range of motion. Adequate output sequences were attained with both model architectures at multiple hyperparameter combinations, so to draw specific conclusions we need to look at the quantitative indicators of performance discussed above.
+
+\begin{figure}[!hbt]
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/naivebc_missed.png}}
+	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
+	\label{fig:naive_best}
+\end{figure}
+
+
+\begin{figure}[!hbt]
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/rnn-naive-global-stepwise-missed.png}}
+	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
+	\label{fig:res_model_compare}
+\end{figure}
+
+
+
+\begin{figure}[!hbt]
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/rnn_missed.png}}
+	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
+	\label{fig:rnn_best}
+\end{figure}
 
 
 \section{Discussion}
