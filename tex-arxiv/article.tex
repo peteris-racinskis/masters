@@ -318,8 +318,11 @@ While this is adequate for evaluating the positioning of the generated trajector
 \subsection{Evaluation metrics}
 \label{sec:eval}
 
-To draw comparisons between models of different architectures, trained with differing hyperparameter sets, quantitative evaluation metrics need to be computed. As this is not a standard task with agreed-upon metrics and benchmarks, some 
+To draw comparisons between models of different architectures, trained with differing hyperparameter sets, quantitative evaluation metrics need to be computed. As this is not a standard task with agreed-upon metrics and benchmarks, some exploratory work was required to arrive at evaluations that agree with intuitively self-evident characteristics. While in principle it should be possible to judge models based on throw accuracy, this is not a very helpful in the early stages of research when most models fall short of attaining the desired objective. Furthermore, limitations imposed by the aforementioned time parametrization issues with Cartesian motion planning in ROS make such a comparison as yet infeasible.
 
+Hence, it was decided to compare model outputs with the demonstration data set. As judging against the training data set only informs us to the extent to which the model has been able to overfit, a smaller validation data set was set aside for out-of-distribution comparisons. The outputs to be compared were obtained by executing the models autoregresively on each demonstration's initial state, for as many steps as were present in the corresponding recorded demonstration.
+
+Three broad classes of evaluation metrics were computed: data set-wise, step-wise and throw parameters. The first consist of vector similarity measures such as Pearson's correlation coefficient, cosine similarity and distance metrics applied to the entire data set and the trajectories generated against it. The second class involves applying various measures to the observation/state variables at each time step -- such as position or orientation deviations, or the categorical difference in gripper state. Finally, the release point of each trajectory was found, and the position and velocity vector differences were computed. When considering ways to combine these two error terms into a single quantitative estimator, it was decided that a simple ballistic extrapolation and resulting miss distance along the ground plane would serve as a decent first order approximation of throw accuracy \emph{vis-à-vis} the training or validation data set.
 
 \section{Results}
 
