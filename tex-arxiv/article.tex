@@ -206,7 +206,13 @@ After resampling, individual demonstrations are separated using the aforemention
 	\Rightarrow x_t \in (x_{0} - \delta x, x_{0} + \delta x ), y_t \in  (y_{0} - \delta y, y_{0} + \delta y )
 \end{align}
 
-Which is to say that every observation no more than $\Delta t$ steps before $t_{start}$ has to lie within $\pm \delta x, \pm \delta y$ of the datum $(x_0, y_0)$. Each demonstration then consists of observations $(s_{t_{start}}, ... , s_{t_{start}+steps}), steps \in \mathbb{N}$. The constants $\Delta t, \delta x, \delta y, steps$ are determined experimentally to produce consistent observations for the particular task and may require tuning if the manner in which demonstrations are recorded changes. The newly split demonstrations are saved in separate files, thus allowing demonstrations generated in different sessions to be processed at once.
+Which is to say that every observation no more than $\Delta t$ steps before $t_{start}$ has to lie within $\pm \delta x, \pm \delta y$ of the datum $(x_0, y_0)$. Each demonstration then consists of observations 
+
+\begin{equation}
+	(s_{t_{start}}, ... , s_{t_{start}+steps}), steps \in \mathbb{N}
+\end{equation}
+	
+The constants $\Delta t, \delta x, \delta y, steps$ are determined experimentally to produce consistent observations for the particular task and may require tuning if the manner in which demonstrations are recorded changes. The newly split demonstrations are saved in separate files, thus allowing demonstrations generated in different sessions to be processed at once.
 
 As further thresholding steps rely on estimates of pose derivatives, a smoothing step is first employed to remove noise and the slight sawtooth oscillation induced by the resampling step. This is accomplished by applying a rolling average kernel to the trajectory. Nevertheless, it was found that any estimate of derivatives would exacerbate what noise there was in the dataset, leading to inconsistent results. So a simplified estimator $\overline{x'_t}$, combining a correlate of the derivative $x'_t$ with a rolling average filter, was used with satisfactory results:
 \begin{equation}
@@ -259,8 +265,8 @@ The particular contents of the thresholding functions used are application-speci
 
 We studied two classes of parametric models as part of this project -- simple feedforward neural networks and RNNs, operating autoregressively. The choice was motivated by two factors:
 \begin{itemize}
-	\item the dynamics of the problem were deemed to be simple enough that even small models would be able to model them adequately -- making it possible to quickly train models on development machines with low parameter counts, using pre-existing code libraries;
-	\item given the recent advances in employing sequence-to-sequence or sequence generator models for imitation learning tasks, it was decided that models with broadly similar footprints and characteristics should be used to enable further research in this direction.
+	\item the dynamics of the problem were deemed to be simple enough that even small models would be able to model them adequately -- making it possible to quickly train on development machines with low parameter counts, using pre-existing code libraries;
+	\item given the recent advances in employing sequence-to-sequence models for imitation learning tasks, it was decided that models with broadly similar footprints and characteristics should be used to enable further research in this direction.
 \end{itemize}
 
 After an initial hyperparameter discovery process, the values in table \ref{tab:table1} were arrived at for both model types respectively. A range of model sizes and training epoch counts was compared for both models. In the case of the recurrent neural network, performance with different learning rates was also evaluated. As the feedforward models were developed first, performance with and without a time signal in the input data was also compared. For the RNN architecture, GRU was selected as prior research suggests that it outperforms LSTM when dealing with small data sets of long sequences \citep{yang2020lstm}.
@@ -272,7 +278,7 @@ After an initial hyperparameter discovery process, the values in table \ref{tab:
 		\toprule
 		Parameter & Feedforward & RNN \\
 		\midrule
-		Architecture & 2 fully-connected hidden layers, ReLU  & GRU    \\
+		Architecture & 2 fully-connected hidden layers, ReLU  & GRU, fully connected linear output   \\
 		Parameter counts     & 128-1024 perceptrons per layer & 128-512 perceptrons \\
 		Training epochs     & 20-100       & 300-1200  \\
 		Batch size    & 64       & 32  \\
@@ -283,11 +289,20 @@ After an initial hyperparameter discovery process, the values in table \ref{tab:
 	\label{tab:table1}
 \end{table}
 
+The basic model footprint is given as follows:
+
+\begin{equation}
+	(\boldsymbol{r}_{t+1}, \boldsymbol{q}_{t+1}, g_{t+1}) = \pi_{\theta}\left(\frac{t}{f_{sample}}, \boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}, \boldsymbol{r}^{target}_t \right)
+\end{equation}
+where $\boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}$ represent the end effector translation vector, orientation quaternion and gripper actuator signal respectively at time step $t$ in both the input and output. The input is augmented with a time/phase signal (discrete time step divided by the sampling frequency, in this case $100Hz$) relative to the start of the demonstration or generated trajectory, as well as the target coordinate vector $\boldsymbol{r}^{target}_t$ which corresponds to the extrapolated target coordinates in the demonstration data set and commanded throw coordinates at inference. The time signal was added to the input as it was found that trajectories generated by feedforward networks were liable to diverge without it, and the data sets thus modified were used for all training thereafter. The gripper control signal has values $\lbrace 0,1 \rbrace$ in the training data set.
+
+For training both types of networks, state transitions $\left(\left(t,s_t,r^{target}_t\right), s_{t+1}\right)$ are constructed. In the case of the feedforward network, these state transitions are then shuffled and batched independently. For the RNN, pairs of feature-label sequences are formed corresponding to complete demonstrations, and the loss function is computed on the entire predicted output sequence. To hold these variable length sequences, a ragged tensor is used, which is batched along its first axis and ragged along the second. With both types of networks, the Huber loss function is utilized.
+
+
 \subsection{Visualization and execution}
 \label{sec:exec}
 
-
-bla bla bla
+As discussed in the introduction, an important part of the reason for selecting throwing as our motivating application was the fact that it is easy for humans to judge the qualitative performance aspects of this task.
 
 \subsection{Evaluation metrics}
 \label{sec:eval}
