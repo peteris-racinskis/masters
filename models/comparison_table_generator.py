@@ -247,6 +247,6 @@ def prod(iterable):
 if __name__ == "__main__":
     df = pd.read_csv(IFILE)
     dataset = ModelEvalDataset(df)
-    #dataset.generate_sequence_dfs()
+    dataset.generate_sequence_dfs()
     #dataset.generate_categorical_dfs()
-    dataset.generate_independent_sequences()
+    #dataset.generate_independent_sequences()

@@ -70,9 +70,9 @@ class CategorialChart(Chart):
             self.str_xax = self.str_xax[:-1]
             self.yax = self.yax[:-1]
         self.ax.bar(self.str_xax, self.yax, color=["orange", "red", "green"])
-        self.ax.set_title(self.title)
-        self.ax.set_ylabel(self.y_axis_name)
-        self.ax.set_xlabel(self.x_axis_name)
+        self.ax.set_title(self.title, fontsize=18)
+        self.ax.set_ylabel(self.y_axis_name, fontsize=18)
+        self.ax.set_xlabel(self.x_axis_name, fontsize=18)
 
 
 class SequenceChart(Chart):
@@ -86,9 +86,9 @@ class SequenceChart(Chart):
     def plot(self):
         self.ax.plot(self.xax, self.yax, color=self.color, label=self.metric)
         self.lines, self.handles = self.ax.get_legend_handles_labels()
-        self.ax.set_title(self.title)
-        self.ax.set_ylabel(self.y_axis_name)
-        self.ax.set_xlabel(self.x_axis_name)
+        self.ax.set_title(self.title, fontsize=18)
+        self.ax.set_ylabel(self.y_axis_name, fontsize=18)
+        self.ax.set_xlabel(self.x_axis_name, fontsize=18)
 
 
 class ManySequenceChart(Chart):
@@ -158,17 +158,22 @@ def comparison_charts(fnames):
 
     # the learning rate is wrong to begin with.
     remap_lr = {
-        1e-5: "1e-5",
-        1e-4: "1e-4",
+        1e-5: "1e-4",
+        1e-4: "1e-3",
     }
 
     fnames = [x for x in filter(condition, fnames)]
 
     for f in fnames:
-        if exists(ODIR+f):
-            continue
+        #if exists(ODIR+f):
+        #    continue
         fig1, ax1 = plt.subplots()
+        plt.gcf().subplots_adjust(left=0.2)
+        plt.gcf().subplots_adjust(bottom=0.15)
         fig2, ax2 = plt.subplots()
+        plt.gcf().subplots_adjust(left=0.2)
+        plt.gcf().subplots_adjust(bottom=0.15)
+        plt.rcParams['font.size'] = 16
         chart1 = CategorialChart(ax1, DIR+f)
         chart2 = CategorialChart(ax2, DIR+f)
         if "categorical" in f:
@@ -176,10 +181,12 @@ def comparison_charts(fnames):
             chart2.rename_xax(remap_class)
             chart2.plot(False)
             fig2.savefig(f"{ODIR}{chart2._filename.stem}.png")
+            print(f"{ODIR}{chart2._filename.stem}.png")
         if "Learning rate" in f:
             chart1.rename_xax(remap_lr)
         chart1.plot(True)
         fig1.savefig(f"{ODIR}{chart1._filename.stem}-all.png")
+        print(f"{ODIR}{chart1._filename.stem}-all.png")
         plt.close('all')
 
 
@@ -187,6 +194,7 @@ def seq_charts(fnames):
     def condition(s):
         expressions = [
             "categorical" not in s,
+            "independent" not in s,
             "Old dataset" not in s,
             "Train" not in s,
             "Learning rate" not in s,
@@ -198,6 +206,9 @@ def seq_charts(fnames):
 
     for f in fnames:
         fig1, ax1 = plt.subplots()
+        plt.rcParams['font.size'] = 16
+        plt.subplots_adjust(left=0.2)
+        plt.subplots_adjust(bottom=0.15)
         chart1 = SequenceChart(ax1, f)
         chart1.plot()
         fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
@@ -219,6 +230,6 @@ def independent_sequence_charts(fnames):
 
 if __name__ == "__main__":
     fnames = listdir(DIR)
-    #comparison_charts(fnames)
+    comparison_charts(fnames)
     #seq_charts(fnames)
-    independent_sequence_charts(fnames)
+    #independent_sequence_charts(fnames)

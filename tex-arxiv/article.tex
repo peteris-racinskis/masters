@@ -361,36 +361,36 @@ and the trajectory-wise throw error metric computed by:
 \end{equation}
 with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
 
+\begin{figure}[!b]
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/modeltype_comparison.png}}
+	\caption{Results -- comparison between model architectures (\emph{Naive} -- refers to the feedforward architecture, also ``naive behavioral cloning''), the best performance attained in each class. Top row metrics -- cosine similarity, Euclidean distance (global); mean position error (stepwise). Bottom row -- mean rotation error (stepwise), mean throw error.}
+	\label{fig:res_model_compare}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\centering
+	\fbox{\includegraphics[width=16cm]{../img/each_model_best_perf.png}}
+	\caption{Results -- best performance for each hyperparameter value. The top row shows feedforward model results, the bottom -- RNN. In both cases, the smaller, newer dataset with less variance in orientation and target coordinates results in better throw evaluations.  Introducing the time signal significantly improves feedforward model performance, whereas for the RNN improved results could be attained at higher learning rates. In the case of the feedforward model, training for too long and making the model too large is detrimental, while for the RNN no clear trend was observed in this respect.}
+	\label{fig:rnn_naive_best}
+\end{figure}
 
 \section{Results}
 \label{sec:results}
 
 As illustrated in fig. \ref{fig:vis_exec}, in terms of the qualitative aspects of executing a throw a successful result was attained with several models. Trajectories that visually resemble throwing motions were produced, and, when used to produce motion plans for a \emph{Universal Robotics Ur5e} robot equipped with a pneumatic gripper, they were adequate for throwing a plastic bottle into a target container located outside the robot's range of motion. Adequate output sequences were attained with both model architectures at multiple hyperparameter combinations, so to draw specific conclusions we need to look at the quantitative indicators of performance discussed above.
 
-\begin{figure}[!hbt]
-	\centering
-	\fbox{\includegraphics[width=16cm]{../img/naivebc_missed.png}}
-	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
-	\label{fig:naive_best}
-\end{figure}
-
+Figure \ref{fig:res_model_compare} shows a broad comparison between the RNN and feedforward model architectures, with each of the evaluation metric classes being present. In terms of distribution similarity measures like cosine similarity and Euclidean distance, the results are generally quite good for both models, with the RNN having the edge in most distance measures but notably one of the feedforward models demonstrating the highest cosine similarity. In terms of step-wise metrics, RNN models are typically better. The same is true for the throw error metric in general, but the best single result was attained by a feedforward model -- an average error of around 9cm, as opposed to around 11.5cm for the best recurrent model.
 
 \begin{figure}[!hbt]
 	\centering
-	\fbox{\includegraphics[width=16cm]{../img/rnn-naive-global-stepwise-missed.png}}
-	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
-	\label{fig:res_model_compare}
+	\fbox{\includegraphics[width=15.5cm]{../img/ind_rnn_naive.png}}
+	\caption{Results -- cosine and throw accuracy metrics for feedforward and recurrent models only varying in the perceptron count parameter (others held constant) -- best 2 on train and validation sets each.}
+	\label{fig:ind_rnn_naive}
 \end{figure}
 
 
-
-\begin{figure}[!hbt]
-	\centering
-	\fbox{\includegraphics[width=16cm]{../img/rnn_missed.png}}
-	\caption{Results -- comparison between model architectures, best performers in each class. The top row contains global comparison metrics, the middle row -- step-wise ones, whereas the bottom row shows the best attained throw accuracy.}
-	\label{fig:rnn_best}
-\end{figure}
-
+Figure \ref{fig:rnn_naive_best} elaborates upon each model class, showing the best attained results at various hyperparameter values. In the case of the feedforward model, the input observations did not initially contain a time signal, which was rectified early on. In the case of the RNN, deviating from the default learning rate was found to be beneficial. For both architectures, the best performance at each epoch count and parameter count is also plotted. Figure \ref{fig:ind_rnn_naive} shows the impact of only varying the crucial size (perceptron count) -- in each case the two best performing models at each fixed parameter combination are selected and their performance at different values of the independent variable is graphed. 
 
 \section{Discussion}
 
