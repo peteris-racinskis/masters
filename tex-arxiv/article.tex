@@ -341,14 +341,25 @@ The second class involves applying various measures to the observation/state var
 \end{equation}
 where the inner function $g$ corresponds to metrics such as position error, rotation error (quaternion angular distance) or categorical crossentropy in the release signal. Finally, a release error metric was computed trajectory-wise. To do this, the release point of each trajectory was found, the corresponding position found and velocity vector estimated. When considering ways to combine these two terms into a single quantitative error estimator, it was decided that a simple ballistic extrapolation and resulting miss distance along the ground plane would serve as a decent first order approximation of throw accuracy \emph{vis-à-vis} the training or validation data set.
 
-Specifically, the release position $\mathbf{r}_0 = (x_0,y_0,z_0)$ and estimated release velocity $\mathbf{v}_0 = (v_{0x}, v_{0y}, v_{0z})$ were used as parameters in the equations
+Specifically, the release position $\mathbf{r}_0 = (x_0,y_0,z_0)$ and estimated release velocity $\mathbf{v}_0 = (v_{0x}, v_{0y}, v_{0z})$ were used as parameters in the equations:
 
 \begin{align}
 	x(t) = x_0 + v_{0x}t \\
 	y(t) = y_0 + v_{0y}t  \\
 	z(t) = z_0 + v_{0z}t - \frac{g}{2}t^2 \label{eq:z_parabola}
 \end{align}
-and the ground plane intersect time $t_{intersect}$ was found by setting eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Le
+
+The ground plane intersect time $t_{intersect}$ was found by setting eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Then ground plane intersect points were found as 
+
+\begin{equation}
+	r_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z(t_{intersect}) \right )
+\end{equation}
+and the trajectory-wise throw error metric computed by:
+
+\begin{equation}
+	f_{throw}(\mathcal{D}_{eval}) = \frac{1}{k}\sum_{\mathcal{D}_{eval}} \Vert r^g_{intersect} - r^g_{intersect}\Vert
+\end{equation}
+with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for trajectory, this error term was set to be infinite in cases when no throw was defined.
 
 \section{Results}
 \label{sec:results}
