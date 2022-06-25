@@ -165,7 +165,7 @@ The system devised in this paper can be broken down into three main sections -- 
 \begin{figure}
 	\centering
 	\fbox{\includegraphics[width=16cm]{../img/mocap_process.jpg}}
-	\caption{Motion capture equipment and process. \emph{(Photos by Peteris Racinskis)}}
+	\caption{Motion capture equipment and process. }
 	\label{fig:fig1}
 \end{figure}
 
@@ -173,11 +173,10 @@ All demonstrations were recorded using \emph{OptiTrack} equipment that consists 
 
 Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in freefall by observing its acceleration, for the purposes of trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
 
-In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set. Over the course of this project, two data sets with roughly 150 and 50 demonstrations each were collected. The first was used in the development process but proved to contain throws beyond the capabilities of the robot hardware used. Therefore, a second data set of throws with less pronounced swings was produced to fit within the working volume of the robot arm.
+In software, rigid body definitions were created for all object to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set. Over the course of this project, two data sets with roughly 150 and 50 demonstrations each were collected. The first was used in the development process but proved to contain throws beyond the capabilities of the robot hardware used. Therefore, a second data set of throws with less pronounced swings was produced to fit within the working volume of the robot arm. A notable feature of the second data set is that initial orientations were randomized to a much lesser degree ($\pm30^{\circ}$) than in the original corpus ($\pm90^{\circ}$), and the range of estimated target coordinates for the throws was also more tightly constrained ($1.5 ... 1.8$m along the $x$-axis as opposed to $1.6 ... 3.6$m), likely contributing to the better estimated throw accuracy metrics as illustrated in~\ref{sec:results}.
 
 \subsection{Pre-processing, extraction of implicit control signals}
 \label{sec:preprocess}
-
 
 \begin{figure}
 	\centering
@@ -298,7 +297,6 @@ where $\boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}$ represent the end effector
 
 For training both types of networks, state transitions $\left(\left(t,s_t,r^{target}_t\right), s_{t+1}\right)$ are constructed. In the case of the feedforward network, these state transitions are then shuffled and batched independently. For the RNN, pairs of feature-label sequences are formed corresponding to complete demonstrations, and the loss function is computed on the entire predicted output sequence. To hold these variable length sequences, a ragged tensor is used, which is batched along its first axis and ragged along the second. With both types of networks, the Huber loss function is utilized.
 
-
 \subsection{Visualization and execution}
 \label{sec:exec}
 
@@ -320,13 +318,41 @@ While this is adequate for evaluating the positioning of the generated trajector
 
 To draw comparisons between models of different architectures, trained with differing hyperparameter sets, quantitative evaluation metrics need to be computed. As this is not a standard task with agreed-upon metrics and benchmarks, some exploratory work was required to arrive at evaluations that agree with intuitively self-evident characteristics. While in principle it should be possible to judge models based on throw accuracy, this is not a very helpful in the early stages of research when most models fall short of attaining the desired objective. Furthermore, limitations imposed by the aforementioned time parametrization issues with Cartesian motion planning in ROS make such a comparison as yet infeasible.
 
-Hence, it was decided to compare model outputs with the demonstration data set. As judging against the training data set only informs us to the extent to which the model has been able to overfit, a smaller validation data set was set aside for out-of-distribution comparisons. The outputs to be compared were obtained by executing the models autoregresively on each demonstration's initial state, for as many steps as were present in the corresponding recorded demonstration.
+Hence, it was decided to compare model outputs with the demonstration data set. As judging against the training data set only informs us to the extent to which the model has been able to overfit, a smaller validation data set was set aside for out-of-distribution comparisons. The outputs to be compared were obtained by executing the models autoregresively on each demonstration's initial state, for as many steps as were present in the corresponding recorded demonstration. This can be formally stated as
 
-Three broad classes of evaluation metrics were computed: data set-wise, step-wise and throw parameters. The first consist of vector similarity measures such as Pearson's correlation coefficient, cosine similarity and distance metrics applied to the entire data set and the trajectories generated against it. The second class involves applying various measures to the observation/state variables at each time step -- such as position or orientation deviations, or the categorical difference in gripper state. Finally, the release point of each trajectory was found, and the position and velocity vector differences were computed. When considering ways to combine these two error terms into a single quantitative estimator, it was decided that a simple ballistic extrapolation and resulting miss distance along the ground plane would serve as a decent first order approximation of throw accuracy \emph{vis-à-vis} the training or validation data set.
+\begin{equation}
+	\mathcal{D}_{eval} = \left ( (\tau^d_{1}, \tau^g_{1}), ..., (\tau^d_{k}, \tau^g_{k}) \right )
+\end{equation}
+\begin{equation}
+	\tau^d, \tau^g = (s^d_1, ..., s^d_m), (s^g_1, ..., s^g_m); s^d_1 = s^g_1 
+\end{equation}
+where $\mathcal{D}_{eval}$ refers to the evaluation data set of a single model with respect to either the validation or test demonstration set, but $\tau^d_i, \tau^g_i$ are the demonstration and generated trajectories (sequences of state observations $s_j$) sharing the same initial state respectively.
+
+Three broad classes of evaluation metrics were computed: data set-wise, step-wise and throw parameters. The first consist of vector similarity measures such as Pearson's correlation coefficient, cosine similarity and distance metrics applied to the entire data set and the trajectories generated against it as concatenated vectors:
+
+\begin{equation}
+	f_{global}(\mathcal{D}_{eval}) = f:(\tau^d_{1},...,\tau^d_{k}) \times (\tau^g_{1},...,\tau^g_{k}) \rightarrow \mathbb{R}
+\end{equation}
+
+The second class involves applying various measures to the observation/state variables at each time step:
+
+\begin{equation}
+	f_{stepwise}(\mathcal{D}_{eval}) = f: \left [ \sum_{\tau^d, \tau^g \in \mathcal{D}_{eval}}\sum_{i=1}^m \left ( g:s^d_i \times s^g_i \rightarrow \mathbb{R} \right ) \right ] \rightarrow \mathbb{R}
+\end{equation}
+where the inner function $g$ corresponds to metrics such as position error, rotation error (quaternion angular distance) or categorical crossentropy in the release signal. Finally, a release error metric was computed trajectory-wise. To do this, the release point of each trajectory was found, the corresponding position found and velocity vector estimated. When considering ways to combine these two terms into a single quantitative error estimator, it was decided that a simple ballistic extrapolation and resulting miss distance along the ground plane would serve as a decent first order approximation of throw accuracy \emph{vis-à-vis} the training or validation data set.
+
+Specifically, the release position $\mathbf{r}_0 = (x_0,y_0,z_0)$ and estimated release velocity $\mathbf{v}_0 = (v_{0x}, v_{0y}, v_{0z})$ were used as parameters in the equations
+
+\begin{align}
+	x(t) = x_0 + v_{0x}t \\
+	y(t) = y_0 + v_{0y}t  \\
+	z(t) = z_0 + v_{0z}t - \frac{g}{2}t^2 \label{eq:z_parabola}
+\end{align}
+and the ground plane intersect time $t_{intersect}$ was found by setting eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Le
 
 \section{Results}
+\label{sec:results}
 
-bla bla bla
 
 
 \section{Discussion}
