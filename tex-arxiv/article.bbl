@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -125,6 +125,16 @@ Abhishek Jha, Shital~S Chiddarwar, Rohini~Y Bhute, Veer Alakshendra, Gajanan
 \newblock Imitation learning in industrial robots: a kinematics based
   trajectory generation framework.
 \newblock In \emph{Proceedings of the Advances in Robotics}, pages 1--6. 2017.
+
+\bibitem[Vuga et~al.(2013)Vuga, Ogrinc, Gams, Petrič, Sugimoto, Ude, and
+  Morimoto]{vuga2013mocap}
+Rok Vuga, Matjaž Ogrinc, Andrej Gams, Tadej Petrič, Norikazu Sugimoto, Aleš
+  Ude, and Jun Morimoto.
+\newblock Motion capture and reinforcement learning of dynamically stable
+  humanoid movement primitives.
+\newblock In \emph{2013 IEEE International Conference on Robotics and
+  Automation}, pages 5284--5290, 2013.
+\newblock \doi{10.1109/ICRA.2013.6631333}.
 
 \bibitem[Fragkiadaki et~al.(2015)Fragkiadaki, Levine, Felsen, and
   Malik]{Fragkiadaki_2015_ICCV}
