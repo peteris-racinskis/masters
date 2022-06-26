@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -153,5 +153,13 @@ Tobias Kunz and Mike Stilman.
 \newblock Time-optimal trajectory generation for path following with bounded
   acceleration and velocity.
 \newblock \emph{Robotics: Science and Systems VIII}, pages 1--8, 2012.
+
+\bibitem[Nakkiran et~al.(2021)Nakkiran, Kaplun, Bansal, Yang, Barak, and
+  Sutskever]{nakkiran2021deep}
+Preetum Nakkiran, Gal Kaplun, Yamini Bansal, Tristan Yang, Boaz Barak, and Ilya
+  Sutskever.
+\newblock Deep double descent: Where bigger models and more data hurt.
+\newblock \emph{Journal of Statistical Mechanics: Theory and Experiment},
+  2021\penalty0 (12):\penalty0 124003, 2021.
 
 \end{thebibliography}
