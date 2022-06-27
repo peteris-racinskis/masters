@@ -91,3 +91,5 @@ RESULTS AND DISCUSSION or RESULTS then DISCUSSION
 separate CONCLUSIONS from DISCUSSION about RESULTS
 
 RESULT comparison with related work
+
+INTRO include a sentence about how the paper is structured
