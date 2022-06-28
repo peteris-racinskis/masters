@@ -234,7 +234,7 @@ As further thresholding steps rely on estimates of pose derivatives, a smoothing
 \begin{figure}
 	\centering
 	\fbox{\includegraphics[width=13.5cm]{../img/target_regression.jpg}}
-	\caption{Estimation of the throw target coordinates.}
+	\caption{Estimation of the throw target coordinates. Bottle position data is used to annotate each demonstration -- consisting of effector pose observations -- with throw target coordinates. Regression on the z-axis is used to find the ground plane intersection time, at which extrapolated x- and y-coordinate values are found. All quantities plotted at the same scale, in units of meters.}
 	\label{fig:fig3}
 \end{figure}
 
@@ -390,17 +390,17 @@ with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated th
 
 \newcommand{\reswidth}{15.5cm}
 
-\begin{figure}[]
+\begin{figure}[!b]
 	\centering
 	\fbox{\includegraphics[width=\reswidth]{../img/modeltype_comparison.png}}
-	\caption{Results -- comparison between model architectures (\emph{Naive} -- refers to the feedforward architecture, also ``naive behavioral cloning''), the best performance attained in each class. Top row metrics -- cosine similarity, Euclidean distance (global); mean position error (stepwise). Bottom row -- mean rotation error (stepwise), mean throw error.}
+	\caption{Results -- comparison between model architectures (\emph{Naive} -- refers to the feedforward architecture, also ``naive behavioral cloning''), the best performance attained in each class. Top row metrics -- cosine similarity (dimensionless), Euclidean distance (all features, no specific unit); mean position error (stepwise,  meters). Bottom row -- mean rotation error (stepwise, radians), mean throw error (meters).}
 	\label{fig:res_model_compare}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[!hbt]
 	\centering
 	\fbox{\includegraphics[width=\reswidth]{../img/each_model_best_perf.png}}
-	\caption{Results -- best performance for each hyperparameter value. The top row shows feedforward model results, the bottom -- RNN. In both cases, the smaller, newer dataset with less variance in orientation and target coordinates results in better throw evaluations.  Introducing the time signal significantly improves feedforward model performance, whereas for the RNN improved results could be attained at higher learning rates. In the case of the feedforward model, training for too long and making the model too large initially appears to be detrimental, while for the RNN no clear trend was observed in this respect.}
+	\caption{Results -- best mean throw error performance for each hyperparameter value, in units of meters. The top row shows feedforward model results, the bottom -- RNN. In both cases, the smaller, newer dataset with less variance in orientation and target coordinates results in better throw evaluations.  Introducing the time signal significantly improves feedforward model performance, whereas for the RNN improved results could be attained at higher learning rates. In the case of the feedforward model, training for too long and making the model too large initially appears to be detrimental, while for the RNN no clear trend was observed in this respect.}
 	\label{fig:rnn_naive_best}
 \end{figure}
 
@@ -414,10 +414,10 @@ Over the course of our research, numerous models were trained on both of the dat
 	\item RNNs -- 36 models with data set, learning rate, model size and training length being the variable parameters.
 \end{itemize}
 
-\begin{figure}[!hbt]
+\begin{figure}[!t]
 	\centering
 	\fbox{\includegraphics[width=16cm]{../img/ind_rnn_naive.png}}
-	\caption{Results -- cosine and throw accuracy metrics for feedforward and recurrent models only varying in the perceptron count parameter (others held constant) -- best 2 on train and validation sets each.}
+	\caption{Results -- cosine similarity (dimensionless) and mean throw error (meters) metrics for feedforward and recurrent models, only varying in the perceptron count parameter (others held constant) -- best 2 on train and validation sets each.}
 	\label{fig:ind_rnn_naive}
 \end{figure}
 
