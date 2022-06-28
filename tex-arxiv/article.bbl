@@ -1,9 +1,15 @@
-\begin{thebibliography}{23}
+\begin{thebibliography}{24}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Arents and Greitans(2022)]{arents2022smart}
+Janis Arents and Modris Greitans.
+\newblock Smart industrial robot control trends, challenges and opportunities
+  within manufacturing.
+\newblock \emph{Applied Sciences}, 12\penalty0 (2):\penalty0 937, 2022.
 
 \bibitem[Sutton and Barto(2018)]{sutton2018reinforcement}
 Richard~S Sutton and Andrew~G Barto.
@@ -23,6 +29,11 @@ Pieter Abbeel and Andrew~Y Ng.
 \newblock Apprenticeship learning via inverse reinforcement learning.
 \newblock In \emph{Proceedings of the twenty-first international conference on
   Machine learning}, page~1, 2004.
+
+\bibitem[Attia and Dayan(2018)]{attia2018global}
+Alexandre Attia and Sharone Dayan.
+\newblock Global overview of imitation learning.
+\newblock \emph{arXiv preprint arXiv:1801.06503}, 2018.
 
 \bibitem[Zhang et~al.(2018)Zhang, McCarthy, Jow, Lee, Chen, Goldberg, and
   Abbeel]{zhang2018deep}
@@ -48,11 +59,6 @@ YuXuan Liu, Abhishek Gupta, Pieter Abbeel, and Sergey Levine.
   video via context translation.
 \newblock In \emph{2018 IEEE International Conference on Robotics and
   Automation (ICRA)}, pages 1118--1125. IEEE, 2018.
-
-\bibitem[Attia and Dayan(2018)]{attia2018global}
-Alexandre Attia and Sharone Dayan.
-\newblock Global overview of imitation learning.
-\newblock \emph{arXiv preprint arXiv:1801.06503}, 2018.
 
 \bibitem[Rumelhart et~al.(1985)Rumelhart, Hinton, and
   Williams]{rumelhart1985learning}
