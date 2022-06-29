@@ -25,14 +25,14 @@
 % Or remove it
 %\date{}
 
-\author{ \href{https://orcid.org/0000-0002-8956-179X}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Peteris Racinskis}\thanks{Robotics and Machine Perception Laboratory} \thanks{Institute of Electronics and Computer Science, Riga, Latvia} \\
+\author{ \href{https://orcid.org/0000-0002-8956-179X}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Peteris Racinskis}\thanks{Institute of Electronics and Computer Science, Riga, Latvia} \\
 	\texttt{peteris.racinskis@edi.lv} \\
 	%% examples of more authors
 	\And
-	\href{https://orcid.org/0000-0001-5203-3347}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Janis Arents}\footnote[1]{test} \footnote[2]{test}\\
+	\href{https://orcid.org/0000-0001-5203-3347}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Janis Arents}\footnote[1]{test} \\
 	\texttt{janis.arents@edi.lv} \\
 	\And
-	\href{https://orcid.org/0000-0002-5405-0738}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Modris Greitans}\footnote[2]{} \\
+	\href{https://orcid.org/0000-0002-5405-0738}{\includegraphics[scale=0.06]{orcid.pdf}\hspace{1mm}Modris Greitans}\footnote[1]{} \\
 	\texttt{modris\_greitans@edi.lv} \\
 }
 
@@ -55,7 +55,7 @@ pdfkeywords={Imitation Learning, Motion capture, Robotics, Artificial neural net
 \maketitle
 
 \begin{abstract}
-	Imitation Learning is a discipline of Machine Learning primarily concerned with replicating observed behavior of agents known to perform well on a given task, collected in demonstration data sets. In this paper, we set out to introduce a pipeline for collecting demonstrations and training models that can produce motion plans for industrial robots. Object throwing is defined as the motivating use case. Multiple input data modalities are surveyed, and motion capture is selected as the most practicable. Two model architectures operating autoregressively are examined -- feedforward and recurrent neural networks. Trained models execute throws on a real robot successfully, and a battery of quantitative evaluation metrics is proposed. Recurrent neural networks outperform feedforward ones in most respects, but this advantage is not universal or conclusive. The data collection, pre-processing, and model training aspects of our proposed approach show promise, but further work is required in developing Cartesian motion planning tools before it is applicable in production applications.
+	Imitation Learning is a discipline of Machine Learning primarily concerned with replicating observed behavior of agents known to perform well on a given task, collected in demonstration data sets. In this paper, we set out to introduce a pipeline for collecting demonstrations and training models that can produce motion plans for industrial robots. Object throwing is defined as the motivating use case. Multiple input data modalities are surveyed, and motion capture is selected as the most practicable. Two model architectures operating autoregressively are examined -- feedforward and recurrent neural networks. Trained models execute throws on a real robot successfully, and a battery of quantitative evaluation metrics is proposed, including extrapolated throw accuracy estimates. Recurrent neural networks outperform feedforward ones in most respects, with the best models having an assessed mean throw error on the order of 0.1-0.2m at distances of 1.5-2m. The data collection, pre-processing, and model training aspects of our proposed approach show promise, but further work is required in developing Cartesian motion planning tools before it is applicable in production applications.
 \end{abstract}
 
 
@@ -73,7 +73,7 @@ Given the inherent trade-off between task specificity and required model complex
 
 To help guide the development process and serve as a means of evaluation, an example use case was selected -- object throwing to extend the robot's reach and improve cycle times. In particular, the task of robotically sorting plastic bottles at a recycling plant was to be augmented with a throwing capability. While on the surface the task is almost entirely defined by elementary ballistics that can be programmed explicitly, it serves as a convenient benchmark for robot programming by way of demonstrations. The task was deemed sufficiently non-trivial when considered from the perspective of a Markov decision process or time-series model only given limited information about the system state at any given time step, while also being suitable for intuitive evaluation by human observers due to its intuitively straightforward nature. Furthermore, the relationship between release position, velocity, and target coordinates provides an obvious way to quantitatively evaluate model performance against training and validation data -- extrapolated throw accuracy.
 
-In this paper, we start by introducing some key concepts in imitation learning -- in particular, how they tie in with the autoregressive use of sequence-to-sequence models (\ref{sec:prelim}). Then we explore the broad directions research in this field has taken, as well as prior work relating specifically to the two key practical aspects of our work -- the use of motion capture and throwing tasks (\ref{sec:related}). This is followed by a detailed explanation of the reasoning behind our approach (\ref{sec:approach}), as well as a description of the practical implementation (\ref{sec:materials}). Metrics for evaluating performance on the motivating use case are also introduced in subsection (\ref{sec:eval}). In the results (\ref{sec:results}) and discussion (\ref{sec:discussion}) sections, we compare the performance of the various model types. 
+In this paper, we start by introducing some key concepts in imitation learning -- in particular, how they tie in with the autoregressive use of sequence-to-sequence models (Section \ref{sec:prelim}). Then we explore the broad directions research in this field has taken, as well as prior work relating specifically to the two key practical aspects of our work -- the use of motion capture and throwing tasks (Section \ref{sec:related}). This is followed by a detailed explanation of the reasoning behind our approach (Section \ref{sec:approach}), as well as a description of the practical implementation (Section \ref{sec:materials}). Metrics for evaluating performance on the motivating use case are also introduced in Subsection \ref{sec:eval}. In results (Section \ref{sec:results}) and discussion (Section\ref{sec:discussion}), we compare the performance of the various model types. 
 
 
 \section{Preliminaries}
@@ -141,14 +141,14 @@ Raw video is the most attractive approach from a material standpoint -- it does 
 
 \begin{figure}
 	\centering
-	\fbox{\includegraphics[width=16cm]{../img/approach_schematic.png}}
+	\fbox{\includegraphics[width=16cm]{../img/approach_schematic_21pt.png}}
 	\caption{A high-level overview of the proposed approach. Demonstrations are recorded with motion capture equipment, a split and cropped data set augmented with target coordinates and a gripper actuation signal is created. This is used to train neural network models in behavioral cloning. When operating in the open-loop regime, prior model outputs are used to autoregressively predict subsequent states. The resulting sequence can then be fed into a Cartesian motion planner to control a robot.}
 	\label{fig:approach}
 \end{figure}
 
 In contrast, unambiguous pose information is readily obtained with motion capture or simulation. Simulating a robot and collecting data in joint space allows for a simple final controller stage. But it very tightly couples the trained model to a specific physical implementation, and reasoning about or debugging model outputs obtained this way is not straightforward. Thus, the main comparison is to be drawn between object pose data as obtained in a simulation and with motion capture. Assuming motion capture equipment is available, setting the scene up for collecting demonstrations is a matter of outfitting the objects of interest with markers and defining them as rigid bodies to be tracked. However, there is a degree of imprecision in the observations, and information about different rigid bodies is available at different instants in time. 
 
-Simulation allows recording exact pose information directly at regular time intervals, but setting up the scene necessitates creating a virtual environment where the task can be performed. In addition, for realistic interactions, a physics simulation and immersive interface such as VR is required, but even this does not present the human demonstrator with the haptic feedback of actually performing the task in the real world. Finally, whenever data obtained in a simulated environment is used to solve control challenges, the so-called \emph{reality gap} or \emph{sim2real problem} needs to be tackled -- the difference between the responses of simulated and real environments to the same stimuli \cite{hofer2021sim2real}. As such, we decided that the benefits of simple setup and inherently natural interaction with the physical scene outweigh the precision and cost advantages of simulated environments, and selected motion capture as the source of demonstration data. For extracting additional information specific to the throwing task, we also track the object thrown and use its pose information to annotate each observation with target coordinates extrapolated from its flight arc and a release timing signal determined by heuristics described in the section on preprocessing (\ref{sec:preprocess}).
+Simulation allows recording exact pose information directly at regular time intervals, but setting up the scene necessitates creating a virtual environment where the task can be performed. In addition, for realistic interactions, a physics simulation and immersive interface such as VR is required, but even this does not present the human demonstrator with the haptic feedback of actually performing the task in the real world. Finally, whenever data obtained in a simulated environment is used to solve control challenges, the so-called \emph{reality gap} or \emph{sim2real problem} needs to be tackled -- the difference between the responses of simulated and real environments to the same stimuli \cite{hofer2021sim2real}. As such, we decided that the benefits of simple setup and inherently natural interaction with the physical scene outweigh the precision and cost advantages of simulated environments, and selected motion capture as the source of demonstration data. For extracting additional information specific to the throwing task, we also track the object thrown and use its pose information to annotate each observation with target coordinates extrapolated from its flight arc and a release timing signal determined by heuristics described in Subsection \ref{sec:preprocess} (pre-processing).
 
 The next crucial decision to make is what the input and output spaces of the model will be. Setting aside the additional control parameters (target coordinates and release signal), when provided with a sequence of pose observations the main options are:
 \begin{itemize}
@@ -168,7 +168,7 @@ Predicting the future pose allows for using discrete-time pose observations dire
 \section{Implementation}
 \label{sec:materials}
 
-The system devised in this paper can be broken down into three main sections -- the collection of observations in the physical environment (\ref{sec:collection}), a pipeline for turning raw observation data into structured demonstrations with additional control signals (\ref{sec:preprocess}), and neural network model implementations (\ref{sec:models}). Two general ways to evaluate system performance and obtain design feedback were employed. First, qualitative observations of the generated trajectories were made using spatial visualization in a virtual environment, followed by execution on simulated and real robots (\ref{sec:exec}). When satisfactory performance was attained, a series of quantitative metrics were computed for comparing system outputs with training and validation datasets on different model architectures and hyperparameter sets (\ref{sec:eval}).
+The system devised in this paper can be broken down into three main sections -- the collection of observations in the physical environment (Subsection \ref{sec:collection}), a pipeline for turning raw observation data into structured demonstrations with additional control signals (Subsection \ref{sec:preprocess}), and neural network model implementations (Subsection \ref{sec:models}). System performance was evaluated, and design feedback was obtained in two main ways. First, qualitative observations of the generated trajectories were made using spatial visualization in a virtual environment, followed by execution on simulated and real robots (Subsection \ref{sec:exec}). When satisfactory performance was attained, a series of quantitative metrics were computed for comparing system outputs with training and validation datasets on different model architectures and hyperparameter sets (Subsection \ref{sec:eval}).
 
 \begin{figure}
 	\centering
@@ -181,19 +181,19 @@ The system devised in this paper can be broken down into three main sections -- 
 \label{sec:collection}
 
 
-All demonstrations were recorded using \emph{OptiTrack} equipment that consists of a set of cameras, highly reflective markers to be attached to trackable objects, and the \emph{Motive} software package which handles pose estimation and streaming. As shown in fig. \ref{fig:fig1}, a cage with 8 cameras installed serves to hide external sources of specular reflections from the cameras and confine moving objects such as drones from leaving the scene. To simulate an industrial robot end effector, a gripping hand tool was equipped with markers. Since the motivating application calls for throwing plastic bottles, one such was also marked for extrapolating target coordinates and identifying the release point in a demonstration. A start point is laid down on the floor to serve as a datum for automatically separating the recorded demonstrations during pre-processing. Holding the effector stand-in here for at least a second before each demonstration provides a consistent signal that can be identified programmatically.
+All demonstrations were recorded using \emph{OptiTrack} equipment that consists of a set of cameras, highly reflective markers to be attached to trackable objects, and the \emph{Motive} software package which handles pose estimation and streaming. As shown in Fig. \ref{fig:fig1}, a cage with 8 cameras installed serves to hide external sources of specular reflections from the cameras and confine moving objects such as drones from leaving the scene. To simulate an industrial robot end effector, a gripping hand tool was equipped with markers. Since the motivating application calls for throwing plastic bottles, one such was also marked for extrapolating target coordinates and identifying the release point in a demonstration. A start point is laid down on the floor to serve as a datum for automatically separating the recorded demonstrations during pre-processing. Holding the effector stand-in here for at least a second before each demonstration provides a consistent signal that can be identified programmatically.
 
 Nets were used to catch the thrown bottle and prevent damaging the markers. These were also marked to aid in delimiting the ballistic segment of the thrown object's flight. While in principle it is possible to detect an object in freefall by observing its acceleration, for trajectory extrapolation this was deemed too prone to error~-- some impacts radically change the horizontal component of the object's velocity without breaking its fall, and the acceleration of the empty bottles proved to be affected by air resistance to a significant degree owing to their low terminal velocity.
 
-In software, rigid body definitions were created for all objects to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set. Over the course of this project, two data sets with roughly 150 and 50 demonstrations each were collected. The first was used in the development process but proved to contain throws beyond the capabilities of the robot hardware used. Therefore, a second data set of throws with less pronounced swings was produced to fit within the working volume of the robot arm. A notable feature of the second data set is that initial orientations were randomized to a much lesser degree ($\pm30^{\circ}$) than in the original corpus ($\pm90^{\circ}$), and the range of estimated target coordinates for the throws was also more tightly constrained ($1.5 ... 1.8$m along the $x$-axis as opposed to $1.6 ... 3.6$m), likely contributing to the better estimated throw accuracy metrics as illustrated in section~\ref{sec:results}.
+In software, rigid body definitions were created for all objects to be tracked. These were then streamed on the local network, relayed over \emph{Robot Operating System} (ROS) topics corresponding to each rigid body using a pre-existing package ROS and recorded into a bag file to be converted into a .csv data set. Over the course of this project, two data sets with roughly 150 and 50 demonstrations each were collected. The first was used in the development process but proved to contain throws beyond the capabilities of the robot hardware used. Therefore, a second data set of throws with less pronounced swings was produced to fit within the working volume of the robot arm. A notable feature of the second data set is that initial orientations were randomized to a much lesser degree ($\pm30^{\circ}$) than in the original corpus ($\pm90^{\circ}$), and the range of estimated target coordinates for the throws was also more tightly constrained ($1.5 ... 1.8$m along the $x$-axis as opposed to $1.6 ... 3.6$m), likely contributing to the better estimated throw accuracy metrics as illustrated in Section~\ref{sec:results}.
 
 \subsection{Pre-processing, extraction of implicit control signals}
 \label{sec:preprocess}
 
 \begin{figure}
 	\centering
-	\fbox{\includegraphics[width=16cm]{../img/preprocess_pipeline.png}}
-	\caption{Pre-processing pipeline overview.}
+	\fbox{\includegraphics[width=16cm]{../img/preprocess_pipeline_bigfont_axes.png}} 
+	\caption{Pre-processing pipeline overview. All charts show effector x-axis position with respect to time.}
 	\label{fig:fig2}
 \end{figure}
 
@@ -233,8 +233,8 @@ As further thresholding steps rely on estimates of pose derivatives, a smoothing
 
 \begin{figure}
 	\centering
-	\fbox{\includegraphics[width=13.5cm]{../img/target_regression.jpg}}
-	\caption{Estimation of the throw target coordinates. Bottle position data is used to annotate each demonstration -- consisting of effector pose observations -- with throw target coordinates. Regression on the z-axis is used to find the ground plane intersection time, at which extrapolated x- and y-coordinate values are found. All quantities are plotted at the same scale, in units of meters.}
+	\fbox{\includegraphics[width=16cm]{../img/target_regression_waxes.jpg}}
+	\caption{Estimation of the throw target coordinates. Bottle position data is used to annotate each demonstration -- consisting of effector pose observations -- with throw target coordinates. Regression on the z-axis is used to find the ground plane intersection time, at which extrapolated x- and y-coordinate values are found.}
 	\label{fig:fig3}
 \end{figure}
 
@@ -243,25 +243,25 @@ This was then used to compute threshold functions corresponding with the start o
 
 \begin{equation}
     f_{moving} (t) = \begin{cases}
-        0 \text{ if } \forall u < t,  \lVert \overline{\left [  \boldsymbol{r}_{Effector}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
+        0 \text{ if } \forall u < t,  \lVert \overline{\left [  \mathbf{r}_{Effector}(u) \right ]'_u} \rVert  < \overline{v}_{moving} \\
         1 \text{ otherwise }
     \end{cases}
 \end{equation}
 
 \begin{equation}
     f_{release} (t) = \begin{cases}
-        0 \text{ if } \forall u < t, \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{Effector}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
+        0 \text{ if } \forall u < t, \overline{ \left [ \lVert  \mathbf{r}_{Bottle}(u) -  \mathbf{r}_{Effector}(u)  \rVert \right ] ''_u} < \overline{a}_{release} \\
         1 \text{ otherwise }
     \end{cases}
 \end{equation}
 
 \begin{equation}
     f_{freefall} (t) = \begin{cases}
-        0 \text{ if } \forall u < t,  \overline{ \left [ \lVert  \boldsymbol{r}_{Bottle}(u) -  \boldsymbol{r}_{Effector}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
+        0 \text{ if } \forall u < t,  \overline{ \left [ \lVert  \mathbf{r}_{Bottle}(u) -  \mathbf{r}_{Effector}(u)  \rVert \right ] '_u} < \overline{v}_{freefall} \\
         1 \text{ otherwise }
     \end{cases}
 \end{equation}
-where $\boldsymbol{r}$ corresponds to the position component of the observation vector. Note that in the first case, the norm of a vector derivative is used, whereas in the subsequent two it is the scalar derivative of a vector norm. As discussed in \ref{sec:collection}, the other terminating condition for the freefall segment of the bottle's trajectory is determined using the position of the net:
+where $\mathbf{r}$ corresponds to the position component of the observation vector. Note that in the first case, the norm of a vector derivative is used, whereas in the subsequent two it is the scalar derivative of a vector norm. As discussed in \ref{sec:collection}, the other terminating condition for the freefall segment of the bottle's trajectory is determined using the position of the net:
 \begin{equation}
     f_{passed} (t) = \begin{cases}
         0 \text{ if } \forall u < t, x_{Bottle}(u) \geq x_{Net}(u) \\
@@ -269,7 +269,7 @@ where $\boldsymbol{r}$ corresponds to the position component of the observation 
     \end{cases}
 \end{equation}
 
-The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. As with the split step, constants for thresholding were determined by way of inspection and would certainly be unique to each type of task. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop, and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates -- a geometric illustration of this process can be found in fig. \ref{fig:fig3}. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. A time signal is also added to each observation as this was found to improve the performance of feedforward models. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
+The particular contents of the thresholding functions used are application-specific, but the method of detecting discrete events based on relative and absolute derivatives should prove broadly applicable. As with the split step, constants for thresholding were determined by way of inspection and would certainly be unique to each type of task. The output of $f_{release}$ serves as the gripper actuator signal estimate. $f_{moving}$ is used in the final align, crop, and combine steps to determine the first observation to include in the dataset. $f_{freefall}, f_{passed}$ are used in estimating the desired target coordinates of each throw to give models the capability to be aimed. This is done by applying quadratic regression to the z-coordinate of the object thrown, finding its intersection with the ground plane in corresponding x and y-coordinates -- a geometric illustration of this process can be found in Fig. \ref{fig:fig3}. The actuator signal and target coordinates are concatenated to each observation vector, with target coordinates being constant within each demonstration. A time signal is also added to each observation as this was found to improve the performance of feedforward models. Finally, when combining the demonstrations into a training data set, all position vectors are shifted so that the start of motion corresponds to the origin of the coordinate system. This way the models are trained to operate relative to the effector starting position.
 
 \subsection{Models}
 \label{sec:models}
@@ -293,7 +293,7 @@ After an initial hyperparameter discovery process, the values in table \ref{tab:
 		Parameter counts     & 128-1024 perceptrons per layer & 128-512 perceptrons in the unit \\
 		Training epochs     & 20-100       & 300-1200  \\
 		Batch size    & 64       & 32  \\
-		Optimizer    & \multicolumn{2}{c}{Adam}  \\
+		Optimizer    & Adam	& Adam  \\
 		Learning rate    & $10^{-4}$       & $10^{-3}, 10^{-4}$   \\
 		\bottomrule
 	\end{tabular}
@@ -303,9 +303,9 @@ After an initial hyperparameter discovery process, the values in table \ref{tab:
 The basic model footprint is given as follows:
 
 \begin{equation}
-	(\boldsymbol{r}_{t+1}, \boldsymbol{q}_{t+1}, g_{t+1}) = \pi_{\theta}\left(\frac{t}{f_{sample}}, \boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}, \boldsymbol{r}^{target}_t \right)
+	(\mathbf{r}_{t+1}, \mathbf{q}_{t+1}, g_{t+1}) = \pi_{\theta}\left(\frac{t}{f_{sample}}, \mathbf{r}_{t}, \mathbf{q}_{t}, g_{t}, \mathbf{r}^{target}_t \right)
 \end{equation}
-where $\boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}$ represent the end effector translation vector, orientation quaternion and gripper actuator signal respectively at time step $t$ in both the input and output. The input is augmented with a time/phase signal (discrete time step divided by the sampling frequency, in this case $100Hz$) relative to the start of the demonstration or generated trajectory, as well as the target coordinate vector $\boldsymbol{r}^{target}_t$ which corresponds to the extrapolated target coordinates in the demonstration data set and commanded throw coordinates at inference. The time signal was added to the input as it was found that trajectories generated by feedforward networks were liable to diverge without it, and the data sets thus modified were used for all training thereafter. The gripper control signal has values $\lbrace 0,1 \rbrace$ in the training data set.
+where $\mathbf{r}_{t}, \mathbf{q}_{t}, g_{t}$ represent the end effector translation vector, orientation quaternion and gripper actuator signal respectively at time step $t$ in both the input and output. The input is augmented with a time/phase signal (discrete time step divided by the sampling frequency, in this case $100Hz$) relative to the start of the demonstration or generated trajectory, as well as the target coordinate vector $\mathbf{r}^{target}_t$ which corresponds to the extrapolated target coordinates in the demonstration data set and commanded throw coordinates at inference. The time signal was added to the input as it was found that trajectories generated by feedforward networks were liable to diverge without it, and the data sets thus modified were used for all training thereafter. The gripper control signal has values $\lbrace 0,1 \rbrace$ in the training data set.
 
 \begin{figure}
 	\centering
@@ -329,16 +329,16 @@ where $\boldsymbol{r}_{t}, \boldsymbol{q}_{t}, g_{t}$ represent the end effector
 	\label{fig:vis_exec}
 \end{figure}
 
-For training both types of networks, state transitions $\left(\left(t,s_t,r^{target}_t\right), s_{t+1}\right)$ are constructed. In the case of the feedforward network, these state transitions are then shuffled and batched independently. For the RNN, pairs of feature-label sequences are formed corresponding to complete demonstrations, and the loss function is computed on the entire predicted output sequence. To hold these variable-length sequences, a ragged tensor is used, which is batched along its first axis and ragged along the second. With both types of networks, the Huber loss function is utilized.
+For training both types of networks, state transitions $\left(\left(t,\mathbf{s}_t,\mathbf{r}^{target}_t\right), \mathbf{s}_{t+1}\right)$ are constructed. In the case of the feedforward network, these state transitions are then shuffled and batched independently. For the RNN, pairs of feature-label sequences are formed corresponding to complete demonstrations, and the loss function is computed on the entire predicted output sequence. To hold these variable-length sequences, a ragged tensor is used, which is batched along its first axis and ragged along the second. With both types of networks, the Huber loss function is utilized.
 
 \subsection{Visualization and execution}
 \label{sec:exec}
 
-As discussed in the introduction, an important part of the reason for selecting throwing as our motivating application was the fact that it is easy for humans to judge the qualitative performance aspects of this task. To accomplish this, a means of visualizing the model outputs was required. When operating in open-loop mode (without interfacing with the physical or simulated environment -- running the model on its previous outputs) it is possible to precompute trajectories and simply save them as sequences of robot states. To aid in estimating whether these trajectories were feasible, a tool for visualizing these sequences in the robot coordinate system was developed (fig. \ref{fig:viz}).
+As discussed in the introduction, an important part of the reason for selecting throwing as our motivating application was the fact that it is easy for humans to judge the qualitative performance aspects of this task. To accomplish this, a means of visualizing the model outputs was required. When operating in open-loop mode (without interfacing with the physical or simulated environment -- running the model on its previous outputs) it is possible to precompute trajectories and simply save them as sequences of robot states. To aid in estimating whether these trajectories were feasible, a tool for visualizing these sequences in the robot coordinate system was developed (Fig. \ref{fig:viz}).
 
 Given a policy that synchronously predicts the state of the system at the next time step, there are multiple possible ways to use it in robot control. The simplest approach is static trajectory planning -- precompute a sequence of states and plan the motion between them. This is somewhat hindered by the lack of existing tools for precise time-parametrized Cartesian path planning in the ROS ecosystem. An alternative is a real-time pose following servo controller. The advantage of the latter approach is that closed-loop control is possible -- with state observations taken from the environment, potentially allowing the model to compensate for offsets in real-time. However, this presents the challenge of tuning controller gains. The method that was ultimately employed was open-loop planning of Cartesian paths -- with timing approximated through a combination of time-optimal trajectory generation \citep{kunz2012time}, followed by scaling the trajectory to the correct total duration. To control the gripper, a threshold value was set, the point in the trajectory at which this value was crossed was found, the corresponding joint state was computed, and a callback function was set up to trigger when this joint state was reached within some tolerance.
 
-While this is adequate for evaluating the positioning of the generated trajectories, and approximates the velocity profile closely enough for successful throws to be executed (fig.~\ref{fig:exec}), a fully-featured time-parametrized Cartesian path planner or correctly tuned pose-following controller would be required to judge the throwing accuracy on real hardware and generalize our approach to other tasks. However, the development of such general-purpose tools was deemed to be outside the scope of this project, the focus of which is on collection of demonstration data and imitation learning methods.
+While this is adequate for evaluating the positioning of the generated trajectories, and approximates the velocity profile closely enough for successful throws to be executed (Fig.~\ref{fig:exec}), a fully-featured time-parametrized Cartesian path planner or correctly tuned pose-following controller would be required to judge the throwing accuracy on real hardware and generalize our approach to other tasks. However, the development of such general-purpose tools was deemed to be outside the scope of this project, the focus of which is on collection of demonstration data and imitation learning methods.
 
 \subsection{Evaluation metrics}
 \label{sec:eval}
@@ -376,7 +376,7 @@ Specifically, the release position $\mathbf{r}_0 = (x_0,y_0,z_0)$ and estimated 
 	z(t) = z_0 + v_{0z}t - \frac{g}{2}t^2 \label{eq:z_parabola}
 \end{align}
 
-The ground plane intersect time $t_{intersect}$ was found by setting eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Then ground plane intersect points were found as 
+The ground plane intersect time $t_{intersect}$ was found by setting Eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Then ground plane intersect points were found as 
 
 \begin{equation}
 	r_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z(t_{intersect}) \right )
@@ -388,7 +388,7 @@ and the trajectory-wise throw error metric computed by:
 \end{equation}
 with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
 
-\newcommand{\reswidth}{15.5cm}
+\newcommand{\reswidth}{16cm}
 
 \begin{figure}[!b]
 	\centering
@@ -407,7 +407,7 @@ with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated th
 \section{Results}
 \label{sec:results}
 
-In our research, numerous models were trained on both of the data sets described in section \ref{sec:collection}, in both of the architectures discussed in subsection \ref{sec:models}. After the initial trial and error process, a systematic training regimen produced the following:
+In our research, numerous models were trained on both of the data sets described in Subection \ref{sec:collection}, in both of the architectures discussed in Subsection \ref{sec:models}. After the initial trial and error process, a systematic training regimen produced the following:
 
 \begin{itemize}
 	\item feedforward networks -- a total of 48 models, varying the training data set, presence of a time signal in the features, perceptron counts per hidden layer, and training duration;
@@ -421,12 +421,12 @@ In our research, numerous models were trained on both of the data sets described
 	\label{fig:ind_rnn_naive}
 \end{figure}
 
-Fig. \ref{fig:vis_exec} illustrates how model outputs were visualized to use their qualitative aspects in guiding hyperparameter choice, and a preliminary implementation on a real robot was achieved -- executing trajectories generated by the simpler feedforward network, with target coordinates sampled from normal distributions corresponding to their values in the training data set. As can be seen, when these outputs were used to generate motion plans for a \emph{Universal Robots UR5e} robot equipped with a pneumatic gripper, a plastic bottle was successfully thrown into a target container located outside the robot's reachable volume. Adequate output sequences were attained with both model architectures at multiple hyperparameter combinations, so to draw specific conclusions the quantitative evaluation metrics discussed in subsection \ref{sec:eval} were produced for the 84 systematically trained models described above. Of the feedforward models, 18 out of 48 (37.5\%) successfully triggered a gripper release on every evaluation trajectory, enabling mean throw error estimates to be computed. Among the RNNs, this was true for 24 out of 36 (66.7\%).
+Fig. \ref{fig:vis_exec} illustrates how model outputs were visualized to use their qualitative aspects in guiding hyperparameter choice, and a preliminary implementation on a real robot was achieved -- executing trajectories generated by the simpler feedforward network, with target coordinates sampled from normal distributions corresponding to their values in the training data set. As can be seen, when these outputs were used to generate motion plans for a \emph{Universal Robots UR5e} robot equipped with a pneumatic gripper, a plastic bottle was successfully thrown into a target container located outside the robot's reachable volume. Adequate output sequences were attained with both model architectures at multiple hyperparameter combinations, so to draw specific conclusions the quantitative evaluation metrics discussed in Subsection \ref{sec:eval} were produced for the 84 systematically trained models described above. Of the feedforward models, 18 out of 48 (37.5\%) successfully triggered a gripper release on every evaluation trajectory, enabling mean throw error estimates to be computed. Among the RNNs, this was true for 24 out of 36 (66.7\%).
 
 
-Figure \ref{fig:res_model_compare} shows a broad comparison between the RNN and feedforward model architectures, with each of the evaluation metric classes being present, though not all the specific metrics discussed -- as there was found to be a considerable amount of duplication in their findings. All figures shown correspond to the best result attained by either type in each of the performance indicators, irrespective of other variables. 
+Fig. \ref{fig:res_model_compare} shows a broad comparison between the RNN and feedforward model architectures, with each of the evaluation metric classes being present, though not all the specific metrics discussed -- as there was found to be a considerable amount of duplication in their findings. All figures shown correspond to the best result attained by either type in each of the performance indicators, irrespective of other variables. 
 
-Figure \ref{fig:rnn_naive_best} elaborates upon each model class, showing the best attained results at various hyperparameter values. In the case of the feedforward model, the input observations did not initially contain a time signal, which was rectified early on. In the case of the RNN, deviating from the default learning rate was found to be beneficial. For both architectures, the best performance at each epoch count and parameter count is also plotted. Figure \ref{fig:ind_rnn_naive} shows the impact of only varying the crucial size (perceptron count) -- in each case, the two best performing models at each fixed parameter combination are selected and their performance at different values of the independent variable is graphed. 
+Fig. \ref{fig:rnn_naive_best} elaborates upon each model class, showing the best attained results at various hyperparameter values. In the case of the feedforward model, the input observations did not initially contain a time signal, which was rectified early on. In the case of the RNN, deviating from the default learning rate was found to be beneficial. For both architectures, the best performance at each epoch count and parameter count is also plotted. Fig. \ref{fig:ind_rnn_naive} shows the impact of only varying the crucial size (perceptron count) -- in each case, the two best performing models at each fixed parameter combination are selected and their performance at different values of the independent variable is graphed. 
 
 \section{Discussion}
 \label{sec:discussion}
@@ -459,7 +459,7 @@ Potential directions for further research and engineering work based on what we 
 	\item development of a Cartesian arrival time-based time parametrization tool in ROS, something which is currently lacking in the ecosystem.
 \end{itemize}
 
-\paragraph{Acknowledgements.} This work was funded by the Electronic Components and Systems For European Leadership Joint Undertaking (ECSEL JU) in collaboration with the European Union’s H2020 Framework Programme under grant agreement No 826600. 
+\paragraph{Acknowledgements.}  This work is conducted under the framework of the ECSEL AI4DI and VIZTA projects funded from the ECSEL Joint Undertaking (JU) under grant agreements No 826060, No 826600.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
