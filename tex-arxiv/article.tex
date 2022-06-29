@@ -17,6 +17,7 @@
 \usepackage{natbib}
 \usepackage{doi}
 \usepackage{subcaption}
+\usepackage{upgreek}
 
 \title{A Motion Capture and Imitation Learning-based Approach to Robot Control}
 
@@ -79,28 +80,28 @@ In this paper, we start by introducing some key concepts in imitation learning -
 \section{Preliminaries}
 \label{sec:prelim}
 
-In this article, an \emph{agent} can be taken to mean the part of the system that acts based on state or observation information $s$ in an \emph{environment}, according to a \emph{policy} $\pi$ which is specified by a parametric \emph{model} -- a function $\pi_{\theta}(s)$ with parameters $\theta$ tuned in optimization and produces an output \emph{action} $a$. For all practical intents and purposes, this means that references to the agent, model, and policy are almost interchangeable in most contexts. A formalism common in both reinforcement and imitation learning contexts is the \emph{Markov decision process} (MDP), formally given by \citep{attia2018global}
+In this article, an \emph{agent} can be taken to mean the part of the system that acts based on state or observation vectors $\mathbf{s}$ in an \emph{environment}, according to a \emph{policy} $\pi$ which is specified by a parametric \emph{model} -- a function $\pi_{\boldsymbol{\uptheta}}({\mathbf{s}})$ with parameters $\boldsymbol{\uptheta}$ tuned in optimization and produces an output \emph{action} $a$. For all practical intents and purposes, this means that references to the agent, model, and policy are almost interchangeable in most contexts. A formalism common in both reinforcement and imitation learning contexts is the \emph{Markov decision process} (MDP), formally given by \citep{attia2018global}
 
 \begin{equation}
 	MDP = (S,A,T,R,I)
 \end{equation}
-where $S$ is the set of states $s$, $A$ is the (formally discrete) set of actions $a$, $T:S \times A \rightarrow S$ is a state transition function that encapsulates the environment, $R:S \rightarrow \mathbb{R}$ is a reward function associated with each state and $I = p\left(s_0 \in S\right)$ represents the initial state distribution. In many imitation learning-related cases a reward function need not be specified or considered. Moreover, if one is willing to break with the strict formal definition and give up the use of mathematical tools defined only on finite probability distributions, continuous action spaces can also be considered.
+where $S$ is the set of states $s$, $A$ is the (formally discrete) set of actions $a$, $T:S \times A \rightarrow S$ is a state transition function that encapsulates the environment, $R:S \rightarrow \mathbb{R}$ is a reward function associated with each state and $I = p\left(\mathbf{s}_0 \in S\right)$ represents the initial state distribution. In many imitation learning-related cases a reward function need not be specified or considered. Moreover, if one is willing to break with the strict formal definition and give up the use of mathematical tools defined only on finite probability distributions, continuous action spaces can also be considered.
 
 One important characteristic of the MDP is that it is history-agnostic -- the future state distribution of the system is uniquely defined by its current state. While technically true for physical environments, it is often the case that instead of a complete state representation vector $\mathbf{s}$ we are instead operating on a more limited \emph{observation} $\mathbf{o}$ (often interchangeably referred to as $\mathbf{s}$ for brevity), where each element $o_i$ is given by some function $f_i(\mathbf{s})$. It is therefore possible that historical observations contain information about hidden system state variables even assuming the MDP formalism holds for the underlying environment. An example of this is the case when individual observations contain only the current position of an object but not its derivatives, as in video data. In such situations, it may prove beneficial to break with the formalism further, by redefining the policy to operate on sequences of $k+1$ previous states/observations
 
 \begin{equation}
-	t, k, n \in \mathbb{N}; \pi_{\theta}:\lbrace {(s_n)_{t-k}^t} \rbrace \rightarrow A
+	t, k, n \in \mathbb{N}; \pi_{\boldsymbol{\uptheta}}:\lbrace {(\mathbf{s}_n)_{t-k}^t} \rbrace \rightarrow A
 \end{equation}
 which, by allowing for input sequences of variable length, may become a function defined on the entire known state history:
 
 \begin{equation}
-	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow A
+	\pi_{\boldsymbol{\uptheta}}:\lbrace {(\mathbf{s}_n)_1^t} \rbrace \rightarrow A
 \end{equation}
 
 These adjustments allow for the employment of sequence-to-sequence predictor architectures also studied in other areas of machine learning such as recurrent neural networks (RNNs) \citep{rumelhart1985learning} and transformers \citep{vaswani2017attention}. Finally, if continuous action spaces are permitted it is no great stretch to also consider formats where the action corresponds to a predicted future state to be used for static motion planning or in a feedback controller
 
 \begin{equation}
-	\pi_{\theta}:\lbrace {(s_n)_1^t} \rbrace \rightarrow S
+	\pi_{\boldsymbol{\uptheta}}:\lbrace {(\mathbf{s}_n)_1^t} \rbrace \rightarrow S
 \end{equation}
 which, when running the model on its prior output, is equivalent to sequence-building tasks encountered in domains such as text generation. 
 
@@ -201,12 +202,12 @@ Figure \ref{fig:fig2} provides a schematic overview of the main steps involved i
 
 After each recording session, an entirely unstructured corpus is available. It contains timestamped pose observations collected at whatever intervals they happened to have been generated by the tracking software. Each observation only contains information about a single tracked body. A peculiarity of this particular recording method is that observations about each body tend to arrive in bursts:
 \begin{equation}
-    s^a_{t1}, s^a_{t2}, ..., s^b_{tm-1}, s^b_{tm}
+    \mathbf{s}^a_{t1}, \mathbf{s}^a_{t2}, ..., \mathbf{s}^b_{tm-1}, \mathbf{s}^b_{tm}
 \end{equation}
-where $s^a_{t \in \mathbb{R}}$ corresponds to the observed state of object $a$ at time $t$.
+where $\mathbf{s}^a_{t \in \mathbb{R}}$ corresponds to the observed state of object $a$ at time $t$.
 Thus, to obtain sequential data in discrete time, it is necessary to resample the positions and orientations of all relevant bodies at a constant time step:
 \begin{equation}
-    (s^a_{1}, s^b_{1}, s^c_{1}), ..., (s^a_{k}, s^b_{k}, s^c_{k}) = s_1, ..., s_k
+    (\mathbf{s}^a_{1}, \mathbf{s}^b_{1}, \mathbf{s}^c_{1}), ..., (\mathbf{s}^a_{k}, \mathbf{s}^b_{k}, \mathbf{s}^c_{k}) = \mathbf{s}_1, ..., \mathbf{s}_k
 \end{equation}
 
 A sampling frequency of $100Hz$ was selected to obtain spatial precision on the order of centimeters given the velocities involved. Fortuitously, the intervals between observed bursts in the actual data are generally on this order as well. Resampling is accomplished using forward fill interpolation, which introduces a slight sawtooth oscillation, but this is removed in the subsequent smoothing step along with other discontinuities.
@@ -220,7 +221,7 @@ After resampling, individual demonstrations are separated using the aforemention
 Which is to say that every observation no more than $\Delta t$ steps before $t_{start}$ has to lie within $\pm \delta x, \pm \delta y$ of the datum $(x_0, y_0)$. Each demonstration then consists of observations 
 
 \begin{equation}
-	(s_{t_{start}}, ... , s_{t_{start}+steps}), steps \in \mathbb{N}
+	(\mathbf{s}_{t_{start}}, ... , \mathbf{s}_{t_{start}+steps}), steps \in \mathbb{N}
 \end{equation}
 	
 The constants $\Delta t, \delta x, \delta y, steps$ are determined experimentally to produce consistent observations for the particular task and may require tuning if the manner in which demonstrations are recorded changes. The newly split demonstrations are saved in separate files, thus allowing demonstrations generated in different sessions to be processed at once.
@@ -303,7 +304,7 @@ After an initial hyperparameter discovery process, the values in table \ref{tab:
 The basic model footprint is given as follows:
 
 \begin{equation}
-	(\mathbf{r}_{t+1}, \mathbf{q}_{t+1}, g_{t+1}) = \pi_{\theta}\left(\frac{t}{f_{sample}}, \mathbf{r}_{t}, \mathbf{q}_{t}, g_{t}, \mathbf{r}^{target}_t \right)
+	(\mathbf{r}_{t+1}, \mathbf{q}_{t+1}, g_{t+1}) = \pi_{\boldsymbol{\uptheta}}\left(\frac{t}{f_{sample}}, \mathbf{r}_{t}, \mathbf{q}_{t}, g_{t}, \mathbf{r}^{target}_t \right)
 \end{equation}
 where $\mathbf{r}_{t}, \mathbf{q}_{t}, g_{t}$ represent the end effector translation vector, orientation quaternion and gripper actuator signal respectively at time step $t$ in both the input and output. The input is augmented with a time/phase signal (discrete time step divided by the sampling frequency, in this case $100Hz$) relative to the start of the demonstration or generated trajectory, as well as the target coordinate vector $\mathbf{r}^{target}_t$ which corresponds to the extrapolated target coordinates in the demonstration data set and commanded throw coordinates at inference. The time signal was added to the input as it was found that trajectories generated by feedforward networks were liable to diverge without it, and the data sets thus modified were used for all training thereafter. The gripper control signal has values $\lbrace 0,1 \rbrace$ in the training data set.
 
@@ -351,7 +352,7 @@ Hence, it was decided to compare model outputs with the demonstration data set. 
 	\mathcal{D}_{eval} = \left ( (\tau^d_{1}, \tau^g_{1}), ..., (\tau^d_{k}, \tau^g_{k}) \right )
 \end{equation}
 \begin{equation}
-	\tau^d, \tau^g = (s^d_1, ..., s^d_m), (s^g_1, ..., s^g_m); s^d_1 = s^g_1 
+	\tau^d, \tau^g = (\mathbf{s}^d_1, ..., \mathbf{s}^d_m), (\mathbf{s}^g_1, ..., \mathbf{s}^g_m); \mathbf{s}^d_1 = \mathbf{s}^g_1 
 \end{equation}
 where $\mathcal{D}_{eval}$ refers to the evaluation data set of a single model with respect to either the validation or test demonstration set, but $\tau^d_i, \tau^g_i$ are the demonstration and generated trajectories (sequences of state observations $s_j$) sharing the same initial state respectively.
 
@@ -364,7 +365,7 @@ Three broad classes of evaluation metrics were computed: data set-wise (global),
 The second class involves applying various measures to the observation/state variables at each time step:
 
 \begin{equation}
-	f_{stepwise}(\mathcal{D}_{eval}) = f: \left [ \sum_{\tau^d, \tau^g \in \mathcal{D}_{eval}}\sum_{i=1}^m \left ( g:s^d_i \times s^g_i \rightarrow \mathbb{R} \right ) \right ] \rightarrow \mathbb{R}
+	f_{stepwise}(\mathcal{D}_{eval}) = f: \left [ \sum_{\tau^d, \tau^g \in \mathcal{D}_{eval}}\sum_{i=1}^m \left ( g:\mathbf{s}^d_i \times \mathbf{s}^g_i \rightarrow \mathbb{R} \right ) \right ] \rightarrow \mathbb{R}
 \end{equation}
 where the inner function $g$ corresponds to metrics such as position error, rotation error (quaternion angular distance), or categorical cross-entropy in the release signal. Finally, a release error metric was computed trajectory-wise. To do this, the release point of each trajectory was found, the corresponding position found and the velocity vector estimated. When considering ways to combine these two terms into a single quantitative error estimator, it was decided that a simple ballistic extrapolation and resulting miss distance along the ground plane would serve as a decent first-order approximation of throw accuracy \emph{vis-à-vis} the training or validation data set.
 
@@ -379,14 +380,14 @@ Specifically, the release position $\mathbf{r}_0 = (x_0,y_0,z_0)$ and estimated 
 The ground plane intersect time $t_{intersect}$ was found by setting Eq. \ref{eq:z_parabola} equal to the ground plane coordinate $z_{target}$ and finding the positive root. Then ground plane intersect points were found as 
 
 \begin{equation}
-	r_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z(t_{intersect}) \right )
+	\mathbf{r}_{intersect} = \left ( x(t_{intersect}), y(t_{intersect}), z(t_{intersect}) \right )
 \end{equation}
 and the trajectory-wise throw error metric computed by:
 
 \begin{equation}
-	f_{throw}(\mathcal{D}_{eval}) = \frac{1}{k}\sum_{\mathcal{D}_{eval}} \Vert r^g_{intersect} - r^g_{intersect}\Vert
+	f_{throw}(\mathcal{D}_{eval}) = \frac{1}{k}\sum_{\mathcal{D}_{eval}} \Vert \mathbf{r}^g_{intersect} - \mathbf{r}^g_{intersect}\Vert
 \end{equation}
-with $r^d_{intersect}, r^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
+with $\mathbf{r}^d_{intersect}, \mathbf{r}^g_{intersect}$ being the demonstration and generated throw intersect positions respectively. Seeing as not every model would output a release signal that crossed the threshold (0.5) for every trajectory, this error term was set to be infinite in cases when no throw was defined.
 
 \newcommand{\reswidth}{16cm}
 
