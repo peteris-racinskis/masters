@@ -107,3 +107,5 @@ FIGURE 4: axis titles in the image itself
 section, subsection: capital letter, make sure the sections/subsections named correctly. Always mention the section
 
 Acknowledgements: ask Janis for a paragraph that includes AI4DI
+
+vector formatting consistent!!
