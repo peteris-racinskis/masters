@@ -1,0 +1,200 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Arents and Greitans(2022)]{arents2022smart}
+Janis Arents and Modris Greitans.
+\newblock Smart industrial robot control trends, challenges and opportunities
+  within manufacturing.
+\newblock \emph{Applied Sciences}, 12\penalty0 (2):\penalty0 937, 2022.
+
+\bibitem[Sutton and Barto(2018)]{sutton2018reinforcement}
+Richard~S Sutton and Andrew~G Barto.
+\newblock \emph{Reinforcement learning: An introduction}, pages 60--77.
+\newblock MIT press, 2018.
+
+\bibitem[Hester et~al.(2018)Hester, Vecerik, Pietquin, Lanctot, Schaul, Piot,
+  Horgan, Quan, Sendonaris, Osband, et~al.]{hester2018deep}
+Todd Hester, Matej Vecerik, Olivier Pietquin, Marc Lanctot, Tom Schaul, Bilal
+  Piot, Dan Horgan, John Quan, Andrew Sendonaris, Ian Osband, et~al.
+\newblock Deep q-learning from demonstrations.
+\newblock In \emph{Thirty-second AAAI conference on artificial intelligence},
+  2018.
+
+\bibitem[Abbeel and Ng(2004)]{abbeel2004apprenticeship}
+Pieter Abbeel and Andrew~Y Ng.
+\newblock Apprenticeship learning via inverse reinforcement learning.
+\newblock In \emph{Proceedings of the twenty-first international conference on
+  Machine learning}, page~1, 2004.
+
+\bibitem[Attia and Dayan(2018)]{attia2018global}
+Alexandre Attia and Sharone Dayan.
+\newblock Global overview of imitation learning.
+\newblock \emph{arXiv preprint arXiv:1801.06503}, 2018.
+
+\bibitem[Zhang et~al.(2018)Zhang, McCarthy, Jow, Lee, Chen, Goldberg, and
+  Abbeel]{zhang2018deep}
+Tianhao Zhang, Zoe McCarthy, Owen Jow, Dennis Lee, Xi~Chen, Ken Goldberg, and
+  Pieter Abbeel.
+\newblock Deep imitation learning for complex manipulation tasks from virtual
+  reality teleoperation.
+\newblock In \emph{2018 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pages 5628--5635. IEEE, 2018.
+
+\bibitem[Dyrstad et~al.(2018)Dyrstad, {\O}ye, Stahl, and
+  Mathiassen]{dyrstad2018teaching}
+Jonatan~S Dyrstad, Elling~Ruud {\O}ye, Annette Stahl, and John~Reidar
+  Mathiassen.
+\newblock Teaching a robot to grasp real fish by imitation learning from a
+  human supervisor in virtual reality.
+\newblock In \emph{2018 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pages 7185--7192. IEEE, 2018.
+
+\bibitem[Liu et~al.(2018)Liu, Gupta, Abbeel, and Levine]{liu2018imitation}
+YuXuan Liu, Abhishek Gupta, Pieter Abbeel, and Sergey Levine.
+\newblock Imitation from observation: Learning to imitate behaviors from raw
+  video via context translation.
+\newblock In \emph{2018 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pages 1118--1125. IEEE, 2018.
+
+\bibitem[Rumelhart et~al.(1985)Rumelhart, Hinton, and
+  Williams]{rumelhart1985learning}
+David~E Rumelhart, Geoffrey~E Hinton, and Ronald~J Williams.
+\newblock Learning internal representations by error propagation.
+\newblock Technical report, California Univ San Diego La Jolla Inst for
+  Cognitive Science, 1985.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in neural information processing systems}, pages
+  5998--6008, 2017.
+
+\bibitem[Pomerleau(1989)]{pomerleau1989alvinn}
+Dean~A Pomerleau.
+\newblock Alvinn: An autonomous land vehicle in a neural network.
+\newblock Technical report, CARNEGIE-MELLON UNIV PITTSBURGH PA ARTIFICIAL
+  INTELLIGENCE AND PSYCHOLOGY~…, 1989.
+
+\bibitem[Pastor et~al.(2009)Pastor, Hoffmann, Asfour, and
+  Schaal]{pastor2009learning}
+Peter Pastor, Heiko Hoffmann, Tamim Asfour, and Stefan Schaal.
+\newblock Learning and generalization of motor skills by learning from
+  demonstration.
+\newblock In \emph{2009 IEEE International Conference on Robotics and
+  Automation}, pages 763--768. IEEE, 2009.
+
+\bibitem[Ross et~al.(2011)Ross, Gordon, and Bagnell]{ross2011no}
+St{\'e}phane Ross, Geoffrey~J Gordon, and J~Andrew Bagnell.
+\newblock No-regret reductions for imitation learning and structured
+  prediction.
+\newblock In \emph{In AISTATS}. Citeseer, 2011.
+
+\bibitem[Ho and Ermon(2016)]{ho2016generative}
+Jonathan Ho and Stefano Ermon.
+\newblock Generative adversarial imitation learning.
+\newblock \emph{Advances in neural information processing systems},
+  29:\penalty0 4565--4573, 2016.
+
+\bibitem[Torabi et~al.(2018)Torabi, Warnell, and Stone]{torabi2018generative}
+Faraz Torabi, Garrett Warnell, and Peter Stone.
+\newblock Generative adversarial imitation from observation.
+\newblock \emph{arXiv preprint arXiv:1807.06158}, 2018.
+
+\bibitem[Scherzinger et~al.(2019)Scherzinger, Roennau, and
+  Dillmann]{scherzinger2019contact}
+Stefan Scherzinger, Arne Roennau, and R{\"u}diger Dillmann.
+\newblock Contact skill imitation learning for robot-independent assembly
+  programming.
+\newblock In \emph{2019 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pages 4309--4316. IEEE, 2019.
+
+\bibitem[Lynch et~al.(2020)Lynch, Khansari, Xiao, Kumar, Tompson, Levine, and
+  Sermanet]{lynch2020learning}
+Corey Lynch, Mohi Khansari, Ted Xiao, Vikash Kumar, Jonathan Tompson, Sergey
+  Levine, and Pierre Sermanet.
+\newblock Learning latent plans from play.
+\newblock In \emph{Conference on Robot Learning}, pages 1113--1132. PMLR, 2020.
+
+\bibitem[Reed et~al.(2022)Reed, Zolna, Parisotto, Colmenarejo, Novikov,
+  Barth-Maron, Gimenez, Sulsky, Kay, Springenberg, et~al.]{reed2022generalist}
+Scott Reed, Konrad Zolna, Emilio Parisotto, Sergio~Gomez Colmenarejo, Alexander
+  Novikov, Gabriel Barth-Maron, Mai Gimenez, Yury Sulsky, Jackie Kay,
+  Jost~Tobias Springenberg, et~al.
+\newblock A generalist agent.
+\newblock \emph{arXiv preprint arXiv:2205.06175}, 2022.
+
+\bibitem[Jha et~al.(2017)Jha, Chiddarwar, Bhute, Alakshendra, Nikhade, and
+  Khandekar]{jha2017imitation}
+Abhishek Jha, Shital~S Chiddarwar, Rohini~Y Bhute, Veer Alakshendra, Gajanan
+  Nikhade, and Priya~M Khandekar.
+\newblock Imitation learning in industrial robots: a kinematics based
+  trajectory generation framework.
+\newblock In \emph{Proceedings of the Advances in Robotics}, pages 1--6. 2017.
+
+\bibitem[Vuga et~al.(2013)Vuga, Ogrinc, Gams, Petrič, Sugimoto, Ude, and
+  Morimoto]{vuga2013mocap}
+Rok Vuga, Matjaž Ogrinc, Andrej Gams, Tadej Petrič, Norikazu Sugimoto, Aleš
+  Ude, and Jun Morimoto.
+\newblock Motion capture and reinforcement learning of dynamically stable
+  humanoid movement primitives.
+\newblock In \emph{2013 IEEE International Conference on Robotics and
+  Automation}, pages 5284--5290, 2013.
+\newblock \doi{10.1109/ICRA.2013.6631333}.
+
+\bibitem[Fragkiadaki et~al.(2015)Fragkiadaki, Levine, Felsen, and
+  Malik]{Fragkiadaki_2015_ICCV}
+Katerina Fragkiadaki, Sergey Levine, Panna Felsen, and Jitendra Malik.
+\newblock Recurrent network models for human dynamics.
+\newblock In \emph{Proceedings of the IEEE International Conference on Computer
+  Vision (ICCV)}, December 2015.
+
+\bibitem[Pavllo et~al.(2018)Pavllo, Grangier, and Auli]{pavllo2018quaternet}
+Dario Pavllo, David Grangier, and Michael Auli.
+\newblock Quaternet: A quaternion-based recurrent model for human motion.
+\newblock \emph{arXiv preprint arXiv:1805.06485}, 2018.
+
+\bibitem[Zeng et~al.(2020)Zeng, Song, Lee, Rodriguez, and
+  Funkhouser]{zeng2020tossingbot}
+Andy Zeng, Shuran Song, Johnny Lee, Alberto Rodriguez, and Thomas Funkhouser.
+\newblock Tossingbot: Learning to throw arbitrary objects with residual
+  physics.
+\newblock \emph{IEEE Transactions on Robotics}, 36\penalty0 (4):\penalty0
+  1307--1319, 2020.
+
+\bibitem[H{\"o}fer et~al.(2021)H{\"o}fer, Bekris, Handa, Gamboa, Mozifian,
+  Golemo, Atkeson, Fox, Goldberg, Leonard, et~al.]{hofer2021sim2real}
+Sebastian H{\"o}fer, Kostas Bekris, Ankur Handa, Juan~Camilo Gamboa, Melissa
+  Mozifian, Florian Golemo, Chris Atkeson, Dieter Fox, Ken Goldberg, John
+  Leonard, et~al.
+\newblock Sim2real in robotics and automation: Applications and challenges.
+\newblock \emph{IEEE transactions on automation science and engineering},
+  18\penalty0 (2):\penalty0 398--400, 2021.
+
+\bibitem[Yang et~al.(2020)Yang, Yu, and Zhou]{yang2020lstm}
+Shudong Yang, Xueying Yu, and Ying Zhou.
+\newblock Lstm and gru neural network performance comparison study: Taking yelp
+  review dataset as an example.
+\newblock In \emph{2020 International workshop on electronic communication and
+  artificial intelligence (IWECAI)}, pages 98--101. IEEE, 2020.
+
+\bibitem[Kunz and Stilman(2012)]{kunz2012time}
+Tobias Kunz and Mike Stilman.
+\newblock Time-optimal trajectory generation for path following with bounded
+  acceleration and velocity.
+\newblock \emph{Robotics: Science and Systems VIII}, pages 1--8, 2012.
+
+\bibitem[Nakkiran et~al.(2021)Nakkiran, Kaplun, Bansal, Yang, Barak, and
+  Sutskever]{nakkiran2021deep}
+Preetum Nakkiran, Gal Kaplun, Yamini Bansal, Tristan Yang, Boaz Barak, and Ilya
+  Sutskever.
+\newblock Deep double descent: Where bigger models and more data hurt.
+\newblock \emph{Journal of Statistical Mechanics: Theory and Experiment},
+  2021\penalty0 (12):\penalty0 124003, 2021.
+
+\end{thebibliography}

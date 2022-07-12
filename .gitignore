@@ -17,3 +17,4 @@ processed_data/
 models/saved_models/
 models/comparison_charts/
 models/evaluation_data.ods
+processed_data_old/*
