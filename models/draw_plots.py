@@ -112,14 +112,30 @@ class ManySequenceChart(Chart):
         yax = values[:,2]
         self.ax.plot(xax, yax, color=color, label=key)
     
+    @staticmethod
+    def _replace(dict, strings):
+        res = []
+        for s in strings:
+            for k,v in dict.items():
+                s = s.replace(k,v)
+            res.append(s)
+        return res
+    
     def plot(self, title="None"):
         for k, c in zip(self.keys, self.colors):
             self._plot(k,c)
         handles, labels = self.ax.get_legend_handles_labels()
-        self.ax.legend(handles, labels, fontsize="xx-small")
-        self.ax.set_title(self.title)
-        self.ax.set_ylabel(self.y_axis_name)
-        self.ax.set_xlabel(self.x_axis_name)
+        labels = self._replace(
+            {
+                "1e-05": "1 × 10⁴",
+                "0.0001": "1 × 10³",
+            },
+            labels
+        )
+        self.ax.legend(handles, labels, fontsize="x-small")
+        self.ax.set_title(self.title, fontsize=18)
+        self.ax.set_ylabel(self.y_axis_name, fontsize=18)
+        self.ax.set_xlabel(self.x_axis_name, fontsize=18)
         
     
     #@staticmethod
@@ -159,7 +175,7 @@ def comparison_charts(fnames):
     # the learning rate is wrong to begin with.
     remap_lr = {
         1e-5: "1 × 10⁴",
-        1e-4: "1 × 10⁵",
+        1e-4: "1 × 10³",
     }
 
     fnames = [x for x in filter(condition, fnames)]
@@ -206,9 +222,9 @@ def seq_charts(fnames):
 
     for f in fnames:
         fig1, ax1 = plt.subplots()
-        plt.rcParams['font.size'] = 16
-        plt.subplots_adjust(left=0.2)
-        plt.subplots_adjust(bottom=0.15)
+        plt.rcParams['font.size'] = 18
+        plt.subplots_adjust(left=0.1)
+        plt.subplots_adjust(bottom=0.1)
         chart1 = SequenceChart(ax1, f)
         chart1.plot()
         fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
@@ -222,7 +238,10 @@ def independent_sequence_charts(fnames):
 
     for f in fnames:
         print(f"processing: {f}")
-        fig1, ax1 = plt.subplots()
+        fig1, ax1 = plt.subplots(figsize=(10,7.5))
+        plt.rcParams['font.size'] = 18
+        plt.subplots_adjust(left=0.15)
+        plt.subplots_adjust(bottom=0.1)
         chart1 = ManySequenceChart(ax1, f)
         chart1.plot()
         fig1.savefig(f"models/comparison_charts/{chart1._filename.stem}.png")
@@ -230,6 +249,6 @@ def independent_sequence_charts(fnames):
 
 if __name__ == "__main__":
     fnames = listdir(DIR)
-    comparison_charts(fnames)
+    #comparison_charts(fnames)
     #seq_charts(fnames)
-    #independent_sequence_charts(fnames)
+    independent_sequence_charts(fnames)
