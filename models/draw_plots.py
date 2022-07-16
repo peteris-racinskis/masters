@@ -158,8 +158,8 @@ def comparison_charts(fnames):
 
     # the learning rate is wrong to begin with.
     remap_lr = {
-        1e-5: "1e-4",
-        1e-4: "1e-3",
+        1e-5: "1 × 10⁴",
+        1e-4: "1 × 10⁵",
     }
 
     fnames = [x for x in filter(condition, fnames)]
